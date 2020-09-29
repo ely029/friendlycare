@@ -14,7 +14,7 @@ stages:
 
 .dependencies: &dependencies
   stage: Installation
-  image: thinkbit/web-composer-install:homestead9.3.0-php7.3.0
+  image: thinkbit/web-composer-install:homestead9.3.0-php7.4.3-1
   script:
     - composer install $PACKAGES_OPTION --prefer-dist --no-interaction --ignore-platform-reqs --no-suggest
   interruptible: true
