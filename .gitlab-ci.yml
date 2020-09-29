@@ -1,0 +1,226 @@
+# Documentation: https://docs.gitlab.com/ce/ci/yaml/README.html
+# Based on https://gitlab.com/gitlab-examples/php/blob/master/.gitlab-ci.yml
+
+variables:
+  # SiteGround Variables
+  SERVER_PHP: /usr/local/bin/php73
+  SSH_PORT: "18765"
+
+stages:
+  - Installation
+  - Internal Test
+  - Deployment
+  - External Test
+
+.dependencies: &dependencies
+  stage: Installation
+  image: thinkbit/web-composer-install:homestead9.3.0-php7.3.0
+  script:
+    - composer install $PACKAGES_OPTION --prefer-dist --no-interaction --ignore-platform-reqs --no-suggest
+  interruptible: true
+  tags:
+    - web
+
+App Dependencies:
+  <<: *dependencies
+  only:
+    - beta
+    - production
+  cache: &no-dev_cache
+    key: "$CI_COMMIT_REF_SLUG-no-dev"
+    paths:
+      - vendor/
+  variables:
+      PACKAGES_OPTION: --no-dev
+
+Dev Dependencies:
+  <<: *dependencies
+  cache: &dev_cache
+    key: "$CI_COMMIT_REF_SLUG-dev"
+    paths:
+      - vendor/
+  variables:
+      PACKAGES_OPTION: --dev
+
+.internal test:
+  stage: Internal Test
+  image: thinkbit/web-laravel-server:homestead9.3.0-php7.3.0-laravel7-1
+  before_script:
+    - echo "APP_ENV=testing" > .env
+    - echo "APP_KEY=`php artisan key:generate --show`" >> .env
+  cache:
+    <<: *dev_cache
+    policy: pull
+  interruptible: true
+  tags:
+    - web
+
+Check Pathnames:
+  extends: .internal test
+  script:
+    - php artisan thinkbit:check_pathnames --env=testing --no-interaction
+
+Find Lorem Ipsum:
+  extends: .internal test
+  script:
+    # Use all available memory. If memory is still an issue, CI/CD runners should be upgraded.
+    - php -d memory_limit=-1 artisan thinkbit:find_lorem_ipsum --env=testing --no-interaction
+
+Larastan:
+  extends: .internal test
+  script:
+    # Use all available memory. If memory is still an issue, CI/CD runners should be upgraded.
+    - vendor/bin/phpstan analyse --memory-limit=-1 --no-interaction
+
+PHP Insights:
+  extends: .internal test
+  script:
+    # 80 is green; quality, architecture, and style are easily perfectable.
+    # Use all available memory. If memory is still an issue, CI/CD runners should be upgraded.
+    - php -d memory_limit=-1 artisan insights --env=testing --no-interaction --min-quality 100 --min-complexity 75 --min-architecture 100 --min-style 100
+
+PHPUnit:
+  extends: .internal test
+  services:
+    - mysql:5.7.29 # Based on Homestead; Run mysql --version
+  script:
+    - echo -e "DB_CONNECTION=mysql\nDB_HOST=mysql\nDB_DATABASE=docker\nDB_USERNAME=root\nDB_PASSWORD=secret" >> .env
+
+    - echo "Running route existence test..."
+    - php artisan route:list
+
+    - echo "Running unit tests..."
+    # Use all available memory. If memory is still an issue, CI/CD runners should be upgraded.
+    - vendor/bin/phpunit -d memory_limit=-1 --colors=never --log-junit junit.xml --coverage-text --coverage-html coverage
+  coverage: '/^\s*Lines:\s*\d+.\d+\%/'
+  artifacts:
+    when: always
+    paths:
+      - coverage/
+    reports:
+      junit: junit.xml
+    expire_in: 1 day
+  variables:
+    MYSQL_DATABASE: docker
+    MYSQL_ROOT_PASSWORD: secret
+
+.SiteGround deploy:
+  stage: Deployment
+  script:
+    # Prevent this script from deploying to the server
+    - rm -f .gitlab-ci.*
+
+    - apt-get update --yes --quiet
+    - apt-get install openssh-client expect rsync --yes --quiet
+
+    # See: https://docs.gitlab.com/ee/ci/ssh_keys/README.html
+    - HOME=~
+    - eval $(ssh-agent -s)
+    - mkdir -p $HOME/.ssh
+    - cat $SSH_PRIVATE_KEY > $HOME/.ssh/id_rsa
+    - chmod 0600 $HOME/.ssh/id_rsa
+    - expect -c "spawn ssh-add $HOME/.ssh/id_rsa; expect \"Enter passphrase\"; send \"$SSH_PASSPHRASE\\r\"; expect eof;"
+    - echo -e "Host $IP_ADDRESS\n\tStrictHostKeyChecking no\n\n" > $HOME/.ssh/config
+
+    # Set the environment
+    - cat $APP_ENV > .env
+    - cat $GOOGLE_CLOUD_KEY_FILE > gcp.json
+
+    # Go down, if able
+    - ssh -T $USERNAME@$IP_ADDRESS -p$SSH_PORT "[ -f $APP_PATH/laravel/artisan ] && $SERVER_PHP $APP_PATH/laravel/artisan down || echo ''"
+
+    # Sync files
+    - "[ $CI_COMMIT_REF_NAME != 'production' ] && echo -e 'User-agent: *\nDisallow: /' > public/robots.txt" # Prevent crawling of non-production sites.
+    - "[ $CI_COMMIT_REF_NAME == 'production' ] && sed -i \"s/ 'unsafe-inline'//g\" public/.htaccess" # Prevent external testing to fail on production. See .htaccess.
+    - find ./ -type d -exec chmod 755 {} +
+    - find ./ -type f -exec chmod 644 {} +
+    - ssh -T $USERNAME@$IP_ADDRESS -p$SSH_PORT "mkdir -p -m0755 $APP_PATH/laravel"
+    - rsync -ahvz -e "ssh -p$SSH_PORT" --include ".env" --include "gcp.json" --include "vendor" --include "node_modules" --include=".gitignore" --exclude ".git" --filter "dir-merge,- .gitignore" --delete ./ $USERNAME@$IP_ADDRESS:$APP_PATH/laravel
+
+    # Manually clear the cache to prevent settings from being outdated with synced files; optimize:clear won't work if packages/services are broken.
+    - ssh -T $USERNAME@$IP_ADDRESS -p$SSH_PORT "rm -rf $APP_PATH/laravel/bootstrap/cache/packages.php; rm -rf $APP_PATH/laravel/bootstrap/cache/services.php"
+
+    # Automatically clear the cache to prevent settings from being outdated with synced files
+    - ssh -T $USERNAME@$IP_ADDRESS -p$SSH_PORT "$SERVER_PHP $APP_PATH/laravel/artisan optimize:clear || echo ''"
+
+    # Prepare /public, then sync it to ../public_html
+    - ssh -T $USERNAME@$IP_ADDRESS -p$SSH_PORT "rm -rf $APP_PATH/laravel/public/storage && ln -s $APP_PATH/laravel/storage/app/public $APP_PATH/laravel/public/storage" # SiteGround Ticket 3657550; SG doesn't support hard links made by `$SERVER_PHP $APP_PATH/laravel/artisan storage:link`
+    - ssh -T $USERNAME@$IP_ADDRESS -p$SSH_PORT "rm -rf $APP_PATH/public_html && ln -s $APP_PATH/laravel/public $APP_PATH/public_html"
+
+    # Migrate
+    - ssh -T $USERNAME@$IP_ADDRESS -p$SSH_PORT "$SERVER_PHP $APP_PATH/laravel/artisan migrate --force"
+
+    # Populate the cache
+    - ssh -T $USERNAME@$IP_ADDRESS -p$SSH_PORT "$SERVER_PHP $APP_PATH/laravel/artisan optimize"
+
+    # Restart queue workers
+    - ssh -T $USERNAME@$IP_ADDRESS -p$SSH_PORT "$SERVER_PHP $APP_PATH/laravel/artisan queue:restart"
+
+    - ssh -T $USERNAME@$IP_ADDRESS -p$SSH_PORT "$SERVER_PHP $APP_PATH/laravel/artisan up"
+  cache:
+    <<: *no-dev_cache
+    policy: pull
+  tags:
+    - web
+
+Beta:
+  extends: .SiteGround deploy
+  after_script:
+    - echo "export APP_DOMAIN='`echo $APP_DOMAIN`'" > variables
+  environment:
+    name: $CI_JOB_NAME
+    url: https://$APP_DOMAIN
+  artifacts:
+    when: always
+    paths:
+      - variables
+    expire_in: 1 day
+  interruptible: false
+  only:
+    - beta
+
+.external test:
+  stage: External Test
+  before_script:
+    - source variables
+  only:
+    - beta
+    - production
+  interruptible: true
+  tags:
+    - web
+
+# https://github.com/GoogleChrome/lighthouse
+Lighthouse Audit:
+  extends: .external test
+  image: cypress/browsers:node10.16.0-chrome77 # https://github.com/GoogleChrome/lighthouse-ci/blob/master/docs/getting-started.md
+  script:
+    - npm install -g lighthouse-ci # https://github.com/andreasonny83/lighthouse-ci
+    - lighthouse-ci https://$APP_DOMAIN --report ./ --filename lighthouse.html --performance=90 --pwa=0 --accessibility=90 --best-practices=90 --seo=90 # 90 is green but we don't support PWA
+  artifacts:
+    when: always
+    paths:
+      - lighthouse.html
+    expire_in: 1 day
+
+Observatory Scan:
+  extends: .external test
+  image: node
+  script:
+    - npm install -g observatory-cli
+    - observatory $APP_DOMAIN --rescan --format report --zero
+    - observatory $APP_DOMAIN --min-score 100 # https://github.com/mozilla/observatory-cli/issues/42
+
+ZAP Baseline Scan:
+  extends: .external test
+  image: owasp/zap2docker-stable
+  script:
+    - mkdir -p /zap/wrk/
+    - zap-baseline.py -t https://$APP_DOMAIN -r zap-baseline.html -z "-config anticsrf.tokens.token.name=_token -config anticsrf.tokens.token.enabled=true -config replacer.full_list(0).description=ua -config replacer.full_list(0).enabled=true -config replacer.full_list(0).matchtype=REQ_HEADER -config replacer.full_list(0).matchstr=User-Agent -config replacer.full_list(0).regex=false -config replacer.full_list(0).replacement=zap-baseline" || code=$?
+    - cp /zap/wrk/zap-baseline.html .
+    - exit `echo $code`
+  artifacts:
+    when: always
+    paths:
+      - zap-baseline.html
+    expire_in: 1 day
