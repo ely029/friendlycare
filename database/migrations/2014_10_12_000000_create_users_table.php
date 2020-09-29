@@ -28,6 +28,8 @@ class CreateUsersTable extends Migration
             $table->string('city',50)->nullable();
             $table->string('municipality',50)->nullable();
             $table->string('province',50)->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
             $table->timestamps();
 
             // @TB

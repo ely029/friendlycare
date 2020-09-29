@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/cron', 'CronJobController@run');
-Route::get('/registration/patient','RegistrationController@patient');
+
 // @TB: Do not remove these unless absolutely required. Removing will cause
 // negative side-effect not limited to failed unit tests.
 // To implement, set required config.boilerplate.firebase keys
@@ -38,4 +38,3 @@ Route::group([
     // Normally done when the user logs out
     Route::delete('/{user}/fcm_registration_tokens', 'FcmRegistrationTokensController@destroy');
 });
-    Route::get('/patient/register', 'Patient\RegistrationController@register');
