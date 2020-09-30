@@ -32,20 +32,18 @@ class ForgotPasswordTest extends TestCase
     public function testUserCanResetPasswordWithValidEmail()
     {
         $faker = Factory::create();
-
+        $token = \Session::token();
         $user = User::create([
             'name' => $faker->unique()->name,
             'email' => $faker->unique()->email,
             'password' => bcrypt($faker->unique()->password),
             'role_id' => 1,
-            '_token' => \Session::token(),
-
+            '_token' => $token,
         ]);
-
         $response = $this->json('POST','/password/email', [
             'email' => $user->email,
+            '_token' => $token,
         ]);
-
         $response->assertSee('We will verify your email address then email your password reset link.');
     }
 
