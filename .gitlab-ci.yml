@@ -3,7 +3,7 @@
 
 variables:
   # SiteGround Variables
-  SERVER_PHP: /usr/local/bin/php73
+  SERVER_PHP: /usr/local/bin/php74
   SSH_PORT: "18765"
 
 stages:
@@ -24,6 +24,7 @@ stages:
 App Dependencies:
   <<: *dependencies
   only:
+    - alpha
     - beta
     - production
   cache: &no-dev_cache
@@ -44,7 +45,7 @@ Dev Dependencies:
 
 .internal test:
   stage: Internal Test
-  image: thinkbit/web-composer-install:homestead9.3.0-php7.4.3-1
+  image: thinkbit/web-laravel-server:homestead9.3.0-php7.4.3-laravel7-1
   before_script:
     - echo "APP_ENV=testing" > .env
     - echo "APP_KEY=`php artisan key:generate --show`" >> .env
@@ -163,6 +164,22 @@ PHPUnit:
   tags:
     - web
 
+Alpha:
+  extends: .SiteGround deploy
+  after_script:
+    - echo "export APP_DOMAIN='`echo $APP_DOMAIN`'" > variables
+  environment:
+    name: $CI_JOB_NAME
+    url: https://$APP_DOMAIN
+  artifacts:
+    when: always
+    paths:
+      - variables
+    expire_in: 1 day
+  interruptible: false
+  only:
+    - alpha
+
 Beta:
   extends: .SiteGround deploy
   after_script:
@@ -184,6 +201,7 @@ Beta:
   before_script:
     - source variables
   only:
+    - alpha
     - beta
     - production
   interruptible: true
