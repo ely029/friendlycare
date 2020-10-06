@@ -1,10 +1,10 @@
 <?php
 
-declare(strict_types=1);
+ declare(strict_types=1);
 
-namespace App;
+ namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+ use Illuminate\Database\Eloquent\Model;
 
 /**
  * App\RoleAccess
@@ -27,7 +27,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class RoleAccess extends Model
 {
-    protected $fillable = ['role_id', 'route'];
+    protected $fillable = [
+        'role_id',
+        'route',
+    ];
 
     public function role()
     {

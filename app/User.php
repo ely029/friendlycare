@@ -62,7 +62,21 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role_id',
+        'name',
+        'email',
+        'password',
+        'role_id',
+        'municipality',
+        'first_name',
+        'last_name',
+        'age',
+        'contact_number',
+        'province',
+        'city',
+        'birth_date',
+        'gender',
+        'fcm_notification_key',
+        'middle_initial',
     ];
 
     /**
@@ -94,6 +108,11 @@ class User extends Authenticatable
     public function socials()
     {
         return $this->hasMany(Social::class);
+    }
+
+    public function clinics()
+    {
+        return $this->hasMany('App\Clinics', 'user_id');
     }
 
     public function hasAccess($route)

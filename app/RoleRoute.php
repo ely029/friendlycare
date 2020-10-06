@@ -1,12 +1,12 @@
 <?php
 
-declare(strict_types=1);
+ declare(strict_types=1);
 
-namespace App;
+ namespace App;
 
-use Illuminate\Support\Facades\Route;
-use ReflectionClass;
-use Str;
+ use Illuminate\Support\Facades\Route;
+ use ReflectionClass;
+ use Str;
 
 class RoleRoute
 {

@@ -1,8 +1,8 @@
 <?php
 
-declare(strict_types=1);
+ declare(strict_types=1);
 
-use App\Exceptions\HttpApiException;
+ use App\Exceptions\HttpApiException;
 
 // @TB: Override existing or add new helper functions
 // Overriding requires funkjedi/composer-include-files

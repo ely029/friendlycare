@@ -1,12 +1,12 @@
 <?php
 
-declare(strict_types=1);
+ declare(strict_types=1);
 
-namespace App;
+ namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+ use Illuminate\Database\Eloquent\Model;
 
-class Patients extends Model
-{
-    protected $fillable = ['user_id'];
-}
+ class Patients extends Model
+ {
+     protected $fillable = ['user_id'];
+ }

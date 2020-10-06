@@ -38,3 +38,6 @@ Route::group([
     // Normally done when the user logs out
     Route::delete('/{user}/fcm_registration_tokens', 'FcmRegistrationTokensController@destroy');
 });
+Route::post('/patients/register', 'Patients\DefaultController@register');
+Route::post('/patients/login', 'Patients\DefaultController@login');
+Route::get('/patients/users', 'Patients\DefaultController@getAllUsers');
