@@ -46,6 +46,8 @@ class UserManagementController extends Controller
                 ->withInput();
         }
 
+        $request['name'] = $request['first_name'] . ' ' . $request['last_name'];
+
         $user = User::create($request);
 
         return redirect('user/admin/'.$user->id);
@@ -67,8 +69,7 @@ class UserManagementController extends Controller
         $request = request()->all();
 
         User::find($request['id'])->update([
-            'first_name' => $request['first_name'],
-            'last_name' => $request['last_name'],
+            'name' => $request['first_name'] . ' ' . $request['last_name'],
             'profession' => $request['profession'],
             'training' => $request['training'],
             'email' => $request['email'],
