@@ -9,10 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 class ClinicHours extends Model
 {
     protected $fillable = [
-     'clinic_id',
-     'day',
-     'from',
-     'to',
-     'is_checked',
+        'clinic_id',
+        'day',
+        'from',
+        'to',
     ];
 }

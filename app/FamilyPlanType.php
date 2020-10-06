@@ -9,6 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class FamilyPlanType extends Model
 {
     protected $fillable = [
-     'name',
+        'name',
     ];
 }

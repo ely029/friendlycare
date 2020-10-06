@@ -6,8 +6,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
 class UserManagementController extends Controller
 {
@@ -17,22 +15,18 @@ class UserManagementController extends Controller
 
         return view('admin.userManagement.index', ['users' => $users]);
     }
-
     public function role()
     {
         return view('admin.userManagement.role');
     }
-
     public function adminFirstPage()
     {
         return view('admin.userManagement.adminFirstPage');
     }
-
     public function staffFirstPage()
     {
         return view('admin.userManagement.staffFirstPage');
     }
-
     public function createAdmin()
     {
         $request = request()->all();
@@ -48,38 +42,36 @@ class UserManagementController extends Controller
 
         if ($validator->fails()) {
             return redirect('user/create/admin/1')
-                    ->withErrors($validator)
-                    ->withInput();
+                ->withErrors($validator)
+                ->withInput();
         }
 
-          $user = User::create($request);
+        $user = User::create($request);
 
-          return redirect('user/admin/'.$user->id);
+        return redirect('user/admin/'.$user->id);
     }
-
     public function editAdminProfilePage($id)
     {
-        $user = User::where('id', $id)->first();
-            
-        return view('admin.userManagement.adminEditProfilePage',['users' => $user]);
-    }
+        $user = User::where('id', $id)->get();
 
+        return view('admin.userManagement.adminEditProfilePage', ['users' => $user]);
+    }
     public function editAdminProfile($id)
     {
-        $user = User::where('id', $id)->first();
-    
-        return view('admin.userManagement.adminEditProfile',['users' => $user]);
-    }
+        $user = User::where('id', $id)->get();
 
+        return view('admin.userManagement.adminEditProfile', ['users' => $user]);
+    }
     public function updateAdmin()
     {
         $request = request()->all();
 
         User::find($request['id'])->update([
             'first_name' => $request['first_name'],
-            'last_name' =>  $request['last_name'],
+            'last_name' => $request['last_name'],
             'profession' => $request['profession'],
-            'training' =>   $request['training'] 
+            'training' => $request['training'],
+            'email' => $request['email'],
         ]);
 
         return redirect('/user/list');

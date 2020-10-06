@@ -9,7 +9,6 @@ use App\Patients;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
 
 class DefaultController extends Controller
 {
@@ -19,14 +18,13 @@ class DefaultController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|min:6',
         ]);
-
         if (\Auth::attempt(['email' => request('email'), 'password' => request('password'), 'role_id' => 3])) {
-            
             $user = auth()->user();
+
             return response([
                 'messages' => 'Login Successful',
                 'httpCode' => 200,
-                'id' => $user->id
+                'id' => $user->id,
             ]);
         }
         return response([
@@ -69,15 +67,10 @@ class DefaultController extends Controller
         return response()->json('Congratulations! You are registered.', 200);
     }
 
-    private function age($bdate)
-    {
-        return Carbon::createFromDate($bdate)->age;
-    }
-
     public function getAllUsers()
     {
         $users = User::where('role_id', 3)->get();
-        return response($users);
+        return response()->json($users, 200);
     }
 
     public function getUserById()
@@ -85,6 +78,11 @@ class DefaultController extends Controller
         $request = request()->all();
         $users = User::where('id', $request['id'])->get();
 
-        return response($users);
+        return response()->json($users, 200);
+    }
+
+    private function age($bdate)
+    {
+        return Carbon::createFromDate($bdate)->age;
     }
 }

@@ -74,7 +74,6 @@
                             @else 
                             <td>Staff</td>
                             @endif
-                            <td>Clinic </td>
                         </tr>
                         @endforeach
                     </table>

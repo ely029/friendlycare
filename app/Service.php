@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Service extends Model
 {
     protected $fillable = [
-      'name',
-      'family_planning_type_id',
+        'name',
+        'family_planning_type_id',
     ];
 }

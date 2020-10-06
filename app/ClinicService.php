@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class ClinicService extends Model
 {
     protected $fillable = [
-     'clinic_id',
-     'service_id',
+        'clinic_id',
+        'service_id',
     ];
 }
