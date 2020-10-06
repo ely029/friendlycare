@@ -15,7 +15,7 @@ class CreateFamilyPlanTypeTable extends Migration
     {
         Schema::create('family_plan_type', function (Blueprint $table) {
             $table->id();
-            $table->string('name',50);
+            $table->string('name',50)->default('null');
             $table->timestamps();
         });
     }
