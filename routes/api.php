@@ -41,4 +41,3 @@ Route::group([
 Route::post('/patients/register', 'Patients\DefaultController@register');
 Route::post('/patients/login', 'Patients\DefaultController@login');
 Route::get('/patients/users', 'Patients\DefaultController@getAllUsers');
-Route::get('/patients/id', 'Patients\DefaultController@getUserById');
