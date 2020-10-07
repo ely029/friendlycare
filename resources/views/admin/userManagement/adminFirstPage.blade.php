@@ -78,7 +78,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                        <input type="password" name="password" class="form-control" placeholder="Password">
+                        <input type="password" name="password" class="form-control password" placeholder="Password">
                 </div>
                 <div class="col-md-4">
                 </div>
@@ -87,7 +87,9 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                        <input type="password" name="confirm_password" class="form-control" placeholder="Confirm Password">
+                <div class="input-group">
+  <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password">
+</div>
                 </div>
                 <div class="col-md-4">
                     <input data-toggle="modal" data-target="#confirmProviderCreation" type="button" id="admin-create" value="Create Account" class="btn btn-info">
@@ -110,7 +112,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    <input type="submit" class="btn btn-success">Create Account</button>
+                                    <input type="submit" class="btn btn-success" value="Create Account"/>
                                 </div>
                         </div>
                     </div>

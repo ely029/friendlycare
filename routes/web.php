@@ -62,8 +62,10 @@ Route::group(['prefix' => 'provider', 'middleware' => 'auth'], static function (
     Route::get('/create/2', 'Admin\ProviderManagementController@createSecondPage')->name('providerCreateSecondPage');
     Route::get('/create/3', 'Admin\ProviderManagementController@createThirdPage')->name('providerCreateThirdPage');
     Route::post('/store/firstpage', 'Admin\ProviderManagementController@storeFirstPage')->name('storeFirstPage');
+    Route::post('/store/secondpage', 'Admin\ProviderManagementController@storeSecondPage')->name('storeSecondPage');
+    Route::post('/store/thirdpage', 'Admin\ProviderManagementController@storeThirdPage')->name('storeThirdPage');
     //edit profile
-    Route::post('/edit/profile', 'Admin\ProviderManagementController@editProviderProfile')->name('editProviderProfile');
+    Route::get('/profile', 'Admin\ProviderManagementController@editProviderProfile')->name('editProviderProfile');
 });
     Route::get('/', 'HomeController@index');
     Route::get('/portal', 'Admin\AdminController@showLogin')->name('adminLogin');

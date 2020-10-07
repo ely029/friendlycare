@@ -38,9 +38,11 @@
                         @endif
                 </div>
             </div> 
+            <form method="POST" action="{{ route('storeSecondPage')}}">
+                @csrf
             <div class="row">
-                  <div class="col-md-12">
-                      <p>To follow: Gallery Clinic Hours</p>
+                  <div class="col-md-6">
+                      <input type="hidden" name="id" id="id" value="{{ session()->get('id') }}"/>
                   </div>
             </div>  
             <div class="row">
@@ -48,12 +50,90 @@
             </div>  
             <div class="row">
                 
-            </div>  
+            </div> 
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <input type="checkbox" name="days[]" value="sunday">
+                    <input type="time" name="from[]">
+                    <input type="time" name="to[]">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <input type="checkbox" name="days[]" value="monday">
+                    <input type="time" name="from[]">
+                    <input type="time" name="to[]">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <input type="checkbox" name="days[]" value="tuesday">
+                    <input type="time" name="from[]">
+                    <input type="time" name="to[]">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <input type="checkbox" name="days[]" value="wednesday">
+                    <input type="time" name="from[]">
+                    <input type="time" name="to[]">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <input type="checkbox" name="days[]" value="thursday">
+                    <input type="time" name="from[]">
+                    <input type="time" name="to[]">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <input type="checkbox" name="days[]" value="friday">
+                    <input type="time" name="from[]">
+                    <input type="time" name="to[]">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <input type="checkbox" name="days[]" value="saturday">
+                    <input type="time" name="from[]">
+                    <input type="time" name="to[]">
+                </div>
+            </div> 
             <div class="row">
                   <div class="col-md-12">
-                     <a href="{{ route('providerCreateThirdPage') }}" class="btn btn-success">Next</a>                    
+                     <input type="submit" class="btn btn-success" value="Next">                    
                   </div>
-            </div>           
+            </div>
+            </form>           
         </main>
     </div>
 </div>

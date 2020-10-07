@@ -63,7 +63,7 @@ class DefaultController extends Controller
         $user = User::create($request);
 
         $request['user_id'] = $user->id;
-        $request['name'] = $request['first_name'] . ' ' . $request['last_name'];
+
         Patients::create($request);
 
         return response()->json('Congratulations! You are registered.', 200);
@@ -75,14 +75,42 @@ class DefaultController extends Controller
         return response()->json($users, 200);
     }
 
-    public function getUserById()
+    public function getUserById($id)
     {
-        $request = request()->all();
-        $users = User::where('id', $request['id'])->get();
+        $users = User::where('id', $id)->get();
 
         return response()->json($users, 200);
     }
 
+    public function update()
+    {
+        $request = request()->all();
+        $validator = \Validator::make(request()->all(), [
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'email' => 'required',
+            'middle_initial' => 'required|max:2',
+            'gender' => 'required|max:2',
+            'birth_date' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        User::find($request['id'])->update([
+            'first_name' => $request['first_name'],
+            'last_name' => $request['last_name'],
+            'middle_initial' => $request['middle_initial'],
+            'gender' => $request['gender'],
+            'birth_date' => $request['birth_date'],
+            'email' => $request['email'],
+            'age' => $this->age($request['birth_date']),
+        ]);
+        $user = User::where('id', $request['id'])->first();
+
+        return response()->json($user, 200);
+    }
     private function age($bdate)
     {
         return Carbon::createFromDate($bdate)->age;
