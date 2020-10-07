@@ -19,8 +19,6 @@
             <!--hidden spacer-->
         </main>
         <main class="col offset-2 h-100">
-            <form method="POST" action="{{ route('editProviderProfile') }}">
-                @csrf
             <div class="row bg-light">
                 <div class="col-12 py-4">
                     <h2>Create provider</h2>
@@ -40,22 +38,30 @@
                         @endif
                 </div>
             </div> 
+            <form method="POST" action="{{ route('storeThirdPage') }}">
+                @csrf
             <div class="row">
+                   <div class="col-md-12">
+                       <h1>SERVICES HERE</h1>
+                   </div>
+            </div>
+            <div class="row">
+            </div>
+            <div class="row">
+            </div>
+            <div class="row">
+            </div>
+            <div class="row">
+                 <div class="col-md-12">
+                     <span>Do you have paid services?</span><br/>
+                     <span><input type="radio" value="yes">Yes&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" value="no">No</span>
+                 </div>
+            </div>
+            <div class="row h-100">
                   <div class="col-md-12">
-                      <p>To follow: Gallery and Clinic Hours</p>
+                      <input type="submit" value="Next" class="btn btn-success">
                   </div>
-            </div>  
-            <div class="row">
-                
-            </div>  
-            <div class="row">
-                
-            </div>  
-            <div class="row">
-                  <div class="col-md-12">
-                     <input type="submit" class="btn btn-success" value="Next"/>                    
-                  </div>
-            </div>    
+            </div>
             </form>       
         </main>
     </div>

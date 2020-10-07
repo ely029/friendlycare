@@ -11,7 +11,7 @@ class UserManagementController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('created_at')->get();
 
         return view('admin.userManagement.index', ['users' => $users]);
     }
@@ -45,7 +45,7 @@ class UserManagementController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-
+        $request['password'] = bcrypt($request['password']);
         $request['name'] = $request['first_name'] . ' ' . $request['last_name'];
 
         $user = User::create($request);

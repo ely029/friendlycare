@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use App\ClinicHours;
 use App\Clinics;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -25,6 +26,17 @@ class ProviderManagementController extends Controller
         return view('admin.providerManagement.createProviderSecondPage');
     }
 
+    public function createThirdPage()
+    {
+        return view('admin.providerManagement.createProviderThirdPage');
+    }
+
+    public function editProviderProfile()
+    {
+        //provider info
+        return view('admin.providerManagement.editProviderProfile');
+    }
+
     public function storeFirstPage()
     {
         $request = request()->all();
@@ -41,19 +53,34 @@ class ProviderManagementController extends Controller
         }
 
         $request['user_id'] = $user->id;
+        session(['id' => $user->id]);
 
         Clinics::create($request);
 
-        return redirect()->action('Admin\ProviderManagementController@createSecondPage', ['id' => $user->id]);
+        return redirect()->action('Admin\ProviderManagementController@createSecondPage');
     }
 
-    public function createThirdPage()
+    public function storeSecondPage()
     {
-        return view('admin.providerManagement.createProviderThirdPage');
+        $request = request()->all();
+
+        $request['day'] = $request['days'];
+        $request['clinic_id'] = $request['id'];
+        ClinicHours::create([
+            'clinic_id' => $request['id'],
+            'day' => json_encode($request['day']),
+            'from' => json_encode($request['from']),
+            'to' => json_encode($request['to']),
+        ]);
+        return redirect()->action('Admin\ProviderManagementController@createThirdPage');
     }
 
-    public function editProviderProfile()
+    public function storeThirdPage()
     {
-        return view('admin.providerManagement.editProviderProfile');
+        User::find(session('id'))->update([
+            'is_approved' => 1,
+        ]);
+
+        return redirect('/provider/profile');
     }
 }
