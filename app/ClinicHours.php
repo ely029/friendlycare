@@ -13,5 +13,6 @@ class ClinicHours extends Model
         'day',
         'from',
         'to',
+        'is_checked',
     ];
 }
