@@ -19,4 +19,9 @@ class Clinics extends Model
         'profile_photo',
         'type',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

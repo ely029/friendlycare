@@ -107,6 +107,11 @@ class User extends Authenticatable
         return $this->hasOne(Role::class, 'id', 'role_id');
     }
 
+    public function clinics()
+    {
+        return $this->hasMany('App\Clinics');
+    }
+
     public function socials()
     {
         return $this->hasMany(Social::class);

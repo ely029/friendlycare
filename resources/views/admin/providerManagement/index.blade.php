@@ -59,6 +59,14 @@
                             <th>Rating</th>
                             <th>Assigned Staff</th>
                         </tr>
+                        @foreach ($clinics as $clinic)
+                        <tr>
+                            <td>{{ $clinic->clinic_name}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        @endforeach
                     </table>
                 </div>
             </div>
