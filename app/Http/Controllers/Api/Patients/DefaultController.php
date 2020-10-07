@@ -9,6 +9,7 @@ use App\Patients;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use PhpParser\Node\Expr\AssignOp\Concat;
 
 class DefaultController extends Controller
 {
@@ -62,6 +63,7 @@ class DefaultController extends Controller
         $user = User::create($request);
 
         $request['user_id'] = $user->id;
+        $request['name'] = $request['first_name'] . ' ' . $request['last_name'];
         Patients::create($request);
 
         return response()->json('Congratulations! You are registered.', 200);
