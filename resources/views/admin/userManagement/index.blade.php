@@ -63,7 +63,11 @@
                         @foreach ($users as $user)
                         <tr>
                             <td>{{ $user->id }}</td>
+                            @if ($user->role_id == 1 || $user->role_id == 2)
                             <td>{{ $user->name }}</td>
+                            @else
+                            <td>{{ $user->first_name }} {{ $user->last_name }}</td>
+                            @endif
                             <td>{{ $user->email }}</td>
                             @if ($user->role_id == 1)
                             <td> Super Admin</td>
