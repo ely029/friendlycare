@@ -46,7 +46,7 @@ class UserManagementController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|min:8|regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\x])(?=.*[!$#%]).*$/|',
+            'password' => 'required|min:8',
             'confirm_password' => 'required|same:password',
         ]);
 

@@ -12,6 +12,8 @@
                 <span>Management</span>
                 <a href="{{ route('userManagement') }}" class="list-group-item active">User Management</a>
                 <a href="{{ route('providerManagement')}}" class="list-group-item">Provider Management</a>
+                <span>Content</span>
+                <a href="{{ route('basicPages')}}" class="list-group-item">Basic Pages</a>
             </div>
 
         </aside>
@@ -65,7 +67,13 @@
                             <td>{{ $admins->id }}</td>
                             <td><a href="{{ route('editUserProfile',$admins->id) }}">{{ $admins->first_name }} {{ $admins->last_name }}</a></td>
                             <td>{{ $admins->email }}</td>
+                            @if ($admins->role_id == 2)
                             <td>Admin</td>
+                            @elseif ($admins->role_id == 3)
+                            <td>Patient</td>
+                            @else 
+                            <td>Staff</td>
+                            @endif
                             <td></td>
                         </tr>
                         @endforeach
