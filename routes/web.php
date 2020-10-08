@@ -68,6 +68,15 @@ Route::group(['prefix' => 'provider', 'middleware' => 'auth'], static function (
     //edit profile
     Route::get('/profile', 'Admin\ProviderManagementController@editProviderProfile')->name('editProviderProfile');
 });
+
+//basic pages
+Route::group(['prefix' => 'basicpages', 'middleware' => 'auth'], static function () {
+    //index page
+    Route::get('/list', 'Admin\BasicPagesController@index')->name('basicPages');
+    Route::get('/edit/{id}', 'Admin\BasicPagesController@editPage')->name('basicPagesEditPage');
+    Route::post('/update', 'Admin\BasicPagesController@storeEdit')->name('basicPageUpdate');
+});
+
     Route::get('/', 'HomeController@index');
     Route::get('/portal', 'Admin\AdminController@showLogin')->name('adminLogin');
     Route::post('/authenticate', 'Admin\AdminController@authenticate')->name('authenticate');
