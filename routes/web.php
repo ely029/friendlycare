@@ -34,9 +34,6 @@ Route::group(['namespace' => 'Dashboard', 'prefix' => 'dashboard', 'middleware' 
     });
 });
 
-Route::group(['prefix' => 'reset'], static function () {
-    Route::get('/', 'ResetPasswordController@index')->name('reset');
-});
 Route::group(['namespace' => 'Admin','prefix' => 'admin', 'middleware' => 'auth'], static function () {
     Route::get('/', 'AdminController@index');
 });

@@ -19,7 +19,7 @@ class CreateClinicHoursTable extends Migration
             $table->longText('day')->nullable();
             $table->longText('from')->nullable();
             $table->longText('to')->nullable();
-            $table->boolean('is_checked')->nullablle();
+            $table->boolean('is_checked')->nullable();
             $table->timestamps();
         });
     }
