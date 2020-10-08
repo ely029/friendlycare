@@ -74,7 +74,6 @@ class User extends Authenticatable
         'birth_date',
         'gender',
         'fcm_notification_key',
-        'training',
         'first_name',
         'last_name',
         'middle_initial',
