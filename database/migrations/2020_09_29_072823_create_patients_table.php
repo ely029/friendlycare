@@ -23,6 +23,8 @@ class CreatePatientsTable extends Migration
             $table->unsignedBigInteger('no_of_living_children')->nullable();
             $table->unsignedBigInteger('family_plan_type_id')->nullable();
             $table->string('barangay',50)->nullable();
+            $table->string('no',30)->nullable();
+            $table->string('street',50)->nullable();
             $table->timestamps();
         });
     }

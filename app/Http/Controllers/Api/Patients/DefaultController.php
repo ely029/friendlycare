@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\Patients;
 
 use App\Http\Controllers\Controller;
 use App\Patients;
+use App\Spouses;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -59,12 +60,15 @@ class DefaultController extends Controller
         $request['age'] = $this->age($request['birth_date']);
         $request['password'] = bcrypt($request['password']);
         $request['role_id'] = 3;
+        $request['name'] = $request['first_name'] . ' ' . $request['last_name'];
 
         $user = User::create($request);
 
         $request['user_id'] = $user->id;
+        $request['patient_id'] = $user->id;
 
         Patients::create($request);
+        Spouses::create($request);
 
         return response()->json('Congratulations! You are registered.', 200);
     }
@@ -92,6 +96,8 @@ class DefaultController extends Controller
             'middle_initial' => 'required|max:2',
             'gender' => 'required|max:2',
             'birth_date' => 'required',
+            'password' => 'required',
+            'confirm_password' => 'required|same:password',
         ]);
 
         if ($validator->fails()) {
@@ -106,6 +112,21 @@ class DefaultController extends Controller
             'birth_date' => $request['birth_date'],
             'email' => $request['email'],
             'age' => $this->age($request['birth_date']),
+            'municipality' => $request['municipality'],
+            'city' => $request['city'],
+            'province' => $request['province'],
+        ]);
+        Patients::where('user_id', $request['id'])->update([
+            'religion' => $request['religion'],
+            'monthly_income' => $request['monthly_income'],
+            'no_of_living_children' => $request['no_living_children'],
+        ]);
+        Spouses::where('patient_id', $request['id'])->update([
+            'spouse_first_name' => $request['spouse_first_name'],
+            'spouse_last_name' => $request['spouse_last_name'],
+            'spouse_middle_initial' => $request['spouse_middle_initial'],
+            'spouse_occupation' => $request['spouse_occupation'],
+            'spouse_birth_date' => $request['spouse_birth_date'],
         ]);
         $user = User::where('id', $request['id'])->first();
 
