@@ -60,20 +60,22 @@
                             <th>Role</th>
                             <th>Provider Clinic</th>
                         </tr>
-                        @foreach ($users as $user)
+                        @foreach ($admin as $admins)
                         <tr>
-                            <td>{{ $user->id }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
-                            @if ($user->role_id == 1)
-                            <td> Super Admin</td>
-                            @elseif ($user->role_id == 2)
+                            <td>{{ $admins->id }}</td>
+                            <td><a href="{{ route('editUserProfile',$admins->id) }}">{{ $admins->first_name }} {{ $admins->last_name }}</a></td>
+                            <td>{{ $admins->email }}</td>
                             <td>Admin</td>
-                            @elseif ($user->role_id == 3)
-                            <td>Patient</td>
-                            @else 
+                            <td></td>
+                        </tr>
+                        @endforeach
+                        @foreach ($staffs as $staff)
+                        <tr>
+                            <td>{{ $staff->id }}</td>
+                            <td><a href="{{ route('editUserProfile',$staff->id) }}">{{ $staff->first_name }} {{ $staff->last_name }}</a></td>
+                            <td>{{ $staff->email }}</td>
                             <td>Staff</td>
-                            @endif
+                            <td>{{ $staff->clinic_name }}</td>
                         </tr>
                         @endforeach
                     </table>

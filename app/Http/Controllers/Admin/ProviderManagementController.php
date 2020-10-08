@@ -8,12 +8,18 @@ use App\ClinicHours;
 use App\Clinics;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Support\Facades\DB;
 
 class ProviderManagementController extends Controller
 {
     public function index()
     {
-        return view('admin.providerManagement.index');
+        $users = DB::table('users')
+            ->join('clinics', 'clinics.user_id', '=', 'users.id')
+            ->select('users.email', 'clinics.clinic_name')
+            ->where('is_approve', 1)
+            ->get();
+        return view('admin.providerManagement.index', ['clinics' => $users]);
     }
 
     public function createFirstPage()
@@ -77,9 +83,7 @@ class ProviderManagementController extends Controller
 
     public function storeThirdPage()
     {
-        User::find(session('id'))->update([
-            'is_approved' => 1,
-        ]);
+        Clinics::where('user_id', session('id'))->update(['is_approve' => 1]);
 
         return redirect('/provider/profile');
     }

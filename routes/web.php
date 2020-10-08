@@ -47,10 +47,11 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], static function () {
     Route::get('/create/admin/1', 'Admin\UserManagementController@adminFirstPage')->name('adminFirstPage');
     Route::get('/create/staff/1', 'Admin\UserManagementController@staffFirstPage')->name('staffFirstPage');
     Route::post('/create/admin', 'Admin\UserManagementController@createAdmin')->name('createAdmin');
-    //edit admin profile
-    Route::get('/admin/{id}', 'Admin\UserManagementController@editAdminProfilePage');
-    Route::get('/admin/edit/{id}', 'Admin\UserManagementController@editAdminProfile')->name('editAdminProfile');
-    Route::post('/admin/update', 'Admin\UserManagementController@updateAdmin')->name('updateAdmin');
+    Route::post('/create/staff', 'Admin\UserManagementController@createStaff')->name('createStaff');
+    //edit profile
+    Route::get('/page/{id}', 'Admin\UserManagementController@editUserProfilePage');
+    Route::get('/edit/{id}', 'Admin\UserManagementController@editUserProfile')->name('editUserProfile');
+    Route::post('/update', 'Admin\UserManagementController@updateUser')->name('updateUser');
 });
 
 //provider management

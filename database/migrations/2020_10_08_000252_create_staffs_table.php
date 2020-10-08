@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePatientsTable extends Migration
+class CreateStaffsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreatePatientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('patients', function (Blueprint $table) {
+        Schema::create('staffs', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('clinic_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('civil_status',10)->nullable();
             $table->string('religion',30)->nullable();
@@ -23,8 +24,6 @@ class CreatePatientsTable extends Migration
             $table->unsignedBigInteger('no_of_living_children')->nullable();
             $table->unsignedBigInteger('family_plan_type_id')->nullable();
             $table->string('barangay',50)->nullable();
-            $table->string('no',30)->nullable();
-            $table->string('street',50)->nullable();
             $table->timestamps();
         });
     }

@@ -6,13 +6,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ClinicHours extends Model
+class Staffs extends Model
 {
     protected $fillable = [
         'clinic_id',
-        'day',
-        'from',
-        'to',
-        'is_checked',
+        'user_id',
     ];
 }

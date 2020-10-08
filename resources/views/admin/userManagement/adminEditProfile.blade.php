@@ -20,7 +20,7 @@
         </main>
         <main class="col offset-2 h-100">
         @foreach ($users as $user)
-        <form method="POST" action="{{ route('updateAdmin') }}">
+        <form method="POST" action="{{ route('updateUser') }}">
             @csrf
         <div class="row bg-light">
                 <div class="col-12 py-4">
