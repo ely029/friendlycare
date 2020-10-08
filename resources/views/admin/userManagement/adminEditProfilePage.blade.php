@@ -58,7 +58,7 @@
             </div>
             <div class="row bg-white">
                 <div class="col-md-3">
-                  <a role="button" href="{{ route('editAdminProfile',$user->id)}}" class="btn btn-success">Edit Profile</a>
+                  <a role="button" href="{{ route('editUserProfile',$user->id)}}" class="btn btn-success">Edit Profile</a>
                 </div>
                 <div class="col-md-3">
                   <input type="submit" class="btn btn-primary" value="Delete Account">
