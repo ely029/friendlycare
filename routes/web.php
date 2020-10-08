@@ -49,7 +49,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], static function () {
     Route::post('/create/admin', 'Admin\UserManagementController@createAdmin')->name('createAdmin');
     Route::post('/create/staff', 'Admin\UserManagementController@createStaff')->name('createStaff');
     //edit profile
-    Route::get('/page/{id}', 'Admin\UserManagementController@editUserProfilePage');
+    Route::get('/page/{id}', 'Admin\UserManagementController@editUserProfilePage')->name('editUserProfilePage');
     Route::get('/edit/{id}', 'Admin\UserManagementController@editUserProfile')->name('editUserProfile');
     Route::post('/update', 'Admin\UserManagementController@updateUser')->name('updateUser');
 });

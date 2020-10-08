@@ -16,9 +16,9 @@ class CreateClinicHoursTable extends Migration
         Schema::create('clinic_hours', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('clinic_id')->nullable();
-            $table->mediumText('day')->nullable();
-            $table->mediumText('from')->nullable();
-            $table->mediumText('to')->nullable();
+            $table->text('day')->nullable();
+            $table->text('from')->nullable();
+            $table->text('to')->nullable();
             $table->boolean('is_checked')->nullable();
             $table->timestamps();
         });
