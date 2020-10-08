@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Staffs extends Model
 {
-   protected $fillable = [
-       'clinic_id',
-       'user_id',
-   ]; 
+    protected $fillable = [
+        'clinic_id',
+        'user_id',
+    ];
 }

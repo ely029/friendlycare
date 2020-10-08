@@ -15,10 +15,10 @@ class UserManagementController extends Controller
     {
         $admin = User::all();
         $staff = DB::table('users')
-        ->join('staffs', 'staffs.user_id', '=', 'users.id')
-        ->join('clinics', 'clinics.id', 'staffs.clinic_id')
-        ->select('users.id', 'users.first_name', 'users.last_name', 'users.email', 'clinics.clinic_name')
-        ->get();
+            ->join('staffs', 'staffs.user_id', '=', 'users.id')
+            ->join('clinics', 'clinics.id', 'staffs.clinic_id')
+            ->select('users.id', 'users.first_name', 'users.last_name', 'users.email', 'clinics.clinic_name')
+            ->get();
 
         return view('admin.userManagement.index', ['admin' => $admin, 'staffs' => $staff]);
     }
@@ -37,7 +37,7 @@ class UserManagementController extends Controller
             ->select('clinics.id', 'clinics.clinic_name')
             ->where('is_approve', 1)
             ->get();
-        return view('admin.userManagement.staffFirstPage',['clinics' => $users]);
+        return view('admin.userManagement.staffFirstPage', ['clinics' => $users]);
     }
     public function createAdmin()
     {
