@@ -65,27 +65,19 @@
                         @foreach ($admin as $admins)
                         <tr>
                             <td>{{ $admins->id }}</td>
-                            <td><a href="{{ route('editUserProfilePage',$admins->id) }}">{{ $admins->first_name }} {{ $admins->last_name }}</a></td>
+                            <td><a href="{{ route('editUserProfilePage',$admins->id) }}">{{ $admins->name }}</a></td>
                             <td>{{ $admins->email }}</td>
-                            @if ($admins->role_id == 2)
+                            @if ($admins->role_id == 1)
+                            <td>Super Admin</td>
+                            @elseif ($admins->role_id == 2)
                             <td>Admin</td>
-                            @elseif ($admins->role_id == 3)
-                            <td>Patient</td>
                             @else 
                             <td>Staff</td>
                             @endif
                             <td></td>
                         </tr>
                         @endforeach
-                        @foreach ($staffs as $staff)
-                        <tr>
-                            <td>{{ $staff->id }}</td>
-                            <td><a href="{{ route('editUserProfilePage',$staff->id) }}">{{ $staff->first_name }} {{ $staff->last_name }}</a></td>
-                            <td>{{ $staff->email }}</td>
-                            <td>Staff</td>
-                            <td>{{ $staff->clinic_name }}</td>
-                        </tr>
-                        @endforeach
+
                     </table>
                 </div>
             </div>

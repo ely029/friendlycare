@@ -11,7 +11,9 @@
             <div class="list-group w-100">
                 <span>Management</span>
                 <a href="{{ route('userManagement') }}" class="list-group-item active">User Management</a>
-                <a href="#" class="list-group-item">Provider Management</a>
+                <a href="{{ route('providerManagement')}}" class="list-group-item">Provider Management</a>
+                <span>Content</span>
+                <a href="{{ route('basicPages')}}" class="list-group-item">Basic Pages</a>
             </div>
 
         </aside>
@@ -28,19 +30,19 @@
                     <span>User Management</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>Create User</span>
                 </div>
             </div>
-            <div class="row bg-white">
-                <div class="col-md-12">
-                    <small>First Name</small><br/>
-                    <input type="text" name="first_name" class="form-control" value="{{ $user->first_name }}">
-                    <input type="hidden"  name="id" value="{{ $user->id }}">
-                </div>   
-            </div>
-            <div class="row bg-white">
-                <div class="col-md-12">
-                    <small>Last Name</small><br/>
-                    <input type="text" name="last_name" class="form-control" value="{{ $user->last_name }}">
-                </div>   
-            </div>
+                <div class="row bg-white">
+                    <div class="col-md-12">
+                        <small>First Name</small><br/>
+                        <input type="text" name="first_name" class="form-control" value="{{ $user->first_name }}">
+                        <input type="hidden"  name="id" value="{{ $user->id }}">
+                    </div>   
+                </div>
+                <div class="row bg-white">
+                    <div class="col-md-12">
+                        <small>Last Name</small><br/>
+                        <input type="text" name="last_name" class="form-control" value="{{ $user->last_name }}">
+                    </div>   
+                </div>
             <div class="row bg-white">
                 <div class="col-md-12">
                     <small>Email</small><br/>

@@ -10,8 +10,10 @@
 
             <div class="list-group w-100">
                 <span>Management</span>
-                <a href="{{ route('userManagement') }}" class="list-group-item">User Management</a>
-                <a href="#" class="list-group-item">Provider Management</a>
+                <a href="{{ route('userManagement') }}" class="list-group-item active">User Management</a>
+                <a href="{{ route('providerManagement') }}" class="list-group-item">Provider Management</a>
+                <span>Content</span>
+                <a href="{{ route('basicPages')}}" class="list-group-item">Basic Pages</a>
             </div>
 
         </aside>
