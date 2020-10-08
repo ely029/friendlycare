@@ -13,14 +13,13 @@ class UserManagementController extends Controller
 {
     public function index()
     {
-        $admin = User::all();
-        $staff = DB::table('users')
-            ->join('staffs', 'staffs.user_id', '=', 'users.id')
-            ->join('clinics', 'clinics.id', 'staffs.clinic_id')
-            ->select('users.id', 'users.first_name', 'users.last_name', 'users.email', 'clinics.clinic_name')
+        $users = DB::table('users')
+            ->leftJoin('clinics', 'clinics.user_id', '=', 'users.id')
+            ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
+            ->orderBy('users.created_at', 'desc')
+            ->where('users.role_id', '<>', 3)
             ->get();
-
-        return view('admin.userManagement.index', ['admin' => $admin, 'staffs' => $staff]);
+        return view('admin.userManagement.index', ['admin' => $users]);
     }
     public function role()
     {
@@ -112,6 +111,8 @@ class UserManagementController extends Controller
 
         User::find($request['id'])->update([
             'name' => $request['first_name'] . ' ' . $request['last_name'],
+            'first_name' => $request['first_name'],
+            'last_name' => $request['last_name'],
             'profession' => $request['profession'],
             'training' => $request['training'],
             'email' => $request['email'],

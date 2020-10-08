@@ -16,7 +16,7 @@ class ProviderManagementController extends Controller
     {
         $users = DB::table('users')
             ->join('clinics', 'clinics.user_id', '=', 'users.id')
-            ->select('users.email', 'clinics.clinic_name')
+            ->select('users.email', 'clinics.clinic_name', 'clinics.id')
             ->where('is_approve', 1)
             ->get();
         return view('admin.providerManagement.index', ['clinics' => $users]);
@@ -37,10 +37,57 @@ class ProviderManagementController extends Controller
         return view('admin.providerManagement.createProviderThirdPage');
     }
 
-    public function editProviderProfile()
+    public function editProviderInformation()
     {
-        //provider info
-        return view('admin.providerManagement.editProviderProfile');
+        return view('admin.providerManagement.editProviderInformation');
+    }
+
+    public function editPage($id)
+    {
+        $provider = DB::table('users')
+            ->leftJoin('clinics', 'clinics.user_id', 'users.id')
+            ->leftJoin('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
+            ->select(
+               'users.first_name',
+               'users.last_name',
+               'clinics.clinic_name',
+               'users.city',
+               'users.province',
+               'users.municipality',
+               'users.email',
+               'users.profession',
+               'users.training',
+               'users.contact_number',
+               'clinics.type',
+               'clinics.id as c_id',
+               'users.id AS users_id',
+               )
+            ->where('clinics.id', $id)
+            ->get();
+
+        return view('admin.providerManagement.editPage', ['provider' => $provider]);
+    }
+
+    public function updateProvider()
+    {
+        $request = request()->all();
+        Clinics::where('user_id', $request['clinic_id'])->update([
+            'clinic_name' => $request['clinic_name'],
+        ]);
+
+        User::where('id', $request['user_id'])->update([
+            'first_name' => $request['first_name'],
+            'last_name' => $request['last_name'],
+            'province' => $request['province'],
+            'municipality' => $request['municipality'],
+            'city' => $request['city'],
+            'profession' => $request['profession'],
+            'contact_number' => $request['contact_number'],
+            'training' => $request['training'],
+            'email' => $request['email'],
+        ]);
+
+        return redirect('/provider/list');
     }
 
     public function storeFirstPage()
