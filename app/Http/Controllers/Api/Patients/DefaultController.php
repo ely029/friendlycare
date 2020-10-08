@@ -23,6 +23,10 @@ class DefaultController extends Controller
         if (\Auth::attempt(['email' => request('email'), 'password' => request('password'), 'role_id' => 3])) {
             $user = auth()->user();
 
+            \Mail::send('email.account-verification', ['user' => $user], function ($message) use ($user) {
+                $message->to($user->email, $user->first_name)->subject('Account Verification');
+            });
+
             return response([
                 'messages' => 'Login Successful',
                 'httpCode' => 200,
