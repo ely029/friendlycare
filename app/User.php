@@ -57,8 +57,6 @@ use Storage;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereFirstName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereMiddleInitial($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereProfession($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereTraining($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -87,8 +85,6 @@ class User extends Authenticatable
         'fcm_notification_key',
         'first_name',
         'last_name',
-        'profession',
-        'training',
         'middle_initial',
     ];
 

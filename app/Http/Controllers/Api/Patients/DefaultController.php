@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\Patients;
 
 use App\Http\Controllers\Controller;
+use App\Mail\EmailVerification;
 use App\Patients;
 use App\Spouses;
 use App\User;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Hash;
-use PhpParser\Node\Expr\AssignOp\Concat;
+use Mail;
 
 class DefaultController extends Controller
 {
@@ -24,21 +24,10 @@ class DefaultController extends Controller
         if (\Auth::attempt(['email' => request('email'), 'password' => request('password'), 'role_id' => 3])) {
             $user = \Auth::user();
 
+            Mail::to('ely@yopmail.com')->send(new EmailVerification($user));
             return response([
-                'login_success' => 'Login Successfull',
-                'first_name' => $user['first_name'],
-                'last_name' => $user['last_name'],
-                'email' => $user['email'],
-                'emirates' => $user['emirates'],
-                'mobile_number' => $user['mobile_number'],
+                'login_success' => 'Login Successful',
                 'id' => $user['id'],
-                'email_verified_at' => $user['email_verified_at'],
-                'role_id' => $user['role_id'],
-                'photo' => isset($user->photo_url) ? url($user->photo_url) : null,
-                'otp' => $user['otp'],
-                'is_activated' => $user['is_activated'],
-                'deactivated_at' => $user['deactivated_at'],
-                'reactivated_at' => $user['reactivated_at'],
             ]);
         }
         return response([
@@ -144,6 +133,7 @@ class DefaultController extends Controller
 
         return response()->json($user, 200);
     }
+
     private function age($bdate)
     {
         return Carbon::createFromDate($bdate)->age;

@@ -60,17 +60,9 @@ class UserManagementController extends Controller
         $request['password'] = bcrypt($request['password']);
         $request['name'] = $request['first_name'] . ' ' . $request['last_name'];
 
-        $user = User::create([
-            'name' => $request['name'],
-            'password' => $request['password'],
-            'email' => $request['email'],
-            'role_id' => $request['role_id'],
-        ]);
-
-        Clinics::create([
-            'profession' => $request['profession'],
-            'training' => $request['training'],
-        ]);
+        $user = User::create($request);
+        $request['user_id'] = $user->id;
+        Clinics::create($request);
 
         return redirect('user/page/'.$user->id);
     }
@@ -137,5 +129,20 @@ class UserManagementController extends Controller
         User::where('id', $id)->delete();
 
         return redirect('/user/list');
+    }
+
+    public function resetPage($id)
+    {
+        return view('reset.index', ['id' => $id]);
+    }
+
+    public function updatePassword()
+    {
+        $request = request()->all();
+        User::where('id', $request['id'])->update([
+            'password' => bcrypt($request['password']),
+        ]);
+
+        return view('reset.thankyou');
     }
 }
