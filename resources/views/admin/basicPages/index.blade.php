@@ -34,7 +34,7 @@
                 </tr>
                 @foreach ($content as $contents)
                 <tr>
-                    <td><a href="{{ route('basicPagesEditPage',$contents->id) }}">{{ $contents->content_name }}</a></td>
+                    <td><a href="{{ route('basicPages.informationPage',$contents->id) }}">{{ $contents->content_name }}</a></td>
                     <td>{{ $contents->content }}</td>
                 </tr>
                 @endforeach 

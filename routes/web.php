@@ -75,8 +75,15 @@ Route::group(['prefix' => 'provider', 'middleware' => 'auth'], static function (
 Route::group(['prefix' => 'basicpages', 'middleware' => 'auth'], static function () {
     //index page
     Route::get('/list', 'Admin\BasicPagesController@index')->name('basicPages');
-    Route::get('/edit/{id}', 'Admin\BasicPagesController@editPage')->name('basicPagesEditPage');
-    Route::post('/update', 'Admin\BasicPagesController@storeEdit')->name('basicPageUpdate');
+    Route::get('/{id}', 'Admin\BasicPagesController@informationPage')->name('basicPages.informationPage');
+    Route::get('/edit/{id}', 'Admin\BasicPagesController@editPage')->name('basicPages.editPage');
+    Route::post('/update', 'Admin\BasicPagesController@storeEdit')->name('basicPages.storeEdit');
+});
+
+Route::group(['prefix' => 'reset'], static function () {
+    //reset page
+    Route::get('/{id}', 'Admin\ResetController@index')->name('resetPassword.index');
+    Route::post('/password', 'Admin\ResetController@updatePassword')->name('resetPassword.updatePassword');
 });
 
     Route::get('/', 'HomeController@index');

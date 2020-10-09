@@ -15,6 +15,12 @@ class BasicPagesController extends Controller
         return view('admin.basicPages.index', ['content' => $content]);
     }
 
+    public function informationPage($id)
+    {
+        $content = BasicPages::where('id', $id)->get();
+        return view('admin.basicPages.informationPage', ['content' => $content]);
+    }
+
     public function editPage($id)
     {
         $content = BasicPages::where('id', $id)->get();
