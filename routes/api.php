@@ -44,3 +44,4 @@ Route::get('/patients/users', 'Patients\DefaultController@getAllUsers');
 Route::get('/patients/id/{id}', 'Patients\DefaultController@getUserById');
 Route::post('/patients/update', 'Patients\DefaultController@update');
 Route::get('/consentform', 'BasicPagesController@consentForm');
+Route::post('/patients/verification', 'Patients\DefaultController@verification');

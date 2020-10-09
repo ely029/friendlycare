@@ -10,6 +10,7 @@ use App\Patients;
 use App\Spouses;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Mail;
 
 class DefaultController extends Controller
@@ -24,7 +25,6 @@ class DefaultController extends Controller
         if (\Auth::attempt(['email' => request('email'), 'password' => request('password'), 'role_id' => 3])) {
             $user = \Auth::user();
 
-            Mail::to('ely@yopmail.com')->send(new EmailVerification($user));
             return response([
                 'login_success' => 'Login Successful',
                 'id' => $user['id'],
@@ -34,6 +34,23 @@ class DefaultController extends Controller
             'errorCode' => '',
             'message' => 'Uh Oh! Your email/password isn\'t right. Please check and retry',
             'httpCode' => 404,
+        ], 404);
+    }
+
+    public function verification()
+    {
+        $request = request()->all();
+        $users = User::where('email', $request['email'])->get();
+
+        Mail::send('email.patient.account-verification', ['users' => $users], function ($mail) use ($request) {
+            $mail->from('app@friendlycare.com');
+            $mail->to($request['email'], 'sample')->subject('Your Reminder!');
+        });
+
+        return response([
+            'errorCode' => '',
+            'message' => 'Email Successfully sent',
+            'httpCode' => 200,
         ], 404);
     }
 

@@ -23,7 +23,8 @@
                         <td width="10px"></td>
                         <td align="center">
                             <span style="padding:0 50px 10px; display: block; font-size: 25px; line-height: 1.8;">
-                                Hi {{ $details['first_name'] . ' ' . $details['last_name'] }} ! <br>
+                            @foreach ($users as $user)
+                            Hi {{ $user->first_name . ' ' . $user->last_name }} ! <br>
                                 <br><br>
                                 is this you who are logging in ?
                                 <br/>
@@ -31,7 +32,9 @@
                                 If yes, You can ignore this.
                                 <br/>
                                 <br/>
-                                If not, Please Click <a href=" {{ route('userManagement.resetPage',$details['id'])}}">Here</a> to reset your password
+                                If not, Please Click <a href=" {{ route('userManagement.resetPage',$user->id)}}">Here</a> to reset your password
+                            @endforeach
+                                
                             </span>
                             <br>
                     
