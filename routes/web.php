@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['login' => false,'register' => false]);
 
 Route::group(['namespace' => 'Dashboard', 'prefix' => 'dashboard', 'middleware' => 'auth'], static function () {
-    Route::get('/', 'DashboardController@index');
+    Route::get('/', 'DashboardController@index')->name('index');
 
     Route::group(['middleware' => 'route.access'], static function () {
         Route::resource('roles', 'RolesController', [
