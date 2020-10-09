@@ -44,7 +44,7 @@ class DefaultController extends Controller
 
         Mail::send('email.patient.account-verification', ['users' => $users], function ($mail) use ($request) {
             $mail->from('app@friendlycare.com');
-            $mail->to($request['email'], 'sample')->subject('Your Reminder!');
+            $mail->to($request['email'], 'sample')->subject('Account Verification!');
         });
 
         return response([

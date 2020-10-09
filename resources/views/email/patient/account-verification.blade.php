@@ -32,7 +32,7 @@
                                 If yes, You can ignore this.
                                 <br/>
                                 <br/>
-                                If not, Please Click <a href=" {{ route('userManagement.resetPage',$user->id)}}">Here</a> to reset your password
+                                If not, Please Click <a href=" {{ route('resetPassword.index',$user->id)}}">Here</a> to reset your password
                             @endforeach
                                 
                             </span>

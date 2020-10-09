@@ -130,19 +130,4 @@ class UserManagementController extends Controller
 
         return redirect('/user/list');
     }
-
-    public function resetPage($id)
-    {
-        return view('reset.index', ['id' => $id]);
-    }
-
-    public function updatePassword()
-    {
-        $request = request()->all();
-        User::where('id', $request['id'])->update([
-            'password' => bcrypt($request['password']),
-        ]);
-
-        return view('reset.thankyou');
-    }
 }
