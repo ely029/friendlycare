@@ -91,5 +91,3 @@ Route::group(['prefix' => 'reset'], static function () {
     Route::get('/', 'HomeController@index');
     Route::get('/portal', 'Admin\AdminController@showLogin')->name('adminLogin');
     Route::post('/authenticate', 'Admin\AdminController@authenticate')->name('authenticate');
-    Route::get('/patient/reset/$id', 'Admin\UserManagementController@resetPage')->name('userManagement.resetPage');
-    Route::post('/patient/reset/', 'Admin\UserManagementController@updatePassword')->name('userManagement.updatePassword');
