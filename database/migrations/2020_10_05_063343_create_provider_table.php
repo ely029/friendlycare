@@ -24,6 +24,8 @@ class CreateProviderTable extends Migration
             $table->longText('close_message')->nullable();
             $table->longText('description')->nullable();
             $table->longText('profile_photo')->nullable();
+            $table->string('profession',50)->nullable();
+            $table->string('training',50)->nullable();
             $table->string('type',20)->nullable();
             $table->timestamps();
         });
