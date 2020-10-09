@@ -51,7 +51,7 @@ class DefaultController extends Controller
             'errorCode' => '',
             'message' => 'Email Successfully sent',
             'httpCode' => 200,
-        ], 404);
+        ], 200);
     }
 
     public function register()
