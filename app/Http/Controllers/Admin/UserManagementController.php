@@ -61,8 +61,7 @@ class UserManagementController extends Controller
         $request['name'] = $request['first_name'] . ' ' . $request['last_name'];
 
         $user = User::create([
-            'first_name' => $request['first_name'],
-            'last_name' => $request['last_name'],
+            'name' => $request['name'],
             'password' => $request['password'],
         ]);
 
