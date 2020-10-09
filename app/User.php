@@ -48,6 +48,15 @@ use Storage;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRoleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereMunicipality($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereAge($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereContactNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereProvince($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereBirthDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereFirstName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereMiddleInitial($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -79,7 +88,7 @@ class User extends Authenticatable
         'middle_initial',
     ];
 
-    /**
+    /*\
      * The attributes that should be hidden for arrays.
      *
      * @var array
