@@ -24,7 +24,6 @@ class DefaultController extends Controller
         if (\Auth::attempt(['email' => request('email'), 'password' => request('password'), 'role_id' => 3])) {
             $user = \Auth::user();
 
-            redirect()->route('send-mail', $user);
             return response([
                 'login_success' => 'Login Successfull',
                 'first_name' => $user['first_name'],
