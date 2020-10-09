@@ -18,11 +18,12 @@
         <main class="col-10 invisible">
             <!--hidden spacer-->
         </main>
+        @foreach ($provider as $providers)
         <main class="col offset-2 h-100">
             <div class="row bg-light">
                 <div class="col-12 py-4">
-                    <h2>FriendlyCare Cubao</h2>
-                    <span>Provider Management</span>&nbsp;&nbsp;&nbsp;<span>FriendlyCare Cubao</span>
+                    <h2>{{ $providers->clinic_name }}</h2>
+                    <span>Provider Management</span>&nbsp;&nbsp;&nbsp;<span>{{ $providers->clinic_name }}</span>
                 </div>
             </div>
             <div class="row">
@@ -44,9 +45,9 @@
                  <div class="col-md-6">
                         <img class="rounded-cirle" width="100" height="100" src="{{ asset('assets/app/img/avatar6.png')}}"/>
                                 <div class="edit-page-provider-info-image-side">
-                                    <span>FriendlyCare Cubao</span><br>
-                                    <span>email</span><br>
-                                    <span>Contact Number</span>
+                                    <span>{{ $providers->clinic_name }}</span><br>
+                                    <span>{{$providers->email }}</span><br>
+                                    <span>{{ $providers->contact_number }}</span>
                                 </div>
                  </div>
                  <div class="col-md-2">
@@ -67,7 +68,7 @@
                     <div class="row clinic-info-street">
                         <div class="col-md-6">
                         <h6><b>Street Address</b></h6>
-                            <span>Project 4 Quezon City</span>
+                            <span>{{ $providers->city }}{{ $providers->municipality }} {{ $providers->province }}</span>
                         </div>
                     </div>
                     <div class="row clinic-info-category">
@@ -79,11 +80,21 @@
                     <div class="row clinic-info-description">
                         <div class="col-md-6">
                         <h6><b>Description</b></h6>
-                            <span>Sample Description</span>
+                            <span>{{ $providers->description }}</span>
                         </div>
+                    </div>
+                    <div class="row">
+                          <div class="col-md-6">
+                              <a href="{{ route('editPage',$providers->c_id )}}" class="btn btn-success">Edit Profile</a>
+                          </div>
+                          <div class="col-md-6">
+                              <a href="{{ route('deleteProvider',$providers->c_id )}}" class="btn btn-primary">Delete Provider</a>
+                          </div>
                     </div>
             </form>           
         </main>
+        @endforeach
+        
     </div>
 </div>
 @endsection
