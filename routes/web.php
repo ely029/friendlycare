@@ -89,8 +89,4 @@ Route::group(['prefix' => 'reset'], static function () {
     Route::get('/', 'HomeController@index');
     Route::get('/portal', 'Admin\AdminController@showLogin')->name('adminLogin');
     Route::post('/authenticate', 'Admin\AdminController@authenticate')->name('authenticate');
-    Route::get('/send-mail/{first_name}/{user}', function ($user) {
-        \Mail::send('email.patient.account-verification', ['first_name' => $user->first_name, 'last_name' => $user->last_name, 'id' => $user->id], function ($message, $user) {
-            $message->to($user->email, $user->email)->subject('Account Verification');
-        });
-    })->name('send-mail');
+
