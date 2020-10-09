@@ -16,7 +16,6 @@
 <table class="head-wrap" style="overflow: hidden;">
     <tr class="container">
         <td class="container" >
-
             <!-- content -->
             <div class="content" style="padding: 35px 15px 15px">
                 <table>
@@ -24,7 +23,7 @@
                         <td width="10px"></td>
                         <td align="center">
                             <span style="padding:0 50px 10px; display: block; font-size: 25px; line-height: 1.8;">
-                                Hi {{ $user->first_name . ' ' . $user->last_name }} ! <br>
+                                Hi {{ $details['first_name'] . ' ' . $details['last_name'] }} ! <br>
                                 <br><br>
                                 is this you who are logging in ?
                                 <br/>
@@ -32,7 +31,10 @@
                                 If yes, You can ignore this.
                                 <br/>
                                 <br/>
-                                If not, Please Click <a href="{{ route('resetPassword.index',$user->id) }}">Here</a> to reset your password
+                                @php
+                                  $e = $details['id']
+                                 @endphp
+                                If not, Please Click <a href=" {{ route('userManagement.resetPage',$e)}}">Here</a> to reset your password
                             </span>
                             <br>
                     
