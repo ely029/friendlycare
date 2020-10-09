@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use App\Clinics;
 use App\Http\Controllers\Controller;
 use App\Staffs;
 use App\User;
@@ -62,9 +63,12 @@ class UserManagementController extends Controller
         $user = User::create([
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
+            'password' => $request['password'],
+        ]);
+
+        Clinics::create([
             'profession' => $request['profession'],
             'training' => $request['training'],
-            'password' => $request['password'],
         ]);
 
         return redirect('user/page/'.$user->id);
