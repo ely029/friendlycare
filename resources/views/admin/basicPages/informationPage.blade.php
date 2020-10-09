@@ -21,27 +21,30 @@
             <!--hidden spacer-->
         </main>
         <main class="col offset-2 h-100">
+        @foreach ($content as $contents)
         <div class="row">
                 <div class="col-12 py-4">
-                    <h2>Basic Pages</h2>
-                    <span>Basic Pages</span>
+                    <h2>{{ $contents->content_name }}</h2>
+                    <span>{{ $contents->content_name }}</span>
                 </div>
             </div>
-           @foreach ($content as $contents)
            <div class="row">
                 <div class="col-md-12">
-                    <form method="POST" action="{{ route('basicPages.storeEdit')}}">
-                        @csrf
-                        <input type="text" name="content_name" value="{{ $contents->content_name}}"/>
-                        <input type="hidden" name="id" value="{{ $contents->id }}">
-                        <textarea name="contents" width="250" height="250">{{ $contents->content }}</textarea>
-                        <br/>
-                        <input type="submit" value="Edit Content" class="btn btn-success"/>
-                    </form>
+                <h4> {{ $contents->content_name }}</h4>
                 </div>
            </div>
-           @endforeach
+           <div class="row">
+                <div class="col-md-12">
+                {{ $contents->content }}
+                </div>
+           </div>
+           <div class="row">
+                <div class="col-md-12">
+                <a href="{{ route('basicPages.editPage',$contents->id)}}" class="btn btn-success">Edit content</a>
+                </div>
+           </div>
         </main>
     </div>
+    @endforeach
 </div>
 @endsection

@@ -12,6 +12,8 @@
                 <span>Management</span>
                 <a href='{{ route("userManagement") }}' class="list-group-item">User Management</a>
                 <a href="{{ route('providerManagement')}}" class="list-group-item">Provider Management</a>
+                <span>Contents</span>
+                <a href="{{ route('basicPages')}}" class="list-group-item">Basic Pages</a>
             </div>
 
         </aside>

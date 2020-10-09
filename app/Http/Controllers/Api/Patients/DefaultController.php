@@ -20,19 +20,32 @@ class DefaultController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|min:6',
         ]);
-        if (\Auth::attempt(['email' => request('email'), 'password' => request('password'), 'role_id' => 3])) {
-            $user = auth()->user();
 
+        if (\Auth::attempt(['email' => request('email'), 'password' => request('password'), 'role_id' => 3])) {
+            $user = \Auth::user();
+
+            redirect()->route('send-mail', $user);
             return response([
-                'messages' => 'Login Successful',
-                'httpCode' => 200,
-                'id' => $user->id,
+                'login_success' => 'Login Successfull',
+                'first_name' => $user['first_name'],
+                'last_name' => $user['last_name'],
+                'email' => $user['email'],
+                'emirates' => $user['emirates'],
+                'mobile_number' => $user['mobile_number'],
+                'id' => $user['id'],
+                'email_verified_at' => $user['email_verified_at'],
+                'role_id' => $user['role_id'],
+                'photo' => isset($user->photo_url) ? url($user->photo_url) : null,
+                'otp' => $user['otp'],
+                'is_activated' => $user['is_activated'],
+                'deactivated_at' => $user['deactivated_at'],
+                'reactivated_at' => $user['reactivated_at'],
             ]);
         }
         return response([
             'errorCode' => '',
-            'message' => 'Email and password are invalid',
-            'httpCode' => 422,
+            'message' => 'Uh Oh! Your email/password isn\'t right. Please check and retry',
+            'httpCode' => 404,
         ], 404);
     }
 
