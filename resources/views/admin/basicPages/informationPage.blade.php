@@ -40,7 +40,10 @@
            </div>
            <div class="row">
                 <div class="col-md-12">
-                <a href="{{ route('basicPages.editPage',$contents->id)}}" class="btn btn-success">Edit content</a>
+                    @if ($contents->id == 3 || $contents->id == 4)
+                    @else
+                    <a href="{{ route('basicPages.editPage',$contents->id)}}" class="btn btn-success">Edit content</a>
+                    @endif
                 </div>
            </div>
         </main>

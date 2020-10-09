@@ -36,9 +36,31 @@ class ProviderManagementController extends Controller
         return view('admin.providerManagement.createProviderThirdPage');
     }
 
-    public function editProviderInformation()
+    public function editProviderInformation($id)
     {
-        return view('admin.providerManagement.editProviderInformation');
+        $provider = DB::table('users')
+            ->leftJoin('clinics', 'clinics.user_id', 'users.id')
+            ->leftJoin('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
+            ->select(
+           'users.first_name',
+           'users.last_name',
+           'clinics.clinic_name',
+           'users.city',
+           'users.province',
+           'users.municipality',
+           'users.email',
+           'users.profession',
+           'users.training',
+           'users.contact_number',
+           'clinics.type',
+           'clinics.description',
+           'clinics.id as c_id',
+           'users.id AS users_id',
+           )
+            ->where('clinics.id', $id)
+            ->get();
+
+        return view('admin.providerManagement.editProviderInformation', ['provider' => $provider ]);
     }
 
     public function editPage($id)
@@ -89,6 +111,13 @@ class ProviderManagementController extends Controller
         return redirect('/provider/list');
     }
 
+    public function deleteProvider($id)
+    {
+        Clinics::where('id', $id)->delete();
+
+        return redirect('provider/list');
+    }
+
     public function storeFirstPage()
     {
         $request = request()->all();
@@ -121,6 +150,6 @@ class ProviderManagementController extends Controller
     {
         Clinics::where('user_id', session('id'))->update(['is_approve' => 1]);
 
-        return redirect('/provider/profile');
+        return redirect('/provider/profile/'.session('id'));
     }
 }

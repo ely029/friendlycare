@@ -120,4 +120,11 @@ class UserManagementController extends Controller
 
         return redirect('/user/list');
     }
+
+    public function deleteUser($id)
+    {
+        User::where('id', $id)->delete();
+
+        return redirect('/user/list');
+    }
 }

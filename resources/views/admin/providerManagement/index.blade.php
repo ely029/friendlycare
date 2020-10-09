@@ -63,7 +63,7 @@
                         </tr>
                         @foreach ($clinics as $clinic)
                         <tr>
-                            <td><a href="{{ route('editPage',$clinic->id)}}">{{ $clinic->clinic_name}}</a></td>
+                            <td><a href="{{ route('editProviderProfile',$clinic->id)}}">{{ $clinic->clinic_name}}</a></td>
                             <td></td>
                             <td></td>
                             <td></td>

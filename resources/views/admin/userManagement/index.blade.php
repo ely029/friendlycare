@@ -74,7 +74,7 @@
                             @else 
                             <td>Staff</td>
                             @endif
-                            <td></td>
+                            <td>{{ $admins->clinic_name }}</td>
                         </tr>
                         @endforeach
 

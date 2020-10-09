@@ -61,7 +61,7 @@
                   <a role="button" href="{{ route('editUserProfile',$user->id)}}" class="btn btn-success">Edit Profile</a>
                 </div>
                 <div class="col-md-3">
-                  <input type="submit" class="btn btn-primary" value="Delete Account">
+                  <a href="{{route('deleteUser',$user->id )}}" class="btn btn-primary" value="">Delete Account</a>
                 </div>   
                 <div class="col-md-3">
                   

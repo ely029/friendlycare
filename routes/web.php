@@ -52,6 +52,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], static function () {
     Route::get('/page/{id}', 'Admin\UserManagementController@editUserProfilePage')->name('editUserProfilePage');
     Route::get('/edit/{id}', 'Admin\UserManagementController@editUserProfile')->name('editUserProfile');
     Route::post('/update', 'Admin\UserManagementController@updateUser')->name('updateUser');
+    Route::get('/delete/{id}', 'Admin\UserManagementController@deleteUser')->name('deleteUser');
 });
 
 //provider management
@@ -66,9 +67,10 @@ Route::group(['prefix' => 'provider', 'middleware' => 'auth'], static function (
     Route::post('/store/secondpage', 'Admin\ProviderManagementController@storeSecondPage')->name('storeSecondPage');
     Route::post('/store/thirdpage', 'Admin\ProviderManagementController@storeThirdPage')->name('storeThirdPage');
     //provider information page
-    Route::get('/profile', 'Admin\ProviderManagementController@editProviderInformation')->name('editProviderProfile');
+    Route::get('/profile/{id}', 'Admin\ProviderManagementController@editProviderInformation')->name('editProviderProfile');
     Route::get('/edit/{id}', 'Admin\ProviderManagementController@editPage')->name('editPage');
     Route::post('/update', 'Admin\ProviderManagementController@updateProvider')->name('updateProvider');
+    Route::get('/delete/{id}', 'Admin\ProviderManagementController@deleteProvider')->name('deleteProvider');
 });
 
 //basic pages
