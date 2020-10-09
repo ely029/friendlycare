@@ -64,6 +64,7 @@ class UserManagementController extends Controller
             'name' => $request['name'],
             'password' => $request['password'],
             'email' => $request['email'],
+            'role_id' => $request['role_id'],
         ]);
 
         Clinics::create([
