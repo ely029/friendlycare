@@ -31,10 +31,7 @@
                                 If yes, You can ignore this.
                                 <br/>
                                 <br/>
-                                @php
-                                  $e = $details['id']
-                                 @endphp
-                                If not, Please Click <a href=" {{ route('userManagement.resetPage',$e)}}">Here</a> to reset your password
+                                If not, Please Click <a href=" {{ route('userManagement.resetPage',$details['id'])}}">Here</a> to reset your password
                             </span>
                             <br>
                     
