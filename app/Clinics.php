@@ -18,6 +18,8 @@ class Clinics extends Model
         'description',
         'profile_photo',
         'type',
+        'profession',
+        'training',
     ];
 
     public function user()
