@@ -59,7 +59,14 @@ class UserManagementController extends Controller
         $request['password'] = bcrypt($request['password']);
         $request['name'] = $request['first_name'] . ' ' . $request['last_name'];
 
-        $user = User::create($request);
+        $user = User::create([
+            'first_name' => $request['first_name'],
+            'last_name' => $request['last_name'],
+            'city' => $request['city'],
+            'profession' => $request['profession'],
+            'training' => $request['training'],
+            'password' => $request['password'],
+        ]);
 
         return redirect('user/page/'.$user->id);
     }
