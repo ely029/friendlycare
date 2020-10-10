@@ -89,7 +89,7 @@ class ProviderManagementController extends Controller
     public function updateProvider()
     {
         $request = request()->all();
-        Clinics::where('user_id', $request['clinic_id'])->update([
+        Clinics::where('id', $request['clinic_id'])->update([
             'clinic_name' => $request['clinic_name'],
             'street_address' => $request['street_address'],
             'description' => $request['description'],
@@ -100,7 +100,6 @@ class ProviderManagementController extends Controller
             'province' => $request['province'],
             'municipality' => $request['municipality'],
             'city' => $request['city'],
-            'contact_number_1' => $request['contact_number'],
             'email' => $request['email'],
         ]);
 
