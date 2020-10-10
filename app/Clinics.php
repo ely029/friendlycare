@@ -20,6 +20,7 @@ class Clinics extends Model
         'type',
         'profession',
         'training',
+        'street_address',
     ];
 
     public function user()
