@@ -44,20 +44,18 @@
                     <span>Admin</span>
                 </div>   
             </div>
-            @foreach ($clinic as $clinics)
             <div class="row bg-white">
                 <div class="col-md-12">
                     <small>Profession</small><br/>
-                    <span>{{ $clinics->profession }}</span>
+                    <span>{{ $user->professions }}</span>
                 </div>   
             </div>
             <div class="row bg-white">
                 <div class="col-md-12">
                     <small>Training</small><br/>
-                    <span>{{ $clinics->training }}</span>
+                    <span>{{ $user->trainings }}</span>
                 </div>   
             </div>
-            @endforeach
             <div class="row bg-white">
                 <div class="col-md-3">
                   <a role="button" href="{{ route('editUserProfile',$user->id)}}" class="btn btn-success">Edit Profile</a>
