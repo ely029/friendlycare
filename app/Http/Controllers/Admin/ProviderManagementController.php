@@ -42,20 +42,19 @@ class ProviderManagementController extends Controller
             ->leftJoin('clinics', 'clinics.user_id', 'users.id')
             ->leftJoin('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
             ->select(
-           'users.first_name',
-           'users.last_name',
-           'clinics.clinic_name',
-           'users.city',
-           'users.province',
-           'users.contact_number_1',
-           'users.municipality',
-           'users.email',
-           'clinics.description',
-           'clinics.type',
-           'clinics.id as c_id',
-           'users.id AS users_id',
+                'clinics.clinic_name',
+                'users.city',
+                'users.province',
+                'users.contact_number_1',
+                'users.municipality',
+                'users.email',
+                'clinics.description',
+                'clinics.type',
+                'clinics.street_address',
+                'clinics.id as c_id',
+                'users.id AS users_id',
            )
-            ->where('users.id', $id)
+            ->where(['users.id' => $id, 'clinics.is_approve' => 1])
             ->get();
 
         return view('admin.providerManagement.editProviderInformation', ['provider' => $provider ]);
@@ -67,19 +66,17 @@ class ProviderManagementController extends Controller
             ->leftJoin('clinics', 'clinics.user_id', 'users.id')
             ->leftJoin('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
             ->select(
-               'users.first_name',
-               'users.last_name',
-               'clinics.clinic_name',
-               'users.city',
-               'users.province',
-               'users.municipality',
-               'users.email',
-               'clinics.profession',
-               'clinics.training',
-               'users.contact_number_1',
-               'clinics.type',
-               'clinics.id as c_id',
-               'users.id AS users_id',
+                'clinics.clinic_name',
+                'users.city',
+                'users.province',
+                'users.contact_number_1',
+                'users.municipality',
+                'users.email',
+                'clinics.description',
+                'clinics.type',
+                'clinics.street_address',
+                'clinics.id as c_id',
+                'users.id AS users_id',
                )
             ->where('clinics.id', $id)
             ->get();
@@ -92,21 +89,15 @@ class ProviderManagementController extends Controller
         $request = request()->all();
         Clinics::where('user_id', $request['clinic_id'])->update([
             'clinic_name' => $request['clinic_name'],
+            'street_address' => $request['street_address'],
         ]);
 
         User::where('id', $request['user_id'])->update([
-            'first_name' => $request['first_name'],
-            'last_name' => $request['last_name'],
             'province' => $request['province'],
             'municipality' => $request['municipality'],
             'city' => $request['city'],
             'contact_number_1' => $request['contact_number'],
             'email' => $request['email'],
-        ]);
-
-        Clinics::where('user_id', $request['user_id'])->update([
-            'profession' => $request['profession'],
-            'training' => $request['training'],
         ]);
 
         return redirect('/provider/list');
