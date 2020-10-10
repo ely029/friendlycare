@@ -42,18 +42,17 @@ class ProviderManagementController extends Controller
             ->leftJoin('clinics', 'clinics.user_id', 'users.id')
             ->leftJoin('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
             ->select(
-           'users.first_name',
-           'users.last_name',
-           'clinics.clinic_name',
-           'users.city',
-           'users.province',
-           'users.contact_number_1',
-           'users.municipality',
-           'users.email',
-           'clinics.description',
-           'clinics.type',
-           'clinics.id as c_id',
-           'users.id AS users_id',
+                'clinics.clinic_name',
+                'users.city',
+                'users.province',
+                'users.contact_number_1',
+                'users.municipality',
+                'users.email',
+                'clinics.description',
+                'clinics.type',
+                'clinics.street_address',
+                'clinics.id as c_id',
+                'users.id AS users_id',
            )
             ->where('users.id', $id)
             ->get();
@@ -67,19 +66,17 @@ class ProviderManagementController extends Controller
             ->leftJoin('clinics', 'clinics.user_id', 'users.id')
             ->leftJoin('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
             ->select(
-               'users.first_name',
-               'users.last_name',
-               'clinics.clinic_name',
-               'users.city',
-               'users.province',
-               'users.municipality',
-               'users.email',
-               'clinics.profession',
-               'clinics.training',
-               'users.contact_number_1',
-               'clinics.type',
-               'clinics.id as c_id',
-               'users.id AS users_id',
+                'clinics.clinic_name',
+                'users.city',
+                'users.province',
+                'users.contact_number_1',
+                'users.municipality',
+                'users.email',
+                'clinics.description',
+                'clinics.type',
+                'clinics.street_address',
+                'clinics.id as c_id',
+                'users.id AS users_id',
                )
             ->where('clinics.id', $id)
             ->get();

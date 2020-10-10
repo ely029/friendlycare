@@ -49,14 +49,7 @@
                      <td><input type="text" name="clinic_name" value="{{ $providers->clinic_name }}"></td>
                  </tr>
                  <tr>
-                     <td>First Name</td>
-                     <td><input type="text" name="first_name" value="{{ $providers->first_name }}"></td>
-                 </tr>
-                 <tr>
-                     <td>Last Name</td>
-                     <td><input type="text" name="last_name" value="{{ $providers->last_name }}"></td>
-                 </tr>
-                 <tr>
+                
                      <td>Email</td>
                      <td><input type="text" name="email" value="{{ $providers->email }}"></td>
                  </tr>
@@ -77,13 +70,10 @@
                      <td><input type="text" name="contact_number" value="{{ $providers->contact_number_1 }}"></td>
                  </tr>
                  <tr>
-                     <td>Training</td>
-                     <td><input type="text" name="training" value="{{ $providers->training }}"></td>
+                     <td>Street Address</td>
+                     <td><input type="text" name="street_address" value=""></td>
                  </tr>
                  <tr>
-                     <td>Profession</td>
-                     <td><input type="text" name="profession" value="{{ $providers->profession }}"></td>
-                 </tr>
                  <tr>
                      <td><input type="submit" value="Edit Profile" class="btn btn-success"></td>
                  </tr>
