@@ -78,6 +78,22 @@
                         </tr>
                         @endforeach
 
+                        @foreach ($staffs as $admins)
+                        <tr>
+                            <td>{{ $admins->id }}</td>
+                            <td><a href="{{ route('editUserProfilePage',$admins->id) }}">{{ $admins->name }}</a></td>
+                            <td>{{ $admins->email }}</td>
+                            @if ($admins->role_id == 1)
+                            <td>Super Admin</td>
+                            @elseif ($admins->role_id == 2)
+                            <td>Admin</td>
+                            @else 
+                            <td>Staff</td>
+                            @endif
+                            <td>{{ $admins->clinic_name }}</td>
+                        </tr>
+                        @endforeach
+
                     </table>
                 </div>
             </div>

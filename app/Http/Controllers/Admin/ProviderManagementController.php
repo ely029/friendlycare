@@ -18,7 +18,6 @@ class ProviderManagementController extends Controller
             ->select('users.email', 'clinics.clinic_name', 'clinics.id', 'users.id AS admin_id')
             ->whereNotNull('clinics.clinic_name')
             ->where(['clinics.is_approve' => 1])
-
             ->get();
         return view('admin.providerManagement.index', ['clinics' => $users]);
     }
@@ -72,7 +71,7 @@ class ProviderManagementController extends Controller
                 'clinics.clinic_name',
                 'users.city',
                 'users.province',
-                'users.contact_number_1',
+                'clinics.contact_number',
                 'users.municipality',
                 'users.email',
                 'clinics.description',
@@ -93,6 +92,8 @@ class ProviderManagementController extends Controller
         Clinics::where('user_id', $request['clinic_id'])->update([
             'clinic_name' => $request['clinic_name'],
             'street_address' => $request['street_address'],
+            'description' => $request['description'],
+            'contact_number' => $request['contact_number'],
         ]);
 
         User::where('id', $request['user_id'])->update([
@@ -136,6 +137,15 @@ class ProviderManagementController extends Controller
         Clinics::where('user_id', $request['user_id'])->update([
             'user_id' => $request['user_id'],
             'clinic_name' => $request['clinic_name'],
+            'description' => $request['description'],
+            'street_address' => $request['address'],
+            'contact_number' => $request['contact_number'],
+        ]);
+
+        User::where('id', $request['user_id'])->update([
+            'city' => $request['city'],
+            'municipality' => $request['municipality'],
+            'province' => $request['province'],
         ]);
 
         return redirect()->action('Admin\ProviderManagementController@createSecondPage');
