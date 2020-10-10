@@ -117,13 +117,13 @@ class DefaultController extends Controller
 
     public function getAllUsers()
     {
-        $users = User::where('role_id', 3)->get();
+        $users = User::where('role_id', 3)->with('patients')->get();
         return response()->json($users, 200);
     }
 
     public function getUserById($id)
     {
-        $users = User::where('id', $id)->get();
+        $users = User::where('id', $id)->with('patients')->get();
 
         return response()->json($users, 200);
     }
@@ -170,7 +170,7 @@ class DefaultController extends Controller
             'spouse_occupation' => $request['spouse_occupation'],
             'spouse_birth_date' => $request['spouse_birth_date'],
         ]);
-        $user = User::where('id', $request['id'])->first();
+        $user = User::where('id', $request['id'])->with('spouses')->first();
 
         return response()->json($user, 200);
     }
