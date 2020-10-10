@@ -63,7 +63,12 @@
                         </tr>
                         @foreach ($clinics as $clinic)
                         <tr>
-                            <td><a href="{{ route('editProviderProfile',$clinic->id)}}">{{ $clinic->clinic_name}}</a></td>
+                            <td><a href="{{ route('editProviderProfile',$clinic->admin_id)}}">{{ $clinic->clinic_name}}</a></td>
+                            @if ($clinic->type = 1)
+                            <td>Government</td>
+                            @else
+                            <td>Private</td>
+                            @endif
                             <td></td>
                             <td></td>
                             <td></td>

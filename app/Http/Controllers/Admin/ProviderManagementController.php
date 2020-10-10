@@ -15,7 +15,7 @@ class ProviderManagementController extends Controller
     {
         $users = DB::table('users')
             ->join('clinics', 'clinics.user_id', '=', 'users.id')
-            ->select('users.email', 'clinics.clinic_name', 'clinics.id')
+            ->select('users.email', 'clinics.clinic_name', 'clinics.id', 'users.id AS admin_id')
             ->where('is_approve', 1)
             ->get();
         return view('admin.providerManagement.index', ['clinics' => $users]);
@@ -54,10 +54,11 @@ class ProviderManagementController extends Controller
            'users.contact_number',
            'clinics.type',
            'clinics.description',
+           'clinics.type',
            'clinics.id as c_id',
            'users.id AS users_id',
            )
-            ->where('clinics.id', $id)
+            ->where('users.id', $id)
             ->get();
 
         return view('admin.providerManagement.editProviderInformation', ['provider' => $provider ]);
@@ -76,8 +77,8 @@ class ProviderManagementController extends Controller
                'users.province',
                'users.municipality',
                'users.email',
-               'users.profession',
-               'users.training',
+               'clinics.profession',
+               'clinics.training',
                'users.contact_number',
                'clinics.type',
                'clinics.id as c_id',
@@ -102,10 +103,13 @@ class ProviderManagementController extends Controller
             'province' => $request['province'],
             'municipality' => $request['municipality'],
             'city' => $request['city'],
-            'profession' => $request['profession'],
             'contact_number' => $request['contact_number'],
-            'training' => $request['training'],
             'email' => $request['email'],
+        ]);
+
+        Clinics::where('user_id', $request['user_id'])->update([
+            'profession' => $request['profession'],
+            'training' => $request['training'],
         ]);
 
         return redirect('/provider/list');
@@ -127,13 +131,15 @@ class ProviderManagementController extends Controller
             return redirect('/provider/create/1')->with('message', 'Email are not registered as Admin!');
         }
 
-        $userid = Clinics::where(['user_id' => $user->id])->first();
+        $userid = Clinics::where(['user_id' => $user->id,'is_approve' => 1])->first();
 
         if ($userid !== null) {
             return redirect('/provider/create/1')->with('message', 'Email are already used by other clinic');
         }
 
         $request['user_id'] = $user->id;
+        $request['profession'] = 'N/A';
+        $request['training'] = 'N/A';
         session(['id' => $user->id]);
 
         Clinics::create($request);

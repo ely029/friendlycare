@@ -35,6 +35,7 @@
                         <small>First Name</small><br/>
                         <input type="text" name="first_name" class="form-control" value="{{ $user->first_name }}">
                         <input type="hidden"  name="id" value="{{ $user->id }}">
+                        <input type="hidden"  name="role_id" value="{{ $user->role_id }}">
                     </div>   
                 </div>
                 <div class="row bg-white">
@@ -55,18 +56,20 @@
                     <span>Admin</span>
                 </div>   
             </div>
+            @foreach ($clinic as $clinics)
             <div class="row bg-white">
                 <div class="col-md-12">
                     <small>Profession</small><br/>
-                    <input type="text" name="profession" value="{{ $user->profession }}" class="form-control" >
+                    <input type="text" name="profession" value="{{ $clinics->profession }}" class="form-control" >
                 </div>   
             </div>
             <div class="row bg-white">
                 <div class="col-md-12">
                     <small>Training</small><br/>
-                    <input type="text" name="training" value="{{ $user->training }}" class="form-control">
+                    <input type="text" name="training" value="{{ $clinics->training }}" class="form-control">
                 </div>   
             </div>
+            @endforeach
             <div class="row bg-white">
                 <div class="col-md-3">
                   <input type="submit" class="btn btn-success" value="Update Profile"/>

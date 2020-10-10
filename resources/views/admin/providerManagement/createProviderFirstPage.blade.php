@@ -52,7 +52,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                        <select name="category" class="form-control">
+                        <select name="type" class="form-control">
                             <option value="1">Private</option>
                             <option value="2">Government</option>
                         </select>
