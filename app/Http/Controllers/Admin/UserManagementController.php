@@ -91,6 +91,7 @@ class UserManagementController extends Controller
         $request['password'] = bcrypt($request['password']);
         $request['name'] = $request['first_name'] . ' ' . $request['last_name'];
         $request['clinic_id'] = $request['clinic'];
+        $request['contact_number_1'] = $request['contact_number'];
 
         $user = User::create($request);
         $request['user_id'] = $user->id;
