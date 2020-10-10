@@ -55,6 +55,7 @@ class ProviderManagementController extends Controller
                 'users.id AS users_id',
            )
             ->where(['users.id' => $id, 'clinics.is_approve' => 1])
+            ->whereNotNull('clinics.clinic_name')
             ->get();
 
         return view('admin.providerManagement.editProviderInformation', ['provider' => $provider ]);
