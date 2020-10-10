@@ -49,6 +49,12 @@
                      <td><input type="text" name="clinic_name" value="{{ $providers->clinic_name }}"></td>
                  </tr>
                  <tr>
+
+                 <tr>
+                     <td>Description</td>
+                     <td><input type="text" name="description" value="{{ $providers->description }}"></td>
+                 </tr>
+                 <tr>
                 
                      <td>Email</td>
                      <td><input type="text" name="email" value="{{ $providers->email }}"></td>
@@ -67,11 +73,11 @@
                  </tr>
                  <tr>
                      <td>Contact-Number</td>
-                     <td><input type="text" name="contact_number" value="{{ $providers->contact_number_1 }}"></td>
+                     <td><input type="text" name="contact_number" value="{{ $providers->contact_number }}"></td>
                  </tr>
                  <tr>
                      <td>Street Address</td>
-                     <td><input type="text" name="street_address" value=""></td>
+                     <td><input type="text" name="street_address" value="{{ $providers->street_address }}"></td>
                  </tr>
                  <tr>
                  <tr>
