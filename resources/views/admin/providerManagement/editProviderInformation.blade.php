@@ -47,7 +47,7 @@
                                 <div class="edit-page-provider-info-image-side">
                                     <span>{{ $providers->clinic_name }}</span><br>
                                     <span>{{$providers->email }}</span><br>
-                                    <span>{{ $providers->contact_number }}</span>
+                                    <span>{{ $providers->contact_number_1 }}</span>
                                 </div>
                  </div>
                  <div class="col-md-2">
