@@ -49,7 +49,6 @@ class ProviderManagementController extends Controller
            'users.province',
            'users.municipality',
            'users.email',
-           'users.profession',
            'users.training',
            'users.contact_number',
            'clinics.type',
