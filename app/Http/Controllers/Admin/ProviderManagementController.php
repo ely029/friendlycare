@@ -16,7 +16,9 @@ class ProviderManagementController extends Controller
         $users = DB::table('users')
             ->join('clinics', 'clinics.user_id', '=', 'users.id')
             ->select('users.email', 'clinics.clinic_name', 'clinics.id', 'users.id AS admin_id')
+            ->whereNotNull('clinics.clinic_name')
             ->where('is_approve', 1)
+
             ->get();
         return view('admin.providerManagement.index', ['clinics' => $users]);
     }
