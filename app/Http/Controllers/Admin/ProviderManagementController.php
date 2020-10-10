@@ -89,21 +89,15 @@ class ProviderManagementController extends Controller
         $request = request()->all();
         Clinics::where('user_id', $request['clinic_id'])->update([
             'clinic_name' => $request['clinic_name'],
+            'street_address' => $request['street_address'],
         ]);
 
         User::where('id', $request['user_id'])->update([
-            'first_name' => $request['first_name'],
-            'last_name' => $request['last_name'],
             'province' => $request['province'],
             'municipality' => $request['municipality'],
             'city' => $request['city'],
             'contact_number_1' => $request['contact_number'],
             'email' => $request['email'],
-        ]);
-
-        Clinics::where('user_id', $request['user_id'])->update([
-            'profession' => $request['profession'],
-            'training' => $request['training'],
         ]);
 
         return redirect('/provider/list');
