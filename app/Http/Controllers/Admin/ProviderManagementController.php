@@ -76,7 +76,7 @@ class ProviderManagementController extends Controller
                'users.email',
                'clinics.profession',
                'clinics.training',
-               'users.contact_number',
+               'users.contact_number_1',
                'clinics.type',
                'clinics.id as c_id',
                'users.id AS users_id',
@@ -100,7 +100,7 @@ class ProviderManagementController extends Controller
             'province' => $request['province'],
             'municipality' => $request['municipality'],
             'city' => $request['city'],
-            'contact_number' => $request['contact_number'],
+            'contact_number_1' => $request['contact_number'],
             'email' => $request['email'],
         ]);
 
