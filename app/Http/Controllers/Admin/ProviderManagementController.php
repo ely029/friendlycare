@@ -54,7 +54,7 @@ class ProviderManagementController extends Controller
                 'clinics.id as c_id',
                 'users.id AS users_id',
            )
-            ->where('users.id', $id)
+            ->where(['users.id' => $id,'clinics.is_approve' => 1])
             ->get();
 
         return view('admin.providerManagement.editProviderInformation', ['provider' => $provider ]);
@@ -78,7 +78,7 @@ class ProviderManagementController extends Controller
                 'clinics.id as c_id',
                 'users.id AS users_id',
                )
-            ->where('clinics.id', $id)
+            ->where('clinics.id',$id)
             ->get();
 
         return view('admin.providerManagement.editPage', ['provider' => $provider]);
