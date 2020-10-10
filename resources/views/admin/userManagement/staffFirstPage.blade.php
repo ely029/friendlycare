@@ -71,10 +71,10 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                        <input type="text" class="form-control" name="profession" placeholder="Professional (optional)">
+                        <input type="text" class="form-control" name="professions" placeholder="Professional (optional)">
                 </div>
                 <div class="col-md-4">
-                        <input type="text" class="form-control" name="training" placeholder="Training (optional)">
+                        <input type="text" class="form-control" name="trainings" placeholder="Training (optional)">
                 </div>   
             </div>
             <div class="row">

@@ -101,44 +101,26 @@ class UserManagementController extends Controller
     public function editUserProfilePage($id)
     {
         $user = User::where('id', $id)->get();
-        $clinic = Clinics::where('user_id', $id)->get();
 
-        return view('admin.userManagement.adminEditProfilePage', ['users' => $user,'clinic' => $clinic]);
+        return view('admin.userManagement.adminEditProfilePage', ['users' => $user]);
     }
     public function editUserProfile($id)
     {
         $user = User::where('id', $id)->get();
-        $clinic = Clinics::where('user_id', $id)->get();
 
-        return view('admin.userManagement.adminEditProfile', ['users' => $user,'clinic' => $clinic]);
+        return view('admin.userManagement.adminEditProfile', ['users' => $user]);
     }
     public function updateUser()
     {
         $request = request()->all();
-
-        if ($request['role_id'] === 2) {
-            User::where($request['id'])->update([
-                'name' => $request['first_name'] . ' ' . $request['last_name'],
-                'first_name' => $request['first_name'],
-                'last_name' => $request['last_name'],
-                'email' => $request['email'],
-            ]);
-            Clinics::where('user_id', $request['id'])->update([
-                'profession' => $request['profession'],
-                'training' => $request['training'],
-            ]);
-        } else {
-            User::find($request['id'])->update([
-                'name' => $request['first_name'] . ' ' . $request['last_name'],
-                'first_name' => $request['first_name'],
-                'last_name' => $request['last_name'],
-                'email' => $request['email'],
-            ]);
-            Staffs::where('user_id', $request['id'])->update([
-                'profession' => $request['profession'],
-                'training' => $request['training'],
-            ]);
-        }
+        User::find($request['id'])->update([
+            'name' => $request['first_name'] . ' ' . $request['last_name'],
+            'first_name' => $request['first_name'],
+            'last_name' => $request['last_name'],
+            'email' => $request['email'],
+            'professions' => $request['professions'],
+            'trainings' => $request['trainings'],
+        ]);
 
         return redirect('/user/list');
     }

@@ -56,20 +56,18 @@
                     <span>Admin</span>
                 </div>   
             </div>
-            @foreach ($clinic as $clinics)
             <div class="row bg-white">
                 <div class="col-md-12">
                     <small>Profession</small><br/>
-                    <input type="text" name="profession" value="{{ $clinics->profession }}" class="form-control" >
+                    <input type="text" name="professions" value="{{ $user->professions }}" class="form-control" >
                 </div>   
             </div>
             <div class="row bg-white">
                 <div class="col-md-12">
                     <small>Training</small><br/>
-                    <input type="text" name="training" value="{{ $clinics->training }}" class="form-control">
+                    <input type="text" name="trainings" value="{{ $user->trainings }}" class="form-control">
                 </div>   
             </div>
-            @endforeach
             <div class="row bg-white">
                 <div class="col-md-3">
                   <input type="submit" class="btn btn-success" value="Update Profile"/>
