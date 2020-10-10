@@ -118,7 +118,17 @@ class User extends Authenticatable
 
     public function clinics()
     {
-        return $this->hasMany('App\Clinics');
+        return $this->hasMany('App\Clinics', 'user_id');
+    }
+
+    public function spouses()
+    {
+        return $this->hasMany('App\Spouses', 'patient_id');
+    }
+
+    public function patients()
+    {
+        return $this->hasMany('App\Patients', 'user_id');
     }
 
     public function socials()
