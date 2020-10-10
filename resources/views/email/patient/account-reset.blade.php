@@ -26,10 +26,9 @@
                             @foreach ($users as $user)
                             Hi Sir/Ma'am ! <br>
                                 <br><br>
-                                This email is for your security for stealing your account. 
+                              Please click <a href=" {{ route('resetPassword.index',$user->id)}}">here</a> to reset your password  
                                 <br/>
                                 <br/>
-                                If you are not logged in here, Please Click <a href=" {{ route('resetPassword.index',$user->id)}}">Here</a> to reset your password
                             @endforeach
                                 
                             </span>
