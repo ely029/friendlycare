@@ -133,7 +133,10 @@ class ProviderManagementController extends Controller
         $request['training'] = 'N/A';
         session(['id' => $user->id]);
 
-        Clinics::create($request);
+        Clinics::where('user_id', $request['user_id'])->update([
+            'user_id' => $request['user_id'],
+            'clinic_name' => $request['clinic_name'],
+        ]);
 
         return redirect()->action('Admin\ProviderManagementController@createSecondPage');
     }

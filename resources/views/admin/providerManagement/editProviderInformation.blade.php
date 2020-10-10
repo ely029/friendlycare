@@ -74,7 +74,11 @@
                     <div class="row clinic-info-category">
                         <div class="col-md-6">
                         <h6><b>Category</b></h6>
+                            @if($providers->type == 1)
+                            <span>Private</span>
+                            @else
                             <span>Government</span>
+                            @endif
                         </div>
                     </div>
                     <div class="row clinic-info-description">
