@@ -62,6 +62,8 @@ class UserManagementController extends Controller
 
         $user = User::create($request);
         $request['user_id'] = $user->id;
+        $request['profession'] = 'N/A';
+        $request['training'] = 'N/A';
         Clinics::create($request);
 
         return redirect('user/page/'.$user->id);
