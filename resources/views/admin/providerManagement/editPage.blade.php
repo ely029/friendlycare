@@ -74,7 +74,7 @@
                  </tr>
                  <tr>
                      <td>Contact-Number</td>
-                     <td><input type="text" name="contact_number" value="{{ $providers->contact_number }}"></td>
+                     <td><input type="text" name="contact_number" value="{{ $providers->contact_number_1 }}"></td>
                  </tr>
                  <tr>
                      <td>Training</td>
