@@ -66,8 +66,10 @@
                             <td><a href="{{ route('editProviderProfile',$clinic->admin_id)}}">{{ $clinic->clinic_name}}</a></td>
                             @if ($clinic->type = 1)
                             <td>Government</td>
-                            @else
+                            @elseif($clinic->type = 2)
                             <td>Private</td>
+                            @elseif($clinic->type = 3)
+                            <td>NGO</td>
                             @endif
                             <td></td>
                             <td></td>

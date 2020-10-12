@@ -229,6 +229,9 @@ class DefaultController extends Controller
             'no_of_living_children' => $request['no_living_children'],
             'do_you_have_plan_children' => $request['do_you_have_plan_children'],
             'street_address' => $request['street_address'],
+            'civil_status' => $request['civil_status'],
+            'barangay' => $request['barangay'],
+            'occupation' => $request['occupation'],
         ]);
         Spouses::where('patient_id', $request['id'])->update([
             'spouse_first_name' => $request['spouse_first_name'],

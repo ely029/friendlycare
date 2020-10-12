@@ -61,25 +61,25 @@
             </div>
             <div class="row">
                  <div class="col-md-4">
-                    <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First Name">
+                    <input type="text" value="{{ old('first_name') }}" id="first_name" name="first_name" class="form-control" placeholder="First Name">
                 </div>
                 <div class="col-md-4">
-                    <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last Name">
+                    <input type="text" id="last_name" value="{{ old('last_name') }}" name="last_name" class="form-control" placeholder="Last Name">
                 </div>
                 <div class="col-md-4">        
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                        <input type="text" class="form-control" name="professions" placeholder="Professional (optional)">
+                        <input type="text" value="{{ old('professions') }}" class="form-control" name="professions" placeholder="Professional (optional)">
                 </div>
                 <div class="col-md-4">
-                        <input type="text" class="form-control" name="trainings" placeholder="Training (optional)">
+                        <input type="text" class="form-control" value="{{ old('trainings') }}" name="trainings" placeholder="Training (optional)">
                 </div>   
             </div>
             <div class="row">
                 <div class="col-md-4">
-                        <input type="email" class="form-control" name="email" placeholder="Email">
+                        <input type="text" value="{{ old('email') }}" class="form-control" name="email" placeholder="Email">
                 </div>
                 <div class="col-md-4">
                 </div>
@@ -88,7 +88,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                        <input type="password" name="password" class="form-control password" placeholder="Password">
+                        <input type="password" value="{{ old('password') }}" name="password" class="form-control password" placeholder="Password">
                 </div>
                 <div class="col-md-4">
                 </div>
@@ -98,7 +98,7 @@
             <div class="row">
                 <div class="col-md-4">
                 <div class="input-group">
-  <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password">
+  <input type="password" class="form-control" value="{{ old('confirm_password') }}" placeholder="Confirm Password" name="confirm_password">
 </div>
                 </div>
                 <div class="col-md-4">
