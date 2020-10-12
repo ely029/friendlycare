@@ -12,4 +12,14 @@ class Staffs extends Model
         'clinic_id',
         'user_id',
     ];
+
+    public function clinics()
+    {
+        return $this->hasMany('App\Clinics', 'user_id');
+    }
+
+    public function users()
+    {
+        return $this->hasMany('App\User', 'id');
+    }
 }

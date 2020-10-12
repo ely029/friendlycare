@@ -121,6 +121,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Clinics', 'user_id');
     }
 
+    public function staffs()
+    {
+        return $this->hasMany('App\Staffs', 'user_id');
+    }
+
     public function spouses()
     {
         return $this->hasMany('App\Spouses', 'patient_id');

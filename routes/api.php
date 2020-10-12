@@ -38,6 +38,7 @@ Route::group([
     // Normally done when the user logs out
     Route::delete('/{user}/fcm_registration_tokens', 'FcmRegistrationTokensController@destroy');
 });
+//Patients
 Route::post('/patients/register', 'Patients\DefaultController@register');
 Route::post('/patients/login', 'Patients\DefaultController@login');
 Route::get('/patients/users', 'Patients\DefaultController@getAllUsers');
@@ -46,3 +47,10 @@ Route::post('/patients/update', 'Patients\DefaultController@update');
 Route::get('/consentform', 'BasicPagesController@consentForm');
 Route::post('/patients/verification', 'Patients\DefaultController@verification');
 Route::post('/patients/reset', 'Patients\DefaultController@resetPassword');
+
+//Provider
+Route::post('/provider/login', 'Provider\DefaultController@login');
+Route::post('/provider/reset', 'Provider\DefaultController@resetPassword');
+Route::get('/provider/staffs', 'Provider\DefaultController@getAllUsers');
+Route::get('/provider/users/{id}', 'provider\DefaultController@getUsersById');
+Route::get('/provider/users', 'Patients\DefaultController@getAllUsers');

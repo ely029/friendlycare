@@ -27,4 +27,9 @@ class Clinics extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function staff()
+    {
+        return $this->belongsTo('App\Staffs');
+    }
 }

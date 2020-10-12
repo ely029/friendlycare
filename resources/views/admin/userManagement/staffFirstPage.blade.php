@@ -45,7 +45,7 @@
                 <select class="form-control" name="clinic" id="role">
                     <option value="">Please Select</option>
                     <option value="{{ route('adminFirstPage') }}">Admin</option>
-                    <option value="{{ route('staffFirstPage') }}">Staff</option>
+                    <option value="{{ route('staffFirstPage') }}" selected>Staff</option>
                 </select>
                 </div>
                 <div class="col-md-4">
