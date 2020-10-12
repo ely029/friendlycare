@@ -57,6 +57,7 @@
                         <select name="type" class="form-control">
                             <option value="1">Private</option>
                             <option value="2">Government</option>
+                            <option value="3">NGO</option>
                         </select>
                 </div>
                 <div class="col-md-4">

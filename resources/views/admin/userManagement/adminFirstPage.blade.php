@@ -53,25 +53,25 @@
                 @csrf
             <div class="row">
                  <div class="col-md-4">
-                    <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First Name">
+                    <input type="text" id="first_name" name="first_name" class="form-control" value="{{ old('first_name')}}" placeholder="First Name">
                 </div>
                 <div class="col-md-4">
-                    <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last Name">
+                    <input type="text" id="last_name" name="last_name" class="form-control" value="{{ old('last_name') }}" placeholder="Last Name">
                 </div>
                 <div class="col-md-4">        
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                        <input type="text" class="form-control" name="professions" placeholder="Professional (optional)">
+                        <input type="text" class="form-control" name="professions" value="{{ old('professions') }}" placeholder="Professional (optional)">
                 </div>
                 <div class="col-md-4">
-                        <input type="text" class="form-control" name="trainings" placeholder="Training (optional)">
+                        <input type="text" class="form-control" name="trainings" value="{{ old('trainings') }}"placeholder="Training (optional)">
                 </div>   
             </div>
             <div class="row">
                 <div class="col-md-4">
-                        <input type="email" class="form-control" name="email" placeholder="Email">
+                        <input type="text" class="form-control" value="{{ old('email') }}"name="email" placeholder="Email">
                 </div>
                 <div class="col-md-4">
                 </div>
@@ -81,7 +81,7 @@
             <div class="row">
             <div class="col-md-4">
             <div class="input-group">
-  <input type="password" id="password" name="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="button-addon2">
+  <input type="password" id="password" name="password" value=" {{ old('password') }}"class="form-control" placeholder="Password" aria-label="Password" aria-describedby="button-addon2">
                              <div class="input-group-append">
 
                       </div>
@@ -96,7 +96,7 @@
             <div class="row">
                 <div class="col-md-4">
                 <div class="input-group">
-  <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password">
+  <input type="password" class="form-control" placeholder="Confirm Password" value=" {{ old('confirm_password')}}"name="confirm_password">
 </div>
                 </div>
                 <div class="col-md-4">
