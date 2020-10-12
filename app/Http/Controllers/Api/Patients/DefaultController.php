@@ -129,7 +129,7 @@ class DefaultController extends Controller
         'users.gender',
         'users.email',
         'users.age',
-        'users.city',
+        'patients.city',
         DB::raw('CONCAT(patients.city, patients.municipality) AS citymunicipality'),
         'patients.province',
         'users.contact_number_1',
@@ -205,8 +205,6 @@ class DefaultController extends Controller
             'birth_date' => 'required',
             'password' => 'required',
             'confirm_password' => 'required|same:password',
-            'municipality' => 'required',
-            'city' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -234,6 +232,7 @@ class DefaultController extends Controller
             'municipality' => $request['municipality'],
             'city' => $request['city'],
             'province' => $request['province'],
+            'citymunicipality' => $request['citymunicipality'],
         ]);
         Spouses::where('patient_id', $request['id'])->update([
             'spouse_first_name' => $request['spouse_first_name'],
@@ -254,7 +253,7 @@ class DefaultController extends Controller
         'users.gender',
         'users.email',
         'users.age',
-        DB::raw('CONCAT(patients.city, patients.municipality) AS citymunicipality'),
+        'patients.citymunicipality',
         'patients.province',
         'users.contact_number_1',
         'patients.religion',
