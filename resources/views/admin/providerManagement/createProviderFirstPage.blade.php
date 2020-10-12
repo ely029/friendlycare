@@ -47,7 +47,7 @@
                     <input type="text" name="clinic_name" class="form-control" placeholder="Provider name">
                 </div>
                 <div class="col-md-4">
-                    <input type="text" name="province" id="province" class="form-control" placeholder="Province">
+                    <select id="province"></select>
                 </div>
                 <div class="col-md-4">        
                 </div>
@@ -61,15 +61,12 @@
                         </select>
                 </div>
                 <div class="col-md-4">
-                        <input type="text" class="form-control" id="city" name="city" placeholder="City">
+                        <select id="city"></select>
                 </div>   
             </div>
             <div class="row">
                 <div class="col-md-4">
                         <input type="text" class="form-control" name="contact_number" maxlength="14" placeholder="Contact Number">
-                </div>
-                <div class="col-md-4">
-                <input type="text" class="form-control" name="municipality" placeholder="Municipality">
                 </div>
                 <div class="col-md-4">
                 </div>
