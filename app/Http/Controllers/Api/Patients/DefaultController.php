@@ -144,6 +144,7 @@ class DefaultController extends Controller
         'spouses.spouse_middle_initial',
         'spouses.spouse_occupation',
         'spouses.spouse_birth_date',
+        'patients.do_you_have_plan_children',
          )
             ->get();
         return response()->json($users, 200);
@@ -178,6 +179,7 @@ class DefaultController extends Controller
         'spouses.spouse_middle_initial',
         'spouses.spouse_occupation',
         'spouses.spouse_birth_date',
+        'patients.do_you_have_plan_children',
          )
             ->where('users.id', $id)
             ->get();
