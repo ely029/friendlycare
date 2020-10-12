@@ -229,8 +229,6 @@ class DefaultController extends Controller
             'civil_status' => $request['civil_status'],
             'barangay' => $request['barangay'],
             'occupation' => $request['occupation'],
-            'municipality' => $request['municipality'],
-            'city' => $request['city'],
             'province' => $request['province'],
             'citymunicipality' => $request['citymunicipality'],
         ]);
