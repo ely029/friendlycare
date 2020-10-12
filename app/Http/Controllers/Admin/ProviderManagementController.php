@@ -160,6 +160,7 @@ class ProviderManagementController extends Controller
             'days' => json_encode($request['days']),
             'froms' => json_encode($request['from']),
             'tos' => json_encode($request['to']),
+            'is_checked' => 1,
         ]);
         return redirect()->action('Admin\ProviderManagementController@createThirdPage');
     }
