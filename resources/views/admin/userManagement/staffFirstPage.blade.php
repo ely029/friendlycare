@@ -51,7 +51,7 @@
                 <div class="col-md-4">
                 <form method="POST" action="{{ route('createStaff') }}">
                     @csrf
-                <select class="form-control" name="clinic">
+                <select class="form-control" name="clinic" value=" {{ old('clinic') }}">
                     <option value="">Select a clinic</option>
                     @foreach ($clinics as $clinic)
                     <option value="{{ $clinic->id }}">{{ $clinic->clinic_name }}</option>

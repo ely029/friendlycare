@@ -77,7 +77,6 @@
     {{-- CSRF Protection --}}
     {{-- See VerifyCsrfToken.php --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com;">
     {{-- Google Analytics --}}
     @if($googleAnalyticsTrackingId = config('boilerplate.google_analytics_tracking_id'))
         <meta name="google_analytics_tracking_id" content="{{ $googleAnalyticsTrackingId }}">
