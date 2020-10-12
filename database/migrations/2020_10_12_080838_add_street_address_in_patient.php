@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnPlanToHaveChildren extends Migration
+class AddStreetAddressInPatient extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumnPlanToHaveChildren extends Migration
      */
     public function up()
     {
-        Schema::table('have_children', function (Blueprint $table) {
-            //
+        Schema::table('patients', function($table) {
+            $table->string('street_address', 100)->nullable();
         });
     }
 
@@ -25,7 +25,7 @@ class AddColumnPlanToHaveChildren extends Migration
      */
     public function down()
     {
-        Schema::table('have_children', function (Blueprint $table) {
+        Schema::table('patient', function (Blueprint $table) {
             //
         });
     }
