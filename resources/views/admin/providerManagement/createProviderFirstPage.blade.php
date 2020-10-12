@@ -63,7 +63,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                        <input type="text" class="form-control" name="contact_number" placeholder="Contact Number">
+                        <input type="text" class="form-control" name="contact_number" maxlength="14" placeholder="Contact Number">
                 </div>
                 <div class="col-md-4">
                 <input type="text" class="form-control" name="municipality" placeholder="Municipality">
