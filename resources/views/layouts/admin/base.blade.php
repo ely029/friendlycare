@@ -138,6 +138,8 @@
     <script src="{{ asset('assets/app/js/admin.js') }}"></script>
     <script src="{{ asset('assets/app/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/app/js/location.js') }}"></script>
+    </script>
+    
     @if(config('boilerplate.google_analytics_tracking_id'))
         <script src="{{ asset('assets/base/js/google-analytics.js') }}"></script>
         <script src="https://www.google-analytics.com/analytics.js" async></script>
