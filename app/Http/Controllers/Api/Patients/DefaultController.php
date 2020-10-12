@@ -123,6 +123,7 @@ class DefaultController extends Controller
             ->select('patients.civil_status',
         'users.first_name',
         'users.last_name',
+        'users.id',
         'users.middle_initial',
         'users.birth_date',
         'users.gender',
@@ -157,6 +158,7 @@ class DefaultController extends Controller
             ->join('spouses', 'spouses.patient_id', '=', 'users.id')
             ->select('patients.civil_status',
         'users.first_name',
+        'users.id',
         'users.last_name',
         'users.middle_initial',
         'users.birth_date',
@@ -221,6 +223,8 @@ class DefaultController extends Controller
             'religion' => $request['religion'],
             'monthly_income' => $request['monthly_income'],
             'no_of_living_children' => $request['no_living_children'],
+            'do_you_have_plan_children' => $request['do_you_have_plan_children'],
+            'street_address' => $request['street_address'],
         ]);
         Spouses::where('patient_id', $request['id'])->update([
             'spouse_first_name' => $request['spouse_first_name'],
@@ -229,9 +233,40 @@ class DefaultController extends Controller
             'spouse_occupation' => $request['spouse_occupation'],
             'spouse_birth_date' => $request['spouse_birth_date'],
         ]);
-        $user = User::where('id', $request['id'])->with('spouses')->first();
+        $users = DB::table('users')
+            ->join('patients', 'patients.user_id', '=', 'users.id')
+            ->join('spouses', 'spouses.patient_id', '=', 'users.id')
+            ->select('patients.civil_status',
+        'users.first_name',
+        'users.id',
+        'users.last_name',
+        'users.middle_initial',
+        'users.birth_date',
+        'users.gender',
+        'users.email',
+        'users.age',
+        'users.city',
+        DB::raw('CONCAT(users.city, users.municipality) AS citymunicipality'),
+        'users.province',
+        'users.contact_number_1',
+        'patients.religion',
+        'patients.occupation',
+        'patients.street_address',
+        'patients.monthly_income',
+        'patients.no_of_living_children',
+        'patients.family_plan_type_id',
+        'patients.barangay',
+        'spouses.spouse_first_name',
+        'spouses.spouse_last_name',
+        'spouses.spouse_middle_initial',
+        'spouses.spouse_occupation',
+        'spouses.spouse_birth_date',
+        'patients.do_you_have_plan_children',
+         )
+            ->where('users.id', $request['id'])
+            ->get();
 
-        return response()->json($user, 200);
+        return response()->json($users, 200);
     }
 
     private function age($bdate)
