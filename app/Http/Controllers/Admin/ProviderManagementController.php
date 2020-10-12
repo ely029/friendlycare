@@ -16,7 +16,7 @@ class ProviderManagementController extends Controller
         $users = DB::table('clinics')
             ->join('users', 'clinics.user_id', '=', 'users.id')
             ->join('staffs', 'staffs.user_id', 'users.id')
-            ->select('users.email' ,'clinics.clinic_name', 'clinics.id', 'users.id AS admin_id')
+            ->select('users.email', 'clinics.clinic_name', 'clinics.id', 'users.id AS admin_id')
             ->whereNotNull('clinics.clinic_name')
             ->where(['clinics.is_approve' => 1])
             ->get();
