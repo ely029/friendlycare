@@ -205,6 +205,8 @@ class DefaultController extends Controller
             'birth_date' => 'required',
             'password' => 'required',
             'confirm_password' => 'required|same:password',
+            'municipality' => 'required',
+            'city' => 'required',
         ]);
 
         if ($validator->fails()) {

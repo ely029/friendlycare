@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use App\ClinicHours;
 use App\Clinics;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -153,6 +154,13 @@ class ProviderManagementController extends Controller
 
     public function storeSecondPage()
     {
+        $request = request()->all();
+        ClinicHours::create([
+            'clinic_id' => session('id'),
+            'days' => json_encode($request['days']),
+            'froms' => json_encode($request['from']),
+            'tos' => json_encode($request['to']),
+        ]);
         return redirect()->action('Admin\ProviderManagementController@createThirdPage');
     }
 
