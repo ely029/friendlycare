@@ -117,13 +117,70 @@ class DefaultController extends Controller
 
     public function getAllUsers()
     {
-        $users = User::where('role_id', 3)->with('patients')->get();
+        $users = DB::table('users')
+            ->join('patients', 'patients.user_id', '=', 'users.id')
+            ->join('spouses', 'spouses.patient_id', '=', 'users.id')
+            ->select('patients.civil_status',
+        'users.first_name',
+        'users.last_name',
+        'users.middle_initial',
+        'users.birth_date',
+        'users.gender',
+        'users.email',
+        'users.age',
+        'users.city',
+        DB::raw('CONCAT(users.city, users.municipality) AS citymunicipality'),
+        'users.province',
+        'users.contact_number_1',
+        'patients.religion',
+        'patients.occupation',
+        'patients.street',
+        'patients.monthly_income',
+        'patients.no_of_living_children',
+        'patients.family_plan_type_id',
+        'patients.barangay',
+        'spouses.spouse_first_name',
+        'spouses.spouse_last_name',
+        'spouses.spouse_middle_initial',
+        'spouses.spouse_occupation',
+        'spouses.spouse_birth_date',
+         )
+            ->get();
         return response()->json($users, 200);
     }
 
     public function getUserById($id)
     {
-        $users = User::where('id', $id)->with('patients')->get();
+        $users = DB::table('users')
+            ->join('patients', 'patients.user_id', '=', 'users.id')
+            ->join('spouses', 'spouses.patient_id', '=', 'users.id')
+            ->select('patients.civil_status',
+        'users.first_name',
+        'users.last_name',
+        'users.middle_initial',
+        'users.birth_date',
+        'users.gender',
+        'users.email',
+        'users.age',
+        'users.city',
+        DB::raw('CONCAT(users.city, users.municipality) AS citymunicipality'),
+        'users.province',
+        'users.contact_number_1',
+        'patients.religion',
+        'patients.occupation',
+        'patients.street',
+        'patients.monthly_income',
+        'patients.no_of_living_children',
+        'patients.family_plan_type_id',
+        'patients.barangay',
+        'spouses.spouse_first_name',
+        'spouses.spouse_last_name',
+        'spouses.spouse_middle_initial',
+        'spouses.spouse_occupation',
+        'spouses.spouse_birth_date',
+         )
+            ->where('users.id', $id)
+            ->get();
 
         return response()->json($users, 200);
     }
