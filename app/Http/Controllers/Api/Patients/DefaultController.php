@@ -123,6 +123,7 @@ class DefaultController extends Controller
             ->select('patients.civil_status',
         'users.first_name',
         'users.last_name',
+        'users.id',
         'users.middle_initial',
         'users.birth_date',
         'users.gender',
@@ -157,6 +158,7 @@ class DefaultController extends Controller
             ->join('spouses', 'spouses.patient_id', '=', 'users.id')
             ->select('patients.civil_status',
         'users.first_name',
+        'users.id',
         'users.last_name',
         'users.middle_initial',
         'users.birth_date',
