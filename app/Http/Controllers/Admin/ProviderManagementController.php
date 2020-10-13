@@ -123,31 +123,46 @@ class ProviderManagementController extends Controller
         if ($user === null) {
             return redirect('/provider/create/1')->with('message', 'Email are not registered as Admin!');
         }
-
+        //search for user
+        $users = User::where('email', $request['email'])->first();
         $userid = Clinics::where(['user_id' => $user->id,'is_approve' => 1])->first();
 
         if ($userid !== null) {
             return redirect('/provider/create/1')->with('message', 'Email are already used by other clinic');
         }
+        //upon deleting the provider, this will check if the provider is exist.
+        $check_provider_exist = Clinics::where(['user_id' => $users->id, 'is_approve' => 1])->count();
+        if ($check_provider_exist < 1) {
+            $request['user_id'] = $users->id;
+            $request['profession'] = 'N/A';
+            $request['training'] = 'N/A';
+            session(['id' => $user->id]);
+            Clinics::create($request);
+            User::where('id', $users->id)->update([
+                'city' => $request['city'],
+                'municipality' => $request['municipality'],
+                'province' => $request['province'],
+            ]);
+        } else {
+            $request['user_id'] = $user->id;
+            $request['profession'] = 'N/A';
+            $request['training'] = 'N/A';
+            session(['id' => $user->id]);
 
-        $request['user_id'] = $user->id;
-        $request['profession'] = 'N/A';
-        $request['training'] = 'N/A';
-        session(['id' => $user->id]);
+            Clinics::where('user_id', $request['user_id'])->update([
+                'user_id' => $request['user_id'],
+                'clinic_name' => $request['clinic_name'],
+                'description' => $request['description'],
+                'street_address' => $request['address'],
+                'contact_number' => $request['contact_number'],
+            ]);
 
-        Clinics::where('user_id', $request['user_id'])->update([
-            'user_id' => $request['user_id'],
-            'clinic_name' => $request['clinic_name'],
-            'description' => $request['description'],
-            'street_address' => $request['address'],
-            'contact_number' => $request['contact_number'],
-        ]);
-
-        User::where('id', $request['user_id'])->update([
-            'city' => $request['city'],
-            'municipality' => $request['municipality'],
-            'province' => $request['province'],
-        ]);
+            User::where('id', $request['user_id'])->update([
+                'city' => $request['city'],
+                'municipality' => $request['municipality'],
+                'province' => $request['province'],
+            ]);
+        }
 
         return redirect()->action('Admin\ProviderManagementController@createSecondPage');
     }

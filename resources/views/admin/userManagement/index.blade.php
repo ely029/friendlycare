@@ -36,9 +36,7 @@
             <div class="row bg-white">
                 <div class="col-2">
                     <select name="filter" class="form-control">
-                        <option>Filter</option>
-                        <option>Filter</option>
-                        <option>Filter</option>
+                        <option value="role_id">Role</option>
                     </select>
                 </div>
                 <div class="col-4">

@@ -58,7 +58,7 @@
                 </div>
                 <div class="col-md-4">
                 <span>Sunday</span>
-                    <input type="checkbox" name="days[]" value="sunday">
+                    <input checked type="checkbox" name="days[]" value="sunday">
                     <input type="time" name="from[]">
                     <input type="time" name="to[]">
                 </div>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="col-md-4">
                 <span>Monday</span>
-                    <input type="checkbox" name="days[]" value="monday">
+                    <input checked type="checkbox" name="days[]" value="monday">
                     <input type="time" name="from[]">
                     <input type="time" name="to[]">
                 </div>
@@ -82,7 +82,7 @@
                 </div>
                 <div class="col-md-4">
                 <span>Tuesday</span>
-                    <input type="checkbox" name="days[]" value="tuesday">
+                    <input checked type="checkbox" name="days[]" value="tuesday">
                     <input type="time" name="from[]">
                     <input type="time" name="to[]">
                 </div>
@@ -94,7 +94,7 @@
                 </div>
                 <div class="col-md-4">
                 <span>Wednesday</span>
-                    <input type="checkbox" name="days[]" value="wednesday">
+                    <input checked type="checkbox" name="days[]" value="wednesday">
                     <input type="time" name="from[]">
                     <input type="time" name="to[]">
                 </div>
@@ -106,7 +106,7 @@
                 </div>
                 <div class="col-md-4">
                 <span>Thursday</span>
-                    <input type="checkbox" name="days[]" value="thursday">
+                    <input checked type="checkbox" name="days[]" value="thursday">
                     <input type="time" name="from[]">
                     <input type="time" name="to[]">
                 </div>
@@ -118,7 +118,7 @@
                 </div>
                 <div class="col-md-4">
                 <span>Friday</span>
-                    <input type="checkbox" name="days[]" value="friday">
+                    <input checked type="checkbox" name="days[]" value="friday">
                     <input type="time" name="from[]">
                     <input type="time" name="to[]">
                 </div>
@@ -130,7 +130,7 @@
                 </div>
                 <div class="col-md-4">
                 <span>Saturday</span>
-                    <input type="checkbox" name="days[]" value="saturday">
+                    <input checked type="checkbox" name="days[]" value="saturday">
                     <input type="time" name="from[]">
                     <input type="time" name="to[]">
                 </div>
