@@ -89,7 +89,7 @@
             <div class="row bg-white">
                 <div class="col-md-12">
                     <small>Confirm Password</small><br/>
-                    <input type="password" name="confirm_passwrd" value="" class="form-control">
+                    <input type="password" name="confirm_password" value="" class="form-control">
                 </div>   
             </div>
             <div class="row bg-white">
