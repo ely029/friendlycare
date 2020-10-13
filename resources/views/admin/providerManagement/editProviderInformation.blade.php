@@ -76,10 +76,12 @@
                     <div class="row clinic-info-category">
                         <div class="col-md-6">
                         <h6><b>Category</b></h6>
-                            @if($providers->type == 1)
-                            <span>Private</span>
-                            @else
+                            @if($providers->type == '1')
                             <span>Government</span>
+                            @elseif($providers->type == '2')
+                            <span>Private</span>
+                            @elseif($providers->type == '3')
+                            <span>NGO</span>
                             @endif
                         </div>
                     </div>

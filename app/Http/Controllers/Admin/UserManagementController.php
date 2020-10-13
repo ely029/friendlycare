@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
-use App\Clinics;
 use App\Http\Controllers\Controller;
 use App\Staffs;
 use App\User;
@@ -19,9 +18,6 @@ class UserManagementController extends Controller
             ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
             ->orderBy('users.created_at', 'desc')
             ->where('users.role_id', '<>', 3)
-            ->where('users.role_id', '<>', 4)
-            ->where('users.role_id', '<>', 1)
-            ->whereNotNull('clinics.clinic_name')
             ->get();
 
         $staffs = DB::table('staffs')
@@ -72,10 +68,6 @@ class UserManagementController extends Controller
         $request['name'] = $request['first_name'] . ' ' . $request['last_name'];
 
         $user = User::create($request);
-        $request['user_id'] = $user->id;
-        $request['profession'] = 'N/A';
-        $request['training'] = 'N/A';
-        Clinics::create($request);
 
         return redirect('user/page/'.$user->id);
     }
