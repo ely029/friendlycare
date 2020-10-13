@@ -18,6 +18,7 @@ class UserManagementController extends Controller
             ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
             ->orderBy('users.created_at', 'desc')
             ->where('users.role_id', '<>', 3)
+            ->where('users.role_id', '<>', 4)
             ->get();
 
         $staffs = DB::table('staffs')

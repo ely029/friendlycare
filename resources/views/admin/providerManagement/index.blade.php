@@ -72,8 +72,7 @@
                             <td>NGO</td>
                             @endif
                             <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $clinic->count }}</td>
                         </tr>
                         @endforeach
                     </table>
