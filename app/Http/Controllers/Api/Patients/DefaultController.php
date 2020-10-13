@@ -130,7 +130,7 @@ class DefaultController extends Controller
         'users.email',
         'users.age',
         'patients.city',
-        DB::raw('CONCAT(patients.city, patients.municipality) AS citymunicipality'),
+        'patients.citymunicipality',
         'patients.province',
         'users.contact_number_1',
         'patients.religion',
@@ -160,15 +160,15 @@ class DefaultController extends Controller
             ->join('spouses', 'spouses.patient_id', '=', 'users.id')
             ->select('patients.civil_status',
         'users.first_name',
-        'users.id',
         'users.last_name',
+        'users.id',
         'users.middle_initial',
         'users.birth_date',
         'users.gender',
         'users.email',
         'users.age',
-        'users.city',
-        DB::raw('CONCAT(patients.city, patients.municipality) AS citymunicipality'),
+        'patients.city',
+        'patients.citymunicipality',
         'patients.province',
         'users.contact_number_1',
         'patients.religion',
@@ -189,7 +189,6 @@ class DefaultController extends Controller
          )
             ->where('users.id', $id)
             ->get();
-
         return response()->json($users, 200);
     }
 
