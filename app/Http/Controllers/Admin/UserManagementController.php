@@ -122,6 +122,17 @@ class UserManagementController extends Controller
     public function updateUser()
     {
         $request = request()->all();
+        $validator = \Validator::make(request()->all(), [
+            'password' => 'required|min:8',
+            'confirm_password' => 'required|same:password',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('user/edit/'.$request['id'])
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         User::find($request['id'])->update([
             'name' => $request['first_name'] . ' ' . $request['last_name'],
             'first_name' => $request['first_name'],
@@ -129,6 +140,7 @@ class UserManagementController extends Controller
             'email' => $request['email'],
             'professions' => $request['professions'],
             'trainings' => $request['trainings'],
+            'password' => bcrypt($request['password']),
         ]);
 
         return redirect('/user/list');

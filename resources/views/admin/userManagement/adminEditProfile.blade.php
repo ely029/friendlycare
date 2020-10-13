@@ -30,6 +30,18 @@
                     <span>User Management</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>Create User</span>
                 </div>
             </div>
+            <div class="row bg-light">
+                <div class="col-12">
+                @if ($errors->any())
+  <div class="alert alert-danger">
+     
+        @foreach ($errors->all() as $error)
+           {{ $error }}
+        @endforeach
+  </div>
+@endif
+                </div>
+            </div>
                 <div class="row bg-white">
                     <div class="col-md-12">
                         <small>First Name</small><br/>
@@ -66,6 +78,18 @@
                 <div class="col-md-12">
                     <small>Training</small><br/>
                     <input type="text" name="trainings" value="{{ $user->trainings }}" class="form-control">
+                </div>   
+            </div>
+            <div class="row bg-white">
+                <div class="col-md-12">
+                    <small>Password</small><br/>
+                    <input type="password" name="password" value="" class="form-control">
+                </div>   
+            </div>
+            <div class="row bg-white">
+                <div class="col-md-12">
+                    <small>Confirm Password</small><br/>
+                    <input type="password" name="confirm_passwrd" value="" class="form-control">
                 </div>   
             </div>
             <div class="row bg-white">
