@@ -40,7 +40,7 @@
                     </select>
                 </div>
                 <div class="col-4">
-            
+                 <input type="submit" class="btn btn-success" value="Filter">            
                 </div>
                 <div class="col-4">
             
