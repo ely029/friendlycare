@@ -53,6 +53,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], static function () {
     Route::get('/edit/{id}', 'Admin\UserManagementController@editUserProfile')->name('editUserProfile');
     Route::post('/update', 'Admin\UserManagementController@updateUser')->name('updateUser');
     Route::get('/delete/{id}', 'Admin\UserManagementController@deleteUser')->name('deleteUser');
+    Route::post('/filter', 'Admin\UserManagementController@filter')->name('userManagement.filter');
 });
 
 //provider management

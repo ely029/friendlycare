@@ -20,6 +20,8 @@ class UserManagementController extends Controller
             ->orderBy('users.created_at', 'desc')
             ->where('users.role_id', '<>', 3)
             ->where('users.role_id', '<>', 4)
+            ->where('users.role_id', '<>', 1)
+            ->whereNotNull('clinics.clinic_name')
             ->get();
 
         $staffs = DB::table('staffs')
@@ -145,5 +147,10 @@ class UserManagementController extends Controller
         User::where('id', $id)->delete();
 
         return redirect('/user/list');
+    }
+
+    public function filter()
+    {
+        return response('working');
     }
 }

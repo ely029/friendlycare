@@ -48,7 +48,7 @@
                 </div>
                 <div class="col-md-4">
                     <input type="text" name="province" id="province" class="form-control" placeholder="Province">
-                </div>
+                                    </div>
                 <div class="col-md-4">        
                 </div>
             </div>

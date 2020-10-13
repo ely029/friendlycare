@@ -81,7 +81,7 @@
             <div class="row">
             <div class="col-md-4">
             <div class="input-group">
-  <input type="password" id="password" name="password" value=" {{ old('password') }}"class="form-control" placeholder="Password" aria-label="Password" aria-describedby="button-addon2">
+  <input type="password" id="password" name="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="button-addon2">
                              <div class="input-group-append">
 
                       </div>
@@ -96,7 +96,7 @@
             <div class="row">
                 <div class="col-md-4">
                 <div class="input-group">
-  <input type="password" class="form-control" placeholder="Confirm Password" value=" {{ old('confirm_password')}}"name="confirm_password">
+  <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password">
 </div>
                 </div>
                 <div class="col-md-4">
