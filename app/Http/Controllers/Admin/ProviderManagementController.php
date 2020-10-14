@@ -18,7 +18,7 @@ class ProviderManagementController extends Controller
             ->join('users', 'clinics.user_id', '=', 'users.id')
             ->leftjoin('staffs', 'staffs.clinic_id', 'clinics.id')
             ->select('users.email', DB::raw('count(staffs.id) as count'), 'clinics.clinic_name', 'clinics.id', 'clinics.type', 'users.id AS admin_id')
-            ->whereNotNull('clinics.clinic_name')
+            ->whereNotNull(['clinics.clinic_name', 'clinics.type'])
             ->groupBy(['users.email', 'clinics.clinic_name', 'clinics.id', 'clinics.type' ])
             ->where(['clinics.is_approve' => 1])
             ->get();

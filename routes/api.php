@@ -48,6 +48,9 @@ Route::get('/consentform', 'BasicPagesController@consentForm');
 Route::post('/patients/verification', 'Patients\DefaultController@verification');
 Route::post('/patients/reset', 'Patients\DefaultController@resetPassword');
 
+//Basic Pages
+Route::get('/basicpages/consent', 'BasicPagesController@consentForm');
+
 //Provider
 Route::post('/provider/login', 'Provider\DefaultController@login');
 Route::post('/provider/reset', 'Provider\DefaultController@resetPassword');
