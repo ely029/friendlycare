@@ -13,6 +13,28 @@ class UserManagementController extends Controller
 {
     public function index()
     {
+        $loggedin = \Auth::user();
+        if ($loggedin->role_id === 2) {
+            $users = DB::table('users')
+                ->leftJoin('clinics', 'clinics.user_id', '=', 'users.id')
+                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
+                ->orderBy('users.created_at', 'desc')
+                ->where('users.role_id', '<>', 3)
+                ->where('users.role_id', '<>', 4)
+                ->where('users.id', $loggedin->id)
+                ->whereNotNull('clinics.type')
+                ->get();
+            $staffs = DB::table('staffs')
+                ->leftJoin('clinics', 'clinics.id', '=', 'staffs.clinic_id')
+                ->leftJoin('users', 'users.id', 'staffs.user_id')
+                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
+                ->orderBy('users.created_at', 'desc')
+                ->where('users.role_id', '<>', 3)
+                ->where('clinics.user_id', $loggedin->id)
+                ->whereNotNull('clinics.type')
+                ->get();
+        }
+
         $users = DB::table('users')
             ->leftJoin('clinics', 'clinics.user_id', '=', 'users.id')
             ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')

@@ -14,14 +14,27 @@ class ProviderManagementController extends Controller
 {
     public function index()
     {
-        $users = DB::table('clinics')
-            ->join('users', 'clinics.user_id', '=', 'users.id')
-            ->leftjoin('staffs', 'staffs.clinic_id', 'clinics.id')
-            ->select('users.email', DB::raw('count(staffs.id) as count'), 'clinics.clinic_name', 'clinics.id', 'clinics.type', 'users.id AS admin_id')
-            ->whereNotNull(['clinics.clinic_name', 'clinics.type'])
-            ->groupBy(['users.email', 'clinics.clinic_name', 'clinics.id', 'clinics.type' ])
-            ->where(['clinics.is_approve' => 1])
-            ->get();
+        $loggedin = \Auth::user();
+        if ($loggedin->role_id === 2) {
+            $users = DB::table('clinics')
+                ->join('users', 'clinics.user_id', '=', 'users.id')
+                ->leftjoin('staffs', 'staffs.clinic_id', 'clinics.id')
+                ->select('users.email', DB::raw('count(staffs.id) as count'), 'clinics.clinic_name', 'clinics.id', 'clinics.type', 'users.id AS admin_id')
+                ->whereNotNull(['clinics.clinic_name', 'clinics.type'])
+                ->groupBy(['users.email', 'clinics.clinic_name', 'clinics.id', 'clinics.type' ])
+                ->where(['clinics.is_approve' => 1])
+                ->where('users.id', $loggedin->id)
+                ->get();
+        } else {
+            $users = DB::table('clinics')
+                ->join('users', 'clinics.user_id', '=', 'users.id')
+                ->leftjoin('staffs', 'staffs.clinic_id', 'clinics.id')
+                ->select('users.email', DB::raw('count(staffs.id) as count'), 'clinics.clinic_name', 'clinics.id', 'clinics.type', 'users.id AS admin_id')
+                ->whereNotNull(['clinics.clinic_name', 'clinics.type'])
+                ->groupBy(['users.email', 'clinics.clinic_name', 'clinics.id', 'clinics.type' ])
+                ->where(['clinics.is_approve' => 1])
+                ->get();
+        }
 
         return view('admin.providerManagement.index', ['clinics' => $users]);
     }

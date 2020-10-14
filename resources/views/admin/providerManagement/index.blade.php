@@ -8,6 +8,13 @@
     <div class="row">
         <aside class="col-2 px-0 fixed-top" id="left">
         @csrf
+        @if (Auth::user()->role_id == 2)
+        <div class="list-group w-100">
+                <span>Management</span>
+                <a href="{{ route('userManagement') }}" class="list-group-item">User Management</a>
+                <a href="{{ route('providerManagement')}}" class="list-group-item active">Provider Management</a>
+            </div>
+            @else
             <div class="list-group w-100">
                 <span>Management</span>
                 <a href="{{ route('userManagement') }}" class="list-group-item">User Management</a>
@@ -15,6 +22,7 @@
                 <span>Content</span>
                 <a href="{{ route('basicPages')}}" class="list-group-item">Basic Pages</a>
             </div>
+        @endif
 
         </aside>
         <main class="col-10 invisible">
@@ -29,7 +37,10 @@
             </div>
             <div class="row bg-white">
                 <div class="col-12 py-4">
-                  <a href="{{ route('providerCreateFirstPage') }}" class="btn btn-success">Create account</a>
+                    @if (Auth::user()->role_id == 2)
+                    @else
+                    <a href="{{ route('providerCreateFirstPage') }}" class="btn btn-success">Create account</a>
+                    @endif
                 </div>
             </div>
             
