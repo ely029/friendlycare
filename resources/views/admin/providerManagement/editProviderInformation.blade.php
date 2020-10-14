@@ -7,14 +7,21 @@
 <div class="container-fluid">
     <div class="row">
         <aside class="col-2 px-0 fixed-top" id="left">
-
-            <div class="list-group w-100">
+           @if (Auth::user()->role_id == 2)
+           <div class="list-group w-100">
+                <span>Management</span>
+                <a href="{{ route('userManagement') }}" class="list-group-item">User Management</a>
+                <a href="{{ route('providerManagement')}}" class="list-group-item active">Provider Management</a>
+            </div>
+           @else
+           <div class="list-group w-100">
                 <span>Management</span>
                 <a href="{{ route('userManagement') }}" class="list-group-item">User Management</a>
                 <a href="{{ route('providerManagement')}}" class="list-group-item active">Provider Management</a>
                 <span>Content</span>
                 <a href="{{ route('basicPages')}}" class="list-group-item">Basic Pages</a>
             </div>
+           @endif
 
         </aside>
         <main class="col-10 invisible">
@@ -96,7 +103,10 @@
                               <a href="{{ route('editPage',$providers->c_id )}}" class="btn btn-success">Edit Profile</a>
                           </div>
                           <div class="col-md-6">
+                              @if (Auth::user()->role_id == 2)
+                              @else
                               <a href="{{ route('deleteProvider',$providers->c_id )}}" class="btn btn-primary">Delete Provider</a>
+                              @endif
                           </div>
                     </div>
             </form>           

@@ -76,4 +76,23 @@ class DefaultController extends Controller
             'data' => $users,
         ]);
     }
+
+    public function providerInfo()
+    {
+        $details = DB::table('clinics')
+            ->leftjoin('users', 'users.id', 'clinics.user_id')
+            ->leftjoin('staffs', 'staffs.user_id', 'users.id')
+            ->leftjoin('clinic_hours', 'clinic_hours.clinic_id', 'users.id')
+            ->select('users.email',
+               'clinics.contact_number',
+               'clinics.street_address',
+               'clinic_hours.days',
+               'clinic_hours.froms',
+               'clinic_hours.tos')
+            ->get();
+
+        return response([
+            'data' => $details,
+        ]);
+    }
 }

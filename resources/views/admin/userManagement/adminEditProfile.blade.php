@@ -101,16 +101,13 @@
                 </div>   
             </div>
             <div class="row bg-white">
-                <div class="col-md-3">
+                <div class="col-md-4">
                   <input type="submit" class="btn btn-success" value="Update Profile"/>
-                </div>
-                <div class="col-md-3">
-                  <input type="submit" class="btn btn-primary" value="Delete Account">
                 </div>   
-                <div class="col-md-3">
+                <div class="col-md-4">
                   
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                   
                 </div>
             </div>

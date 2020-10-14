@@ -64,11 +64,21 @@ class UserManagementController extends Controller
     }
     public function staffFirstPage()
     {
-        $users = DB::table('users')
-            ->join('clinics', 'clinics.user_id', '=', 'users.id')
-            ->select('clinics.id', 'clinics.clinic_name')
-            ->where('is_approve', 1)
-            ->get();
+        $loggedin = auth()->user();
+        if ($loggedin->role_id === 2) {
+            $users = DB::table('users')
+                ->join('clinics', 'clinics.user_id', '=', 'users.id')
+                ->select('clinics.id', 'clinics.clinic_name')
+                ->where('is_approve', 1)
+                ->where('clinics.user_id', $loggedin->id)
+                ->get();
+        } else {
+            $users = DB::table('users')
+                ->join('clinics', 'clinics.user_id', '=', 'users.id')
+                ->select('clinics.id', 'clinics.clinic_name')
+                ->where('is_approve', 1)
+                ->get();
+        }
         return view('admin.userManagement.staffFirstPage', ['clinics' => $users]);
     }
     public function createAdmin()
@@ -81,7 +91,6 @@ class UserManagementController extends Controller
             'password' => 'required|min:8',
             'confirm_password' => 'required|same:password',
         ]);
-
         $request['role_id'] = 2;
 
         if ($validator->fails()) {
@@ -147,16 +156,6 @@ class UserManagementController extends Controller
     public function updateUser()
     {
         $request = request()->all();
-        $validator = \Validator::make(request()->all(), [
-            'password' => 'required|min:8',
-            'confirm_password' => 'required|same:password',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('user/edit/'.$request['id'])
-                ->withErrors($validator)
-                ->withInput();
-        }
 
         User::find($request['id'])->update([
             'name' => $request['first_name'] . ' ' . $request['last_name'],
