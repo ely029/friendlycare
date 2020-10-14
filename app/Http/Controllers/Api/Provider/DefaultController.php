@@ -8,6 +8,7 @@ use App\Clinics;
 use App\Http\Controllers\Controller;
 use App\Staffs;
 use App\User;
+use Illuminate\Support\Facades\DB;
 use Mail;
 
 class DefaultController extends Controller

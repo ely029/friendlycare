@@ -55,5 +55,6 @@ Route::get('/basicpages/consent', 'BasicPagesController@consentForm');
 Route::post('/provider/login', 'Provider\DefaultController@login');
 Route::post('/provider/reset', 'Provider\DefaultController@resetPassword');
 Route::get('/provider/staffs', 'Provider\DefaultController@getAllUsers');
-Route::get('/provider/users/{id}', 'provider\DefaultController@getUsersById');
-Route::get('/provider/users', 'Patients\DefaultController@getAllUsers');
+Route::get('/provider/users/{id}', 'Provider\DefaultController@getUsersById');
+Route::get('/provider/users', 'Provider\DefaultController@getAllUsers');
+Route::get('/provider/clinic', 'Provider\DefaultController@providerInfo');
