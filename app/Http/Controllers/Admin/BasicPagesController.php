@@ -11,7 +11,7 @@ class BasicPagesController extends Controller
 {
     public function index()
     {
-        $loggedin = \Auth::user();
+        $loggedin = auth()->user();
         if ($loggedin->role_id === 2) {
             return response('You dont have permission to access this page');
         }
@@ -21,7 +21,7 @@ class BasicPagesController extends Controller
 
     public function informationPage($id)
     {
-        $loggedin = \Auth::user();
+        $loggedin = auth()->user();
         if ($loggedin->role_id === 2) {
             return response('You dont have permission to access this page');
         }
@@ -30,7 +30,7 @@ class BasicPagesController extends Controller
     }
     public function editPage($id)
     {
-        $loggedin = \Auth::user();
+        $loggedin = auth()->user();
         if ($loggedin->role_id === 2) {
             return response('You dont have permission to access this page');
         }
@@ -40,7 +40,7 @@ class BasicPagesController extends Controller
     }
     public function storeEdit()
     {
-        $loggedin = \Auth::user();
+        $loggedin = auth()->user();
         if ($loggedin->role_id === 2) {
             return response('You dont have permission to access this page');
         }

@@ -13,7 +13,7 @@ class UserManagementController extends Controller
 {
     public function index()
     {
-        $loggedin = \Auth::user();
+        $loggedin = auth()->user();
         if ($loggedin->role_id === 2) {
             $users = DB::table('users')
                 ->leftJoin('clinics', 'clinics.user_id', '=', 'users.id')

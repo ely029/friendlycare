@@ -14,7 +14,7 @@ class ProviderManagementController extends Controller
 {
     public function index()
     {
-        $loggedin = \Auth::user();
+        $loggedin = auth()->user();
         if ($loggedin->role_id === 2) {
             $users = DB::table('clinics')
                 ->join('users', 'clinics.user_id', '=', 'users.id')
