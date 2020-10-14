@@ -84,7 +84,7 @@
                         </tr>
                         @endforeach
 
-                        @foreach ($staffs as $admins)
+                        <!-- @foreach ($staffs as $admins)
                         <tr>
                             <td>{{ $admins->id }}</td>
                             <td><a href="{{ route('editUserProfilePage',$admins->id) }}">{{ $admins->name }}</a></td>
@@ -98,7 +98,7 @@
                             @endif
                             <td>{{ $admins->clinic_name }}</td>
                         </tr>
-                        @endforeach
+                        @endforeach -->
 
                     </table>
                 </div>
