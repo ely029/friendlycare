@@ -22,28 +22,7 @@ class UserManagementController extends Controller
                 ->where('users.role_id', '<>', 3)
                 ->where('users.role_id', '<>', 4)
                 ->where('users.id', $loggedin->id)
-                ->whereNotNull('clinics.type')
-                ->get();
-            $staffs = DB::table('staffs')
-                ->leftJoin('clinics', 'clinics.id', '=', 'staffs.clinic_id')
-                ->leftJoin('users', 'users.id', 'staffs.user_id')
-                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
-                ->orderBy('users.created_at', 'desc')
-                ->where('users.role_id', '<>', 3)
-                ->where('clinics.user_id', $loggedin->id)
-                ->whereNotNull('clinics.type')
-                ->get();
-        } else {
-            $users = DB::table('clinics')
-                ->leftJoin('users', 'clinics.user_id', '=', 'users.id')
-                ->leftJoin('staffs', 'staffs.clinic_id', 'clinics.id')
-                ->leftJoin('users as staff', 'staffs.user_id', 'staff.id')
-                ->select('users.created_at', 'users.role_id', 'users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email', 'staff.id as staff_id', 'staff.email as staff_email', 'staff.first_name as staff_first_name', 'staff.last_name as staff_last_name')
-                ->orderBy('users.created_at', 'desc')
-                ->distinct('users.name')
-                ->where('users.role_id', '<>', 3)
-                ->whereNotNull('clinics.type')
-                ->get();
+                ->whereNotNull('clinics.type');
 
             $staffs = DB::table('staffs')
                 ->leftJoin('clinics', 'clinics.id', '=', 'staffs.clinic_id')
@@ -51,10 +30,29 @@ class UserManagementController extends Controller
                 ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
                 ->orderBy('users.created_at', 'desc')
                 ->where('users.role_id', '<>', 3)
-                ->whereNotNull('clinics.type')
-                ->get();
+                ->where('clinics.user_id', $loggedin->id)
+                ->whereNotNull('clinics.type');
+
+            $merge = $users->union($staffs)->get();
+        } else {
+            $users = DB::table('clinics')
+                ->leftJoin('users', 'clinics.user_id', '=', 'users.id')
+                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
+                ->orderBy('users.created_at', 'desc')
+                ->where('users.role_id', '<>', 3)
+                ->where('users.role_id', '<>', 4)
+                ->whereNotNull('clinics.type');
+            $staffs = DB::table('staffs')
+                ->leftJoin('clinics', 'clinics.id', '=', 'staffs.clinic_id')
+                ->leftJoin('users', 'users.id', 'staffs.user_id')
+                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
+                ->orderBy('users.created_at', 'desc')
+                ->where('users.role_id', '<>', 3)
+                ->whereNotNull('clinics.type');
+
+            $merge = $users->union($staffs)->get();
         }
-        return view('admin.userManagement.index', ['admin' => $users, 'staffs' => $staffs]);
+        return view('admin.userManagement.index', ['admin' => $merge]);
     }
     public function role()
     {
@@ -181,6 +179,42 @@ class UserManagementController extends Controller
 
     public function filter()
     {
-        return response('working');
+        $merge = '';
+        $request = request()->all();
+
+        if ($request['filter'] === 'by_admin') {
+            $users = DB::table('clinics')
+                ->leftJoin('users', 'clinics.user_id', '=', 'users.id')
+                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
+                ->orderBy('users.created_at', 'desc')
+                ->where('users.role_id', '<>', 3)
+                ->where('users.role_id', '<>', 4)
+                ->whereNotNull('clinics.type');
+            $staffs = DB::table('staffs')
+                ->leftJoin('clinics', 'clinics.id', '=', 'staffs.clinic_id')
+                ->leftJoin('users', 'users.id', 'staffs.user_id')
+                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
+                ->orderBy('users.created_at', 'desc')
+                ->where('users.role_id', '<>', 3)
+                ->whereNotNull('clinics.type');
+            $merge = $users->union($staffs)->orderBy('role_id', 'asc')->get();
+        } elseif ($request['filter'] === 'by_staff') {
+            $users = DB::table('clinics')
+                ->leftJoin('users', 'clinics.user_id', '=', 'users.id')
+                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
+                ->orderBy('users.created_at', 'desc')
+                ->where('users.role_id', '<>', 3)
+                ->where('users.role_id', '<>', 4)
+                ->whereNotNull('clinics.type');
+            $staffs = DB::table('staffs')
+                ->leftJoin('clinics', 'clinics.id', '=', 'staffs.clinic_id')
+                ->leftJoin('users', 'users.id', 'staffs.user_id')
+                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
+                ->orderBy('users.created_at', 'desc')
+                ->where('users.role_id', '<>', 3)
+                ->whereNotNull('clinics.type');
+            $merge = $users->union($staffs)->orderBy('role_id', 'desc')->get();
+        }
+        return view('admin.userManagement.index', ['admin' => $merge]);
     }
 }

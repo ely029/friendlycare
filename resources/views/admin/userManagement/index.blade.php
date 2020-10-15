@@ -29,6 +29,8 @@
             <!--hidden spacer-->
         </main>
         <main class="col offset-2 h-100">
+            <form method="POST" action="{{ route('userManagement.filter') }}">
+                @csrf
             <div class="row">
                 <div class="col-12 py-4">
                     <h2>User Management</h2>
@@ -44,7 +46,8 @@
             <div class="row bg-white">
                 <div class="col-2">
                     <select name="filter" class="form-control">
-                        <option value="role_id">Role</option>
+                        <option value="by_admin">By Admin</option>
+                        <option value="by_staff">By Staff</option>
                     </select>
                 </div>
                 <div class="col-4">
@@ -73,24 +76,19 @@
                             <td>{{ $admins->id }}</td>
                             <td><a href="{{ route('editUserProfilePage',$admins->id) }}">{{ $admins->name }}</a></td>
                             <td>{{ $admins->email }}</td>
+                            @if($admins->role_id == '2')
                             <td>Super Admin</td>
-                            <td>{{ $admins->clinic_name }}</td>
-                        </tr>
-                        @endforeach
-                        @foreach($staffs as $staff)
-                        <tr>
-                            <td>{{ $staff->id }}</td>
-                            <td><a href="{{ route('editUserProfilePage',$staff->id) }}">{{ $staff->first_name }} {{ $staff->last_name }}</a></td>
-                            <td>{{ $staff->email }}</td>
+                            @else
                             <td>Staff</td>
-                            <td>{{ $staff->clinic_name }}</td>
-                            </tr>
-
+                            @endif
+                            <td>{{ $admins->clinic_name }}</td>
                         </tr>
                         @endforeach
                     </table>
                 </div>
             </div>
+            </form>
+            
         </main>
     </div>
 </div>

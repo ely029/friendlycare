@@ -61,9 +61,9 @@ class DefaultController extends Controller
 
     public function getUsersById($id)
     {
-        $users = DB::table('clinics')
-            ->join('users', 'users.id', 'clinics.user_id')
-            ->select('users.first_name', 'users.last_name', 'users.email', 'clinics.profession', 'clinics.training')
+        $users = DB::table('staffs')
+            ->join('users', 'users.id', 'staffs.user_id')
+            ->select('users.first_name', 'users.last_name', 'users.email', 'staffs.profession', 'staffs.training')
             ->where('users.id', $id)
             ->get();
 
@@ -74,9 +74,9 @@ class DefaultController extends Controller
 
     public function getAllUsers()
     {
-        $users = DB::table('clinics')
-            ->join('users', 'users.id', 'clinics.user_id')
-            ->select('users.first_name', 'users.last_name', 'users.email', 'clinics.profession', 'clinics.training')
+        $users = DB::table('staffs')
+            ->join('users', 'users.id', 'staffs.user_id')
+            ->select('users.first_name', 'users.last_name', 'users.email', 'staffs.profession', 'staffs.training')
             ->get();
 
         return response([
@@ -93,14 +93,14 @@ class DefaultController extends Controller
             'email' => $request['email'],
         ]);
 
-        Clinics::where('user_id', $request['id'])->update([
+        Staffs::where('user_id', $request['id'])->update([
             'profession' => $request['profession'],
             'training' => $request['training'],
         ]);
 
-        $users = DB::table('clinics')
-            ->join('users', 'users.id', 'clinics.user_id')
-            ->select('users.first_name', 'users.last_name', 'users.email', 'clinics.profession', 'clinics.training')
+        $users = DB::table('staffs')
+            ->join('users', 'users.id', 'staffs.user_id')
+            ->select('users.first_name', 'users.last_name', 'users.email', 'staffs.profession', 'staffs.training')
             ->where('users.id', $request['id'])
             ->get();
 
@@ -118,9 +118,7 @@ class DefaultController extends Controller
             ->select('users.email',
                'clinics.contact_number',
                'clinics.street_address',
-               'clinic_hours.days',
-               'clinic_hours.froms',
-               'clinic_hours.tos')
+               )
             ->get();
 
         return response([
