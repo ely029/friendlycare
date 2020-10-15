@@ -45,7 +45,6 @@ class UserManagementController extends Controller
 
             $staffs = DB::table('staffs')
                 ->leftJoin('clinics', 'clinics.id', '=', 'staffs.clinic_id')
-                ->leftJoin('users', 'users.id', 'staffs.user_id')
                 ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
                 ->orderBy('users.created_at', 'desc')
                 ->where('users.role_id', '<>', 3)

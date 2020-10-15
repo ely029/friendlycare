@@ -61,7 +61,11 @@ class DefaultController extends Controller
 
     public function getUsersById($id)
     {
-        $users = User::where('id', $id)->with('clinics', 'staffs')->get();
+        $users = DB::table('clinics')
+            ->join('users', 'users.id', 'clinics.user_id')
+            ->select('users.first_name', 'users.last_name', 'users.email', 'clinics.profession', 'clinics.training')
+            ->where('users.id', $id)
+            ->get();
 
         return response([
             'data' => $users,
@@ -70,10 +74,38 @@ class DefaultController extends Controller
 
     public function getAllUsers()
     {
-        $users = User::with('clinics', 'staffs')->get();
+        $users = DB::table('clinics')
+            ->join('users', 'users.id', 'clinics.user_id')
+            ->select('users.first_name', 'users.last_name', 'users.email', 'clinics.profession', 'clinics.training')
+            ->get();
 
         return response([
             'data' => $users,
+        ]);
+    }
+
+    public function update()
+    {
+        $request = request()->all();
+        User::where('id', $request['id'])->update([
+            'first_name' => $request['first_name'],
+            'last_name' => $request['last_name'],
+            'email' => $request['email'],
+        ]);
+
+        Clinics::where('user_id', $request['id'])->update([
+            'profession' => $request['profession'],
+            'training' => $request['training'],
+        ]);
+
+        $users = DB::table('clinics')
+            ->join('users', 'users.id', 'clinics.user_id')
+            ->select('users.first_name', 'users.last_name', 'users.email', 'clinics.profession', 'clinics.training')
+            ->where('users.id', $request['id'])
+            ->get();
+
+        return response([
+            'users' => $users,
         ]);
     }
 

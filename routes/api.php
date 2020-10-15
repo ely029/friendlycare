@@ -58,3 +58,4 @@ Route::get('/provider/staffs', 'Provider\DefaultController@getAllUsers');
 Route::get('/provider/users/{id}', 'Provider\DefaultController@getUsersById');
 Route::get('/provider/users', 'Provider\DefaultController@getAllUsers');
 Route::get('/provider/clinic', 'Provider\DefaultController@providerInfo');
+Route::post('/provider/update', 'Provider\DefaultController@update');
