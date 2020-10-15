@@ -89,6 +89,11 @@ Route::group(['prefix' => 'reset'], static function () {
     Route::post('/password', 'Admin\ResetController@updatePassword')->name('resetPassword.updatePassword');
 });
 
+Route::group(['prefix' => 'fpm'], static function () {
+    //reset page
+    Route::get('/', 'Admin\FamilyPlanningMethodController@index')->name('familyPlanningMethod.index');
+});
+
     Route::get('/', 'HomeController@index');
     Route::get('/portal', 'Admin\AdminController@showLogin')->name('adminLogin');
     Route::post('/authenticate', 'Admin\AdminController@authenticate')->name('authenticate');

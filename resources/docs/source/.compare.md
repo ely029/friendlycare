@@ -18,7 +18,7 @@ toc_footers:
 # Info
 
 Welcome to the generated API reference.
-[Get Postman Collection](http://localhost:40020/docs/collection.json)
+[Get Postman Collection](http://localhost/docs/collection.json)
 
 <!-- END_INFO -->
 ## Authentication
@@ -59,14 +59,14 @@ Related guide: [Validating cron requests](https://cloud.google.com/appengine/doc
 
 ```bash
 curl -X GET \
-    -G "http://localhost:40020/api/cron" \
+    -G "http://localhost/api/cron" \
     -H "X-Appengine-Cron: true" \
     -H "X-Forwarded-For: 10.0.0.1"
 ```
 
 ```javascript
 const url = new URL(
-    "http://localhost:40020/api/cron"
+    "http://localhost/api/cron"
 );
 
 let headers = {
@@ -88,7 +88,7 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->get(
-    'http://localhost:40020/api/cron',
+    'http://localhost/api/cron',
     [
         'headers' => [
             'X-Appengine-Cron' => 'true',
@@ -104,7 +104,7 @@ print_r(json_decode((string) $body));
 import requests
 import json
 
-url = 'http://localhost:40020/api/cron'
+url = 'http://localhost/api/cron'
 headers = {
   'X-Appengine-Cron': 'true',
   'X-Forwarded-For': '10.0.0.1'
@@ -140,6 +140,1126 @@ null
 
 <!-- END_aa052b285c2cd6861cc83e8aadf994c5 -->
 
+<!-- START_e0165fff4425cb1a862f116f1e3188d2 -->
+## api/patients/register
+> Example request:
+
+```bash
+curl -X POST \
+    "http://localhost/api/patients/register" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Basic {credentials}"
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/patients/register"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Basic {credentials}",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->post(
+    'http://localhost/api/patients/register',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Basic {credentials}',
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+```python
+import requests
+import json
+
+url = 'http://localhost/api/patients/register'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': 'Basic {credentials}'
+}
+response = requests.request('POST', url, headers=headers)
+response.json()
+```
+
+
+
+### HTTP Request
+`POST api/patients/register`
+
+
+<!-- END_e0165fff4425cb1a862f116f1e3188d2 -->
+
+<!-- START_69a668aacd87b9bdfe9c8b762f0dbc0a -->
+## api/patients/login
+> Example request:
+
+```bash
+curl -X POST \
+    "http://localhost/api/patients/login" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Basic {credentials}"
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/patients/login"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Basic {credentials}",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->post(
+    'http://localhost/api/patients/login',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Basic {credentials}',
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+```python
+import requests
+import json
+
+url = 'http://localhost/api/patients/login'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': 'Basic {credentials}'
+}
+response = requests.request('POST', url, headers=headers)
+response.json()
+```
+
+
+
+### HTTP Request
+`POST api/patients/login`
+
+
+<!-- END_69a668aacd87b9bdfe9c8b762f0dbc0a -->
+
+<!-- START_e8533a34c7df873820e307edc1bac95f -->
+## api/patients/users
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://localhost/api/patients/users" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Basic {credentials}"
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/patients/users"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Basic {credentials}",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get(
+    'http://localhost/api/patients/users',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Basic {credentials}',
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+```python
+import requests
+import json
+
+url = 'http://localhost/api/patients/users'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': 'Basic {credentials}'
+}
+response = requests.request('GET', url, headers=headers)
+response.json()
+```
+
+
+
+### HTTP Request
+`GET api/patients/users`
+
+
+<!-- END_e8533a34c7df873820e307edc1bac95f -->
+
+<!-- START_6e89201d89312ab1f657862f950e89c0 -->
+## api/patients/id/{id}
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://localhost/api/patients/id/1" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Basic {credentials}"
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/patients/id/1"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Basic {credentials}",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get(
+    'http://localhost/api/patients/id/1',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Basic {credentials}',
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+```python
+import requests
+import json
+
+url = 'http://localhost/api/patients/id/1'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': 'Basic {credentials}'
+}
+response = requests.request('GET', url, headers=headers)
+response.json()
+```
+
+
+
+### HTTP Request
+`GET api/patients/id/{id}`
+
+
+<!-- END_6e89201d89312ab1f657862f950e89c0 -->
+
+<!-- START_bad40d3db970ed31027e75393d087dae -->
+## api/patients/update
+> Example request:
+
+```bash
+curl -X POST \
+    "http://localhost/api/patients/update" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Basic {credentials}"
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/patients/update"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Basic {credentials}",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->post(
+    'http://localhost/api/patients/update',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Basic {credentials}',
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+```python
+import requests
+import json
+
+url = 'http://localhost/api/patients/update'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': 'Basic {credentials}'
+}
+response = requests.request('POST', url, headers=headers)
+response.json()
+```
+
+
+
+### HTTP Request
+`POST api/patients/update`
+
+
+<!-- END_bad40d3db970ed31027e75393d087dae -->
+
+<!-- START_46334a0d9d5ca6e0848e85a82e4454b4 -->
+## api/consentform
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://localhost/api/consentform" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Basic {credentials}"
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/consentform"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Basic {credentials}",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get(
+    'http://localhost/api/consentform',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Basic {credentials}',
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+```python
+import requests
+import json
+
+url = 'http://localhost/api/consentform'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': 'Basic {credentials}'
+}
+response = requests.request('GET', url, headers=headers)
+response.json()
+```
+
+
+
+### HTTP Request
+`GET api/consentform`
+
+
+<!-- END_46334a0d9d5ca6e0848e85a82e4454b4 -->
+
+<!-- START_f6a135a09acc73f810a92544c9113256 -->
+## api/patients/verification
+> Example request:
+
+```bash
+curl -X POST \
+    "http://localhost/api/patients/verification" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Basic {credentials}"
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/patients/verification"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Basic {credentials}",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->post(
+    'http://localhost/api/patients/verification',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Basic {credentials}',
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+```python
+import requests
+import json
+
+url = 'http://localhost/api/patients/verification'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': 'Basic {credentials}'
+}
+response = requests.request('POST', url, headers=headers)
+response.json()
+```
+
+
+
+### HTTP Request
+`POST api/patients/verification`
+
+
+<!-- END_f6a135a09acc73f810a92544c9113256 -->
+
+<!-- START_52762fc85d933a8ce449cd07d5febe21 -->
+## api/patients/reset
+> Example request:
+
+```bash
+curl -X POST \
+    "http://localhost/api/patients/reset" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Basic {credentials}"
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/patients/reset"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Basic {credentials}",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->post(
+    'http://localhost/api/patients/reset',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Basic {credentials}',
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+```python
+import requests
+import json
+
+url = 'http://localhost/api/patients/reset'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': 'Basic {credentials}'
+}
+response = requests.request('POST', url, headers=headers)
+response.json()
+```
+
+
+
+### HTTP Request
+`POST api/patients/reset`
+
+
+<!-- END_52762fc85d933a8ce449cd07d5febe21 -->
+
+<!-- START_06ca21682ebf46506c2c0dc3a1b2b3ed -->
+## api/basicpages/consent
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://localhost/api/basicpages/consent" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Basic {credentials}"
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/basicpages/consent"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Basic {credentials}",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get(
+    'http://localhost/api/basicpages/consent',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Basic {credentials}',
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+```python
+import requests
+import json
+
+url = 'http://localhost/api/basicpages/consent'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': 'Basic {credentials}'
+}
+response = requests.request('GET', url, headers=headers)
+response.json()
+```
+
+
+
+### HTTP Request
+`GET api/basicpages/consent`
+
+
+<!-- END_06ca21682ebf46506c2c0dc3a1b2b3ed -->
+
+<!-- START_233d479b97574db158472b6e203569cb -->
+## api/provider/login
+> Example request:
+
+```bash
+curl -X POST \
+    "http://localhost/api/provider/login" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Basic {credentials}"
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/provider/login"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Basic {credentials}",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->post(
+    'http://localhost/api/provider/login',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Basic {credentials}',
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+```python
+import requests
+import json
+
+url = 'http://localhost/api/provider/login'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': 'Basic {credentials}'
+}
+response = requests.request('POST', url, headers=headers)
+response.json()
+```
+
+
+
+### HTTP Request
+`POST api/provider/login`
+
+
+<!-- END_233d479b97574db158472b6e203569cb -->
+
+<!-- START_58f7d26b4be841ae4012f9aee53ca71b -->
+## api/provider/reset
+> Example request:
+
+```bash
+curl -X POST \
+    "http://localhost/api/provider/reset" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Basic {credentials}"
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/provider/reset"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Basic {credentials}",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->post(
+    'http://localhost/api/provider/reset',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Basic {credentials}',
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+```python
+import requests
+import json
+
+url = 'http://localhost/api/provider/reset'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': 'Basic {credentials}'
+}
+response = requests.request('POST', url, headers=headers)
+response.json()
+```
+
+
+
+### HTTP Request
+`POST api/provider/reset`
+
+
+<!-- END_58f7d26b4be841ae4012f9aee53ca71b -->
+
+<!-- START_a79c2859a661870b229f9a5f8e0cee11 -->
+## api/provider/staffs
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://localhost/api/provider/staffs" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Basic {credentials}"
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/provider/staffs"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Basic {credentials}",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get(
+    'http://localhost/api/provider/staffs',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Basic {credentials}',
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+```python
+import requests
+import json
+
+url = 'http://localhost/api/provider/staffs'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': 'Basic {credentials}'
+}
+response = requests.request('GET', url, headers=headers)
+response.json()
+```
+
+
+
+### HTTP Request
+`GET api/provider/staffs`
+
+
+<!-- END_a79c2859a661870b229f9a5f8e0cee11 -->
+
+<!-- START_fd77483b78b187c06f1814384d6d57b3 -->
+## api/provider/users/{id}
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://localhost/api/provider/users/1" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Basic {credentials}"
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/provider/users/1"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Basic {credentials}",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get(
+    'http://localhost/api/provider/users/1',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Basic {credentials}',
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+```python
+import requests
+import json
+
+url = 'http://localhost/api/provider/users/1'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': 'Basic {credentials}'
+}
+response = requests.request('GET', url, headers=headers)
+response.json()
+```
+
+
+
+### HTTP Request
+`GET api/provider/users/{id}`
+
+
+<!-- END_fd77483b78b187c06f1814384d6d57b3 -->
+
+<!-- START_9fc17ab9176f71634e725de1e2f92e65 -->
+## api/provider/users
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://localhost/api/provider/users" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Basic {credentials}"
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/provider/users"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Basic {credentials}",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get(
+    'http://localhost/api/provider/users',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Basic {credentials}',
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+```python
+import requests
+import json
+
+url = 'http://localhost/api/provider/users'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': 'Basic {credentials}'
+}
+response = requests.request('GET', url, headers=headers)
+response.json()
+```
+
+
+
+### HTTP Request
+`GET api/provider/users`
+
+
+<!-- END_9fc17ab9176f71634e725de1e2f92e65 -->
+
+<!-- START_8109a45ec98f00a233d6c20b8a9a1554 -->
+## api/provider/clinic
+> Example request:
+
+```bash
+curl -X GET \
+    -G "http://localhost/api/provider/clinic" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Basic {credentials}"
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/provider/clinic"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Basic {credentials}",
+};
+
+fetch(url, {
+    method: "GET",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->get(
+    'http://localhost/api/provider/clinic',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Basic {credentials}',
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+```python
+import requests
+import json
+
+url = 'http://localhost/api/provider/clinic'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': 'Basic {credentials}'
+}
+response = requests.request('GET', url, headers=headers)
+response.json()
+```
+
+
+
+### HTTP Request
+`GET api/provider/clinic`
+
+
+<!-- END_8109a45ec98f00a233d6c20b8a9a1554 -->
+
+<!-- START_615660b72e692efee60014889d11fb26 -->
+## api/provider/update
+> Example request:
+
+```bash
+curl -X POST \
+    "http://localhost/api/provider/update" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -H "Authorization: Basic {credentials}"
+```
+
+```javascript
+const url = new URL(
+    "http://localhost/api/provider/update"
+);
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": "Basic {credentials}",
+};
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response => response.json())
+    .then(json => console.log(json));
+```
+
+```php
+
+$client = new \GuzzleHttp\Client();
+$response = $client->post(
+    'http://localhost/api/provider/update',
+    [
+        'headers' => [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+            'Authorization' => 'Basic {credentials}',
+        ],
+    ]
+);
+$body = $response->getBody();
+print_r(json_decode((string) $body));
+```
+
+```python
+import requests
+import json
+
+url = 'http://localhost/api/provider/update'
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': 'Basic {credentials}'
+}
+response = requests.request('POST', url, headers=headers)
+response.json()
+```
+
+
+
+### HTTP Request
+`POST api/provider/update`
+
+
+<!-- END_615660b72e692efee60014889d11fb26 -->
+
 #Users > FCM Registration Tokens
 
 
@@ -165,7 +1285,7 @@ removed.
 
 ```bash
 curl -X POST \
-    "http://localhost:40020/api/users/1/fcm_registration_tokens" \
+    "http://localhost/api/users/1/fcm_registration_tokens" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Basic {credentials}" \
@@ -175,7 +1295,7 @@ curl -X POST \
 
 ```javascript
 const url = new URL(
-    "http://localhost:40020/api/users/1/fcm_registration_tokens"
+    "http://localhost/api/users/1/fcm_registration_tokens"
 );
 
 let headers = {
@@ -201,7 +1321,7 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->post(
-    'http://localhost:40020/api/users/1/fcm_registration_tokens',
+    'http://localhost/api/users/1/fcm_registration_tokens',
     [
         'headers' => [
             'Content-Type' => 'application/json',
@@ -221,7 +1341,7 @@ print_r(json_decode((string) $body));
 import requests
 import json
 
-url = 'http://localhost:40020/api/users/1/fcm_registration_tokens'
+url = 'http://localhost/api/users/1/fcm_registration_tokens'
 payload = {
     "registration_id": "fIAe0YS9S1-FyQDlQ24Edu:APA91bF2NDdGgK8UR26uSFvXw2RSXGJ2A1o57f2yh_iDSQ8gYbszgPEcWnanlQCeYO7okp6XNqEVwtjMSVz8RQPNpMtzb4vseRKGov5Wm6PkpK5gDy30SkzrtnjIvCO4nHqTpfmjL2wo"
 }
@@ -289,7 +1409,7 @@ if there are no more members, but this should not impact you.
 
 ```bash
 curl -X DELETE \
-    "http://localhost:40020/api/users/1/fcm_registration_tokens" \
+    "http://localhost/api/users/1/fcm_registration_tokens" \
     -H "Content-Type: application/json" \
     -H "Accept: application/json" \
     -H "Authorization: Basic {credentials}" \
@@ -299,7 +1419,7 @@ curl -X DELETE \
 
 ```javascript
 const url = new URL(
-    "http://localhost:40020/api/users/1/fcm_registration_tokens"
+    "http://localhost/api/users/1/fcm_registration_tokens"
 );
 
 let headers = {
@@ -325,7 +1445,7 @@ fetch(url, {
 
 $client = new \GuzzleHttp\Client();
 $response = $client->delete(
-    'http://localhost:40020/api/users/1/fcm_registration_tokens',
+    'http://localhost/api/users/1/fcm_registration_tokens',
     [
         'headers' => [
             'Content-Type' => 'application/json',
@@ -345,7 +1465,7 @@ print_r(json_decode((string) $body));
 import requests
 import json
 
-url = 'http://localhost:40020/api/users/1/fcm_registration_tokens'
+url = 'http://localhost/api/users/1/fcm_registration_tokens'
 payload = {
     "registration_id": "fIAe0YS9S1-FyQDlQ24Edu:APA91bF2NDdGgK8UR26uSFvXw2RSXGJ2A1o57f2yh_iDSQ8gYbszgPEcWnanlQCeYO7okp6XNqEVwtjMSVz8RQPNpMtzb4vseRKGov5Wm6PkpK5gDy30SkzrtnjIvCO4nHqTpfmjL2wo"
 }

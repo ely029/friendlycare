@@ -24,7 +24,7 @@ class DefaultController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        if (\Auth::attempt(['email' => request('email'), 'password' => request('password'), 'role_id' => [2,4]])) {
+        if (\Auth::attempt(['email' => request('email'), 'password' => request('password'), 'role_id' => 4])) {
             $user = \Auth::user();
 
             return response([

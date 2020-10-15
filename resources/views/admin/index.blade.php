@@ -14,6 +14,7 @@
                 <a href="{{ route('providerManagement')}}" class="list-group-item">Provider Management</a>
                 <span>Contents</span>
                 <a href="{{ route('basicPages')}}" class="list-group-item">Basic Pages</a>
+                <a href="{{ route('familyPlanningMethod.index')}}" class="list-group-item">Family Planning Method</a>
             </div>
       @elseif (Auth::user()->role_id == '2')
       <div class="list-group w-100">
