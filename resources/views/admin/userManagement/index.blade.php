@@ -77,7 +77,7 @@
                             <td><a href="{{ route('editUserProfilePage',$admins->id) }}">{{ $admins->name }}</a></td>
                             <td>{{ $admins->email }}</td>
                             @if($admins->role_id == '2')
-                            <td>Super Admin</td>
+                            <td>Admin</td>
                             @else
                             <td>Staff</td>
                             @endif
