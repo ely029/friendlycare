@@ -7,34 +7,15 @@ namespace App\Http\Controllers\Admin;
 use App\ClinicHours;
 use App\Clinics;
 use App\Http\Controllers\Controller;
-use App\User;
 use Illuminate\Support\Facades\DB;
 
 class ProviderManagementController extends Controller
 {
     public function index()
     {
-        $loggedin = auth()->user();
-        if ($loggedin->role_id === 2) {
-            $users = DB::table('clinics')
-                ->join('users', 'clinics.user_id', '=', 'users.id')
-                ->leftjoin('staffs', 'staffs.clinic_id', 'clinics.id')
-                ->select('users.email', DB::raw('count(staffs.id) as count'), 'clinics.clinic_name', 'clinics.id', 'clinics.type', 'users.id AS admin_id')
-                ->whereNotNull(['clinics.clinic_name', 'clinics.type'])
-                ->groupBy(['users.email', 'clinics.clinic_name', 'clinics.id', 'clinics.type' ])
-                ->where(['clinics.is_approve' => 1])
-                ->where('users.id', $loggedin->id)
-                ->get();
-        } else {
-            $users = DB::table('clinics')
-                ->join('users', 'clinics.user_id', '=', 'users.id')
-                ->leftjoin('staffs', 'staffs.clinic_id', 'clinics.id')
-                ->select('users.email', DB::raw('count(staffs.id) as count'), 'clinics.clinic_name', 'clinics.id', 'clinics.type', 'users.id AS admin_id')
-                ->whereNotNull(['clinics.clinic_name', 'clinics.type'])
-                ->groupBy(['users.email', 'clinics.clinic_name', 'clinics.id', 'clinics.type' ])
-                ->where(['clinics.is_approve' => 1])
-                ->get();
-        }
+        $users = DB::table('clinics')
+            ->select('clinics.email', 'clinics.type', 'clinics.id', 'clinics.clinic_name')
+            ->get();
 
         return view('admin.providerManagement.index', ['clinics' => $users]);
     }
@@ -56,23 +37,21 @@ class ProviderManagementController extends Controller
 
     public function editProviderInformation($id)
     {
-        $provider = DB::table('users')
-            ->leftJoin('clinics', 'clinics.user_id', 'users.id')
+        $provider = DB::table('clinics')
             ->leftJoin('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
             ->select(
                 'clinics.clinic_name',
-                'users.city',
-                'users.province',
-                'users.contact_number_1',
-                'users.municipality',
-                'users.email',
+                'clinics.city',
+                'clinics.province',
+                'clinics.contact_number',
+                'clinics.municipality',
+                'clinics.email',
                 'clinics.description',
                 'clinics.type',
                 'clinics.street_address',
-                'clinics.id as c_id',
-                'users.id AS users_id',
+                'clinics.id',
            )
-            ->where(['users.id' => $id, 'clinics.is_approve' => 1])
+            ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
             ->whereNotNull('clinics.clinic_name')
             ->get();
 
@@ -81,21 +60,19 @@ class ProviderManagementController extends Controller
 
     public function editPage($id)
     {
-        $provider = DB::table('users')
-            ->leftJoin('clinics', 'clinics.user_id', 'users.id')
+        $provider = DB::table('clinics')
             ->leftJoin('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
             ->select(
                 'clinics.clinic_name',
-                'users.city',
-                'users.province',
+                'clinics.city',
+                'clinics.province',
                 'clinics.contact_number',
-                'users.municipality',
-                'users.email',
+                'clinics.municipality',
+                'clinics.email',
                 'clinics.description',
                 'clinics.type',
                 'clinics.street_address',
-                'clinics.id as c_id',
-                'users.id AS users_id',
+                'clinics.id',
                )
             ->where('clinics.id', $id)
             ->get();
@@ -111,15 +88,11 @@ class ProviderManagementController extends Controller
             'street_address' => $request['street_address'],
             'description' => $request['description'],
             'contact_number' => $request['contact_number'],
-        ]);
-
-        User::where('id', $request['user_id'])->update([
-            'province' => $request['province'],
-            'municipality' => $request['municipality'],
             'city' => $request['city'],
+            'municipality' => $request['municipality'],
+            'province' => $request['province'],
             'email' => $request['email'],
         ]);
-
         return redirect('/provider/list');
     }
 
@@ -134,28 +107,11 @@ class ProviderManagementController extends Controller
     public function storeFirstPage()
     {
         $request = request()->all();
-        //check if the email is registered
-        $user = User::where(['email' => $request['email'],'role_id' => 2])->first();
-        if ($user === null) {
-            return redirect('/provider/create/1')->with('message', 'Email are not registered as Admin!');
-        }
-
-        $userid = Clinics::where(['user_id' => $user->id,'is_approve' => 1])->first();
-
-        if ($userid !== null) {
-            return redirect('/provider/create/1')->with('message', 'Email are already used by other clinic');
-        }
-        $request['user_id'] = $user->id;
         $request['profession'] = 'N/A';
         $request['training'] = 'N/A';
-        session(['id' => $user->id]);
-
         Clinics::create($request);
-        User::where('id', $request['user_id'])->update([
-            'city' => $request['city'],
-            'municipality' => $request['municipality'],
-            'province' => $request['province'],
-        ]);
+        $user = Clinics::where('email', $request['email'])->get();
+        session(['id' => $user->id]);
 
         return redirect()->action('Admin\ProviderManagementController@createSecondPage');
     }
@@ -175,7 +131,7 @@ class ProviderManagementController extends Controller
 
     public function storeThirdPage()
     {
-        Clinics::where('user_id', session('id'))->update(['is_approve' => 1]);
+        Clinics::where('id', session('id'))->update(['is_approve' => 1]);
 
         return redirect('/provider/profile/'.session('id'));
     }

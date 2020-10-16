@@ -13,46 +13,19 @@ class UserManagementController extends Controller
 {
     public function index()
     {
-        $loggedin = auth()->user();
-        if ($loggedin->role_id === 2) {
-            $users = DB::table('clinics')
-                ->leftJoin('users', 'clinics.user_id', '=', 'users.id')
-                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
-                ->orderBy('users.created_at', 'desc')
-                ->where('users.role_id', '<>', 3)
-                ->where('users.role_id', '<>', 4)
-                ->where('users.id', $loggedin->id)
-                ->whereNotNull('clinics.type');
+        $users = '';
+        $staffs = DB::table('users')
+            ->join('staffs', 'staffs.user_id', 'users.id')
+            ->join('clinics', 'clinics.id', 'staffs.clinic_id')
+            ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email');
 
-            $staffs = DB::table('staffs')
-                ->leftJoin('clinics', 'clinics.id', '=', 'staffs.clinic_id')
-                ->leftJoin('users', 'users.id', 'staffs.user_id')
-                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
-                ->orderBy('users.created_at', 'desc')
-                ->where('users.role_id', '<>', 3)
-                ->where('clinics.user_id', $loggedin->id)
-                ->whereNotNull('clinics.type');
+        $admin = DB::table('users')
+            ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'users.profession as clinic_name', 'users.role_id', 'users.email')
+            ->where('users.role_id', '<>', 1)
+            ->where('users.role_id', '<>', 4);
 
-            $merge = $users->union($staffs)->get();
-        } else {
-            $users = DB::table('clinics')
-                ->leftJoin('users', 'clinics.user_id', '=', 'users.id')
-                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
-                ->orderBy('users.created_at', 'desc')
-                ->where('users.role_id', '<>', 3)
-                ->where('users.role_id', '<>', 4)
-                ->whereNotNull('clinics.type');
-            $staffs = DB::table('staffs')
-                ->leftJoin('clinics', 'clinics.id', '=', 'staffs.clinic_id')
-                ->leftJoin('users', 'users.id', 'staffs.user_id')
-                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
-                ->orderBy('users.created_at', 'desc')
-                ->where('users.role_id', '<>', 3)
-                ->whereNotNull('clinics.type');
-
-            $merge = $users->union($staffs)->get();
-        }
-        return view('admin.userManagement.index', ['admin' => $merge]);
+        $users = $staffs->union($admin)->get();
+        return view('admin.userManagement.index', ['admin' => $users]);
     }
     public function role()
     {
@@ -64,21 +37,11 @@ class UserManagementController extends Controller
     }
     public function staffFirstPage()
     {
-        $loggedin = auth()->user();
-        if ($loggedin->role_id === 2) {
-            $users = DB::table('users')
-                ->join('clinics', 'clinics.user_id', '=', 'users.id')
-                ->select('clinics.id', 'clinics.clinic_name')
-                ->where('is_approve', 1)
-                ->where('clinics.user_id', $loggedin->id)
-                ->get();
-        } else {
-            $users = DB::table('users')
-                ->join('clinics', 'clinics.user_id', '=', 'users.id')
-                ->select('clinics.id', 'clinics.clinic_name')
-                ->where('is_approve', 1)
-                ->get();
-        }
+        $users = DB::table('clinics')
+            ->select('clinics.id', 'clinics.clinic_name')
+            ->where('is_approve', 1)
+            ->get();
+
         return view('admin.userManagement.staffFirstPage', ['clinics' => $users]);
     }
     public function createAdmin()
@@ -183,45 +146,28 @@ class UserManagementController extends Controller
         $request = request()->all();
 
         if ($request['filter'] === 'by_admin') {
-            $users = DB::table('clinics')
-                ->leftJoin('users', 'clinics.user_id', '=', 'users.id')
-                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
-                ->orderBy('users.created_at', 'desc')
-                ->where('users.role_id', '<>', 3)
+            $users = DB::table('users')
+                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'users.profession as clinic_name', 'users.role_id', 'users.email')
+                ->where('users.role_id', '<>', 1)
                 ->where('users.role_id', '<>', 4)
-                ->whereNotNull('clinics.type')
                 ->get();
         } elseif ($request['filter'] === 'by_staff') {
-            $staffs = DB::table('staffs')
-                ->leftJoin('clinics', 'clinics.id', '=', 'staffs.clinic_id')
-                ->leftJoin('users', 'users.id', 'staffs.user_id')
+            $users = DB::table('users')
+                ->join('staffs', 'staffs.user_id', 'users.id')
+                ->join('clinics', 'clinics.id', 'staffs.clinic_id')
                 ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
-                ->orderBy('users.created_at', 'desc')
-                ->where('users.role_id', '<>', 3)
-                ->whereNotNull('clinics.type')
                 ->get();
-
-            $users = $staffs;
         } else {
-            $users = DB::table('clinics')
-                ->leftJoin('users', 'clinics.user_id', '=', 'users.id')
-                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
-                ->orderBy('users.created_at', 'desc')
-                ->where('users.role_id', '<>', 3)
-                ->where('users.role_id', '<>', 4)
-                ->whereNotNull('clinics.type');
+            $staffs = DB::table('users')
+                ->join('staffs', 'staffs.user_id', 'users.id')
+                ->join('clinics', 'clinics.id', 'staffs.clinic_id')
+                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email');
 
-            $staffs = DB::table('staffs')
-                ->leftJoin('clinics', 'clinics.id', '=', 'staffs.clinic_id')
-                ->leftJoin('users', 'users.id', 'staffs.user_id')
-                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
-                ->orderBy('users.created_at', 'desc')
-                ->where('users.role_id', '<>', 3)
-                ->whereNotNull('clinics.type');
-
-            $merge = $users->union($staffs)->get();
-
-            $users = $merge;
+            $admin = DB::table('users')
+                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'users.profession as clinic_name', 'users.role_id', 'users.email')
+                ->where('users.role_id', '<>', 1)
+                ->where('users.role_id', '<>', 4);
+            $users = $staffs->union($admin)->get();
         }
         return view('admin.userManagement.index', ['admin' => $users]);
     }

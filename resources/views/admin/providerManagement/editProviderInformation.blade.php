@@ -56,7 +56,7 @@
                                 <div class="edit-page-provider-info-image-side">
                                     <span>{{ $providers->clinic_name }}</span><br>
                                     <span>{{$providers->email }}</span><br>
-                                    <span>{{ $providers->contact_number_1 }}</span>
+                                    <span>{{ $providers->contact_number }}</span>
                                 </div>
                  </div>
                  <div class="col-md-2">
@@ -100,12 +100,12 @@
                     </div>
                     <div class="row">
                           <div class="col-md-6">
-                              <a href="{{ route('editPage',$providers->c_id )}}" class="btn btn-success">Edit Profile</a>
+                              <a href="{{ route('editPage',$providers->id )}}" class="btn btn-success">Edit Profile</a>
                           </div>
                           <div class="col-md-6">
                               @if (Auth::user()->role_id == 2)
                               @else
-                              <a href="{{ route('deleteProvider',$providers->c_id )}}" class="btn btn-primary">Delete Provider</a>
+                              <a href="{{ route('deleteProvider',$providers->id )}}" class="btn btn-primary">Delete Provider</a>
                               @endif
                           </div>
                     </div>

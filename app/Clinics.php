@@ -21,6 +21,10 @@ class Clinics extends Model
         'profession',
         'training',
         'street_address',
+        'city',
+        'municipality',
+        'province',
+        'email',
     ];
 
     public function user()

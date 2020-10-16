@@ -41,8 +41,7 @@
             <form method="POST" action="{{ route('updateProvider') }}">
                 @csrf
              @foreach ($provider as $providers)
-             <input type="hidden" name="user_id" value="{{ $providers->users_id}}">
-             <input type="hidden" name="clinic_id" value="{{ $providers->c_id}}">
+             <input type="hidden" name="clinic_id" value="{{ $providers->id}}">
              <table class="table table-bordered">
                  <tr>
                      <td>Clinic Name</td>
