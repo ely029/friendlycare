@@ -90,8 +90,12 @@ Route::group(['prefix' => 'reset'], static function () {
 });
 
 Route::group(['prefix' => 'fpm'], static function () {
-    //reset page
+    //create
     Route::get('/', 'Admin\FamilyPlanningMethodController@index')->name('familyPlanningMethod.index');
+    Route::get('/create/1', 'Admin\FamilyPlanningMethodController@firstPage')->name('familyPlanningMethod.firstPage');
+    Route::get('/create/2', 'Admin\FamilyPlanningMethodController@secondPage')->name('familyPlanningMethod.secondPage');
+    Route::get('/create/3', 'Admin\FamilyPlanningMethodController@thirdPage')->name('familyPlanningMethod.thirdPage');
+    Route::post('/create/1', 'Admin\FamilyPlanningMethodController@createOne')->name('familyPlanningMethod.createOne');
 });
 
     Route::get('/', 'HomeController@index');

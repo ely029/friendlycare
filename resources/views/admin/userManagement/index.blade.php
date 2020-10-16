@@ -46,6 +46,7 @@
             <div class="row bg-white">
                 <div class="col-2">
                     <select name="filter" class="form-control">
+                        <option value="">Select Filter</option>
                         <option value="by_admin">By Admin</option>
                         <option value="by_staff">By Staff</option>
                     </select>

@@ -179,7 +179,6 @@ class UserManagementController extends Controller
 
     public function filter()
     {
-        $merge = '';
         $request = request()->all();
 
         if ($request['filter'] === 'by_admin') {
@@ -189,32 +188,20 @@ class UserManagementController extends Controller
                 ->orderBy('users.created_at', 'desc')
                 ->where('users.role_id', '<>', 3)
                 ->where('users.role_id', '<>', 4)
-                ->whereNotNull('clinics.type');
-            $staffs = DB::table('staffs')
-                ->leftJoin('clinics', 'clinics.id', '=', 'staffs.clinic_id')
-                ->leftJoin('users', 'users.id', 'staffs.user_id')
-                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
-                ->orderBy('users.created_at', 'desc')
-                ->where('users.role_id', '<>', 3)
-                ->whereNotNull('clinics.type');
-            $merge = $users->union($staffs)->orderBy('role_id', 'asc')->get();
+                ->whereNotNull('clinics.type')
+                ->get();
         } elseif ($request['filter'] === 'by_staff') {
-            $users = DB::table('clinics')
-                ->leftJoin('users', 'clinics.user_id', '=', 'users.id')
-                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
-                ->orderBy('users.created_at', 'desc')
-                ->where('users.role_id', '<>', 3)
-                ->where('users.role_id', '<>', 4)
-                ->whereNotNull('clinics.type');
             $staffs = DB::table('staffs')
                 ->leftJoin('clinics', 'clinics.id', '=', 'staffs.clinic_id')
                 ->leftJoin('users', 'users.id', 'staffs.user_id')
                 ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
                 ->orderBy('users.created_at', 'desc')
                 ->where('users.role_id', '<>', 3)
-                ->whereNotNull('clinics.type');
-            $merge = $users->union($staffs)->orderBy('role_id', 'desc')->get();
+                ->whereNotNull('clinics.type')
+                ->get();
+
+            $users = $staffs;
         }
-        return view('admin.userManagement.index', ['admin' => $merge]);
+        return view('admin.userManagement.index', ['admin' => $users]);
     }
 }

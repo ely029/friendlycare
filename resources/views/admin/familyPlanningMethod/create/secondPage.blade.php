@@ -36,43 +36,6 @@
                     <span>Family Planning Methods</span>
                 </div>
             </div>
-            <div class="row bg-white">
-                <div class="col-12 py-4">
-                    <a href="{{ route('familyPlanningMethod.firstPage') }}" class="btn btn-success">Create new Method</a>
-                </div>
-            </div>
-            
-            <div class="row bg-white">
-                <div class="col-2">
-                    <select name="filter" class="form-control">
-                        <option>Filter</option>
-                        <option>Filter</option>
-                        <option>Filter</option>
-                    </select>
-                </div>
-                <div class="col-4">
-            
-                </div>
-                <div class="col-4">
-            
-                </div>
-                <div class="col-2">
-                    <input type="text" class="form-control" placeholder="Search"/>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Short Name</th>
-                            <th>Category</th>
-                        </tr>
-                    </table>
-                </div>
-            </div>
         </main>
     </div>
 </div>
