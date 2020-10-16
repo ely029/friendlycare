@@ -179,6 +179,7 @@ class UserManagementController extends Controller
 
     public function filter()
     {
+        $users = '';
         $request = request()->all();
 
         if ($request['filter'] === 'by_admin') {
