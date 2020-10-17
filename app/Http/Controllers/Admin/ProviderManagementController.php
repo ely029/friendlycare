@@ -39,7 +39,6 @@ class ProviderManagementController extends Controller
     public function editProviderInformation($id)
     {
         $provider = DB::table('clinics')
-            ->leftJoin('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
             ->select(
                 'clinics.clinic_name',
                 'clinics.city',
@@ -53,7 +52,6 @@ class ProviderManagementController extends Controller
                 'clinics.id',
            )
             ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
-            ->where('clinics.province', '<>', 'null')
             ->whereNotNull('clinics.clinic_name')
             ->get();
 
