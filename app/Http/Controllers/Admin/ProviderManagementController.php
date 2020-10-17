@@ -15,6 +15,7 @@ class ProviderManagementController extends Controller
     {
         $users = DB::table('clinics')
             ->select('clinics.email', 'clinics.type', 'clinics.id', 'clinics.clinic_name')
+            ->where('clinics.email', '<>', 'null')
             ->get();
 
         return view('admin.providerManagement.index', ['clinics' => $users]);
