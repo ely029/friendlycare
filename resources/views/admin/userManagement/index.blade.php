@@ -79,7 +79,7 @@
                             <td>{{ $admins->email }}</td>
                             @if($admins->role_id == '2')
                             <td>Admin</td>
-                            @elseif($admins->role_id == 4)
+                            @elseif($admins->role_id == '4')
                             <td>Staff</td>
                             @endif
                             <td>{{ $admins->clinic_name }}</td>
