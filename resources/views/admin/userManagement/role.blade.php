@@ -7,21 +7,14 @@
 <div class="container-fluid">
     <div class="row">
         <aside class="col-2 px-0 fixed-top" id="left">
-          @if (Auth::user()->role_id == 2)
-          <div class="list-group w-100">
-                <span>Management</span>
-                <a href="{{ route('userManagement') }}" class="list-group-item active">User Management</a>
-                <a href="{{ route('providerManagement') }}" class="list-group-item">Provider Management</a>
-            </div>
-            @else
             <div class="list-group w-100">
                 <span>Management</span>
                 <a href="{{ route('userManagement') }}" class="list-group-item active">User Management</a>
                 <a href="{{ route('providerManagement') }}" class="list-group-item">Provider Management</a>
                 <span>Content</span>
                 <a href="{{ route('basicPages')}}" class="list-group-item">Basic Pages</a>
+                <a href="{{ route('familyPlanningMethod.index')}}" class="list-group-item">Family Planning Method</a>
             </div>
-          @endif
 
         </aside>
         <main class="col-10 invisible">
@@ -34,18 +27,11 @@
                 </div>
             </div>
             <div class="row bg-white">
-                @if (Auth::user()->role_id == 2)
-                <select class="form-control" id="role">
-                    <option value="">Please Select</option>
-                    <option value="{{ route('staffFirstPage') }}">Staff</option>
-                </select>
-                @else
                 <select class="form-control" id="role">
                     <option value="">Please Select</option>
                     <option value="{{ route('adminFirstPage') }}">Admin</option>
                     <option value="{{ route('staffFirstPage') }}">Staff</option>
                 </select>
-                @endif
             </div>
         </main>
     </div>

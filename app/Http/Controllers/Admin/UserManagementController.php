@@ -17,8 +17,8 @@ class UserManagementController extends Controller
         $staffs = DB::table('users')
             ->join('staffs', 'staffs.user_id', 'users.id')
             ->join('clinics', 'clinics.id', 'staffs.clinic_id')
-            ->where('clinics.province', '<>', 'null')
             ->where('users.role_id', '<>', 1)
+            ->where('users.role_id', '<>', 3)
             ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email');
 
         $admin = DB::table('users')

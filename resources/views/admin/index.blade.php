@@ -7,7 +7,6 @@
 <div class="container-fluid">
     <div class="row">
         <aside class="col-2 px-0 fixed-top" id="left">
-      @if (Auth::user()->role_id == '1')
       <div class="list-group w-100">
                 <span>Management</span>
                 <a href='{{ route("userManagement") }}' class="list-group-item">User Management</a>
@@ -16,13 +15,6 @@
                 <a href="{{ route('basicPages')}}" class="list-group-item">Basic Pages</a>
                 <a href="{{ route('familyPlanningMethod.index')}}" class="list-group-item">Family Planning Method</a>
             </div>
-      @elseif (Auth::user()->role_id == '2')
-      <div class="list-group w-100">
-                <span>Management</span>
-                <a href='{{ route("userManagement") }}' class="list-group-item">User Management</a>
-                <a href="{{ route('providerManagement')}}" class="list-group-item">Provider Management</a>
-      </div>
-      @endif
       
 
         </aside>
