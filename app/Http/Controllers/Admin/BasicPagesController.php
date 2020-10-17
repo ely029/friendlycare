@@ -11,7 +11,6 @@ class BasicPagesController extends Controller
 {
     public function index()
     {
-        
         $content = BasicPages::all();
         return view('admin.basicPages.index', ['content' => $content]);
     }
@@ -27,7 +26,6 @@ class BasicPagesController extends Controller
     }
     public function editPage($id)
     {
-     
         $content = BasicPages::where('id', $id)->get();
         return view('admin.basicPages.editPage', ['content' => $content]);
     }
