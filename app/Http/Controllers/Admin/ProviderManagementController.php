@@ -61,7 +61,6 @@ class ProviderManagementController extends Controller
     public function editPage($id)
     {
         $provider = DB::table('clinics')
-            ->leftJoin('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
             ->select(
                 'clinics.clinic_name',
                 'clinics.city',
