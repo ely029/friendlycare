@@ -53,6 +53,7 @@ class ProviderManagementController extends Controller
                 'clinics.id',
            )
             ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
+            ->where('clinics.province', '<>', 'null')
             ->whereNotNull('clinics.clinic_name')
             ->get();
 
