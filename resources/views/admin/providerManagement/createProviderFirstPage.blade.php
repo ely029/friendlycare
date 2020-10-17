@@ -44,10 +44,10 @@
                 @csrf
             <div class="row">
                  <div class="col-md-4">
-                    <input type="text" name="clinic_name" class="form-control" placeholder="Provider name">
+                    <input type="text" value="{{ old('clinic_name') }}" name="clinic_name" class="form-control" placeholder="Provider name">
                 </div>
                 <div class="col-md-4">
-                    <input type="text" name="province" id="province" class="form-control" placeholder="Province">
+                    <input type="text" name="province" value="{{ old('clinic_name')}}" id="province" class="form-control" placeholder="Province">
                                     </div>
                 <div class="col-md-4">        
                 </div>
@@ -61,32 +61,32 @@
                         </select>
                 </div>
                 <div class="col-md-4">
-                        <input type="text" class="form-control" id="city" name="city" placeholder="City">
+                        <input type="text" class="form-control" value="{{ old('city') }}" id="city" name="city" placeholder="City">
                 </div>   
             </div>
             <div class="row">
                 <div class="col-md-4">
-                        <input type="text" class="form-control" name="contact_number" maxlength="14" placeholder="Contact Number">
+                        <input type="text" class="form-control" name="contact_number" value="{{ old('contact_number') }}" maxlength="14" placeholder="Contact Number">
                 </div>
                 <div class="col-md-4">
-                <input type="text" class="form-control" name="municipality" placeholder="Municipality">
-                </div>
-                <div class="col-md-4">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                        <input type="email" name="email" class="form-control" placeholder="Email Address">
-                </div>
-                <div class="col-md-4">
-                       <input type="text" name="description" class="form-control" placeholder="Description">
+                <input type="text" class="form-control" valu="{{ old('municipality') }}" name="municipality" placeholder="Municipality">
                 </div>
                 <div class="col-md-4">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                <input type="text" class="form-control" name="address" placeholder="Street Address">
+                        <input type="email" name="email" value=" {{ old('email') }}"class="form-control" placeholder="Email Address">
+                </div>
+                <div class="col-md-4">
+                       <input type="text" name="description" value="{{ old('description') }}"class="form-control" placeholder="Description">
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                <input type="text" class="form-control" name="address" value="{{ old('address') }}"placeholder="Street Address">
                 </div>
                 <div class="col-md-4">
                     <input type="submit" value="Next" class="btn btn-info">

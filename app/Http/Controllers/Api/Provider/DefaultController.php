@@ -64,7 +64,7 @@ class DefaultController extends Controller
         $users = DB::table('staffs')
             ->join('users', 'users.id', 'staffs.user_id')
             ->select('users.id', 'users.first_name', 'users.last_name', 'users.email', 'staffs.profession', 'staffs.training')
-            ->where('users.id', $id)
+            ->where('staffs.user_id', $id)
             ->get();
 
         return response([
@@ -123,6 +123,88 @@ class DefaultController extends Controller
 
         return response([
             'data' => $details,
+        ]);
+    }
+
+    public function getDescription($id)
+    {
+        $description = DB::table('staffs')
+            ->join('clinics', 'clinics.id', 'staffs.clinic_id')
+            ->select('clinics.description')
+            ->where('staffs.user_id', $id)
+            ->get();
+
+        return response([
+            'data' => $description,
+        ]);
+    }
+
+    public function getClinicHours($id)
+    {
+        $sunday = DB::table('clinics')
+            ->join('staffs', 'staffs.clinic_id', 'clinics.id')
+            ->join('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
+            ->select('clinic_hours.days', 'clinic_hours.froms', 'clinic_hours.tos')
+            ->where('clinic_hours.days', 'sunday')
+            ->where('staffs.user_id', $id)
+            ->get();
+
+        $monday = DB::table('clinics')
+            ->join('staffs', 'staffs.clinic_id', 'clinics.id')
+            ->join('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
+            ->select('clinic_hours.days', 'clinic_hours.froms', 'clinic_hours.tos')
+            ->where('clinic_hours.days', 'monday')
+            ->where('staffs.user_id', $id)
+            ->get();
+
+        $tuesday = DB::table('clinics')
+            ->join('staffs', 'staffs.clinic_id', 'clinics.id')
+            ->join('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
+            ->select('clinic_hours.days', 'clinic_hours.froms', 'clinic_hours.tos')
+            ->where('clinic_hours.days', 'tuesday')
+            ->where('staffs.user_id', $id)
+            ->get();
+
+        $wednesday = DB::table('clinics')
+            ->join('staffs', 'staffs.clinic_id', 'clinics.id')
+            ->join('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
+            ->select('clinic_hours.days', 'clinic_hours.froms', 'clinic_hours.tos')
+            ->where('clinic_hours.days', 'wednesday')
+            ->where('staffs.user_id', $id)
+            ->get();
+
+        $thursday = DB::table('clinics')
+            ->join('staffs', 'staffs.clinic_id', 'clinics.id')
+            ->join('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
+            ->select('clinic_hours.days', 'clinic_hours.froms', 'clinic_hours.tos')
+            ->where('clinic_hours.days', 'thursday')
+            ->where('staffs.user_id', $id)
+            ->get();
+
+        $friday = DB::table('clinics')
+            ->join('staffs', 'staffs.clinic_id', 'clinics.id')
+            ->join('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
+            ->select('clinic_hours.days', 'clinic_hours.froms', 'clinic_hours.tos')
+            ->where('clinic_hours.days', 'friday')
+            ->where('staffs.user_id', $id)
+            ->get();
+
+        $saturday = DB::table('clinics')
+            ->join('staffs', 'staffs.clinic_id', 'clinics.id')
+            ->join('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
+            ->select('clinic_hours.days', 'clinic_hours.froms', 'clinic_hours.tos')
+            ->where('clinic_hours.days', 'saturday')
+            ->where('staffs.user_id', $id)
+            ->get();
+
+        return response([
+            'sunday' => $sunday,
+            'monday' => $monday,
+            'tuesday' => $tuesday,
+            'wednesday' => $wednesday,
+            'thursday' => $thursday,
+            'friday' => $friday,
+            'saturday' => $saturday,
         ]);
     }
 }

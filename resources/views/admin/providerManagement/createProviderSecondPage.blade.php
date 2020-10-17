@@ -6,8 +6,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <aside class="col-2 px-0 fixed-top" id="left">
-
+        <aside class="col-2 px-0 fixed-top" id="left"> 
             <div class="list-group w-100">
                 <span>Management</span>
                 <a href="{{ route('userManagement') }}" class="list-group-item">User Management</a>

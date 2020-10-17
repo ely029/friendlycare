@@ -106,26 +106,38 @@ class ProviderManagementController extends Controller
 
     public function storeFirstPage()
     {
+        $validator = \Validator::make(request()->all(), [
+            'email' => 'required|string|email|max:255|unique:clinics',
+        ]);
+        if ($validator->fails()) {
+            return redirect('provider/create/1')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $request = request()->all();
         $request['profession'] = 'N/A';
         $request['training'] = 'N/A';
-        Clinics::create($request);
-        $user = Clinics::where('email', $request['email'])->get();
-        session(['id' => $user->id]);
 
-        return redirect()->action('Admin\ProviderManagementController@createSecondPage');
+        Clinics::create($request);
+        $user = DB::table('clinics')->where('email', $request['email'])->pluck('id');
+        session(['id' => $user[0]]);
+        return view('admin.providerManagement.createProviderSecondPage');
     }
 
     public function storeSecondPage()
     {
         $request = request()->all();
-        ClinicHours::create([
-            'clinic_id' => session('id'),
-            'days' => json_encode($request['days']),
-            'froms' => json_encode($request['from']),
-            'tos' => json_encode($request['to']),
-            'is_checked' => 1,
-        ]);
+        for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {
+            ClinicHours::create([
+                'clinic_id' => session('id'),
+                'id_value' => $clinic_hours,
+                'days' => $request['days'][$clinic_hours],
+                'froms' => $request['from'][$clinic_hours],
+                'tos' => $request['to'][$clinic_hours],
+                'is_checked' => 1,
+            ]);
+        }
         return redirect()->action('Admin\ProviderManagementController@createThirdPage');
     }
 
