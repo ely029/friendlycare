@@ -86,6 +86,7 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'middle_initial',
+        'profession',
         'professions',
         'trainings',
     ];
