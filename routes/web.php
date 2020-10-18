@@ -96,6 +96,12 @@ Route::group(['prefix' => 'fpm'], static function () {
     Route::get('/create/2', 'Admin\FamilyPlanningMethodController@secondPage')->name('familyPlanningMethod.secondPage');
     Route::get('/create/3', 'Admin\FamilyPlanningMethodController@thirdPage')->name('familyPlanningMethod.thirdPage');
     Route::post('/create/1', 'Admin\FamilyPlanningMethodController@createOne')->name('familyPlanningMethod.createOne');
+    Route::post('/create/2', 'Admin\FamilyPlanningMethodController@createTwo')->name('familyPlanningMethod.createTwo');
+    Route::post('/create/3', 'Admin\FamilyPlanningMethodController@createThree')->name('familyPlanningMethod.createThree');
+    Route::get('/delete/{id}', 'Admin\FamilyPlanningMethodController@delete')->name('familyPlanningMethod.delete');
+    Route::get('/information/{id}', 'Admin\FamilyPlanningMethodController@information')->name('familyPlanningMethod.information');
+    Route::get('/edit/{id}', 'Admin\FamilyPlanningMethodController@edit')->name('familyPlanningMethod.edit');
+    Route::post('update/', 'Admin\FamilyPlanningMethodController@update')->name('familyPlanningMethod.update');
 });
 
     Route::get('/', 'HomeController@index');

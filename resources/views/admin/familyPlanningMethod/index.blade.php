@@ -62,6 +62,20 @@
                             <th>Short Name</th>
                             <th>Category</th>
                         </tr>
+                            @foreach($details as $detail)
+                            <tr>
+                            <td>{{ $detail->id }}</td>
+                            <td><a href="{{ route('familyPlanningMethod.information',$detail->id)}}">{{ $detail->name }}</a></td>
+                            <td>{{ $detail->short_name }}</td>
+                            @if ($detail->family_plan_type_id == '1')
+                            <td>Modern Method</td>
+                            @elseif ($detail->family_plan_type_id == '2')
+                            <td>Permanent Method</td>
+                            @elseif ($detail->family_plan_type_id == '3')
+                            <td>Natural Method</td>
+                            @endif
+                            </tr>
+                            @endforeach
                     </table>
                 </div>
             </div>

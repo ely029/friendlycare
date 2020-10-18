@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use App\FamilyPlanTypeSubcategories;
 use App\Http\Controllers\Controller;
+use App\ServiceGallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FamilyPlanningMethodController extends Controller
 {
     public function index()
     {
-        return view('admin.familyPlanningMethod.index');
+        $details = FamilyPlanTypeSubcategories::where('is_approve', 1)->get();
+        return view('admin.familyPlanningMethod.index', ['details' => $details]);
     }
 
     public function firstPage()
@@ -24,9 +28,134 @@ class FamilyPlanningMethodController extends Controller
         return view('admin.familyPlanningMethod.create.secondPage');
     }
 
-    public function createOne(Request $request)
+    public function thirdPage()
     {
-        $request->file('icon');
-        return response('testing');
+        return view('admin.familyPlanningMethod.create.thirdPage');
+    }
+
+    public function createOne(Request $requests)
+    {
+        $request = request()->all();
+        $validator = \Validator::make(request()->all(), [
+            'name' => 'required|string|max:255|unique:family_plan_type_subcategory',
+            'icon' => 'required',
+            'family_plan_type_id' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect('fpm/create/1')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $icon = $requests->file('icon');
+        $destination = public_path('assets/app/img/');
+
+        $icon->move($destination, $icon->getClientOriginalName());
+        $request['icon'] = $icon->getClientOriginalName();
+        FamilyPlanTypeSubcategories::create($request);
+
+        $name = DB::table('family_plan_type_subcategory')->where('name', $request['name'])->pluck('id');
+        session(['id' => $name[0]]);
+
+        return redirect('fpm/create/2');
+    }
+
+    public function createTwo()
+    {
+        $request = request()->all();
+        $validator = \Validator::make(request()->all(), [
+            'description_tagalog' => 'required',
+            'description_english' => 'required',
+            'how_it_works_english' => 'required',
+            'how_it_works_tagalog' => 'required',
+            'side_effect_english' => 'required',
+            'side_effect_tagalog' => 'required',
+            'additional_note_english' => 'required',
+            'additional_note_tagalog' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('fpm/create/2')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        FamilyPlanTypeSubcategories::where('id', session('id'))->update([
+            'description_english' => $request['description_english'],
+            'description_filipino' => $request['description_tagalog'],
+            'how_it_works_english' => $request['how_it_works_english'],
+            'how_it_works_filipino' => $request['how_it_works_tagalog'],
+            'side_effect_english' => $request['side_effect_english'],
+            'side_effect_filipino' => $request['side_effect_tagalog'],
+            'additional_note_english' => $request['additional_note_english'],
+            'additional_note_filipino' => $request['additional_note_tagalog'],
+        ]);
+
+        return redirect('fpm/create/3');
+    }
+
+    public function createThree(Request $request)
+    {
+        $requests = request()->all();
+        for ($eee = 0; $eee >= 4;$eee++) {
+            if (isset($request->file('pics')[$eee])) {
+                $icons = $request->file('pics')[$eee];
+                $destination = public_path('assets/app/img/');
+                $icons->move($destination, $icons->getClientOriginalName());
+                ServiceGallery::create([
+                    'service_id' => session('id'),
+                    'file_name' => $icons->getClientOriginalName(),
+                ]);
+            }
+            FamilyPlanTypeSubcategories::where('id', session('id'))->update([
+                'video_link' => $requests['video_link'],
+            ]);
+
+            FamilyPlanTypeSubcategories::where('id', session('id'))->update([
+                'is_approve' => 1,
+            ]);
+
+            return redirect('fpm/information/'.session('id'));
+        }
+    }
+
+    public function information($id)
+    {
+        $details = FamilyPlanTypeSubcategories::where('id', $id)->with('serviceGalleries')->get();
+        return view('admin.familyPlanningMethod.information', ['details' => $details]);
+    }
+
+    public function edit($id)
+    {
+        $details = FamilyPlanTypeSubcategories::where('id', $id)->with('serviceGalleries')->get();
+        return view('admin.familyPlanningMethod.editPage', ['details' => $details]);
+    }
+
+    public function update()
+    {
+        $requests = request()->all();
+
+        FamilyPlanTypeSubcategories::where('id', $requests['id'])->update([
+            'name' => $requests['name'],
+            'short_name' => $requests['short_name'],
+            'typical_validity' => $requests['typical_validity'],
+            'percent_effective' => $requests['percent_effective'],
+            'description_english' => $requests['description_english'],
+            'description_filipino' => $requests['description_tagalog'],
+            'how_it_works_english' => $requests['how_it_works_english'],
+            'how_it_works_filipino' => $requests['how_it_works_tagalog'],
+            'side_effect_filipino' => $requests['side_effect_tagalog'],
+            'side_effect_english' => $requests['side_effect_english'],
+            'additional_note_english' => $requests['additional_note_english'],
+            'additional_note_filipino' => $requests['additional_note_tagalog'],
+        ]);
+
+        return redirect('fpm');
+    }
+
+    public function delete()
+    {
+        FamilyPlanTypeSubcategories::where('id', session('id'))->delete();
+        return redirect('/fpm');
     }
 }
