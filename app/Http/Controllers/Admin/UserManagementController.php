@@ -152,7 +152,7 @@ class UserManagementController extends Controller
 
         if ($request['filter'] === 'by_admin') {
             $users = DB::table('users')
-                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'users.profession as clinic_name', 'users.role_id', 'users.email')
+                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'users.email_verified_at as clinic_name', 'users.role_id', 'users.email')
                 ->where('users.role_id', '<>', 1)
                 ->where('users.role_id', '<>', 4)
                 ->get();
