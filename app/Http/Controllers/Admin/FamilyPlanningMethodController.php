@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\FamilyPlanTypeSubcategories;
 use App\Http\Controllers\Controller;
-use App\ServiceGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -96,27 +95,15 @@ class FamilyPlanningMethodController extends Controller
 
     public function createThree(Request $request)
     {
-        $requests = request()->all();
-        for ($eee = 0; $eee >= 4;$eee++) {
-            if (isset($request->file('pics')[$eee])) {
-                $icons = $request->file('pics')[$eee];
-                $destination = public_path('assets/app/img/');
-                $icons->move($destination, $icons->getClientOriginalName());
-                ServiceGallery::create([
-                    'service_id' => session('id'),
-                    'file_name' => $icons->getClientOriginalName(),
-                ]);
-            }
-            FamilyPlanTypeSubcategories::where('id', session('id'))->update([
-                'video_link' => $requests['video_link'],
-            ]);
+        FamilyPlanTypeSubcategories::where('id', session('id'))->update([
+            'video_link' => $request['video_link'],
+        ]);
 
-            FamilyPlanTypeSubcategories::where('id', session('id'))->update([
-                'is_approve' => 1,
-            ]);
+        FamilyPlanTypeSubcategories::where('id', session('id'))->update([
+            'is_approve' => 1,
+        ]);
 
-            return redirect('fpm/information/'.session('id'));
-        }
+        return redirect('fpm/information/'.session('id'));
     }
 
     public function information($id)
