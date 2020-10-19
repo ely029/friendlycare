@@ -17,10 +17,6 @@ class BasicPagesController extends Controller
 
     public function informationPage($id)
     {
-        $loggedin = auth()->user();
-        if ($loggedin->role_id === 2) {
-            return response('You dont have permission to access this page');
-        }
         $content = BasicPages::where('id', $id)->get();
         return view('admin.basicPages.informationPage', ['content' => $content]);
     }

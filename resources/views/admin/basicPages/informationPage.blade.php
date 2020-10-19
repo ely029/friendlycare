@@ -14,6 +14,7 @@
                 <a href="{{ route('providerManagement')}}" class="list-group-item">Provider Management</a>
                 <span>Content</span>
                 <a href="{{ route('basicPages')}}" class="list-group-item active">Basic Pages</a>
+                <a href="{{ route('familyPlanningMethod.index')}}" class="list-group-item">Family Planning Method</a>
             </div>
 
         </aside>
@@ -40,7 +41,7 @@
            </div>
            <div class="row">
                 <div class="col-md-12">
-                    @if ($contents->id == 3 || $contents->id == 4)
+                    @if ($contents->id == 4)
                     @else
                     <a href="{{ route('basicPages.editPage',$contents->id)}}" class="btn btn-success">Edit content</a>
                     @endif
