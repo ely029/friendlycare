@@ -54,6 +54,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], static function () {
     Route::post('/update', 'Admin\UserManagementController@updateUser')->name('updateUser');
     Route::get('/delete/{id}', 'Admin\UserManagementController@deleteUser')->name('deleteUser');
     Route::post('/filter', 'Admin\UserManagementController@filter')->name('userManagement.filter');
+    Route::post('/search', 'Admin\UserManagementController@search')->name('userManagement.search');
 });
 
 //provider management

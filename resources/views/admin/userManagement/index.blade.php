@@ -34,25 +34,38 @@
                 </div>
             </div>
             
+            <form method="POST" action="{{ route('userManagement.filter') }}">
             <div class="row bg-white">
-                <div class="col-2">
+                @csrf
+                <div class="col-md-4">
                     <select name="filter" class="form-control">
                         <option value="by_admin">By Admin</option>
                         <option value="by_staff">By Staff</option>
                         <option value="by_all">All</option>
                     </select>
                 </div>
-                <div class="col-4">
-                 <input type="submit" class="btn btn-success" value="Filter">            
-                </div>
-                <div class="col-4">
-            
-                </div>
-                <div class="col-2">
-                    <input type="text" class="form-control" placeholder="Search"/>
-                </div>
+                <div class="col-md-2">
+                <input type="submit" class="btn btn-success" value="Filter">
+                </div>            
+               </form>
+               <div class="col-md-2">
+                   <form method="POST" action="{{ route('userManagement.search')}}">
+                       @csrf
+                   <select name="search_by" class="form-control">
+                       <option value="id">ID</option>
+                       <option value="name">Name</option>
+                       <option value="role">Role</option>
+                       <option value="clinic">Provider Clinic</option>
+                   </select>
+               </div>
+               <div class="col-md-2">
+                   <input type="text" name="search" class="form-control"/>
+               </div>
+               <div class="col-md-2">
+                   <input type="submit" class="btn btn-success" value="Search">
+</form>
+               </div>
             </div>
-            
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-bordered">
