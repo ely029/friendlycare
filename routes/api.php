@@ -63,5 +63,3 @@ Route::post('/provider/description/update/{id}', 'Provider\DefaultController@upd
 Route::get('/provider/get/clinicHours/{id}', 'Provider\DefaultController@getClinicHours');
 Route::get('/provider', 'Provider\DefaultController@getAllProviders');
 
-//Family Planning Type
-Route::get('/patient/fpm', 'Patient\DefaultController@getFpm');
