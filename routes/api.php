@@ -57,7 +57,7 @@ Route::post('/provider/reset', 'Provider\DefaultController@resetPassword');
 Route::get('/provider/staffs', 'Provider\DefaultController@getAllStaff');
 Route::get('/provider/staffs/{id}', 'Provider\DefaultController@getUsersById');
 Route::get('/provider/clinic', 'Provider\DefaultController@providerInfo');
-Route::post('/provider/staff/update', 'Provider\DefaultController@update');
+Route::post('/provider/staff/update/{id}', 'Provider\DefaultController@update');
 Route::get('/provider/description/{id}', 'Provider\DefaultController@getDescription');
 Route::post('/provider/description/update/{id}', 'Provider\DefaultController@updateDescription');
 Route::get('/provider/get/clinicHours/{id}', 'Provider\DefaultController@getClinicHours');

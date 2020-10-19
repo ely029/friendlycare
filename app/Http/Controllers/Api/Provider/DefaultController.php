@@ -84,10 +84,10 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function update()
+    public function update($id)
     {
         $request = request()->all();
-        User::where('id', $request['id'])->update([
+        User::where('id', $id)->update([
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
             'email' => $request['email'],
@@ -97,8 +97,8 @@ class DefaultController extends Controller
 
         $users = DB::table('staffs')
             ->join('users', 'users.id', 'staffs.user_id')
-            ->select('users.first_name', 'users.last_name', 'users.email', 'users.professions', 'staffs.trainings')
-            ->where('users.id', $request['id'])
+            ->select('users.first_name', 'users.last_name', 'users.email', 'users.professions', 'users.trainings')
+            ->where('staffs.user_id', $id)
             ->get();
 
         return response([
@@ -106,16 +106,16 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function providerInfo()
+    public function providerInfo($id)
     {
+        $user = Staffs::where('user_id', $id)->first();
         $details = DB::table('clinics')
-            ->leftjoin('users', 'users.id', 'clinics.user_id')
-            ->leftjoin('staffs', 'staffs.user_id', 'users.id')
-            ->leftjoin('clinic_hours', 'clinic_hours.clinic_id', 'users.id')
-            ->select('users.email',
+            ->select('clinics.email',
                'clinics.contact_number',
                'clinics.street_address',
+               'clinics.description',
                )
+            ->where('clinics.id', $user['clinic_id'])
             ->get();
 
         return response([
