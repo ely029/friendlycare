@@ -63,7 +63,7 @@ class DefaultController extends Controller
     {
         $users = DB::table('staffs')
             ->join('users', 'users.id', 'staffs.user_id')
-            ->select('users.id', 'users.first_name', 'users.last_name', 'users.email', 'users.professions', 'users.professions')
+            ->select('users.id', 'users.first_name', 'users.last_name', 'users.email', 'users.professions', 'users.trainings')
             ->where('staffs.user_id', $id)
             ->get();
 
