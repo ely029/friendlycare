@@ -160,6 +160,15 @@ class DefaultController extends Controller
         ]);
     }
 
+    public function getAllProvidersById($id)
+    {
+        $provider = Clinics::where(['is_approve' => 1, 'id' => $id])->get();
+
+        return response([
+            'data' => $provider,
+        ]);
+    }
+
     public function getClinicHours($id)
     {
         $sunday = DB::table('clinics')

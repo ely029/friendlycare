@@ -22,8 +22,6 @@
             <!--hidden spacer-->
         </main>
         <main class="col offset-2 h-100">
-            <form method="POST" action="{{ route('userManagement.filter') }}">
-                @csrf
             <div class="row">
                 <div class="col-12 py-4">
                     <h2>User Management</h2>
