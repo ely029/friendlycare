@@ -54,10 +54,14 @@ Route::get('/basicpages/consent', 'BasicPagesController@consentForm');
 //Provider
 Route::post('/provider/login', 'Provider\DefaultController@login');
 Route::post('/provider/reset', 'Provider\DefaultController@resetPassword');
-Route::get('/provider/staffs', 'Provider\DefaultController@getAllUsers');
+Route::get('/provider/staffs', 'Provider\DefaultController@getAllStaff');
 Route::get('/provider/staffs/{id}', 'Provider\DefaultController@getUsersById');
 Route::get('/provider/clinic', 'Provider\DefaultController@providerInfo');
 Route::post('/provider/staff/update', 'Provider\DefaultController@update');
 Route::get('/provider/description/{id}', 'Provider\DefaultController@getDescription');
 Route::post('/provider/description/update/{id}', 'Provider\DefaultController@updateDescription');
 Route::get('/provider/get/clinicHours/{id}', 'Provider\DefaultController@getClinicHours');
+Route::get('/provider', 'Provider\DefaultController@getAllProviders');
+
+//Family Planning Type
+Route::get('/patient/fpm', 'Patient\DefaultController@getFpm');

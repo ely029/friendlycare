@@ -72,7 +72,7 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function getAllUsers()
+    public function getAllStaff()
     {
         $users = DB::table('staffs')
             ->join('users', 'users.id', 'staffs.user_id')
@@ -91,16 +91,13 @@ class DefaultController extends Controller
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
             'email' => $request['email'],
-        ]);
-
-        Staffs::where('user_id', $request['id'])->update([
-            'profession' => $request['profession'],
-            'training' => $request['training'],
+            'professions' => $request['profession'],
+            'trainings' => $request['training'],
         ]);
 
         $users = DB::table('staffs')
             ->join('users', 'users.id', 'staffs.user_id')
-            ->select('users.first_name', 'users.last_name', 'users.email', 'staffs.profession', 'staffs.training')
+            ->select('users.first_name', 'users.last_name', 'users.email', 'users.professions', 'staffs.training')
             ->where('users.id', $request['id'])
             ->get();
 
@@ -136,6 +133,15 @@ class DefaultController extends Controller
 
         return response([
             'data' => $description,
+        ]);
+    }
+
+    public function getAllProviders()
+    {
+        $provider = Clinics::where('is_approve', 1)->get();
+
+        return response([
+            'data' => $provider,
         ]);
     }
 

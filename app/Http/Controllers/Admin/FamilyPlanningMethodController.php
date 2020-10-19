@@ -13,7 +13,11 @@ class FamilyPlanningMethodController extends Controller
 {
     public function index()
     {
-        $details = FamilyPlanTypeSubcategories::where('is_approve', 1)->get();
+        $details = DB::table('family_plan_type_subcategory')
+            ->select('name', 'id', 'family_plan_type_id', 'short_name')
+            ->where('is_approve', 1)
+            ->get();
+
         return view('admin.familyPlanningMethod.index', ['details' => $details]);
     }
 
