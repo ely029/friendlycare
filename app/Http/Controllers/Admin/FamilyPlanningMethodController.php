@@ -144,9 +144,9 @@ class FamilyPlanningMethodController extends Controller
         return redirect('fpm');
     }
 
-    public function delete()
+    public function delete($id)
     {
-        FamilyPlanTypeSubcategories::where('id', session('id'))->delete();
+        FamilyPlanTypeSubcategories::where('id', $id)->delete();
         return redirect('/fpm');
     }
 }

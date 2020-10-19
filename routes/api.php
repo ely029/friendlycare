@@ -63,3 +63,4 @@ Route::post('/provider/description/update/{id}', 'Provider\DefaultController@upd
 Route::get('/provider/get/clinicHours/{id}', 'Provider\DefaultController@getClinicHours');
 Route::get('/provider', 'Provider\DefaultController@getAllProviders');
 Route::get('/provider/id/{id}', 'Provider\DefaultController@getAllProvidersById');
+Route::post('/provider/clinichours/update/{id}', 'Provider\DefaultController@updateClinicHours');

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Provider;
 
+use App\ClinicHours;
 use App\Clinics;
 use App\Http\Controllers\Controller;
 use App\Staffs;
@@ -176,6 +177,58 @@ class DefaultController extends Controller
             ->join('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
             ->select('clinic_hours.days', 'clinic_hours.froms', 'clinic_hours.tos')
             ->where('staffs.user_id', $id)
+            ->get();
+
+        return response([
+            'name' => 'ClinicHours',
+            'schedule' => $schedules,
+        ]);
+    }
+
+    public function updateClinicHours($id)
+    {
+        $request = request()->all();
+
+        $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
+        ClinicHours::where(['clinic_id' => $clinic[0], 'days' => $request['monday_label']])->update([
+            'froms' => $request['monday_froms'],
+            'tos' => $request['monday_tos'],
+        ]);
+
+        ClinicHours::where(['clinic_id' => $clinic[0], 'days' => $request['tuesday_label']])->update([
+            'froms' => $request['tuesday_froms'],
+            'tos' => $request['tuesday_tos'],
+        ]);
+
+        ClinicHours::where(['clinic_id' => $clinic[0], 'days' => $request['wednesday_label']])->update([
+            'froms' => $request['wednesday_froms'],
+            'tos' => $request['wednesday_tos'],
+        ]);
+
+        ClinicHours::where(['clinic_id' => $clinic[0], 'days' => $request['thursday_label']])->update([
+            'froms' => $request['thursday_froms'],
+            'tos' => $request['thursday_tos'],
+        ]);
+
+        ClinicHours::where(['clinic_id' => $clinic[0], 'days' => $request['friday_label']])->update([
+            'froms' => $request['friday_froms'],
+            'tos' => $request['friday_tos'],
+        ]);
+
+        ClinicHours::where(['clinic_id' => $clinic[0], 'days' => $request['saturday_label']])->update([
+            'froms' => $request['saturday_froms'],
+            'tos' => $request['saturday_tos'],
+        ]);
+
+        ClinicHours::where(['clinic_id' => $clinic[0], 'days' => $request['sunday_label']])->update([
+            'froms' => $request['sunday_froms'],
+            'tos' => $request['sunday_tos'],
+        ]);
+
+        $schedules = DB::table('clinics')
+            ->join('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
+            ->select('clinic_hours.days', 'clinic_hours.froms', 'clinic_hours.tos')
+            ->where('clinics.id', $clinic[0])
             ->get();
 
         return response([
