@@ -95,7 +95,12 @@ class UserManagementController extends Controller
         $request['password'] = bcrypt($request['password']);
         $request['name'] = $request['first_name'] . ' ' . $request['last_name'];
         $request['clinic_id'] = $request['clinic'];
-        $count = Staffs::where('clinic_id', $request['clinic'])->count();
+        $count = DB::table('users')
+            ->join('staffs', 'staffs.user_id', 'users.id')
+            ->select('staffs.id')
+            ->where('staffs.clinic_id', $request['clinic'])
+            ->count();
+
         if ($count >= 5) {
             return redirect('user/create/staff/1')
                 ->withErrors('The number of staffs are exceeded')
