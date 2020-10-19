@@ -20,6 +20,6 @@ class FamilyPlanTypeSubcategories extends Model
 
     public function serviceGalleries()
     {
-        return $this->hasMany('App\Servicegallery', 'service_id');
+        return $this->hasMany('App\ServiceGallery', 'service_id');
     }
 }
