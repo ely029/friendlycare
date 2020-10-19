@@ -76,7 +76,7 @@ class DefaultController extends Controller
     {
         $users = DB::table('staffs')
             ->join('users', 'users.id', 'staffs.user_id')
-            ->select('users.id', 'users.first_name', 'users.last_name', 'users.email', 'staffs.profession', 'staffs.training')
+            ->select('users.id', 'users.first_name', 'users.last_name', 'users.email', 'users.professions', 'users.trainings')
             ->get();
 
         return response([
@@ -97,7 +97,7 @@ class DefaultController extends Controller
 
         $users = DB::table('staffs')
             ->join('users', 'users.id', 'staffs.user_id')
-            ->select('users.first_name', 'users.last_name', 'users.email', 'users.professions', 'staffs.training')
+            ->select('users.first_name', 'users.last_name', 'users.email', 'users.professions', 'staffs.trainings')
             ->where('users.id', $request['id'])
             ->get();
 
@@ -133,6 +133,21 @@ class DefaultController extends Controller
 
         return response([
             'data' => $description,
+        ]);
+    }
+
+    public function updateDescription($id)
+    {
+        $request = request()->all();
+        $clinic = Staffs::where('user_id', $id)->first();
+        Clinics::where('id', $clinic['clinic_id'])->update([
+            'description' => $request['description'],
+        ]);
+
+        $description = Clinics::where('id', $clinic['clinic_id'])->first();
+
+        return response([
+            'data' => $description['description'],
         ]);
     }
 
