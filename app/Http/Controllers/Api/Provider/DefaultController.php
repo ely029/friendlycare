@@ -117,6 +117,7 @@ class DefaultController extends Controller
                'clinics.description',
                'clinics.clinic_name',
                'clinics.city',
+               'clinics.photo_url',
                )
             ->where('clinics.id', $user['clinic_id'])
             ->get();
@@ -272,7 +273,7 @@ class DefaultController extends Controller
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
 
         $images = DB::table('clinic_gallery')
-            ->select('id', 'file_name')
+            ->select('id', 'file_name', 'file_url')
             ->where('clinic_id', $clinic[0])
             ->limit(5)
             ->get();
