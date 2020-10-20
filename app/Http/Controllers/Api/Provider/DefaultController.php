@@ -302,7 +302,7 @@ class DefaultController extends Controller
         $destination = public_path('/uploads');
         $icon->move($destination, $icon->getClientOriginalName());
         $icon_url = url('uploads/'.$icon->getClientOriginalName());
-        ClinicGallery::where('clinic_id', $user[0])->update([
+        ClinicGallery::where(['clinic_id' => $user[0], 'value_id' => 0])->update([
             'file_name' => $icon->getClientOriginalName(),
             'file_url' => $icon_url,
         ]);
@@ -311,7 +311,7 @@ class DefaultController extends Controller
         $destination = public_path('/uploads');
         $icon->move($destination, $icon->getClientOriginalName());
         $icon_url = url('uploads/'.$icon->getClientOriginalName());
-        ClinicGallery::where('clinic_id', $user[0])->update([
+        ClinicGallery::where(['clinic_id' => $user[0], 'value_id' => 1])->update([
             'file_name' => $icon->getClientOriginalName(),
             'file_url' => $icon_url,
         ]);
@@ -320,7 +320,7 @@ class DefaultController extends Controller
         $destination = public_path('/uploads');
         $icon->move($destination, $icon->getClientOriginalName());
         $icon_url = url('uploads/'.$icon->getClientOriginalName());
-        ClinicGallery::where('clinic_id', $user[0])->update([
+        ClinicGallery::where(['clinic_id' => $user[0], 'value_id' => 2])->update([
             'file_name' => $icon->getClientOriginalName(),
             'file_url' => $icon_url,
         ]);
@@ -329,7 +329,7 @@ class DefaultController extends Controller
         $destination = public_path('/uploads');
         $icon->move($destination, $icon->getClientOriginalName());
         $icon_url = url('uploads/'.$icon->getClientOriginalName());
-        ClinicGallery::where('clinic_id', $user[0])->update([
+        ClinicGallery::where(['clinic_id' => $user[0], 'value_id' => 3])->update([
             'file_name' => $icon->getClientOriginalName(),
             'file_url' => $icon_url,
         ]);
@@ -338,7 +338,7 @@ class DefaultController extends Controller
         $destination = public_path('/uploads');
         $icon->move($destination, $icon->getClientOriginalName());
         $icon_url = url('uploads/'.$icon->getClientOriginalName());
-        ClinicGallery::where('clinic_id', $user[0])->update([
+        ClinicGallery::where(['clinic_id' => $user[0], 'value_id' => 4])->update([
             'file_name' => $icon->getClientOriginalName(),
             'file_url' => $icon_url,
         ]);
