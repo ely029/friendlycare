@@ -244,16 +244,19 @@ class DefaultController extends Controller
         $modernMethod = DB::table('family_plan_type_subcategory')
             ->select('name', 'id')
             ->where('family_plan_type_id', 1)
+            ->where('is_approve', 1)
             ->get();
 
         $permanentMethod = DB::table('family_plan_type_subcategory')
             ->select('name', 'id')
             ->where('family_plan_type_id', 2)
+            ->where('is_approve', 1)
             ->get();
 
         $naturalMethod = DB::table('family_plan_type_subcategory')
             ->select('name', 'id')
             ->where('family_plan_type_id', 3)
+            ->where('is_approve', 1)
             ->get();
 
         return response([
@@ -261,6 +264,21 @@ class DefaultController extends Controller
             'permanentMethod' => $permanentMethod,
             'naturalMethod' => $naturalMethod,
             'modernMethod' => $modernMethod,
+        ]);
+    }
+
+    public function getClinicGalleries($id)
+    {
+        $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
+
+        $images = DB::table('clinic_gallery')
+            ->select('id', 'file_name')
+            ->where('clinic_id', $clinic[0])
+            ->limit(5)
+            ->get();
+        return response([
+            'name' => 'ClinicGalleries',
+            'images' => $images,
         ]);
     }
 }
