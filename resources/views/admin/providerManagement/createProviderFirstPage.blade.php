@@ -40,8 +40,14 @@
 @endif
                 </div>
             </div>
-            <form method="POST" action="{{ route('storeFirstPage') }}">
+            <form method="POST" action="{{ route('storeFirstPage') }}" enctype="multipart/form-data">
                 @csrf
+                <div class="row">
+                     <div class="col-md-12">
+                         <span>Profile Icon</span>
+                         <input type="file" name="pic"/>
+                     </div>
+                </div>
             <div class="row">
                  <div class="col-md-4">
                     <input type="text" value="{{ old('clinic_name') }}" name="clinic_name" class="form-control" placeholder="Provider name">

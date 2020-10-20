@@ -123,7 +123,7 @@ class ProviderManagementController extends Controller
         return redirect('provider/list');
     }
 
-    public function storeFirstPage()
+    public function storeFirstPage(Request $requests)
     {
         $validator = \Validator::make(request()->all(), [
             'email' => 'required|string|email|max:255|unique:clinics',
@@ -137,6 +137,12 @@ class ProviderManagementController extends Controller
         $request = request()->all();
         $request['profession'] = 'N/A';
         $request['training'] = 'N/A';
+
+        $icon = $requests->file('pic');
+        $destination = public_path('assets/app/img/');
+        $icon_url = url('assets/app/img/'.$icon->getClientOriginalName());
+        $icon->move($destination, $icon->getClientOriginalName());
+        $request['photo_url'] = $icon_url;
 
         Clinics::create($request);
         $user = DB::table('clinics')->where('email', $request['email'])->pluck('id');

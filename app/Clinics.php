@@ -25,6 +25,7 @@ class Clinics extends Model
         'municipality',
         'province',
         'email',
+        'photo_url',
     ];
 
     public function user()
