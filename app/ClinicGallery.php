@@ -6,12 +6,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ClinicService extends Model
+class ClinicGallery extends Model
 {
-    protected $table = 'clinic_service';
+    protected $table = 'clinic_gallery';
     protected $fillable = [
         'clinic_id',
-        'service_id',
-        'is_checked',
+        'file_name',
+        'file_url',
     ];
 }

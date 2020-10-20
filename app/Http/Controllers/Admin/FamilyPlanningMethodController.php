@@ -52,8 +52,10 @@ class FamilyPlanningMethodController extends Controller
 
         $icon = $requests->file('icon');
         $destination = public_path('assets/app/img/');
+        $icon_url = url('assets/app/img/'.$icon->getClientOriginalName());
 
         $icon->move($destination, $icon->getClientOriginalName());
+        $request['icon_url'] = $icon_url;
         $request['icon'] = $icon->getClientOriginalName();
         FamilyPlanTypeSubcategories::create($request);
 

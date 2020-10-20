@@ -16,6 +16,7 @@ class FamilyPlanTypeSubcategories extends Model
         'typical_validity',
         'percent_effective',
         'icon',
+        'icon_url',
     ];
 
     public function serviceGalleries()

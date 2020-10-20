@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use App\ClinicGallery;
 use App\ClinicHours;
 use App\Clinics;
+use App\ClinicService;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProviderManagementController extends Controller
@@ -33,7 +36,24 @@ class ProviderManagementController extends Controller
 
     public function createThirdPage()
     {
-        return view('admin.providerManagement.createProviderThirdPage');
+        $modernMethod = DB::table('family_plan_type_subcategory')
+            ->select('name', 'id')
+            ->where('family_plan_type_id', 1)
+            ->where('is_approve', 1)
+            ->get();
+
+        $permanentMethod = DB::table('family_plan_type_subcategory')
+            ->select('name', 'id')
+            ->where('family_plan_type_id', 2)
+            ->where('is_approve', 1)
+            ->get();
+
+        $naturalMethod = DB::table('family_plan_type_subcategory')
+            ->select('name', 'id')
+            ->where('family_plan_type_id', 3)
+            ->where('is_approve', 1)
+            ->get();
+        return view('admin.providerManagement.createProviderThirdPage', ['modernMethod' => $modernMethod, 'permanentMethod' => $permanentMethod, 'naturalMethod' => $naturalMethod]);
     }
 
     public function editProviderInformation($id)
@@ -124,9 +144,23 @@ class ProviderManagementController extends Controller
         return view('admin.providerManagement.createProviderSecondPage');
     }
 
-    public function storeSecondPage()
+    public function storeSecondPage(Request $requests)
     {
         $request = request()->all();
+        for ($files = 0;$files <= 4;$files++) {
+            if (isset($requests->file('files')[$files])) {
+                $icon = $requests->file('files')[$files];
+                $destination = public_path('assets/app/img/');
+                $icon_url = url('assets/app/img/'.$icon->getClientOriginalName());
+                $icon->move($destination, $icon->getClientOriginalName());
+                ClinicGallery::create([
+                    'file_name' => $icon->getClientOriginalName(),
+                    'clinic_id' => session('id'),
+                    'file_url' => $icon_url,
+                    'is_checked' => 1,
+                ]);
+            }
+        }
         for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {
             ClinicHours::create([
                 'clinic_id' => session('id'),
@@ -142,6 +176,35 @@ class ProviderManagementController extends Controller
 
     public function storeThirdPage()
     {
+        $request = request()->all();
+        for ($modern = 0;$modern <= 1000;$modern++) {
+            if (isset($request['modern'][$modern])) {
+                ClinicService::create([
+                    'service_id' => $request['modern'][$modern],
+                    'clinic_id' => session('id'),
+                    'is_checked' => 1,
+                ]);
+            }
+        }
+        for ($natural = 0;$natural <= 1000;$natural++) {
+            if (isset($request['natural'][$natural])) {
+                ClinicService::create([
+                    'service_id' => $request['natural'][$natural],
+                    'clinic_id' => session('id'),
+                    'is_checked' => 1,
+                ]);
+            }
+        }
+
+        for ($permanent = 0;$permanent <= 1000;$permanent++) {
+            if (isset($request['permanent'][$permanent])) {
+                ClinicService::create([
+                    'service_id' => $request['permanent'][$permanent],
+                    'clinic_id' => session('id'),
+                    'is_checked' => 1,
+                ]);
+            }
+        }
         Clinics::where('id', session('id'))->update(['is_approve' => 1]);
 
         return redirect('/provider/profile/'.session('id'));

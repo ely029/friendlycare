@@ -37,7 +37,7 @@
                         @endif
                 </div>
             </div> 
-            <form method="POST" action="{{ route('storeSecondPage')}}">
+            <form method="POST" action="{{ route('storeSecondPage')}}" enctype="multipart/form-data">
                 @csrf
             <div class="row">
                   <div class="col-md-6">
@@ -45,7 +45,7 @@
                   </div>
             </div>  
             <div class="row">
-                
+                <input type="file" name="files[]" multiple/>
             </div>  
             <div class="row">
                 
