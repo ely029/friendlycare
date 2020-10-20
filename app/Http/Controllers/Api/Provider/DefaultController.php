@@ -240,24 +240,34 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function getServices()
+    public function getServices($id)
     {
+        $users = Staffs::where('user_id', $id)->pluck('clinic_id');
         $modernMethod = DB::table('family_plan_type_subcategory')
-            ->select('name', 'id')
-            ->where('family_plan_type_id', 1)
-            ->where('is_approve', 1)
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id')
+            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
+            ->where('clinic_service.clinic_id', $users[0])
+            ->where('family_plan_type_subcategory.is_approve', 1)
             ->get();
 
         $permanentMethod = DB::table('family_plan_type_subcategory')
-            ->select('name', 'id')
-            ->where('family_plan_type_id', 2)
-            ->where('is_approve', 1)
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id')
+            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
+            ->where('clinic_service.clinic_id', $users[0])
+            ->where('family_plan_type_subcategory.is_approve', 1)
             ->get();
 
         $naturalMethod = DB::table('family_plan_type_subcategory')
-            ->select('name', 'id')
-            ->where('family_plan_type_id', 3)
-            ->where('is_approve', 1)
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id')
+            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
+            ->where('clinic_service.clinic_id', $users[0])
+            ->where('family_plan_type_subcategory.is_approve', 1)
             ->get();
 
         return response([
