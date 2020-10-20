@@ -116,6 +116,7 @@ class DefaultController extends Controller
                'clinics.street_address',
                'clinics.description',
                'clinics.clinic_name',
+               'clinics.city',
                )
             ->where('clinics.id', $user['clinic_id'])
             ->get();
@@ -235,6 +236,31 @@ class DefaultController extends Controller
         return response([
             'name' => 'ClinicHours',
             'schedule' => $schedules,
+        ]);
+    }
+
+    public function getServices()
+    {
+        $modernMethod = DB::table('family_plan_type_subcategory')
+            ->select('name')
+            ->where('family_plan_type_id', 1)
+            ->get();
+
+        $permanentMethod = DB::table('family_plan_type_subcategory')
+            ->select('name')
+            ->where('family_plan_type_id', 2)
+            ->get();
+
+        $naturalMethod = DB::table('family_plan_type_subcategory')
+            ->select('name')
+            ->where('family_plan_type_id', 3)
+            ->get();
+
+        return response([
+            'name' => 'Services',
+            'permanentMethod' => $permanentMethod,
+            'naturalMethod' => $naturalMethod,
+            'modernMethod' => $modernMethod,
         ]);
     }
 }
