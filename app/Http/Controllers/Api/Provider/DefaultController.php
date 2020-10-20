@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Provider;
 
+use App\ClinicGallery;
 use App\ClinicHours;
 use App\Clinics;
 use App\Http\Controllers\Controller;
 use App\Staffs;
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mail;
 
@@ -285,6 +287,76 @@ class DefaultController extends Controller
         $images = DB::table('clinic_gallery')
             ->select('id', 'file_name', 'file_url')
             ->where('clinic_id', $clinic[0])
+            ->limit(5)
+            ->get();
+        return response([
+            'name' => 'ClinicGalleries',
+            'images' => $images,
+        ]);
+    }
+
+    public function updateClinicGallery($id, Request $requests)
+    {
+        $user = Staffs::where('user_id', $id)->pluck('clinic_id');
+
+        if ($requests->file('image_1') !== null) {
+            $icon = $requests->file('image_1');
+            $destination = public_path('/uploads');
+            $icon->move($destination, $icon->getClientOriginalName());
+            $icon_url = url('uploads/'.$icon->getClientOriginalName());
+            ClinicGallery::where(['clinic_id' => $user[0], 'value_id' => 0])->update([
+                'file_name' => $icon->getClientOriginalName(),
+                'file_url' => $icon_url,
+            ]);
+        }
+
+        if ($requests->file('image_2') !== null) {
+            $icon = $requests->file('image_2');
+            $destination = public_path('/uploads');
+            $icon->move($destination, $icon->getClientOriginalName());
+            $icon_url = url('uploads/'.$icon->getClientOriginalName());
+            ClinicGallery::where(['clinic_id' => $user[0], 'value_id' => 1])->update([
+                'file_name' => $icon->getClientOriginalName(),
+                'file_url' => $icon_url,
+            ]);
+        }
+
+        if ($requests->file('image_3') !== null) {
+            $icon = $requests->file('image_3');
+            $destination = public_path('/uploads');
+            $icon->move($destination, $icon->getClientOriginalName());
+            $icon_url = url('uploads/'.$icon->getClientOriginalName());
+            ClinicGallery::where(['clinic_id' => $user[0], 'value_id' => 2])->update([
+                'file_name' => $icon->getClientOriginalName(),
+                'file_url' => $icon_url,
+            ]);
+        }
+
+        if ($requests->file('image_4') !== null) {
+            $icon = $requests->file('image_4');
+            $destination = public_path('/uploads');
+            $icon->move($destination, $icon->getClientOriginalName());
+            $icon_url = url('uploads/'.$icon->getClientOriginalName());
+            ClinicGallery::where(['clinic_id' => $user[0], 'value_id' => 3])->update([
+                'file_name' => $icon->getClientOriginalName(),
+                'file_url' => $icon_url,
+            ]);
+        }
+
+        if ($requests->file('image_5') !== null) {
+            $icon = $requests->file('image_5');
+            $destination = public_path('/uploads');
+            $icon->move($destination, $icon->getClientOriginalName());
+            $icon_url = url('uploads/'.$icon->getClientOriginalName());
+            ClinicGallery::where(['clinic_id' => $user[0], 'value_id' => 4])->update([
+                'file_name' => $icon->getClientOriginalName(),
+                'file_url' => $icon_url,
+            ]);
+        }
+
+        $images = DB::table('clinic_gallery')
+            ->select('id', 'file_name', 'file_url')
+            ->where('clinic_id', $user[0])
             ->limit(5)
             ->get();
         return response([

@@ -13,5 +13,6 @@ class ClinicGallery extends Model
         'clinic_id',
         'file_name',
         'file_url',
+        'value_id',
     ];
 }

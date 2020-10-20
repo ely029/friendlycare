@@ -164,6 +164,7 @@ class ProviderManagementController extends Controller
                     'clinic_id' => session('id'),
                     'file_url' => $icon_url,
                     'is_checked' => 1,
+                    'value_id' => $files,
                 ]);
             }
         }
