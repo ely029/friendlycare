@@ -108,3 +108,4 @@ Route::group(['prefix' => 'fpm'], static function () {
     Route::get('/', 'HomeController@index');
     Route::get('/portal', 'Admin\AdminController@showLogin')->name('adminLogin');
     Route::post('/authenticate', 'Admin\AdminController@authenticate')->name('authenticate');
+    Route::post('/updateclinicgallery/{id}', 'Admin\ProviderManagementController@updateClinicGallery');
