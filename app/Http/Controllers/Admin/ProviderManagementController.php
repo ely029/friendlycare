@@ -156,9 +156,9 @@ class ProviderManagementController extends Controller
         for ($files = 0;$files <= 4;$files++) {
             if (isset($requests->file('files')[$files])) {
                 $icon = $requests->file('files')[$files];
-                $destination = public_path('assets/app/img/');
-                $icon_url = url('assets/app/img/'.$icon->getClientOriginalName());
+                $destination = public_path('/uploads');
                 $icon->move($destination, $icon->getClientOriginalName());
+                $icon_url = url('uploads/'.$icon->getClientOriginalName());
                 ClinicGallery::create([
                     'file_name' => $icon->getClientOriginalName(),
                     'clinic_id' => session('id'),
