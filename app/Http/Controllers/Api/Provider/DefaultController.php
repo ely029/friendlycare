@@ -254,7 +254,7 @@ class DefaultController extends Controller
 
         $permanentMethod = DB::table('family_plan_type_subcategory')
             ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id',)
+            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
             ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'clinic_service.is_checked')
             ->where('family_plan_type_subcategory.family_plan_type_id', 2)
             ->where('clinic_service.clinic_id', $users[0])
