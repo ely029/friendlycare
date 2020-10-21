@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\FamilyPlanTypeSubcategories;
 use App\Http\Controllers\Controller;
+use App\ServiceGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -101,6 +102,20 @@ class FamilyPlanningMethodController extends Controller
 
     public function createThree(Request $request)
     {
+        for ($files = 0;$files <= 4;$files++) {
+            if (isset($request->file('pics')[$files])) {
+                $icon = $request->file('pics')[$files];
+                $destination = public_path('/uploads');
+                $icon->move($destination, $icon->getClientOriginalName());
+                $icon_url = url('uploads/'.$icon->getClientOriginalName());
+                ServiceGallery::create([
+                    'file_name' => $icon->getClientOriginalName(),
+                    'service_id' => session('id'),
+                    'file_url' => $icon_url,
+                    'value_id' => $files,
+                ]);
+            }
+        }
         FamilyPlanTypeSubcategories::where('id', session('id'))->update([
             'video_link' => $request['video_link'],
         ]);

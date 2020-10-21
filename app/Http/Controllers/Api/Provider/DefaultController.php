@@ -555,4 +555,39 @@ class DefaultController extends Controller
             'naturalMethod' => $naturalMethod,
         ]);
     }
+
+    public function fpmPagePerMethod($id)
+    {
+        $header = DB::table('family_plan_type_subcategory')
+            ->select('name', 'short_name', 'percent_effective', 'typical_validity', 'family_plan_type_id')
+            ->where('id', $id)
+            ->get();
+
+        $description = DB::table('family_plan_type_subcategory')
+            ->select('description_filipino', 'how_it_works_filipino', 'side_effect_filipino', 'additional_note_filipino')
+            ->where('id', $id)
+            ->get();
+
+        $videolink = DB::table('family_plan_type_subcategory')
+            ->select('family_plan_type_subcategory.video_link')
+            ->where('family_plan_type_subcategory.id', $id)
+            ->get();
+
+        $gallery = DB::table('family_plan_type_subcategory')
+            ->join('service_gallery', 'service_gallery.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.video_link', 'service_gallery.file_url')
+            ->where('family_plan_type_subcategory.id', $id)
+            ->get();
+
+        $clinic = [];
+
+        return response([
+            'name' => 'fpmDetailsPerMethod',
+            'headers' => $header,
+            'videolink' => $videolink,
+            'description' => $description,
+            'gallery' => $gallery,
+            'clinic' => $clinic,
+        ]);
+    }
 }
