@@ -9,6 +9,7 @@ use App\ClinicHours;
 use App\Clinics;
 use App\ClinicService;
 use App\Http\Controllers\Controller;
+use App\PaidServices;
 use App\Staffs;
 use App\User;
 use Illuminate\Http\Request;
@@ -468,5 +469,61 @@ class DefaultController extends Controller
             'name' => 'ClinicGalleries',
             'images' => $images,
         ]);
+    }
+
+    public function getPaidServices($id)
+    {
+        $user = Staffs::where('user_id', $id)->pluck('clinic_id');
+        $methods = DB::table('family_plan_type_subcategory')
+            ->leftJoin('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'paid_services.is_checked')
+            ->where('paid_services.is_checked', null);
+
+        $checkedMethods = DB::table('family_plan_type_subcategory')
+            ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'paid_services.is_checked')
+            ->where('paid_services.is_checked', 1)
+            ->where('paid_services.clinic_id', $user[0]);
+
+        $merged = $methods->union($checkedMethods)->get();
+
+        return response([
+            'name' => 'PaidServices',
+            'services' => $merged,
+        ], 200);
+    }
+
+    public function updatePaidService($id)
+    {
+        $request = request()->all();
+        $user = Staffs::where('user_id', $id)->pluck('clinic_id');
+
+        for ($eee = 0; $eee <= 10000;$eee++) {
+            if (isset($request['service_id_'.$eee])) {
+                PaidServices::create([
+                    'service_id' => $request['service_id_'.$eee],
+                    'clinic_id' => $user[0],
+                    'is_checked' => 1,
+                ]);
+            }
+        }
+
+        $methods = DB::table('family_plan_type_subcategory')
+            ->leftJoin('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'paid_services.is_checked')
+            ->where('paid_services.is_checked', null);
+
+        $checkedMethods = DB::table('family_plan_type_subcategory')
+            ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'paid_services.is_checked')
+            ->where('paid_services.is_checked', 1)
+            ->where('paid_services.clinic_id', $user[0]);
+
+        $merged = $methods->union($checkedMethods)->get();
+
+        return response([
+            'name' => 'PaidServices',
+            'services' => $merged,
+        ], 200);
     }
 }

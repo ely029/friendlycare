@@ -71,3 +71,5 @@ Route::get('/provider/services', 'Provider\DefaultController@getAllServices');
 Route::post('/provider/services/{id}', 'Provider\DefaultController@updateServices');
 Route::get('/provider/galleries/{id}', 'Provider\DefaultController@getClinicGalleries');
 Route::post('/provider/gallery/update/{id}', 'Provider\DefaultController@updateClinicGallery');
+Route::get('/provider/paidservices/{id}', 'Provider\DefaultController@getPaidServices');
+Route::post('/provider/paidservices/update/{id}', 'Provider\DefaultController@updatePaidService');
