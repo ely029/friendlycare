@@ -394,6 +394,66 @@ class DefaultController extends Controller
         ], 200);
     }
 
+    public function getFPMDetails()
+    {
+        $modernMethod = DB::table('family_plan_type_subcategory')
+            ->select('name', 'short_name', 'percent_effective', DB::raw("'Modern Method' as method_name"))
+            ->where('family_plan_type_id', 1)
+            ->get();
+
+        $permanentMethod = DB::table('family_plan_type_subcategory')
+            ->select('name', 'short_name', 'percent_effective', DB::raw("'Natural Method' as method_name"))
+            ->where('family_plan_type_id', 2)
+            ->get();
+
+        $naturalMethod = DB::table('family_plan_type_subcategory')
+            ->select('name', 'short_name', 'percent_effective', DB::raw("'Natural Method' as method_name"))
+            ->where('family_plan_type_id', 3)
+            ->get();
+
+        return response([
+            'name' => 'FPMPage',
+            'modernMethod' => $modernMethod,
+            'permanentMethod' => $permanentMethod,
+            'naturalMethod' => $naturalMethod,
+        ]);
+    }
+
+    public function fpmPagePerMethod($id)
+    {
+        $header = DB::table('family_plan_type_subcategory')
+            ->select('name', 'short_name', 'percent_effective', 'typical_validity', 'family_plan_type_id')
+            ->where('id', $id)
+            ->get();
+
+        $description = DB::table('family_plan_type_subcategory')
+            ->select('description_filipino', 'how_it_works_filipino', 'side_effect_filipino', 'additional_note_filipino')
+            ->where('id', $id)
+            ->get();
+
+        $videolink = DB::table('family_plan_type_subcategory')
+            ->select('family_plan_type_subcategory.video_link')
+            ->where('family_plan_type_subcategory.id', $id)
+            ->get();
+
+        $gallery = DB::table('family_plan_type_subcategory')
+            ->join('service_gallery', 'service_gallery.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.video_link', 'service_gallery.file_url')
+            ->where('family_plan_type_subcategory.id', $id)
+            ->get();
+
+        $clinic = [];
+
+        return response([
+            'name' => 'fpmDetailsPerMethod',
+            'headers' => $header,
+            'videolink' => $videolink,
+            'description' => $description,
+            'gallery' => $gallery,
+            'clinic' => $clinic,
+        ]);
+    }
+
     private function age($bdate)
     {
         return Carbon::createFromDate($bdate)->age;
