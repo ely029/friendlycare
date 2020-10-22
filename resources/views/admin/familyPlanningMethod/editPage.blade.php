@@ -52,6 +52,12 @@
             </div>
             <div class="row bg-white">
                 <div class="col-md-12">
+                    <span>Video Link</span>
+                    <input type="text" name="video_link" value="{{ $user->video_link}}"/>
+                </div>
+            </div>
+            <div class="row bg-white">
+                <div class="col-md-12">
                     <span>Description (English) </span>
                     <textarea name="description_english">{{ $user->description_english }}</textarea>
                 </div>

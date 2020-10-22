@@ -181,6 +181,7 @@ class FamilyPlanningMethodController extends Controller
                 'side_effect_english' => $requests['side_effect_english'],
                 'additional_note_english' => $requests['additional_note_english'],
                 'additional_note_filipino' => $requests['additional_note_tagalog'],
+                'video_link' => $requests['video_link'],
                 'icon' => $request['icon_1'],
                 'icon_url' => $request['icon_url'],
             ]);
@@ -198,6 +199,7 @@ class FamilyPlanningMethodController extends Controller
                 'side_effect_english' => $requests['side_effect_english'],
                 'additional_note_english' => $requests['additional_note_english'],
                 'additional_note_filipino' => $requests['additional_note_tagalog'],
+                'video_link' => $requests['video_link'],
             ]);
         }
 
