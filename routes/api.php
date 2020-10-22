@@ -74,5 +74,5 @@ Route::get('/provider/galleries/{id}', 'Provider\DefaultController@getClinicGall
 Route::post('/provider/gallery/update/{id}', 'Provider\DefaultController@updateClinicGallery');
 Route::get('/provider/paidservices/{id}', 'Provider\DefaultController@getPaidServices');
 Route::post('/provider/paidservices/update/{id}', 'Provider\DefaultController@updatePaidService');
-Route::get('/provider/fpmpage', 'Provider\DefaultController@getFPMDetails');
-Route::get('/provider/fpmpage/{id}', 'Provider\DefaultController@fpmPagePerMethod');
+Route::get('/patient/fpmpage', 'Provider\DefaultController@getFPMDetails');
+Route::get('/patient/fpmpage/{id}', 'Provider\DefaultController@fpmPagePerMethod');
