@@ -497,15 +497,15 @@ class DefaultController extends Controller
         ], 200);
     }
 
-    public function updatePaidService($id)
+    public function updatePaidService($id, Request $requests)
     {
-        $request = request()->all();
+        $obj = json_decode($requests->getContent(), true);
         $user = Staffs::where('user_id', $id)->pluck('clinic_id');
 
         for ($eee = 0; $eee <= 10000;$eee++) {
-            if (isset($request['service_id_'.$eee])) {
+            if (isset($obj['available_method'][$eee])) {
                 PaidServices::create([
-                    'service_id' => $request['service_id_'.$eee],
+                    'service_id' => $obj['available_method'][$eee],
                     'clinic_id' => $user[0],
                     'is_checked' => 1,
                 ]);

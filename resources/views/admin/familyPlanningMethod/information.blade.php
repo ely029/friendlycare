@@ -91,7 +91,7 @@
                       {{ $detail->typical_validity }}
                   </div>
                   <div class="col-md-4">
-                      {{ $detail->description_tagalog }}
+                      {{ $detail->description_filipino }}
                   </div>
                   <div class="col-md-4">
                   </div>
