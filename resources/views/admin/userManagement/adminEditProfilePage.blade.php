@@ -65,7 +65,7 @@
                 <div class="col-md-3">
                     @if (Auth::user()->role_id == 2)
                     @else
-                    <a href="{{route('deleteUser',$user->id )}}" class="btn btn-primary" value="">Delete Account</a>
+                    <a data-toggle="modal" data-target="#confirmProviderCreation" href="#" class="btn btn-secondary">Delete Account</a>
                     @endif
                 </div>   
                 <div class="col-md-3">
@@ -74,6 +74,25 @@
                 <div class="col-md-3">
                   
                 </div>
+                <div class="modal fade" id="confirmProviderCreation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    You are about to delete this account. Proceed?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <a href="{{route('deleteUser',$user->id )}}" class="btn btn-success">Delete Account</a>
+                                </div>
+                        </div>
+                    </div>
+            </div>
             </div>
         </main>
         @endforeach
