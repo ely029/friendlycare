@@ -99,6 +99,16 @@
                 </div>
             </div>
             <div class="row bg-white">
+            <div class="col-md-6">
+                <span>Gallery</span><br/>
+            @foreach($user->serviceGalleries as $gallery)
+                <img height="50" width="50" src="{{ url(('uploads/'.$gallery->file_name)) }}">
+                    @endforeach
+                    <input type="file" name="gallery[]" multiple>
+                    </div>
+            </div>
+            <div class="row bg-white">
+                <span>Profile Icon</span><br/><br/>
                 <div class="col-md-6">
                 <img src="{{ $user->icon_url }}" height="50" width="50"/>
                 </div>
@@ -112,7 +122,6 @@
                 </div>
             </div>
             </form>
-            
         </main>
         @endforeach
     </div>

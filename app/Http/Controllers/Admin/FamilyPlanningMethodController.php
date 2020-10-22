@@ -44,6 +44,8 @@ class FamilyPlanningMethodController extends Controller
             'name' => 'required|string|max:255|unique:family_plan_type_subcategory',
             'icon' => 'required',
             'family_plan_type_id' => 'required',
+            'percent_effective' => 'required|numeric|between:0,99.99',
+            'typical_validity' => 'required|numeric|between:0,99.99',
         ]);
         if ($validator->fails()) {
             return redirect('fpm/create/1')
@@ -142,7 +144,22 @@ class FamilyPlanningMethodController extends Controller
     public function update(Request $request)
     {
         $requests = request()->all();
+        if ($request->file('gallery') !== null) {
+            ServiceGallery::where('service_id', $requests['id'])->delete();
 
+            for ($files = 0;$files <= 4;$files++) {
+                $icon = $request->file('gallery')[$files];
+                $destination = public_path('/uploads');
+                $icon->move($destination, $icon->getClientOriginalName());
+                $icon_url = url('uploads/'.$icon->getClientOriginalName());
+                ServiceGallery::create([
+                    'file_name' => $icon->getClientOriginalName(),
+                    'service_id' => session('id'),
+                    'file_url' => $icon_url,
+                    'value_id' => $files,
+                ]);
+            }
+        }
         if ($request->file('icon') !== null) {
             $icon = $request->file('icon');
             $destination = public_path('assets/app/img/');
