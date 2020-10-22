@@ -23,9 +23,9 @@
     
         @foreach ($details as $user)
         <main class="col offset-2 h-100">
-            <form method="POST" action="{{ route('familyPlanningMethod.update')}}">
+            <form method="POST" action="{{ route('familyPlanningMethod.update')}}" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="id" value="$user->id"/>
+                <input type="hidden" name="id" value="{{ $user->id }}"/>
             <div class="row bg-white">
                 <div class="col-md-12">
                     <span>Method Name</span>
@@ -95,7 +95,15 @@
             <div class="row bg-white">
                 <div class="col-md-12">
                     <span>Additional Note (Filipino) </span>
-                    <textarea name="additional_note_tagalog">{{ $user->additional_note_tagalog }}</textarea>
+                    <textarea name="additional_note_tagalog">{{ $user->additional_note_filipino }}</textarea>
+                </div>
+            </div>
+            <div class="row bg-white">
+                <div class="col-md-6">
+                <img src="{{ $user->icon_url }}" height="50" width="50"/>
+                </div>
+                <div class="col-md-6">
+                    <input type="file" name="icon" value="{{ $user->icon }}"/>
                 </div>
             </div>
             <div class="row bg-white">

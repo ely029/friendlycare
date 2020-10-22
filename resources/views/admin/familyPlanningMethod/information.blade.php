@@ -42,7 +42,7 @@
             <div class="row bg-white">
             @foreach($detail->serviceGalleries as $gallery)
             <div class="col-md-2">
-                <img height="50" width="50" src="{{ asset('assets/app/img/'.$gallery->file_name) }}">
+                <img height="50" width="50" src="{{ url(('uploads/'.$gallery->file_name)) }}">
                 </div>
                     @endforeach
                 <br/>

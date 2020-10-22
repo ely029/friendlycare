@@ -139,24 +139,50 @@ class FamilyPlanningMethodController extends Controller
         return view('admin.familyPlanningMethod.editPage', ['details' => $details]);
     }
 
-    public function update()
+    public function update(Request $request)
     {
         $requests = request()->all();
 
-        FamilyPlanTypeSubcategories::where('id', $requests['id'])->update([
-            'name' => $requests['name'],
-            'short_name' => $requests['short_name'],
-            'typical_validity' => $requests['typical_validity'],
-            'percent_effective' => $requests['percent_effective'],
-            'description_english' => $requests['description_english'],
-            'description_filipino' => $requests['description_tagalog'],
-            'how_it_works_english' => $requests['how_it_works_english'],
-            'how_it_works_filipino' => $requests['how_it_works_tagalog'],
-            'side_effect_filipino' => $requests['side_effect_tagalog'],
-            'side_effect_english' => $requests['side_effect_english'],
-            'additional_note_english' => $requests['additional_note_english'],
-            'additional_note_filipino' => $requests['additional_note_tagalog'],
-        ]);
+        if ($request->file('icon') !== null) {
+            $icon = $request->file('icon');
+            $destination = public_path('assets/app/img/');
+            $icon_url = url('assets/app/img/'.$icon->getClientOriginalName());
+
+            $icon->move($destination, $icon->getClientOriginalName());
+            $request['icon_url'] = $icon_url;
+            $request['icon_1'] = $icon->getClientOriginalName();
+            FamilyPlanTypeSubcategories::where('id', $requests['id'])->update([
+                'name' => $requests['name'],
+                'short_name' => $requests['short_name'],
+                'typical_validity' => $requests['typical_validity'],
+                'percent_effective' => $requests['percent_effective'],
+                'description_english' => $requests['description_english'],
+                'description_filipino' => $requests['description_tagalog'],
+                'how_it_works_english' => $requests['how_it_works_english'],
+                'how_it_works_filipino' => $requests['how_it_works_tagalog'],
+                'side_effect_filipino' => $requests['side_effect_tagalog'],
+                'side_effect_english' => $requests['side_effect_english'],
+                'additional_note_english' => $requests['additional_note_english'],
+                'additional_note_filipino' => $requests['additional_note_tagalog'],
+                'icon' => $request['icon_1'],
+                'icon_url' => $request['icon_url'],
+            ]);
+        } else {
+            FamilyPlanTypeSubcategories::where('id', $requests['id'])->update([
+                'name' => $requests['name'],
+                'short_name' => $requests['short_name'],
+                'typical_validity' => $requests['typical_validity'],
+                'percent_effective' => $requests['percent_effective'],
+                'description_english' => $requests['description_english'],
+                'description_filipino' => $requests['description_tagalog'],
+                'how_it_works_english' => $requests['how_it_works_english'],
+                'how_it_works_filipino' => $requests['how_it_works_tagalog'],
+                'side_effect_filipino' => $requests['side_effect_tagalog'],
+                'side_effect_english' => $requests['side_effect_english'],
+                'additional_note_english' => $requests['additional_note_english'],
+                'additional_note_filipino' => $requests['additional_note_tagalog'],
+            ]);
+        }
 
         return redirect('fpm');
     }
