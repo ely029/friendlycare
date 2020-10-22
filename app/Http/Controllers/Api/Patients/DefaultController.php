@@ -11,6 +11,7 @@ use App\Patients;
 use App\Spouses;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mail;
 

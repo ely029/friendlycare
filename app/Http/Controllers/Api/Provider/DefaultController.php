@@ -330,8 +330,7 @@ class DefaultController extends Controller
     {
         $obj = json_decode($requests->getContent(), true);
         $users = Staffs::where('user_id', $id)->pluck('clinic_id');
-
-        for ($eee = 1;$eee <= 10000;$eee++) {
+        for ($eee = 0;$eee <= 10000;$eee++) {
             if (isset($obj['services'][$eee])) {
                 ClinicService::create([
                     'clinic_id' => $users[0],

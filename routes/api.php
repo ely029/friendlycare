@@ -49,6 +49,7 @@ Route::post('/patients/verification', 'Patients\DefaultController@verification')
 Route::post('/patients/reset', 'Patients\DefaultController@resetPassword');
 Route::get('/patients/fpm/{id}', 'Patients\DefaultController@getFpmMethodsShow');
 Route::post('/patients/fpm/{id}', 'Patients\DefaultController@createFpmShow');
+Route::post('/patients/search', 'Patients\DefaultController@search');
 
 //Basic Pages
 Route::get('/basicpages/consent', 'BasicPagesController@consentForm');
