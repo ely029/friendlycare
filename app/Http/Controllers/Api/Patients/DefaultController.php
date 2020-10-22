@@ -455,6 +455,22 @@ class DefaultController extends Controller
         ]);
     }
 
+    public function search(Request $request)
+    {
+        $obj = json_decode($request->getContent(), true);
+        $details = DB::table('family_plan_type_subcategory')
+            ->select('id', 'icon_url', 'name', 'short_name', 'percent_effective', DB::raw("'Modern Method' as method_name"))
+            ->where('name', 'like', '%' . $obj['search'][0] . '%')
+            ->orWhere('description_filipino', 'like', '%' . $obj['search'][0] . '%')
+            ->orWhere('description_english', 'like', '%' . $obj['search'][0] . '%')
+            ->get();
+
+        return response([
+            'name' => 'Search',
+            'results' => $details,
+        ], 200);
+    }
+
     private function age($bdate)
     {
         return Carbon::createFromDate($bdate)->age;
