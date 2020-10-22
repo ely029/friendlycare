@@ -76,3 +76,4 @@ Route::get('/provider/paidservices/{id}', 'Provider\DefaultController@getPaidSer
 Route::post('/provider/paidservices/update/{id}', 'Provider\DefaultController@updatePaidService');
 Route::get('/patient/fpmpage', 'Provider\DefaultController@getFPMDetails');
 Route::get('/patient/fpmpage/{id}', 'Provider\DefaultController@fpmPagePerMethod');
+Route::get('/fpm', 'Provider\DefaultController@getAllFPM');
