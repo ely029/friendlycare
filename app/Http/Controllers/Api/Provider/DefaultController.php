@@ -326,16 +326,16 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function updateServices($id)
+    public function updateServices($id, Request $requests)
     {
+        $obj = json_decode($requests->getContent(), true);
         $users = Staffs::where('user_id', $id)->pluck('clinic_id');
-        $request = request()->all();
 
         for ($eee = 1;$eee <= 10000;$eee++) {
-            if (isset($request['service_id_'.$eee])) {
+            if (isset($obj['services'][$eee])) {
                 ClinicService::create([
                     'clinic_id' => $users[0],
-                    'service_id' => $request['service_id_'.$eee],
+                    'service_id' => $obj['services'][$eee],
                     'is_checked' => 1,
                 ]);
             }
