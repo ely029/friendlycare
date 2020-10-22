@@ -596,6 +596,6 @@ class DefaultController extends Controller
             ->select('id', 'icon_url', 'name', 'description_filipino', 'description_english', 'short_name', 'percent_effective', 'family_plan_type_id')
             ->get();
 
-        return response(json_encode($fpm, JSON_FORCE_OBJECT));
+        return response($fpm);
     }
 }
