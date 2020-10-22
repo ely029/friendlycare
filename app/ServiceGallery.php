@@ -12,6 +12,7 @@ class ServiceGallery extends Model
     protected $fillable = [
         'service_id',
         'file_name',
+        'file_url',
     ];
 
     public function familyPlanTypeSubCategory()

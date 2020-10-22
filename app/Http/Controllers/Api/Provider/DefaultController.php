@@ -534,17 +534,17 @@ class DefaultController extends Controller
     public function getFPMDetails()
     {
         $modernMethod = DB::table('family_plan_type_subcategory')
-            ->select('name', 'short_name', 'percent_effective', DB::raw("'Modern Method' as method_name"))
+            ->select('id'. 'name', 'short_name', 'percent_effective', DB::raw("'Modern Method' as method_name"))
             ->where('family_plan_type_id', 1)
             ->get();
 
         $permanentMethod = DB::table('family_plan_type_subcategory')
-            ->select('name', 'short_name', 'percent_effective', DB::raw("'Natural Method' as method_name"))
+            ->select('id', 'name', 'short_name', 'percent_effective', DB::raw("'Natural Method' as method_name"))
             ->where('family_plan_type_id', 2)
             ->get();
 
         $naturalMethod = DB::table('family_plan_type_subcategory')
-            ->select('name', 'short_name', 'percent_effective', DB::raw("'Natural Method' as method_name"))
+            ->select('id', 'name', 'short_name', 'percent_effective', DB::raw("'Natural Method' as method_name"))
             ->where('family_plan_type_id', 3)
             ->get();
 
