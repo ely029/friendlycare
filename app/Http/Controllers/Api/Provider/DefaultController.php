@@ -122,6 +122,7 @@ class DefaultController extends Controller
                'clinics.clinic_name',
                'clinics.city',
                'clinics.photo_url',
+               'clinics.type',
                )
             ->where('clinics.id', $user['clinic_id'])
             ->get();
