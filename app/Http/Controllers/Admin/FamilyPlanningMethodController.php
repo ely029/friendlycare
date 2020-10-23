@@ -42,7 +42,7 @@ class FamilyPlanningMethodController extends Controller
         $request = request()->all();
         $validator = \Validator::make(request()->all(), [
             'name' => 'required|string|max:255|unique:family_plan_type_subcategory',
-            'icon' => 'required',
+            'icon' => 'required | mimes:jpeg,jpg,png | max:5000',
             'family_plan_type_id' => 'required',
             'percent_effective' => 'required|numeric|between:0,99.99',
             'typical_validity' => 'required|numeric|between:0,99.99',
@@ -104,6 +104,24 @@ class FamilyPlanningMethodController extends Controller
 
     public function createThree(Request $request)
     {
+        $requests = request()->all();
+        $validator = \Validator::make(request()->all(), [
+            'pics' => 'required',
+            'pics.*' => 'required|mimes:png,gif,jpeg|max:20000',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('fpm/create/3')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        if (count($request->file('pics')) > 5) {
+            return redirect('fpm/create/3')
+                ->withErrors('You can only upload 5 images')
+                ->withInput();
+        }
+
         for ($files = 0;$files <= 4;$files++) {
             if (isset($request->file('pics')[$files])) {
                 $icon = $request->file('pics')[$files];
@@ -119,7 +137,7 @@ class FamilyPlanningMethodController extends Controller
             }
         }
         FamilyPlanTypeSubcategories::where('id', session('id'))->update([
-            'video_link' => $request['video_link'],
+            'video_link' => $requests['video_link'],
         ]);
 
         FamilyPlanTypeSubcategories::where('id', session('id'))->update([

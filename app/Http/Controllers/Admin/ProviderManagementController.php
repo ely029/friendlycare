@@ -75,7 +75,41 @@ class ProviderManagementController extends Controller
             ->whereNotNull('clinics.clinic_name')
             ->get();
 
-        return view('admin.providerManagement.editProviderInformation', ['provider' => $provider ]);
+        $modernMethod = DB::table('family_plan_type_subcategory')
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
+            ->select('family_plan_type_subcategory.name')
+            ->where('clinic_service.clinic_id', $id)
+            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
+            ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
+            ->whereNotNull('clinics.clinic_name')
+            ->get();
+
+        $permanentMethod = DB::table('family_plan_type_subcategory')
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
+            ->select('family_plan_type_subcategory.name')
+            ->where('clinic_service.clinic_id', $id)
+            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
+            ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
+            ->get();
+
+        $naturalMethod = DB::table('family_plan_type_subcategory')
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
+            ->select('family_plan_type_subcategory.name')
+            ->where('clinic_service.clinic_id', $id)
+            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
+            ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
+            ->get();
+
+        $staff = DB::table('staffs')
+            ->join('users', 'users.id', 'staffs.user_id')
+            ->select('users.first_name', 'users.last_name')
+            ->where('staffs.clinic_id', $id)
+            ->get();
+
+        return view('admin.providerManagement.editProviderInformation', ['provider' => $provider, 'modernMethod' => $modernMethod, 'permanentMethod' => $permanentMethod, 'naturalMethod' => $naturalMethod, 'staffs' => $staff ]);
     }
 
     public function editPage($id)
@@ -127,6 +161,7 @@ class ProviderManagementController extends Controller
     {
         $validator = \Validator::make(request()->all(), [
             'email' => 'required|string|email|max:255|unique:clinics',
+            'pic' => 'required|mimes:png,gif,jpeg|max:5000',
         ]);
         if ($validator->fails()) {
             return redirect('provider/create/1')

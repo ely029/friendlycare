@@ -91,6 +91,41 @@
                             <span>{{ $providers->description }}</span>
                         </div>
                     </div>
+                    <div class="row bg-white">
+                    <h4><b>Services</b></h4>
+                    </div>
+                        <div class="row bg-white">
+                            <div class="col-md-4">
+                            <h5>Modern Method</h5><br>
+                            @foreach ($modernMethod as $method)
+                            {{ $method->name}}<br/>
+                            @endforeach
+                            </div>
+                            <div class="col-md-4">
+                            <h5>Permanent Method</h5><br>
+                            @foreach ($permanentMethod as $method)
+                            {{ $method->name}}<br/>
+                            @endforeach
+                            </div>
+                            <div class="col-md-4">
+                            <h5>Natural Method</h5><br>
+                            @foreach ($naturalMethod as $method)
+                            {{ $method->name}}<br/>
+                            @endforeach
+                            </div>
+                        </div>
+                    <div class="row bg-white">
+                       <div class="col-md-12">
+                       <h5><b>Staffs</b></h5>
+                       </div>
+                    </div>
+                    <div class="row bg-white">
+                       <div class="col-md-12">
+                       @foreach($staffs as $staff)
+                       <span>{{ $staff->first_name}} {{ $staff->last_name}}</span><br/>
+                       @endforeach
+                       </div>
+                    </div>
                     <div class="row">
                           <div class="col-md-6">
                               <a href="{{ route('editPage',$providers->id )}}" class="btn btn-success">Edit Profile</a>
