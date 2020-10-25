@@ -126,16 +126,39 @@ class ProviderManagementController extends Controller
                 'clinics.type',
                 'clinics.street_address',
                 'clinics.id',
+                'clinics.paid_service',
                )
             ->where('clinics.id', $id)
             ->get();
 
-        return view('admin.providerManagement.editPage', ['provider' => $provider]);
+        $gallery = DB::table('clinic_gallery')
+            ->join('clinics', 'clinics.id', 'clinic_gallery.clinic_id')
+            ->select('clinic_gallery.file_name')
+            ->where('clinic_gallery.clinic_id', $id)
+            ->get();
+
+        return view('admin.providerManagement.editPage', ['provider' => $provider, 'galleries' => $gallery]);
     }
 
-    public function updateProvider()
+    public function updateProvider(Request $requests)
     {
         $request = request()->all();
+        if ($requests->file('gallery') !== null) {
+            ClinicGallery::where('clinic_id', $request['clinic_id'])->delete();
+
+            for ($files = 0;$files <= 4;$files++) {
+                $icon = $requests->file('gallery')[$files];
+                $destination = public_path('/uploads');
+                $icon->move($destination, $icon->getClientOriginalName());
+                $icon_url = url('uploads/'.$icon->getClientOriginalName());
+                ClinicGallery::create([
+                    'file_name' => $icon->getClientOriginalName(),
+                    'clinic_id' => $request['clinic_id'],
+                    'file_url' => $icon_url,
+                    'value_id' => $files,
+                ]);
+            }
+        }
         Clinics::where('id', $request['clinic_id'])->update([
             'clinic_name' => $request['clinic_name'],
             'street_address' => $request['street_address'],
@@ -145,6 +168,8 @@ class ProviderManagementController extends Controller
             'municipality' => $request['municipality'],
             'province' => $request['province'],
             'email' => $request['email'],
+            'type' => $request['type'],
+            'paid_service' => $request['paid'],
         ]);
         return redirect('/provider/list');
     }
@@ -247,6 +272,10 @@ class ProviderManagementController extends Controller
                 ]);
             }
         }
+        Clinics::where('id', session('id'))->update([
+            'paid_service' => $request['paid'],
+        ]);
+
         Clinics::where('id', session('id'))->update(['is_approve' => 1]);
 
         return redirect('/provider/profile/'.session('id'));

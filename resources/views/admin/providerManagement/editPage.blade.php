@@ -38,7 +38,7 @@
 @endif
                 </div>
             </div>
-            <form method="POST" action="{{ route('updateProvider') }}">
+            <form method="POST" action="{{ route('updateProvider') }}" enctype="multipart/form-data">
                 @csrf
              @foreach ($provider as $providers)
              <input type="hidden" name="clinic_id" value="{{ $providers->id}}">
@@ -79,6 +79,54 @@
                      <td><input type="text" name="street_address" value="{{ $providers->street_address }}"></td>
                  </tr>
                  <tr>
+                 <td>Type</td>
+                 </tr>
+                 <tr>
+                 @if ($providers->type == '1')
+                 <td>
+                 <select name="type" class="form-control">
+                 <option value="1" selected>Private</option>
+                 <option value="2">Government</option>
+                 <option value="3">NGO</option>
+                 </select>
+                 </td>
+                 @elseif ($providers->type == '2')
+                 <td>
+                 <select name="type" class="form-control">
+                 <option value="1">Private</option>
+                 <option value="2" selected>Government</option>
+                 <option value="3">NGO</option>
+                 </select>
+                 </td>
+                 @elseif ($providers->type == '3')
+                 <td>
+                 <select name="type" class="form-control">
+                 <option value="1">Private</option>
+                 <option value="2">Government</option>
+                 <option value="3" selected>NGO</option>
+                 </select>
+                 </td>
+                 @endif
+                 <tr>
+                 <td>Paid Service?</td>
+                 <td>
+                 @if ($providers->paid_service == 0)
+                 <input type="radio" name="paid" value="1">Yes <br/><input type="radio" name="paid" value="0" checked>No
+                 @elseif ($providers->paid_service == 1)
+                 <input type="radio" name="paid" value="1" checked>Yes <br/><input type="radio" name="paid" value="0">No
+                 @endif
+                 </td>
+                 </tr>
+                  </tr>
+                  <tr>
+                  <td>Gallery</td>
+                  <td>                  
+                  @foreach($galleries as $gallery)
+                <img height="50" width="50" src="{{ url(('uploads/'.$gallery->file_name)) }}">
+                  @endforeach<br/>
+                  <input type="file" name="gallery[]" multiple>
+                  </td>
+                  </tr>
                  <tr>
                      <td><input type="submit" value="Edit Profile" class="btn btn-success"></td>
                  </tr>

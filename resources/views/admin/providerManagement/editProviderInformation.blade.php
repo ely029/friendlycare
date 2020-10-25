@@ -133,7 +133,6 @@
                           <div class="col-md-6">
                               @if (Auth::user()->role_id == 2)
                               @else
-                              <!-- <a href="{{ route('deleteProvider',$providers->id )}}" class="btn btn-primary">Delete Provider</a> -->
                               <a data-toggle="modal" data-target="#confirmProviderCreation" href="#" class="btn btn-secondary">Delete Provider</a>
                               @endif
                           </div>

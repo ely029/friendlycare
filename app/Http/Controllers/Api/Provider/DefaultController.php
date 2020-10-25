@@ -579,7 +579,12 @@ class DefaultController extends Controller
             ->where('family_plan_type_subcategory.id', $id)
             ->get();
 
-        $clinic = [];
+        $clinic = DB::table('clinics')
+            ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->join('family_plan_type_subcategory', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->select('clinics.clinic_name', 'clinics.photo_url')
+            ->where('clinic_service.service_id', $id)
+            ->get();
 
         return response([
             'name' => 'fpmDetailsPerMethod',

@@ -135,10 +135,10 @@
     </main>
 
     @stack('scripts')
-    <script nonce="a9d09b55f2b66e00f4d27f8b453003e6" src="{{ asset('assets/app/js/admin.js') }}"></script>
-    <script nonce="a9d09b55f2b66e00f4d27f8b453003e6" src="{{ asset('assets/app/js/bootstrap.min.js') }}"></script>
-    <script nonce="a9d09b55f2b66e00f4d27f8b453003e6" src="{{ asset('assets/app/js/location.js') }}"></script>
-    <script nonce="a9d09b55f2b66e00f4d27f8b453003e6" src="{{ asset('assets/app/js/createprovider.js') }}"></script>
+    <script type="text/javascript" nonce="a9d09b55f2b66e00f4d27f8b453003e6" src="{{ asset('assets/app/js/admin.js') }}"></script>
+    <script type="text/javascript" nonce="a9d09b55f2b66e00f4d27f8b453003e6" src="{{ asset('assets/app/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" nonce="a9d09b55f2b66e00f4d27f8b453003e6" src="{{ asset('assets/app/js/location.js') }}"></script>
+    <script type="text/javascript" nonce="a9d09b55f2b66e00f4d27f8b453003e6" src="{{ asset('assets/app/js/createprovider.js') }}"></script>
     </script>
     
     @if(config('boilerplate.google_analytics_tracking_id'))

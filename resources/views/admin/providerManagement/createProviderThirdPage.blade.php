@@ -85,7 +85,7 @@
             <div class="row">
                  <div class="col-md-12">
                      <span>Do you have paid services?</span><br/>
-                     <span><input type="radio" value="yes">Yes&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" value="no">No</span>
+                     <span><input type="radio" name="paid" value="1">Yes&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="paid" value="0">No</span>
                  </div>
             </div>
             <div class="row h-100">
