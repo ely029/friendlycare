@@ -555,7 +555,7 @@ class DefaultController extends Controller
             'naturalMethod' => $naturalMethod,
         ]);
     }
-
+    //APIs for Booking (from service page)
     public function fpmPagePerMethod($id)
     {
         $header = DB::table('family_plan_type_subcategory')

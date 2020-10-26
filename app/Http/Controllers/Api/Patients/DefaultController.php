@@ -471,6 +471,57 @@ class DefaultController extends Controller
         ], 200);
     }
 
+    public function viewClinic($id)
+    {
+        $details = DB::table('clinics')
+            ->select('clinics.email',
+               'clinics.contact_number',
+               'clinics.street_address',
+               'clinics.description',
+               'clinics.clinic_name',
+               'clinics.city',
+               'clinics.photo_url',
+               'clinics.type',
+               )
+            ->where('clinics.id', $id)
+            ->get();
+
+        return response([
+            'data' => $details,
+        ]);
+    }
+
+    public function searchClinic(Request $request)
+    {
+        $obj = json_decode($request->getContent(), true);
+        $details = DB::table('clinics')
+            ->select('photo_url', 'clinic_name', 'city', 'paid_service', 'philhealth_accredtited')
+            ->orWhere('province', 'like', '%' . $obj['province'] . '%')
+            ->orWhere('city', 'like', '%' . $obj['city'] . '%')
+            ->orWhere('municipality', 'like', '%' . $obj['municipality'][0] . '%')
+            ->orWhere('philhealth_accredited', 'like', '%' . $obj['philhealth_accred'][0] . '%')
+            ->orWhere('paid_service', 'like', '%' . $obj['paid_service'][0] . '%')
+            ->get();
+
+        return response([
+            'name' => 'searchClinic',
+            'details' => $details,
+        ]);
+    }
+
+    public function selectedService($id)
+    {
+        $details = DB::table('family_plan_type_subcategory')
+            ->select('type', 'name', 'short_name', 'file_url')
+            ->where('id', $id)
+            ->get();
+
+        return response([
+            'name' => 'SelectedService',
+            'details' => $details,
+        ]);
+    }
+
     private function age($bdate)
     {
         return Carbon::createFromDate($bdate)->age;
