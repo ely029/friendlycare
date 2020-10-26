@@ -162,19 +162,35 @@ class ProviderManagementController extends Controller
                 ]);
             }
         }
-        Clinics::where('id', $request['clinic_id'])->update([
-            'clinic_name' => $request['clinic_name'],
-            'street_address' => $request['street_address'],
-            'description' => $request['description'],
-            'contact_number' => $request['contact_number'],
-            'city' => $request['city'],
-            'municipality' => $request['municipality'],
-            'province' => $request['province'],
-            'email' => $request['email'],
-            'type' => $request['type'],
-            'paid_service' => $request['paid'],
-            'philhealth_accredited_1' => $request['philhealth_accredited_1'],
-        ]);
+
+        if ($request['philhealth_accredited_1'] !== null) {
+            Clinics::where('id', $request['clinic_id'])->update([
+                'clinic_name' => $request['clinic_name'],
+                'street_address' => $request['street_address'],
+                'description' => $request['description'],
+                'contact_number' => $request['contact_number'],
+                'city' => $request['city'],
+                'municipality' => $request['municipality'],
+                'province' => $request['province'],
+                'email' => $request['email'],
+                'type' => $request['type'],
+                'paid_service' => $request['paid'],
+                'philhealth_accredited_1' => $request['philhealth_accredited_1'],
+            ]);
+        } else {
+            Clinics::where('id', $request['clinic_id'])->update([
+                'clinic_name' => $request['clinic_name'],
+                'street_address' => $request['street_address'],
+                'description' => $request['description'],
+                'contact_number' => $request['contact_number'],
+                'city' => $request['city'],
+                'municipality' => $request['municipality'],
+                'province' => $request['province'],
+                'email' => $request['email'],
+                'type' => $request['type'],
+                'paid_service' => $request['paid'],
+            ]);
+        }
         return redirect('/provider/list');
     }
 
