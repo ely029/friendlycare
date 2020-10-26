@@ -126,6 +126,9 @@
                           @elseif ($providers->philhealth_accredited_1 == '0')
                           <input type="radio" name="philhealth_accredited_1" value="1">Yes<br/>
                           <input type="radio" name="philhealth_accredited_1" value="0" checked>No
+                          @else 
+                          <input type="radio" name="philhealth_accredited_1" value="1" checked>Yes<br/>
+                          <input type="radio" name="philhealth_accredited_1" value="0">No
                           @endif
                       </td>
                   </tr>
