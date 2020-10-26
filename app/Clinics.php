@@ -26,7 +26,7 @@ class Clinics extends Model
         'province',
         'email',
         'photo_url',
-        'philhealth_accredited',
+        'philhealth_accredited_1',
     ];
 
     public function user()

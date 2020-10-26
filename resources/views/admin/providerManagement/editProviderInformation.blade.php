@@ -129,7 +129,7 @@
                     <div class="row bg-white">
                               <div class="col-md-12">
                                   <span>Philhealth Accredited?</span><br/>
-                                  @if ($providers->philhealth_accredited == '1')
+                                  @if ($providers->philhealth_accredited_1 == '1')
                                   <span>Yes</span>
                                   @else
                                   <span>No</span>

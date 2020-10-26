@@ -120,12 +120,12 @@
                   </tr>
                   <tr>
                       <td>Phil Health Accredited?</td><td>
-                          @if($providers->philhealth_accredited == '1')
-                          <input type="radio" name="philhealth_accredited" value="1" checked>Yes<br/>
-                          <input type="radio" name="philhealth_accredited" value="0">No
-                          @elseif ($providers->philhealth_accredited == '0')
-                          <input type="radio" name="philhealth_accredited" value="1">Yes<br/>
-                          <input type="radio" name="philhealth_accredited" value="0" checked>No
+                          @if($providers->philhealth_accredited_1 == '1')
+                          <input type="radio" name="philhealth_accredited_1" value="1" checked>Yes<br/>
+                          <input type="radio" name="philhealth_accredited_1" value="0">No
+                          @elseif ($providers->philhealth_accredited_1 == '0')
+                          <input type="radio" name="philhealth_accredited_1" value="1">Yes<br/>
+                          <input type="radio" name="philhealth_accredited_1" value="0" checked>No
                           @endif
                       </td>
                   </tr>

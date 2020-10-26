@@ -94,8 +94,8 @@
                 <div class="col-md-4">
                 <input type="text" class="form-control" name="address" value="{{ old('address') }}"placeholder="Street Address"><br/>
                 <span>Is this philhealth accredited?</span><br/>
-                <input type="radio" name="philhealth_accredited" value="1">Yes</br>
-                <input type="radio" name="philhealth_accredited" value="0">No
+                <input type="radio" name="philhealth_accredited_1" value="1">Yes</br>
+                <input type="radio" name="philhealth_accredited_1" value="0">No
                 </div>
                 <div class="col-md-4">
                     <input type="submit" value="Next" class="btn btn-info">

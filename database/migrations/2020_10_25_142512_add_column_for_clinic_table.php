@@ -13,7 +13,9 @@ class AddColumnForClinicTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('clinics', function (Blueprint $table) {
+            $table->integer('paid_service')->nullable();
+        });
     }
 
     /**
@@ -23,8 +25,6 @@ class AddColumnForClinicTable extends Migration
      */
     public function down()
     {
-        Schema::table('clinics', function (Blueprint $table) {
-            $table->integer('paid_service')->nullable();
-        });
+
     }
 }

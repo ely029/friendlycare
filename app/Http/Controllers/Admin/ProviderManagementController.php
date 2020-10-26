@@ -71,7 +71,7 @@ class ProviderManagementController extends Controller
                 'clinics.type',
                 'clinics.street_address',
                 'clinics.id',
-                'clinics.philhealth_accredited',
+                'clinics.philhealth_accredited_1',
            )
             ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
             ->whereNotNull('clinics.clinic_name')
@@ -129,7 +129,7 @@ class ProviderManagementController extends Controller
                 'clinics.street_address',
                 'clinics.id',
                 'clinics.paid_service',
-                'clinics.philhealth_accredited',
+                'clinics.philhealth_accredited_1',
                )
             ->where('clinics.id', $id)
             ->get();
@@ -173,7 +173,7 @@ class ProviderManagementController extends Controller
             'email' => $request['email'],
             'type' => $request['type'],
             'paid_service' => $request['paid'],
-            'philhealth_accredited' => $request['philhealth_accredited'],
+            'philhealth_accredited_1' => $request['philhealth_accredited_1'],
         ]);
         return redirect('/provider/list');
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnClinics5 extends Migration
+class AddColumnClinic6 extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddColumnClinics5 extends Migration
     public function up()
     {
         Schema::table('clinics', function (Blueprint $table) {
-            $table->integer('philhealth_accredited')->nullable();
+            $table->integer('philhealth_accredited_1')->nullable();
         });
     }
 
@@ -25,6 +25,6 @@ class AddColumnClinics5 extends Migration
      */
     public function down()
     {
-        
+        //
     }
 }
