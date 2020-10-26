@@ -50,6 +50,9 @@ Route::post('/patients/reset', 'Patients\DefaultController@resetPassword');
 Route::get('/patients/fpm/{id}', 'Patients\DefaultController@getFpmMethodsShow');
 Route::post('/patients/fpm/{id}', 'Patients\DefaultController@createFpmShow');
 Route::post('/patients/search', 'Patients\DefaultController@search');
+Route::post('/patient/searchClinic', 'Patients\DefaultController@searchClinic');
+Route::get('/patient/selectedService/{id}', 'Patients\DefaultController@selectedService');
+Route::get('/patient/viewClinic', 'Patients\DefaultController@viewClinic');
 
 //Basic Pages
 Route::get('/basicpages/consent', 'BasicPagesController@consentForm');
@@ -77,6 +80,4 @@ Route::post('/provider/paidservices/update/{id}', 'Provider\DefaultController@up
 Route::get('/patient/fpmpage', 'Provider\DefaultController@getFPMDetails');
 Route::get('/patient/fpmpage/{id}', 'Provider\DefaultController@fpmPagePerMethod');
 Route::get('/fpm', 'Provider\DefaultController@getAllFPM');
-Route::post('/patient/searchClinic', 'Patient\DefaultController@searchClinic');
-Route::get('/patient/selectedService/{id}', 'Patient\DefaultController@selectedService');
-Route::get('/patient/viewClinic', 'Patient\DefaultController@viewClinic');
+
