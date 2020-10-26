@@ -126,6 +126,16 @@
                        @endforeach
                        </div>
                     </div>
+                    <div class="row bg-white">
+                              <div class="col-md-12">
+                                  <span>Philhealth Accredited?</span><br/>
+                                  @if ($providers->philhealth_accredited == '1')
+                                  <span>Yes</span>
+                                  @else
+                                  <span>No</span>
+                                  @endif
+                              </div>
+                          </div>
                     <div class="row">
                           <div class="col-md-6">
                               <a href="{{ route('editPage',$providers->id )}}" class="btn btn-success">Edit Profile</a>

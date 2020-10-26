@@ -19,6 +19,7 @@ class ProviderManagementController extends Controller
         $users = DB::table('clinics')
             ->select('clinics.email', 'clinics.type', 'clinics.id', 'clinics.clinic_name')
             ->where('clinics.email', '<>', 'null')
+            ->where('clinics.is_approve', '<>', 0)
             ->get();
 
         return view('admin.providerManagement.index', ['clinics' => $users]);
@@ -70,6 +71,7 @@ class ProviderManagementController extends Controller
                 'clinics.type',
                 'clinics.street_address',
                 'clinics.id',
+                'clinics.philhealth_accredited',
            )
             ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
             ->whereNotNull('clinics.clinic_name')
@@ -127,6 +129,7 @@ class ProviderManagementController extends Controller
                 'clinics.street_address',
                 'clinics.id',
                 'clinics.paid_service',
+                'clinics.philhealth_accredited',
                )
             ->where('clinics.id', $id)
             ->get();
@@ -170,6 +173,7 @@ class ProviderManagementController extends Controller
             'email' => $request['email'],
             'type' => $request['type'],
             'paid_service' => $request['paid'],
+            'philhealth_accredited' => $request['philhealth_accredited'],
         ]);
         return redirect('/provider/list');
     }

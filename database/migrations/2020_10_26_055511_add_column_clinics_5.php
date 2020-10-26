@@ -13,7 +13,9 @@ class AddColumnClinics5 extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('clinics', function (Blueprint $table) {
+            $table->integer('philhealth_accredited')->nullable();
+        });
     }
 
     /**
@@ -23,8 +25,6 @@ class AddColumnClinics5 extends Migration
      */
     public function down()
     {
-        Schema::table('clinics', function (Blueprint $table) {
-            $table->integer('philhealth_accredited')->nullable();
-        });
+        
     }
 }
