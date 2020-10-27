@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddASuperAdmin extends Migration
+class AddASuperAdmin1 extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddASuperAdmin extends Migration
      */
     public function up()
     {
-        $email = "agtumala@friendlycare.com.ph";
+        $email = "kim@thinkbitsolutions.com";
         $password = "P@ssw0rd$$";
 
         app('command.migrate')->getOutput()->writeln('<info>Password:</info> See laravel.log');
@@ -24,7 +24,7 @@ class AddASuperAdmin extends Migration
         $now = Carbon::now();
         DB::table('users')->insert([
             [
-                'name' => 'Alex Tumala',
+                'name' => 'Kim Navarro',
                 'email' => $email,
                 'password' => bcrypt($password),
                 'role_id' => \App\Role::first()->id,
