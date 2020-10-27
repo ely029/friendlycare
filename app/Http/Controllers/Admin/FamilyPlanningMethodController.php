@@ -59,9 +59,7 @@ class FamilyPlanningMethodController extends Controller
             $icon->move($destination, $icon->getClientOriginalName());
             $request['icon_url'] = $icon_url;
             $request['icon'] = $icon->getClientOriginalName();
-            FamilyPlanTypeSubcategories::create($request);
         }
-
         FamilyPlanTypeSubcategories::create($request);
 
         $name = DB::table('family_plan_type_subcategory')->where('name', $request['name'])->pluck('id');
