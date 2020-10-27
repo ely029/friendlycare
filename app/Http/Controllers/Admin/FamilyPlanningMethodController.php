@@ -105,25 +105,13 @@ class FamilyPlanningMethodController extends Controller
     public function createThree(Request $request)
     {
         $requests = request()->all();
-        $validator = \Validator::make(request()->all(), [
-            'pics' => 'required',
-            'pics.*' => 'required|mimes:png,gif,jpeg|max:20000',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('fpm/create/3')
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        if (count($request->file('pics')) > 5) {
-            return redirect('fpm/create/3')
-                ->withErrors('You can only upload 5 images')
-                ->withInput();
-        }
-
-        for ($files = 0;$files <= 4;$files++) {
-            if (isset($request->file('pics')[$files])) {
+        if ($request->file('pics') !== null) {
+            if (count($request->file('pics')) > 5) {
+                return redirect('fpm/create/3')
+                    ->withErrors('Uploading of images are exceeded')
+                    ->withInput();
+            }
+            for ($files = 0;$files <= 4;$files++) {
                 $icon = $request->file('pics')[$files];
                 $destination = public_path('/uploads');
                 $icon->move($destination, $icon->getClientOriginalName());

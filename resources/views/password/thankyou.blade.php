@@ -1,0 +1,1 @@
+Your password are now updated <a href="{{ route('index') }}">Click Here</a>

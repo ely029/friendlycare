@@ -127,8 +127,8 @@
                           <input type="radio" name="philhealth_accredited_1" value="1">Yes<br/>
                           <input type="radio" name="philhealth_accredited_1" value="0" checked>No
                           @else 
-                          <input type="radio" name="philhealth_accredited_1" value="1" checked>Yes<br/>
-                          <input type="radio" name="philhealth_accredited_1" value="0">No
+                          <input type="radio" name="philhealth_accredited_1" value="1">Yes<br/>
+                          <input type="radio" name="philhealth_accredited_1" value="0" checked>No
                           @endif
                       </td>
                   </tr>

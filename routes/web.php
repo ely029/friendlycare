@@ -90,6 +90,12 @@ Route::group(['prefix' => 'reset'], static function () {
     Route::post('/password', 'Admin\ResetController@updatePassword')->name('resetPassword.updatePassword');
 });
 
+Route::group(['prefix' => 'password'], static function () {
+    //set password
+    Route::get('/{id}', 'Admin\PasswordController@index')->name('password.index');
+    Route::post('/setup', 'Admin\PasswordController@readyPassword')->name('password.readyPassword');
+});
+
 Route::group(['prefix' => 'fpm'], static function () {
     //create
     Route::get('/', 'Admin\FamilyPlanningMethodController@index')->name('familyPlanningMethod.index');

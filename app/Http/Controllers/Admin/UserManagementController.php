@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Staffs;
 use App\User;
 use Illuminate\Support\Facades\DB;
+use Mail;
 
 class UserManagementController extends Controller
 {
@@ -81,8 +82,6 @@ class UserManagementController extends Controller
             'clinic' => 'required',
             'last_name' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|min:8',
-            'confirm_password' => 'required|same:password',
         ]);
 
         $request['role_id'] = 4;
@@ -92,7 +91,6 @@ class UserManagementController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        $request['password'] = bcrypt($request['password']);
         $request['name'] = $request['first_name'] . ' ' . $request['last_name'];
         $request['clinic_id'] = $request['clinic'];
         $count = DB::table('users')
@@ -110,6 +108,13 @@ class UserManagementController extends Controller
         $user = User::create($request);
         $request['user_id'] = $user->id;
         Staffs::create($request);
+
+        $users = User::where('id', $user->id)->get();
+
+        Mail::send('email.patient.account-set-password', ['users' => $users], function ($mail) use ($request) {
+            $mail->from('no-reply@friendlycare.com');
+            $mail->to($request['email'], 'Patient')->subject('Password Setup');
+        });
 
         return redirect('user/page/'.$user->id);
     }

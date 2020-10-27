@@ -495,7 +495,7 @@ class DefaultController extends Controller
     {
         $obj = json_decode($request->getContent(), true);
         $details = DB::table('clinics')
-            ->select('photo_url', 'clinic_name', 'city', 'paid_service', 'philhealth_accredtited')
+            ->select('photo_url', 'clinic_name', 'city', 'paid_service', 'philhealth_accredited_1')
             ->orWhere('province', 'like', '%' . $obj['province'][0] . '%')
             ->orWhere('city', 'like', '%' . $obj['city'][0] . '%')
             ->orWhere('municipality', 'like', '%' . $obj['municipality'][0] . '%')

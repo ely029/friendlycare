@@ -88,24 +88,16 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
-                        <input type="password" value="{{ old('password') }}" name="password" class="form-control password" placeholder="Password">
+                <div class="col-md-6">
                 </div>
-                <div class="col-md-4">
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4">
-                <div class="input-group">
-  <input type="password" class="form-control" value="{{ old('confirm_password') }}" placeholder="Confirm Password" name="confirm_password">
-</div>
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <input data-toggle="modal" data-target="#confirmProviderCreation" type="button" id="admin-create" value="Create Account" class="btn btn-info">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                 </div>
             </div>
 
