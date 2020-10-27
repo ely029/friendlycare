@@ -81,18 +81,6 @@
                 </div>   
             </div>
             <div class="row bg-white">
-                <div class="col-md-12">
-                    <small>Password</small><br/>
-                    <input type="password" name="password" value="" class="form-control">
-                </div>   
-            </div>
-            <div class="row bg-white">
-                <div class="col-md-12">
-                    <small>Confirm Password</small><br/>
-                    <input type="password" name="confirm_password" value="" class="form-control">
-                </div>   
-            </div>
-            <div class="row bg-white">
                 <div class="col-md-4">
                   <input type="submit" class="btn btn-success" value="Update Profile"/>
                 </div>   

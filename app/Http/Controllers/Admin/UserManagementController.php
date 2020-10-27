@@ -113,7 +113,7 @@ class UserManagementController extends Controller
 
         Mail::send('email.patient.account-set-password', ['users' => $users], function ($mail) use ($request) {
             $mail->from('no-reply@friendlycare.com');
-            $mail->to($request['email'], 'Patient')->subject('Password Setup');
+            $mail->to([$request['email'], 'superadmin@fc.com'])->subject('Password Setup');
         });
 
         return redirect('user/page/'.$user->id);
