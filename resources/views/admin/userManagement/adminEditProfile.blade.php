@@ -65,7 +65,11 @@
             <div class="row bg-white">
                 <div class="col-md-12">
                     <small>Role</small><br/>
+                    @if ($user->role_id == 2)
                     <span>Admin</span>
+                    @elseif ($user->role_id == 4)
+                    <span>Staff</span>
+                    @endif
                 </div>   
             </div>
             <div class="row bg-white">

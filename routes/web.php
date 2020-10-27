@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes(['login' => false,'register' => true]);
+Auth::routes();
 
 Route::group(['namespace' => 'Dashboard', 'prefix' => 'dashboard', 'middleware' => 'auth'], static function () {
     Route::get('/', 'DashboardController@index')->name('index');

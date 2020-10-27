@@ -42,7 +42,6 @@ class FamilyPlanningMethodController extends Controller
         $request = request()->all();
         $validator = \Validator::make(request()->all(), [
             'name' => 'required|string|max:255|unique:family_plan_type_subcategory',
-            'icon' => 'required | mimes:jpeg,jpg,png | max:5000',
             'family_plan_type_id' => 'required',
             'percent_effective' => 'required|numeric|between:0,99.99',
             'typical_validity' => 'required|numeric|between:0,99.99',
@@ -52,14 +51,17 @@ class FamilyPlanningMethodController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+        if ($requests->file('icon') !== null) {
+            $icon = $requests->file('icon');
+            $destination = public_path('assets/app/img/');
+            $icon_url = url('assets/app/img/'.$icon->getClientOriginalName());
 
-        $icon = $requests->file('icon');
-        $destination = public_path('assets/app/img/');
-        $icon_url = url('assets/app/img/'.$icon->getClientOriginalName());
+            $icon->move($destination, $icon->getClientOriginalName());
+            $request['icon_url'] = $icon_url;
+            $request['icon'] = $icon->getClientOriginalName();
+            FamilyPlanTypeSubcategories::create($request);
+        }
 
-        $icon->move($destination, $icon->getClientOriginalName());
-        $request['icon_url'] = $icon_url;
-        $request['icon'] = $icon->getClientOriginalName();
         FamilyPlanTypeSubcategories::create($request);
 
         $name = DB::table('family_plan_type_subcategory')->where('name', $request['name'])->pluck('id');
