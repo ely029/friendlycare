@@ -53,6 +53,8 @@ Route::post('/patients/search', 'Patients\DefaultController@search');
 Route::post('/patient/searchClinic', 'Patients\DefaultController@searchClinic');
 Route::get('/patient/selectedService/{id}', 'Patients\DefaultController@selectedService');
 Route::get('/patient/viewClinic', 'Patients\DefaultController@viewClinic');
+Route::post('/patient/medicalHistory/{id}/{questionid}', 'Patients\DefaultController@postMedicalHistory');
+Route::get('/patient/medicalHistory/{id}/{questionid}', 'Patients\DefaultController@getMedicalHistory');
 
 //Basic Pages
 Route::get('/basicpages/consent', 'BasicPagesController@consentForm');

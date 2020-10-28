@@ -7,6 +7,8 @@ namespace App\Http\Controllers\Api\Patients;
 use App\FpmMethods;
 use App\Http\Controllers\Controller;
 use App\Mail\EmailVerification;
+use App\MedicalHistory;
+use App\MedicalHistoryAnswer;
 use App\Patients;
 use App\Spouses;
 use App\User;
@@ -520,6 +522,108 @@ class DefaultController extends Controller
             'name' => 'SelectedService',
             'details' => $details,
         ]);
+    }
+
+    public function getMedicalHistory($id, $questionid)
+    {
+        if ($questionid === 11) {
+            $withAnswer = DB::table('medical_history_answer')
+                ->leftJoin('medical_history_values', 'medical_history_values.id', 'medical_history_answer.answer')
+                ->select('medical_history_values.name', 'medical_history_answer.answer as id', 'medical_history_answer.string_answer')
+                ->where('medical_history_answer.patient_id', $id)
+                ->where('medical_history_answer.question_id', $questionid);
+
+            $withoutAnswer = DB::table('medical_history_values')
+                ->leftJoin('medical_history_answer', 'medical_history_values.id', 'medical_history_answer.answer')
+                ->select('medical_history_values.name', 'medical_history_answer.answer as id', DB::raw('null as string_answer'))
+                ->where('medical_history_answer.string_answer', null)
+                ->distinct('medical_history_answer.value_id');
+            $details = $withAnswer->union($withoutAnswer)->get();
+        } else {
+            $details = DB::table('medical_history')
+                ->select('yes', 'no')
+                ->where('patient_id', $id)
+                ->where('question_no', $questionid)
+                ->get();
+        }
+        return response([
+            'name' => 'getMedicalHistory',
+            'details' => $details,
+        ]);
+    }
+
+    public function postMedicalHistory(Request $request, $id, $questionid)
+    {
+        $obj = json_decode($request->getContent(), true);
+        if ($questionid === 11) {
+            MedicalHistoryAnswer::where(['patient_id' => $id, 'question_id' => $questionid])->delete();
+            $this->processQuestion11($id, $questionid, $obj);
+        } else {
+            MedicalHistory::where(['patient_id' => $id, 'question_no' => $questionid])->delete();
+            $this->processQuestion($obj, $id, $questionid);
+        }
+
+        return response([
+            'name' => 'PostMedicalHistory',
+            'message' => 'Successfully updated',
+        ]);
+    }
+
+    private function processQuestion($obj, $id, $questionid)
+    {
+        if ($obj['answer'][0] !== null) {
+            if ($obj['answer'][0] === 1) {
+                MedicalHistory::create([
+                    'patient_id' => $id,
+                    'question_no' => $questionid,
+                    'yes' => 1,
+                    'no' => null,
+                ]);
+            } else {
+                MedicalHistory::create([
+                    'patient_id' => $id,
+                    'question_no' => $questionid,
+                    'yes' => null,
+                    'no' => 1,
+                ]);
+            }
+        }
+    }
+
+    private function processQuestion11($id, $questionid, $obj)
+    {
+        for ($eee = 0; $eee < 8; $eee++) {
+            if (isset($obj['answer'][$eee])) {
+                $this->processingWithOthers($id, $questionid, $obj, $eee);
+            } else {
+                MedicalHistoryAnswer::create([
+                    'patient_id' => $id,
+                    'value_id' => $eee,
+                    'question_id' => $questionid,
+                    'answer' => null,
+                ]);
+            }
+        }
+    }
+
+    private function processingWithOthers($id, $questionid, $obj, $eee)
+    {
+        if ($obj['answer'][$eee] === 8) {
+            MedicalHistoryAnswer::create([
+                'patient_id' => $id,
+                'value_id' => $eee + 1,
+                'question_id' => $questionid,
+                'answer' => $obj['answer'][$eee],
+                'string_answer' => $obj['others'][0],
+            ]);
+        } else {
+            MedicalHistoryAnswer::create([
+                'patient_id' => $id,
+                'value_id' => $eee + 1,
+                'question_id' => $questionid,
+                'answer' => $obj['answer'][$eee],
+            ]);
+        }
     }
 
     private function age($bdate)
