@@ -591,6 +591,7 @@ class DefaultController extends Controller
                 'details' => $details,
             ]);
         }
+        MedicalHistory::where(['patient_id' => $id, 'question_no' => $questionid])->delete();
         $this->processQuestion($obj, $id, $questionid);
 
         return response([
