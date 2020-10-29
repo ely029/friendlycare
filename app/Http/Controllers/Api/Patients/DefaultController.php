@@ -488,19 +488,19 @@ class DefaultController extends Controller
             ->where('clinics.id', $id)
             ->get();
 
-        $services1 = DB::table('clinic_services')
+        $services1 = DB::table('clinic_service')
             ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'clinic_service.service_id')
             ->select('family_plan_type_subcategory.name')
             ->where('family_plan_type_subcategory.family_plan_type_id', 1)
             ->get();
 
-        $services2 = DB::table('clinic_services')
+        $services2 = DB::table('clinic_service')
             ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'clinic_service.service_id')
             ->select('family_plan_type_subcategory.name')
             ->where('family_plan_type_subcategory.family_plan_type_id', 2)
             ->get();
 
-        $services3 = DB::table('clinic_services')
+        $services3 = DB::table('clinic_service')
             ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'clinic_service.service_id')
             ->select('family_plan_type_subcategory.name')
             ->where('family_plan_type_subcategory.family_plan_type_id', 3)
