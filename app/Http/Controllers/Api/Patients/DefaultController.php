@@ -486,24 +486,34 @@ class DefaultController extends Controller
                'clinics.type',
                )
             ->where('clinics.id', $id)
+            ->where('is_approve', 1)
             ->get();
 
-        $services1 = DB::table('clinic_service')
-            ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'clinic_service.service_id')
+        $services1 = DB::table('family_plan_type_subcategory')
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
             ->select('family_plan_type_subcategory.name')
+            ->where('clinic_service.clinic_id', $id)
             ->where('family_plan_type_subcategory.family_plan_type_id', 1)
+            ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
             ->get();
 
-        $services2 = DB::table('clinic_service')
-            ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'clinic_service.service_id')
+        $services2 = DB::table('family_plan_type_subcategory')
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
             ->select('family_plan_type_subcategory.name')
+            ->where('clinic_service.clinic_id', $id)
             ->where('family_plan_type_subcategory.family_plan_type_id', 2)
+            ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
             ->get();
 
-        $services3 = DB::table('clinic_service')
-            ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'clinic_service.service_id')
+        $services3 = DB::table('family_plan_type_subcategory')
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
             ->select('family_plan_type_subcategory.name')
+            ->where('clinic_service.clinic_id', $id)
             ->where('family_plan_type_subcategory.family_plan_type_id', 3)
+            ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
             ->get();
 
         $services = ['modernMethod' => $services1, 'permanentMethod' => $services2, 'naturalMethod' => $services3];
@@ -530,54 +540,13 @@ class DefaultController extends Controller
     public function viewClinic()
     {
         $details = DB::table('clinics')
-            ->select('clinics.email',
-               'clinics.contact_number',
-               'clinics.street_address',
-               'clinics.description',
-               'clinics.clinic_name',
-               'clinics.city',
-               'clinics.photo_url',
-               'clinics.type',
-               )
-            ->where('clinics.id')
-            ->get();
-
-        $services1 = DB::table('clinic_service')
-            ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'clinic_service.service_id')
-            ->select('family_plan_type_subcategory.name')
-            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
-            ->get();
-
-        $services2 = DB::table('clinic_service')
-            ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'clinic_service.service_id')
-            ->select('family_plan_type_subcategory.name')
-            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
-            ->get();
-
-        $services3 = DB::table('clinic_service')
-            ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'clinic_service.service_id')
-            ->select('family_plan_type_subcategory.name')
-            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
-            ->get();
-
-        $services = ['modernMethod' => $services1, 'permanentMethod' => $services2, 'naturalMethod' => $services3];
-
-        $hours = DB::table('clinic_hours')
-            ->select('days', 'froms', 'tos')
-            ->where('clinic_id')
-            ->get();
-
-        $gallery = DB::table('clinic_gallery')
-            ->select('file_url')
-            ->where('clinic_id')
+            ->select('clinic_name', 'photo_url', 'street_address', 'philhealth_accredited_1', 'type')
+            ->where('is_approve', 1)
             ->get();
 
         return response([
             'name' => 'viewClinic',
             'data' => $details,
-            'services' => $services,
-            'operating_hours' => $hours,
-            'gallery' => $gallery,
         ]);
     }
 

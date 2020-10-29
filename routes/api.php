@@ -54,13 +54,14 @@ Route::post('/patient/searchClinic', 'Patients\DefaultController@searchClinic');
 Route::get('/patient/selectedService/{id}', 'Patients\DefaultController@selectedService');
 Route::get('/patient/viewClinic/{id}', 'Patients\DefaultController@viewClinicByPatient');
 Route::get('/patient/viewClinic/', 'Patients\DefaultController@viewClinic');
-Route::post('/patient/medicalHistory/{id}/{questionid}', 'Patients\DefaultController@postMedicalHistory');
-Route::get('/patient/medicalHistory/{id}/{questionid}', 'Patients\DefaultController@getMedicalHistory');
-Route::get('/patient/answers/medicalHistory/{id}', 'Patients\DefaultController@answerMedicalHistory');
 
 //Basic Pages
 Route::get('/basicpages/consent', 'BasicPagesController@consentForm');
 
+//Medical History
+Route::post('/patient/medicalHistory/{id}/{questionid}', 'Patients\MedicalHistoryController@postMedicalHistory');
+Route::get('/patient/medicalHistory/{id}/{questionid}', 'Patients\MedicalHistoryController@getPerPage');
+Route::get('/patient/answers/medicalHistory/{id}', 'Patients\MedicalHistoryController@answer');
 //Provider
 Route::post('/provider/login', 'Provider\DefaultController@login');
 Route::post('/provider/reset', 'Provider\DefaultController@resetPassword');
