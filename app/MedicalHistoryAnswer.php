@@ -15,5 +15,7 @@ class MedicalHistoryAnswer extends Model
         'answer',
         'value_id',
         'string_answer',
+        'string_answer_1',
+        'answer_1',
     ];
 }

@@ -52,7 +52,7 @@ Route::post('/patients/fpm/{id}', 'Patients\DefaultController@createFpmShow');
 Route::post('/patients/search', 'Patients\DefaultController@search');
 Route::post('/patient/searchClinic', 'Patients\DefaultController@searchClinic');
 Route::get('/patient/selectedService/{id}', 'Patients\DefaultController@selectedService');
-Route::get('/patient/viewClinic', 'Patients\DefaultController@viewClinic');
+Route::get('/patient/viewClinic/{id}', 'Patients\DefaultController@viewClinic');
 Route::post('/patient/medicalHistory/{id}/{questionid}', 'Patients\DefaultController@postMedicalHistory');
 Route::get('/patient/medicalHistory/{id}/{questionid}', 'Patients\DefaultController@getMedicalHistory');
 Route::get('/patient/answers/medicalHistory/{id}', 'Patients\DefaultController@answerMedicalHistory');

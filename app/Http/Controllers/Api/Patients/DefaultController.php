@@ -488,8 +488,42 @@ class DefaultController extends Controller
             ->where('clinics.id', $id)
             ->get();
 
+        $services1 = DB::table('clinic_services')
+            ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'clinic_service.service_id')
+            ->select('family_plan_type_subcategory.name')
+            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
+            ->get();
+
+        $services2 = DB::table('clinic_services')
+            ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'clinic_service.service_id')
+            ->select('family_plan_type_subcategory.name')
+            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
+            ->get();
+
+        $services3 = DB::table('clinic_services')
+            ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'clinic_service.service_id')
+            ->select('family_plan_type_subcategory.name')
+            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
+            ->get();
+
+        $services = ['modernMethod' => $services1, 'permanentMethod' => $services2, 'naturalMethod' => $services3];
+
+        $hours = DB::table('clinic_hours')
+            ->select('days', 'froms', 'tos')
+            ->where('clinic_id', $id)
+            ->get();
+
+        $gallery = DB::table('clinic_gallery')
+            ->select('file_url')
+            ->where('clinic_id', $id)
+            ->get();
+
         return response([
+            'name' => 'viewClinic',
             'data' => $details,
+            'services' => $services,
+            'operating_hours' => $hours,
+            'gallery' => $gallery,
         ]);
     }
 
@@ -523,168 +557,6 @@ class DefaultController extends Controller
             'details' => $details,
         ]);
     }
-
-    public function getMedicalHistory($id, $questionid)
-    {
-        if ($questionid === '11') {
-            $withAnswer = DB::table('medical_history_answer')
-                ->leftJoin('medical_history_values', 'medical_history_values.id', 'medical_history_answer.answer')
-                ->select('medical_history_values.name', 'medical_history_answer.answer as id', 'medical_history_answer.string_answer')
-                ->where('medical_history_answer.patient_id', $id)
-                ->where('medical_history_answer.question_id', $questionid);
-
-            $withoutAnswer = DB::table('medical_history_values')
-                ->leftJoin('medical_history_answer', 'medical_history_values.id', 'medical_history_answer.answer')
-                ->select('medical_history_values.name', 'medical_history_answer.answer as id', DB::raw('null as string_answer'))
-                ->where('medical_history_answer.string_answer', null)
-                ->distinct('medical_history_answer.value_id');
-            $details = $withAnswer->union($withoutAnswer)->get();
-        } else {
-            $details = DB::table('medical_history')
-                ->select('yes', 'no')
-                ->where('patient_id', $id)
-                ->where('question_no', $questionid)
-                ->get();
-        }
-        return response([
-            'name' => 'getMedicalHistory',
-            'details' => $details,
-        ]);
-    }
-
-    public function postMedicalHistory(Request $request, $id, $questionid)
-    {
-        $obj = json_decode($request->getContent(), true);
-        if ($questionid === '11') {
-            MedicalHistoryAnswer::where(['patient_id' => $id, 'question_id' => $questionid])->delete();
-            $this->processQuestion11($id, $questionid, $obj);
-            $details = DB::table('medical_history_answer')
-                ->leftJoin('medical_history_values', 'medical_history_values.id', 'medical_history_answer.answer')
-                ->select('medical_history_values.name', 'medical_history_answer.answer as id', 'medical_history_answer.string_answer')
-                ->where('medical_history_answer.patient_id', $id)
-                ->where('medical_history_answer.question_id', $questionid)
-                ->get();
-
-            return response([
-                'name' => 'PostMedicalHistory',
-                'details' => $details,
-            ]);
-        }
-        if ($questionid === '12') {
-            MedicalHistoryAnswer::where(['patient_id' => $id, 'question_id' => $questionid])->delete();
-            $this->processQuestion12($id, $questionid, $obj);
-            $details = DB::table('medical_history_answer')
-                ->leftJoin('medical_history_values', 'medical_history_values.id', 'medical_history_answer.answer')
-                ->select('medical_history_values.name', 'medical_history_answer.answer as id', 'medical_history_answer.string_answer')
-                ->where('medical_history_answer.patient_id', $id)
-                ->where('medical_history_answer.question_id', $questionid)
-                ->get();
-
-            $details = DB::table('medical_history')
-                ->select('yes', 'no')
-                ->where('medical_history.patient_id', $id)
-                ->where('medical_history.question_no', $questionid)
-                ->get();
-
-            return response([
-                'name' => 'PostMedicalHistory',
-                'details' => $details,
-            ]);
-        }
-        MedicalHistory::where(['patient_id' => $id, 'question_no' => $questionid])->delete();
-        $this->processQuestion($obj, $id, $questionid);
-
-        return response([
-            'name' => 'PostMedicalHistory',
-            'message' => 'update successfully',
-        ]);
-    }
-
-    public function answerMedicalHistory($id)
-    {
-        $details = DB::table('medical_history')
-            ->select('medical_history.question_no as question_no', 'medical_history.yes', 'medical_history.no', DB::raw('null as id'), DB::raw('null as name'), DB::raw('null as string_answer'))
-            ->where('medical_history.patient_id', $id);
-
-        $detail = DB::table('medical_history_answer')
-            ->leftJoin('medical_history_values', 'medical_history_values.id', 'medical_history_answer.answer')
-            ->select('medical_history_answer.question_id as question_no', DB::raw('null as yes'), DB::raw('null as no'), 'medical_history_answer.answer as id', 'medical_history_values.name', 'medical_history_answer.string_answer')
-            ->where('medical_history_answer.patient_id', $id);
-
-        $merge = $details->union($detail)->orderBy('question_no')->get();
-
-        return response([
-            'name' => 'medicalHistoryAnswers',
-            'details' => $merge,
-        ]);
-    }
-
-    private function processQuestion($obj, $id, $questionid)
-    {
-        if ($obj['answer'][0] !== null) {
-            if ($obj['answer'][0] === 1) {
-                MedicalHistory::create([
-                    'patient_id' => $id,
-                    'question_no' => $questionid,
-                    'yes' => 1,
-                    'no' => null,
-                ]);
-            } else {
-                MedicalHistory::create([
-                    'patient_id' => $id,
-                    'question_no' => $questionid,
-                    'yes' => null,
-                    'no' => 1,
-                ]);
-            }
-        }
-    }
-
-    private function processQuestion11($id, $questionid, $obj)
-    {
-        for ($eee = 0; $eee < 8; $eee++) {
-            if (isset($obj['answer'][$eee])) {
-                $this->processingWithOthers($id, $questionid, $obj, $eee);
-                MedicalHistoryAnswer::create([
-                    'patient_id' => $id,
-                    'value_id' => $eee,
-                    'question_id' => $questionid,
-                    'answer' => $obj['answer'][$eee],
-                ]);
-            } else {
-                MedicalHistoryAnswer::create([
-                    'patient_id' => $id,
-                    'value_id' => $eee,
-                    'question_id' => $questionid,
-                    'answer' => null,
-                ]);
-            }
-            MedicalHistoryAnswer::where(['answer' => 8, 'string_answer' => null])->delete();
-        }
-    }
-
-    private function processingWithOthers($id, $questionid, $obj, $eee)
-    {
-        if ($obj['answer'][$eee] === 8) {
-            MedicalHistoryAnswer::create([
-                'patient_id' => $id,
-                'value_id' => $eee + 1,
-                'question_id' => $questionid,
-                'answer' => $obj['answer'][$eee],
-                'string_answer' => $obj['others'][0],
-            ]);
-        }
-    }
-
-    private function processQuestion12($id, $questionid, $obj)
-    {
-        MedicalHistoryAnswer::create([
-            'patient_id' => $id,
-            'question_id' => $questionid,
-            'string_answer' => $obj['others'][0],
-        ]);
-    }
-
     private function age($bdate)
     {
         return Carbon::createFromDate($bdate)->age;
