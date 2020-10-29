@@ -473,7 +473,7 @@ class DefaultController extends Controller
         ], 200);
     }
 
-    public function viewClinic($id)
+    public function viewClinicByPatient($id)
     {
         $details = DB::table('clinics')
             ->select('clinics.email',
@@ -516,6 +516,60 @@ class DefaultController extends Controller
         $gallery = DB::table('clinic_gallery')
             ->select('file_url')
             ->where('clinic_id', $id)
+            ->get();
+
+        return response([
+            'name' => 'viewClinic',
+            'data' => $details,
+            'services' => $services,
+            'operating_hours' => $hours,
+            'gallery' => $gallery,
+        ]);
+    }
+
+    public function viewClinic()
+    {
+        $details = DB::table('clinics')
+            ->select('clinics.email',
+               'clinics.contact_number',
+               'clinics.street_address',
+               'clinics.description',
+               'clinics.clinic_name',
+               'clinics.city',
+               'clinics.photo_url',
+               'clinics.type',
+               )
+            ->where('clinics.id')
+            ->get();
+
+        $services1 = DB::table('clinic_service')
+            ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'clinic_service.service_id')
+            ->select('family_plan_type_subcategory.name')
+            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
+            ->get();
+
+        $services2 = DB::table('clinic_service')
+            ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'clinic_service.service_id')
+            ->select('family_plan_type_subcategory.name')
+            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
+            ->get();
+
+        $services3 = DB::table('clinic_service')
+            ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'clinic_service.service_id')
+            ->select('family_plan_type_subcategory.name')
+            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
+            ->get();
+
+        $services = ['modernMethod' => $services1, 'permanentMethod' => $services2, 'naturalMethod' => $services3];
+
+        $hours = DB::table('clinic_hours')
+            ->select('days', 'froms', 'tos')
+            ->where('clinic_id')
+            ->get();
+
+        $gallery = DB::table('clinic_gallery')
+            ->select('file_url')
+            ->where('clinic_id')
             ->get();
 
         return response([
