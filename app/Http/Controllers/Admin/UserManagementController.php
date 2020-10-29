@@ -56,8 +56,6 @@ class UserManagementController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|min:8',
-            'confirm_password' => 'required|same:password',
         ]);
         $request['role_id'] = 2;
 
@@ -66,10 +64,15 @@ class UserManagementController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        $request['password'] = bcrypt($request['password']);
         $request['name'] = $request['first_name'] . ' ' . $request['last_name'];
 
         $user = User::create($request);
+        $users = User::where('id', $user->id)->get();
+
+        Mail::send('email.patient.account-set-password', ['users' => $users], function ($mail) use ($request) {
+            $mail->from('no-reply@friendlycare.com');
+            $mail->to([$request['email'], 'superadmin@fc.com'])->subject('Password Setup');
+        });
 
         return redirect('user/page/'.$user->id);
     }
