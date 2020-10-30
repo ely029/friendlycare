@@ -540,7 +540,7 @@ class DefaultController extends Controller
     public function viewClinic()
     {
         $details = DB::table('clinics')
-            ->select('clinic_name', 'photo_url', 'street_address', 'philhealth_accredited_1', 'type')
+            ->select('id', 'clinic_name', 'photo_url', 'street_address', 'philhealth_accredited_1', 'type')
             ->where('is_approve', 1)
             ->get();
 
