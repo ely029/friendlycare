@@ -58,10 +58,16 @@ Route::get('/patient/viewClinic/', 'Patients\DefaultController@viewClinic');
 //Basic Pages
 Route::get('/basicpages/consent', 'BasicPagesController@consentForm');
 
+//Booking
+Route::get('/booking/landingpage/{id}', 'Patients\BookingController@bookingLandingPage');
+Route::get('/booking/selectMethodPage', 'Patients\BookingController@selectServicePage');
+Route::post('/booking/selectMethod', 'Patients\BookingController@postMethod');
+
 //Medical History
 Route::post('/patient/medicalHistory/{id}/{questionid}', 'Patients\MedicalHistoryController@postMedicalHistory');
 Route::get('/patient/medicalHistory/{id}/{questionid}', 'Patients\MedicalHistoryController@getPerPage');
 Route::get('/patient/answers/medicalHistory/{id}', 'Patients\MedicalHistoryController@answer');
+
 //Provider
 Route::post('/provider/login', 'Provider\DefaultController@login');
 Route::post('/provider/reset', 'Provider\DefaultController@resetPassword');
