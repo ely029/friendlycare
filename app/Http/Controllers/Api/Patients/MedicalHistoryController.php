@@ -94,15 +94,9 @@ class MedicalHistoryController extends Controller
             $data = $obj['string_values'];
             if (isset($obj['answer'][$eee])) {
                 $string_value[] = $data[$obj['answer'][$eee]];
-                $this->processWithOther($eee, $obj, $id, $questionid);
             }
         }
-        MedicalHistoryAnswer::create([
-            'patient_id' => $id,
-            'question_id' => $questionid,
-            'string_answer_1' => json_encode($string_value),
-            'answer' => json_encode($obj['answer']),
-        ]);
+        $this->processWithOther($obj, $id, $questionid, $string_value);
     }
 
     private function processQuestion12($obj, $id, $questionid)
@@ -115,15 +109,29 @@ class MedicalHistoryController extends Controller
         ]);
     }
 
-    private function processWithOther($eee, $obj, $id, $questionid)
+    private function processWithOther($obj, $id, $questionid, $string_value)
     {
         if (isset($obj['answer'])) {
-            if ($obj['answer'][$eee] === 7) {
+            if (in_array(7, $obj['answer'])) {
+                MedicalHistoryAnswer::create([
+                    'patient_id' => $id,
+                    'question_id' => $questionid,
+                    'string_answer' => $obj['input'][0],
+                ]);
+
                 MedicalHistoryAnswer::where([
                     'patient_id' => $id,
                     'question_id' => $questionid,
                 ])->update([
-                    'string_answer' => $obj['input'][0],
+                    'string_answer_1' => json_encode($string_value),
+                    'answer' => json_encode($obj['answer']),
+                ]);
+            } else {
+                MedicalHistoryAnswer::create([
+                    'patient_id' => $id,
+                    'question_id' => $questionid,
+                    'string_answer_1' => json_encode($string_value),
+                    'answer' => json_encode($obj['answer']),
                 ]);
             }
         }
