@@ -571,7 +571,7 @@ class DefaultController extends Controller
     public function selectedService($id)
     {
         $details = DB::table('family_plan_type_subcategory')
-            ->select('type', 'name', 'short_name', 'file_url')
+            ->select('family_plan_type_id', 'name', 'short_name', 'file_url')
             ->where('id', $id)
             ->get();
 

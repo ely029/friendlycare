@@ -51,11 +51,11 @@ class MedicalHistoryController extends Controller
     public function answer($id)
     {
         $details = DB::table('medical_history_answer')
-            ->select('question_id as question_no', DB::raw('null as yes'), DB::raw('null as no'), 'answer', 'string_answer_1', 'string_answer')
+            ->select('question_id as question_no', DB::raw('null as yes'), DB::raw('null as no'), 'answer', 'string_answer_1', 'string_answer', 'updated_at')
             ->where('patient_id', $id);
 
         $detail = DB::table('medical_history')
-            ->select('question_no', 'yes', 'no', DB::raw('null as answer'), DB::raw('null as string_answer'), DB::raw('null as string_answer_1'))
+            ->select('question_no', 'yes', 'no', DB::raw('null as answer'), DB::raw('null as string_answer'), DB::raw('null as string_answer_1'), DB::raw('null as update_at'))
             ->where('patient_id', $id);
         $data = $details->union($detail)->get();
 
@@ -64,7 +64,6 @@ class MedicalHistoryController extends Controller
             'details' => $data,
         ]);
     }
-
     private function processQuestion($obj, $id, $questionid)
     {
         MedicalHistory::where(['patient_id' => $id, 'question_no' => $questionid])->delete();
