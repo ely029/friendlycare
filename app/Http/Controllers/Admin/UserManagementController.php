@@ -144,7 +144,6 @@ class UserManagementController extends Controller
             'email' => $request['email'],
             'professions' => $request['professions'],
             'trainings' => $request['trainings'],
-            'password' => bcrypt($request['password']),
         ]);
 
         return redirect('/user/list');
