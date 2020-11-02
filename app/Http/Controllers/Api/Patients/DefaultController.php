@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Patients;
 
+use App\Booking;
 use App\FpmMethods;
 use App\Http\Controllers\Controller;
 use App\Mail\EmailVerification;
@@ -581,6 +582,38 @@ class DefaultController extends Controller
         return response([
             'name' => 'SelectedService',
             'details' => $details,
+        ]);
+    }
+
+    public function postMethod(Request $request, $id)
+    {
+        $obj = json_decode($request->getContent(), true);
+
+        Booking::create([
+            'patient_id' => $id,
+            'service_id' => $obj['method'][0],
+        ]);
+
+        $details = DB::table('booking')
+            ->select('patient_id', 'service_id', 'id')
+            ->where('patient_id', $id)
+            ->limit(1)
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return response([
+            'name' => 'postMethod',
+            'details' => $details,
+        ]);
+    }
+    public function postClinic(Request $request, $id)
+    {
+        $obj = json_decode($request->getContent(), true);
+        DB::update('update booking set clinic_id = ? where patient_id = ? order by id desc limit 1', [$obj['clinic'][0], $id]);
+
+        return response([
+            'name' => 'PostMethod',
+            'message' => 'clinic posted',
         ]);
     }
     private function age($bdate)
