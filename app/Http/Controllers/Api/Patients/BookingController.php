@@ -198,4 +198,65 @@ class BookingController extends Controller
             'response' => 'Booking Created Succesfully',
         ]);
     }
+
+    public function selectedClinic($id)
+    {
+        $details = DB::table('clinics')
+            ->select('id', 'photo_url', 'clinic_name', 'street_address', 'type', 'philhealth_accredited_1')
+            ->where('id', $id)
+            ->get();
+
+        return response([
+            'name' => 'SelectedClinic',
+            'details' => $details,
+        ]);
+    }
+
+    public function postClinic(Request $request, $id)
+    {
+        $obj = json_decode($request->getContent(), true);
+        Booking::create([
+            'patient_id' => $id,
+            'clinic_id' => $obj['clinic'][0],
+        ]);
+
+        $details = DB::table('booking')
+            ->select('clinic_id', 'patient_id')
+            ->where('patient_id', $id)
+            ->limit(1)
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return response([
+            'name' => 'postClinic',
+            'details' => $details,
+        ]);
+    }
+    public function servicepage($id)
+    {
+        $getDetails = DB::table('booking')
+            ->select('clinic_id', 'service_id', 'id')
+            ->where('patient_id', $id)
+            ->limit(1)
+            ->orderBy('id', 'desc')
+            ->pluck('clinic_id');
+
+        $details = DB::table('family_plan_type_subcategory')
+            ->select('family_plan_type_subcategory.id', 'name', 'short_name', 'type', 'percent_effective', 'icon_url')
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
+            ->where('clinics.id', $getDetails[0])
+            ->get();
+
+        return response([
+            'name' => 'ServicePage',
+            'details' => $details,
+        ]);
+    }
+
+    public function postService(Request $request, $id)
+    {
+        $obj = json_decode($request->getContent(), true);
+        DB::update('update booking set service_id = ? where patient_id = ? order by id desc limit 1', [$obj['method'][0], $id]);
+    }
 }

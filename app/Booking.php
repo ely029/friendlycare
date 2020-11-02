@@ -16,5 +16,6 @@ class Booking extends Model
         'is_cancelled',
         'is_approved',
         'time_slot',
+        'clinic_id',
     ];
 }

@@ -68,6 +68,12 @@ Route::post('/booking/bookingscreen/chooseClinic/{id}', 'Patients\BookingControl
 Route::post('/booking/bookingscreen/setupTime/{id}', 'Patients\BookingController@time');
 Route::post('/booking/bookingscreen/postTime/{id}', 'Patients\BookingController@postTime');
 
+/** Booking Flow 2: Clinic Directory */
+Route::get('/booking/clinicDirectory/selectedClinic/{id}', 'Patients\BookingController@selectedClinic');
+Route::post('/booking/clinicDirectory/postClinic/{id}', 'Patients\BookingController@postClinic');
+Route::get('/booking/clinicDirectory/servicePage/{id}', 'Patients\BookingController@servicePage');
+Route::post('/booking/clinicDirectory/servicePage/{id}', 'Patients\BookingController@postService');
+
 //Medical History
 Route::post('/patient/medicalHistory/{id}/{questionid}', 'Patients\MedicalHistoryController@postMedicalHistory');
 Route::get('/patient/medicalHistory/{id}/{questionid}', 'Patients\MedicalHistoryController@getPerPage');
