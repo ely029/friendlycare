@@ -59,9 +59,14 @@ Route::get('/patient/viewClinic/', 'Patients\DefaultController@viewClinic');
 Route::get('/basicpages/consent', 'BasicPagesController@consentForm');
 
 //Booking
-Route::get('/booking/landingpage/{id}', 'Patients\BookingController@bookingLandingPage');
-Route::get('/booking/selectMethodPage', 'Patients\BookingController@selectServicePage');
-Route::post('/booking/selectMethod', 'Patients\BookingController@postMethod');
+/**  Booking Flow 1: Booking Screen */
+Route::get('/booking/bookingscreen/landingpage/{id}', 'Patients\BookingController@bookingLandingPage');
+Route::get('/booking/bookingscreen/selectMethodPage', 'Patients\BookingController@selectServicePage');
+Route::post('/booking/bookingscreen/selectMethod/{id}', 'Patients\BookingController@postMethod');
+Route::post('/booking/bookingscreen/clinicWithTaggedMethod/{id}', 'Patients\BookingController@searchClinicWithMethodTagged');
+Route::post('/booking/bookingscreen/chooseClinic/{id}', 'Patients\BookingController@chooseClinic');
+Route::post('/booking/bookingscreen/setupTime/{id}', 'Patients\BookingController@time');
+Route::post('/booking/bookingscreen/postTime/{id}', 'Patients\BookingController@postTime');
 
 //Medical History
 Route::post('/patient/medicalHistory/{id}/{questionid}', 'Patients\MedicalHistoryController@postMedicalHistory');
@@ -91,3 +96,6 @@ Route::post('/provider/paidservices/update/{id}', 'Provider\DefaultController@up
 Route::get('/patient/fpmpage', 'Provider\DefaultController@getFPMDetails');
 Route::get('/patient/fpmpage/{id}', 'Provider\DefaultController@fpmPagePerMethod');
 Route::get('/fpm', 'Provider\DefaultController@getAllFPM');
+
+//API for dropdown province municipality and city
+Route::get('/province', 'Patients\DefaultController@province');

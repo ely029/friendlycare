@@ -550,7 +550,7 @@ class DefaultController extends Controller
         $clinic = DB::table('clinics')
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
             ->join('family_plan_type_subcategory', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->select('clinics.clinic_name', 'clinics.photo_url')
+            ->select('clinics.clinic_name', 'clinics.photo_url', 'clinics.street_address', 'clinics.', 'clinics.type', 'clinics.philhealth_acredited_1')
             ->where('clinic_service.service_id', $id)
             ->get();
 
