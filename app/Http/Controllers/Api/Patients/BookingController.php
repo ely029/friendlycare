@@ -109,7 +109,7 @@ class BookingController extends Controller
         // $post->clinic_id = $obj['clinic'][0];
         // $post->save();
 
-        DB::update('update booking set time_slot = ? where patient_id = ? order by id desc limit 1',[$obj['clinic'][0], $id]);
+        DB::update('update booking set time_slot = ? where patient_id = ? order by id desc limit 1', [$obj['clinic'][0], $id]);
 
         $getDetails = DB::table('booking')
             ->select('clinic_id', 'service_id', 'id')
@@ -182,7 +182,7 @@ class BookingController extends Controller
             ->orderBy('id', 'desc')
             ->pluck('id');
 
-        DB::update('update booking set time_slot = ? where patient_id = ? order by id desc limit 1',[$obj['date'][0], $id]);
+        DB::update('update booking set time_slot = ? where patient_id = ? order by id desc limit 1', [$obj['date'][0], $id]);
 
         for ($eee = 0;$eee <= 100; $eee++) {
             if (isset($obj['time'][$eee])) {
