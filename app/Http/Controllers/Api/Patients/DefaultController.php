@@ -480,7 +480,9 @@ class DefaultController extends Controller
     public function viewClinicByPatient($id)
     {
         $details = DB::table('clinics')
-            ->select('clinics.email',
+            ->select(
+               'clinics.id',
+               'clinics.email',
                'clinics.contact_number',
                'clinics.street_address',
                'clinics.description',
