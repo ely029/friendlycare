@@ -124,14 +124,25 @@ class UserManagementController extends Controller
     public function editUserProfilePage($id)
     {
         $user = User::where('id', $id)->get();
+        $clinic = DB::table('clinics')
+            ->join('staffs', 'staffs.clinic_id', 'clinics.id')
+            ->select('clinics.clinic_name')
+            ->where('staffs.user_id', $id)
+            ->get();
 
-        return view('admin.userManagement.adminEditProfilePage', ['users' => $user]);
+        return view('admin.userManagement.adminEditProfilePage', ['users' => $user, 'clinic' => $clinic]);
     }
     public function editUserProfile($id)
     {
         $user = User::where('id', $id)->get();
+        $clinic = DB::table('clinics')
+            ->select('id', 'clinic_name')
+            ->where('clinic_name', '<>', 'null')
+            ->where('type', '<>', 'null')
+            ->where('philhealth_accredited_1', '<>', 'null')
+            ->get();
 
-        return view('admin.userManagement.adminEditProfile', ['users' => $user]);
+        return view('admin.userManagement.adminEditProfile', ['users' => $user, 'clinic' => $clinic]);
     }
     public function updateUser()
     {
@@ -144,6 +155,10 @@ class UserManagementController extends Controller
             'email' => $request['email'],
             'professions' => $request['professions'],
             'trainings' => $request['trainings'],
+        ]);
+
+        Staffs::where('user_id', $request['id'])->update([
+            'clinic_id' => $request['clinic'],
         ]);
 
         return redirect('/user/list');

@@ -85,6 +85,16 @@
                 </div>   
             </div>
             <div class="row bg-white">
+                <div class="col-md-12">
+                    <small>Clinic</small><br/>
+                    <select name="clinic" class="form-control">
+                    @foreach($clinic as $clinics)
+                    <option value="{{ $clinics->id}}">{{$clinics->clinic_name}}</option>
+                    @endforeach
+                    </select>
+                </div>   
+            </div>
+            <div class="row bg-white">
                 <div class="col-md-4">
                   <input type="submit" class="btn btn-success" value="Update Profile"/>
                 </div>   

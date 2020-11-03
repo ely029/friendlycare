@@ -62,6 +62,14 @@
                     <span>{{ $user->trainings }}</span>
                 </div>   
             </div>
+            @foreach ($clinic as $clinics )
+            <div class="row bg-white">
+                <div class="col-md-12">
+                    <small>Clinic</small><br/>
+                    <span>{{ $clinics->clinic_name }}</span>
+                </div>   
+            </div>
+            @endforeach
             <div class="row bg-white">
                 <div class="col-md-3">
                   <a role="button" href="{{ route('editUserProfile',$user->id)}}" class="btn btn-success">Edit Profile</a>
