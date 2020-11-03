@@ -549,6 +549,7 @@ class DefaultController extends Controller
             ->select('id', 'clinic_name', 'photo_url', 'street_address', 'philhealth_accredited_1', 'type')
             ->where('is_approve', 1)
             ->where('clinic_name', '<>', 'null')
+            ->where('type', '<>', 'null')
             ->get();
 
         return response([
