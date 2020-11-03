@@ -140,6 +140,7 @@ class UserManagementController extends Controller
             ->where('clinic_name', '<>', 'null')
             ->where('type', '<>', 'null')
             ->where('philhealth_accredited_1', '<>', 'null')
+            ->where('is_approve', '<>', 1)
             ->get();
 
         return view('admin.userManagement.adminEditProfile', ['users' => $user, 'clinic' => $clinic]);
