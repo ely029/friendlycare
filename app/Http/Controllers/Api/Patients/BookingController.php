@@ -182,7 +182,7 @@ class BookingController extends Controller
             ->orderBy('id', 'desc')
             ->pluck('id');
 
-        DB::update('update booking set time_slot = ? where patient_id = ? order by id desc limit 1', [$obj['date'][0], $id]);
+        DB::update('update booking set time_slot = ?, referal = ?, is_booked = ? where patient_id = ? order by id desc limit 1', [$obj['date'][0], $obj['referal'][0], 1, $id]);
 
         for ($eee = 0;$eee <= 100; $eee++) {
             if (isset($obj['time'][$eee])) {
@@ -277,5 +277,15 @@ class BookingController extends Controller
     {
         $obj = json_decode($request->getContent(), true);
         DB::update('update booking set service_id = ? where patient_id = ? order by id desc limit 1', [$obj['method'][0], $id]);
+    }
+
+    public function getAllBookings($id)
+    {
+        $details = Booking::where(['is_booked' => 1, 'patient_id' => $id])->get();
+
+        return response([
+            'name' => 'Bookings',
+            'details' => $details,
+        ]);
     }
 }

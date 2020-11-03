@@ -17,5 +17,6 @@ class Booking extends Model
         'is_approved',
         'time_slot',
         'clinic_id',
+        'referal',
     ];
 }

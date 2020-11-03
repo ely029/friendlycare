@@ -75,6 +75,7 @@ Route::get('/booking/clinicDirectory/selectedClinic/{id}', 'Patients\BookingCont
 Route::post('/booking/clinicDirectory/postClinic/{id}', 'Patients\BookingController@postClinic');
 Route::get('/booking/clinicDirectory/servicePage/{id}', 'Patients\BookingController@servicePage');
 Route::post('/booking/clinicDirectory/servicePage/{id}', 'Patients\BookingController@postService');
+Route::get('/bookings/{id}', 'Patients\BookingController@getAllBookings');
 
 //Medical History
 Route::post('/patient/medicalHistory/{id}/{questionid}', 'Patients\MedicalHistoryController@postMedicalHistory');
