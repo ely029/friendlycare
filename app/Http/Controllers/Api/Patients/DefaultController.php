@@ -548,6 +548,7 @@ class DefaultController extends Controller
         $details = DB::table('clinics')
             ->select('id', 'clinic_name', 'photo_url', 'street_address', 'philhealth_accredited_1', 'type')
             ->where('is_approve', 1)
+            ->where('clinic_name', '<>', 'null')
             ->get();
 
         return response([
