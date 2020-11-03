@@ -241,16 +241,35 @@ class BookingController extends Controller
             ->orderBy('id', 'desc')
             ->pluck('clinic_id');
 
-        $details = DB::table('family_plan_type_subcategory')
+        $modernMethod = DB::table('family_plan_type_subcategory')
             ->select('family_plan_type_subcategory.id', 'name', 'short_name', 'type', 'percent_effective', 'icon_url')
             ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
             ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
             ->where('clinics.id', $getDetails[0])
+            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
+            ->get();
+
+        $permanentMethod = DB::table('family_plan_type_subcategory')
+            ->select('family_plan_type_subcategory.id', 'name', 'short_name', 'type', 'percent_effective', 'icon_url')
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
+            ->where('clinics.id', $getDetails[0])
+            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
+            ->get();
+
+        $naturalMethod = DB::table('family_plan_type_subcategory')
+            ->select('family_plan_type_subcategory.id', 'name', 'short_name', 'type', 'percent_effective', 'icon_url')
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
+            ->where('clinics.id', $getDetails[0])
+            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
             ->get();
 
         return response([
             'name' => 'ServicePage',
-            'details' => $details,
+            'modernMethod' => $modernMethod,
+            'permanentMethod' => $permanentMethod,
+            'naturalMethod' => $naturalMethod,
         ]);
     }
 
