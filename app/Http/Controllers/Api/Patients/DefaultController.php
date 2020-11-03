@@ -488,6 +488,8 @@ class DefaultController extends Controller
                'clinics.description',
                'clinics.clinic_name',
                'clinics.city',
+               'clinics.province',
+               'clinics.municipality',
                'clinics.photo_url',
                'clinics.type',
                )

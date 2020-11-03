@@ -70,7 +70,7 @@
                     <div class="row clinic-info-street">
                         <div class="col-md-6">
                         <h6><b>Street Address</b></h6>
-                            <span>{{ $providers->city }}{{ $providers->municipality }} {{ $providers->province }}</span>
+                            <span>{{ $providers->street_address }}</span>
                         </div>
                     </div>
                     <div class="row clinic-info-category">

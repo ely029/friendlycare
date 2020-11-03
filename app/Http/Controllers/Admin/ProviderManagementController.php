@@ -69,7 +69,7 @@ class ProviderManagementController extends Controller
                 'clinics.email',
                 'clinics.description',
                 'clinics.type',
-                'clinics.street_address',
+                DB::raw("concat(clinics.street_address, clinics.city, clinics.municipality, clinics.province) as street_address"),
                 'clinics.id',
                 'clinics.philhealth_accredited_1',
            )
