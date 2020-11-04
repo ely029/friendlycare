@@ -51,7 +51,7 @@ Route::get('/patients/fpm/{id}', 'Patients\DefaultController@getFpmMethodsShow')
 Route::post('/patients/fpm/{id}', 'Patients\DefaultController@createFpmShow');
 Route::post('/patients/search', 'Patients\DefaultController@search');
 Route::post('/patient/searchClinic', 'Patients\DefaultController@searchClinic');
-Route::post('/patient/selectedService/{id}', 'Patients\DefaultController@selectedService');
+Route::get('/patient/selectedService/{id}', 'Patients\DefaultController@selectedService');
 Route::post('/patient/postMethod/{id}', 'Patients\DefaultController@postMethod');
 Route::post('/patient/postClinic/{id}', 'Patients\DefaultController@postClinic');
 Route::get('/patient/viewClinic/{id}', 'Patients\DefaultController@viewClinicByPatient');
