@@ -584,7 +584,7 @@ class DefaultController extends Controller
     public function selectedService($id)
     {
         $details = DB::table('family_plan_type_subcategory')
-            ->select('family_plan_type_id', 'name', 'short_name', 'icon_url')
+            ->select('id', 'family_plan_type_id', 'name', 'short_name', 'icon_url')
             ->where('id', $id)
             ->get();
 
@@ -615,6 +615,25 @@ class DefaultController extends Controller
             'details' => $details,
         ]);
     }
+
+    public function province()
+    {
+        $url = 'https://raw.githubusercontent.com/darklight721/philippines/master/provinces.json';
+        $response = file_get_contents($url); //Converting in json string
+        $eeee = json_decode($response, true);
+        $province = [];
+        $keyname = [];
+        for ($eee = 0;$eee <= 81; $eee++) {
+            $keyname[] = $eeee[$eee]['key'];
+            $province[] = $eeee[$eee]['name'];
+        }
+        $provinces = ['key' => $keyname, 'province' => $province];
+        return response([
+            'name' => 'provinces',
+            'details' => $provinces,
+        ]);
+    }
+
     public function postClinic(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
