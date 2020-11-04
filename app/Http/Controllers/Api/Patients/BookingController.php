@@ -87,7 +87,7 @@ class BookingController extends Controller
 
         $clinic = DB::table('clinics')
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
-            ->select('clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url')
+            ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url')
             ->where('clinic_service.service_id', $getMethod[0])
             ->where('clinics.province', 'like', '%' . $obj['province'][0] . '%')
             ->Where('clinics.city', 'like', '%' . $obj['city'][0] . '%')
