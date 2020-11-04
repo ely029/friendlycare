@@ -86,8 +86,9 @@ class BookingController extends Controller
             ->pluck('service_id');
 
         $clinic = DB::table('clinics')
+            ->leftJoin('paid_service', 'paid_services.clinic_id', 'clinics.id')
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
-            ->select('clinic_name', 'city', 'type', 'philhealth_accredited_1', 'photo_url')
+            ->select('clinics.clinic_name', 'paid_service.id as free_consultation', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url')
             ->where('clinic_service.service_id', $getMethod[0])
             ->where('clinics.province', 'like', '%' . $obj['province'][0] . '%')
             ->orWhere('clinics.city', 'like', '%' . $obj['city'][0] . '%')
@@ -104,10 +105,6 @@ class BookingController extends Controller
     public function chooseClinic(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
-
-        // $post = Booking::all()->last();
-        // $post->clinic_id = $obj['clinic'][0];
-        // $post->save();
 
         DB::update('update booking set time_slot = ? where patient_id = ? order by id desc limit 1', [$obj['clinic'][0], $id]);
 

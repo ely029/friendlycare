@@ -548,7 +548,8 @@ class DefaultController extends Controller
     public function viewClinic()
     {
         $details = DB::table('clinics')
-            ->select('id', 'clinic_name', 'photo_url', 'street_address', 'philhealth_accredited_1', 'type')
+            ->leftJoin('paid_services', 'paid_services.clinic_id', 'clinics.id')
+            ->select('clinics.id', 'paid_services.id as free_consultation', 'clinics.clinic_name', 'clinics.photo_url', 'clinics.street_address', 'clinics.philhealth_accredited_1', 'clinics.type')
             ->where('is_approve', 1)
             ->where('clinic_name', '<>', 'null')
             ->where('type', '<>', 'null')
