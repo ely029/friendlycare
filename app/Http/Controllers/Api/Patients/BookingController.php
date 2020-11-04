@@ -92,7 +92,7 @@ class BookingController extends Controller
             ->where('clinics.province', 'like', '%' . $obj['province'][0] . '%')
             ->Where('clinics.city', 'like', '%' . $obj['city'][0] . '%')
             ->Where('clinics.municipality', 'like', '%' . $obj['municipality'][0] . '%')
-            ->Where('clinics.paid_service', 'like', '%' . $obj['free_consultation'][0] . '%')
+            ->Where('clinics.paid_service', $obj['free_consultation'][0])
             ->get();
 
         return response([
