@@ -133,6 +133,23 @@
                       </td>
                   </tr>
                   <tr>
+                      <td>Paid Services</td>
+                      <td>
+                          <span>Modern Method</span><br/>
+                          @foreach($modernMethod as $method)
+                          <input type="checkbox" name="services[]" value="{{$method->id}}">{{ $method->name}}<br/>
+                          @endforeach
+                          <span>Natural Method</span><br/>
+                          @foreach($naturalMethod as $method)
+                          <input type="checkbox" name="services[]" value="{{$method->id}}">{{ $method->name}}<br/>
+                          @endforeach
+                          <span>Permanent Method</span><br/>
+                          @foreach($permanentMethod as $method)
+                          <input type="checkbox" name="services[]" value="{{$method->id}}">{{ $method->name}}<br/>
+                          @endforeach
+                      </td>
+                  </tr>
+                  <tr>
                   <td>Gallery</td>
                   <td>                  
                   @foreach($galleries as $gallery)

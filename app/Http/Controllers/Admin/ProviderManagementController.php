@@ -9,6 +9,7 @@ use App\ClinicHours;
 use App\Clinics;
 use App\ClinicService;
 use App\Http\Controllers\Controller;
+use App\PaidServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -105,13 +106,19 @@ class ProviderManagementController extends Controller
             ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
             ->get();
 
+        $paidServices = DB::table('paid_services')
+            ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'paid_services.service_id')
+            ->select('family_plan_type_subcategory.name')
+            ->where('paid_services.clinic_id', $id)
+            ->get();
+
         $staff = DB::table('staffs')
             ->join('users', 'users.id', 'staffs.user_id')
             ->select('users.first_name', 'users.last_name')
             ->where('staffs.clinic_id', $id)
             ->get();
 
-        return view('admin.providerManagement.editProviderInformation', ['provider' => $provider, 'modernMethod' => $modernMethod, 'permanentMethod' => $permanentMethod, 'naturalMethod' => $naturalMethod, 'staffs' => $staff ]);
+        return view('admin.providerManagement.editProviderInformation', ['provider' => $provider, 'modernMethod' => $modernMethod, 'permanentMethod' => $permanentMethod, 'naturalMethod' => $naturalMethod, 'staffs' => $staff, 'paidServices' => $paidServices ]);
     }
 
     public function editPage($id)
@@ -140,7 +147,25 @@ class ProviderManagementController extends Controller
             ->where('clinic_gallery.clinic_id', $id)
             ->get();
 
-        return view('admin.providerManagement.editPage', ['provider' => $provider, 'galleries' => $gallery]);
+        $modernMethod = DB::table('family_plan_type_subcategory')
+            ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id')
+            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
+            ->get();
+
+        $permanentMethod = DB::table('family_plan_type_subcategory')
+            ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id')
+            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
+            ->get();
+
+        $naturalMethod = DB::table('family_plan_type_subcategory')
+            ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id')
+            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
+            ->get();
+
+        return view('admin.providerManagement.editPage', ['provider' => $provider, 'galleries' => $gallery, 'modernMethod' => $modernMethod, 'naturalMethod' => $naturalMethod, 'permanentMethod' => $permanentMethod]);
     }
 
     public function updateProvider(Request $requests)
@@ -162,7 +187,16 @@ class ProviderManagementController extends Controller
                 ]);
             }
         }
-
+        for ($eee = 0;$eee <= 10000;$eee++) {
+            if (isset($request['services'][$eee])) {
+                PaidServices::where('clinic_id', $request['clinic_id'])->delete();
+                PaidServices::create([
+                    'service_id' => $request['services'][$eee],
+                    'clinic_id' => $request['clinic_id'],
+                    'is_checked' => 1,
+                ]);
+            }
+        }
         Clinics::where('id', $request['clinic_id'])->update([
             'clinic_name' => $request['clinic_name'],
             'street_address' => $request['street_address'],
@@ -248,6 +282,16 @@ class ProviderManagementController extends Controller
     public function storeThirdPage()
     {
         $request = request()->all();
+        for ($service = 0; $service <= 10000; $service++) {
+            if (isset($request['service'][$service])) {
+                PaidServices::create([
+                    'service_id' => $request['service'][$service],
+                    'clinic_id' => session('id'),
+                    'is_checked' => 1,
+                ]);
+            }
+        }
+
         for ($modern = 0;$modern <= 1000;$modern++) {
             if (isset($request['modern'][$modern])) {
                 ClinicService::create([

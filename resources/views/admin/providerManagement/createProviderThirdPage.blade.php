@@ -88,6 +88,43 @@
                      <span><input type="radio" name="paid" value="1">Yes&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="paid" value="0" checked>No</span>
                  </div>
             </div>
+            <div class="row">
+               <div class="col-md-12">
+               <h4>Modern Method</h4>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+               @foreach ($modernMethod as $method)
+                    <input type="checkbox" name="service[]" value="{{ $method->id }}">{{ $method->name }}
+                    @endforeach
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+                   <span></span>
+               <h4>Natural Method</h4>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+               @foreach ($naturalMethod as $method)
+                    <input type="checkbox" name="service[]" value="{{ $method->id }}">{{ $method->name }}
+                    @endforeach
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+               <h4>Permanent Method</h4>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-12">
+               @foreach ($permanentMethod as $method)
+                    <input type="checkbox" name="service[]" value="{{ $method->id }}">{{ $method->name }}
+                    @endforeach
+               </div>
+            </div>
             <div class="row h-100">
                   <div class="col-md-12">
                       <input type="submit" value="Next" class="btn btn-success">

@@ -127,6 +127,18 @@
                        </div>
                     </div>
                     <div class="row bg-white">
+                        <div class="col-md-12">
+                            <h5><b>Paid Services</b></h5>
+                        </div>
+                    </div>
+                    <div class="row bg-white">
+                        <div class="col-md-12">
+                            @foreach ($paidServices as $paidService)
+                            <span>{{ $paidService->name }}</span>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="row bg-white">
                               <div class="col-md-12">
                                   <span>Philhealth Accredited?</span><br/>
                                   @if ($providers->philhealth_accredited_1 == '1')
