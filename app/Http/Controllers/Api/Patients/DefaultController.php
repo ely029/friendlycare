@@ -584,7 +584,7 @@ class DefaultController extends Controller
     public function selectedService($id)
     {
         $details = DB::table('family_plan_type_subcategory')
-            ->select('id', 'family_plan_type_id', 'name', 'short_name', 'icon_url')
+            ->select('id', 'family_plan_type_id', 'name', 'short_name', 'icon_url', 'percent_effective')
             ->where('id', $id)
             ->get();
 
@@ -633,7 +633,6 @@ class DefaultController extends Controller
             'details' => $provinces,
         ]);
     }
-
     public function postClinic(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
