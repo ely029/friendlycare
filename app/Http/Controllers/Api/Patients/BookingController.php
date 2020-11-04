@@ -16,7 +16,7 @@ class BookingController extends Controller
     public function bookingLandingPage($id)
     {
         $details = DB::table('medical_history_answer')
-            ->select('update_at')
+            ->select('updated_at')
             ->limit(1)
             ->where('patient_id', $id)
             ->get();
