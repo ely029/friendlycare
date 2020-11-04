@@ -63,7 +63,7 @@ Route::get('/basicpages/consent', 'BasicPagesController@consentForm');
 //Booking
 /**  Booking Flow 1: Booking Screen */
 Route::get('/booking/bookingscreen/landingpage/{id}', 'Patients\BookingController@bookingLandingPage');
-Route::get('/booking/bookingscreen/selectMethodPage', 'Patients\BookingController@selectServicePage');
+Route::get('/booking/bookingscreen/selectMethodPage', 'Patients\BookingController@selectMethodPage');
 Route::post('/booking/bookingscreen/selectMethod/{id}', 'Patients\BookingController@postMethod');
 Route::post('/booking/bookingscreen/clinicWithTaggedMethod/{id}', 'Patients\BookingController@searchClinicWithMethodTagged');
 Route::post('/booking/bookingscreen/chooseClinic/{id}', 'Patients\BookingController@chooseClinic');

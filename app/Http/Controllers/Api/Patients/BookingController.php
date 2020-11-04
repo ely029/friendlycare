@@ -27,22 +27,22 @@ class BookingController extends Controller
         ]);
     }
 
-    public function selectServicePage()
+    public function selectMethodPage()
     {
         $modernMethod = DB::table('family_plan_type_subcategory')
-            ->select('name', 'short_name', 'family_plan_type_id', 'percent_effective', 'icon_url')
+            ->select('id', 'name', 'short_name', 'family_plan_type_id', 'percent_effective', 'icon_url')
             ->where('is_approve', 1)
             ->where('family_plan_type_id', 1)
             ->get();
 
         $permanentMethod = DB::table('family_plan_type_subcategory')
-            ->select('name', 'short_name', 'family_plan_type_id', 'percent_effective', 'icon_url')
+            ->select('id', 'name', 'short_name', 'family_plan_type_id', 'percent_effective', 'icon_url')
             ->where('is_approve', 1)
             ->where('family_plan_type_id', 2)
             ->get();
 
         $naturalMethod = DB::table('family_plan_type_subcategory')
-            ->select('name', 'short_name', 'family_plan_type_id', 'percent_effective', 'icon_url')
+            ->select('id', 'name', 'short_name', 'family_plan_type_id', 'percent_effective', 'icon_url')
             ->where('is_approve', 1)
             ->where('family_plan_type_id', 3)
             ->get();
