@@ -584,7 +584,7 @@ class DefaultController extends Controller
     public function selectedService($id)
     {
         $details = DB::table('family_plan_type_subcategory')
-            ->select('id', 'family_plan_type_id', 'name', 'short_name', 'icon_url', 'percent_effective')
+            ->select('id', 'family_plan_type_id', 'name', 'short_name', 'icon_url')
             ->where('id', $id)
             ->get();
 
@@ -633,6 +633,41 @@ class DefaultController extends Controller
             'details' => $provinces,
         ]);
     }
+
+    public function city()
+    {
+        $url_city = 'https://raw.githubusercontent.com/darklight721/philippines/master/cities.json';
+        $response_city = file_get_contents($url_city); //Converting in json string
+        $data_city = json_decode($response_city, true);
+        $city = [];
+
+        for ($cities = 0; $cities <= 1000; $cities++) {
+            $city[] = $data_city[$cities]['name'];
+        }
+
+        return response([
+            'name' => 'city',
+            'details' => $city,
+        ]);
+    }
+
+    public function municipality()
+    {
+        $url_city = 'https://raw.githubusercontent.com/darklight721/philippines/master/cities.json';
+        $response_city = file_get_contents($url_city); //Converting in json string
+        $data_city = json_decode($response_city, true);
+        $city = [];
+
+        for ($cities = 0; $cities <= 1000; $cities++) {
+            $city[] = $data_city[$cities]['name'];
+        }
+
+        return response([
+            'name' => 'city',
+            'details' => $city,
+        ]);
+    }
+
     public function postClinic(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);

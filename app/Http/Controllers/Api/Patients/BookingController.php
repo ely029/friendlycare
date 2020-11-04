@@ -104,7 +104,7 @@ class BookingController extends Controller
     {
         $obj = json_decode($request->getContent(), true);
 
-        DB::update('update booking set time_slot = ? where patient_id = ? order by id desc limit 1', [$obj['clinic'][0], $id]);
+        DB::update('update booking set clinic_id = ? where patient_id = ? order by id desc limit 1', [$obj['clinic'][0], $id]);
 
         $getDetails = DB::table('booking')
             ->select('clinic_id', 'service_id', 'id')

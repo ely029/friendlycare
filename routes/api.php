@@ -108,3 +108,5 @@ Route::get('/fpm', 'Provider\DefaultController@getAllFPM');
 
 //API for dropdown province municipality and city
 Route::get('/province', 'Patients\DefaultController@province');
+Route::get('/city', 'Patients\DefaultController@city');
+Route::get('/municipality', 'Patients\DefaultController@municipality');
