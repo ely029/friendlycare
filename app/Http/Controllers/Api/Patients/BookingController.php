@@ -90,9 +90,8 @@ class BookingController extends Controller
             ->select('clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url')
             ->where('clinic_service.service_id', $getMethod[0])
             ->where('clinics.province', 'like', '%' . $obj['province'][0] . '%')
-            ->orWhere('clinics.city', 'like', '%' . $obj['city'][0] . '%')
-            ->orWhere('clinics.municipality', 'like', '%' . $obj['municipality'][0] . '%')
-            ->limit(1)
+            ->Where('clinics.city', 'like', '%' . $obj['city'][0] . '%')
+            ->Where('clinics.municipality', 'like', '%' . $obj['municipality'][0] . '%')
             ->get();
 
         return response([
