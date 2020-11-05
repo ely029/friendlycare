@@ -627,15 +627,15 @@ class DefaultController extends Controller
             ->where('patient_id', $id)
             ->orderBy('id', 'desc')
             ->pluck('clinic_id');
-
+        $data = [];
         $provinces = DB::table('clinics')
             ->select('province')
             ->where('id', $getDetails[0])
             ->get();
-
+        $data = $provinces;
         return response([
             'name' => 'provinces',
-            'details' => $provinces,
+            'details' => $data,
         ]);
     }
 
@@ -646,14 +646,15 @@ class DefaultController extends Controller
             ->where('patient_id', $id)
             ->orderBy('id', 'desc')
             ->pluck('clinic_id');
-
+        $data = [];
         $provinces = DB::table('clinics')
             ->select('city')
             ->where('id', $getDetails[0])
             ->get();
+        $data = $provinces;
         return response([
-            'name' => 'provinces',
-            'details' => $provinces,
+            'name' => 'city',
+            'details' => $data,
         ]);
     }
 
@@ -664,14 +665,15 @@ class DefaultController extends Controller
             ->where('patient_id', $id)
             ->orderBy('id', 'desc')
             ->pluck('clinic_id');
-
+        $data = [];
         $provinces = DB::table('clinics')
             ->select('municipality')
             ->where('id', $getDetails[0])
             ->get();
+        $data = $provinces;
         return response([
-            'name' => 'provinces',
-            'details' => $provinces,
+            'name' => 'municipality',
+            'details' => $data,
         ]);
     }
 

@@ -63,7 +63,7 @@ class BookingController extends Controller
             'service_id' => $obj['method'][0],
         ]);
         $details = DB::table('booking')
-            ->select('service_id', 'patient_id', 'id as booking_id')
+            ->select('service_id', 'patient_id', 'id as booking_id', 'clinic_id')
             ->where('patient_id', $id)
             ->limit(1)
             ->orderBy('id', 'desc')
