@@ -139,6 +139,7 @@ class UserManagementController extends Controller
             ->select('id', 'clinic_name')
             ->where('clinic_name', '<>', null)
             ->where('is_approve', '<>', 1)
+            ->where('user_id', null)
             ->get();
 
         return view('admin.userManagement.adminEditProfile', ['users' => $user, 'clinic' => $clinic]);
