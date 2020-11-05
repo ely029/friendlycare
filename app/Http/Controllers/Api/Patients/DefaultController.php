@@ -550,10 +550,10 @@ class DefaultController extends Controller
         $details = DB::table('clinics')
             ->select('clinics.id', 'paid_service as free_consultation', 'clinics.clinic_name', 'clinics.photo_url', 'clinics.street_address', 'clinics.philhealth_accredited_1', 'clinics.type')
             ->where('is_approve', 1)
-            ->where('clinic_name', '<>', 'null')
-            ->where('type', '<>', 'null')
-            ->where('philhealth_accredited_1', '<>', 'null')
+            ->where('clinic_name', '<>', null)
+            ->where('type', '<>', null)
             ->where('photo_url', '<>', null)
+            ->where('paid_service', '<>', null)
             ->get();
 
         return response([
@@ -626,11 +626,12 @@ class DefaultController extends Controller
             ->select('clinic_id', 'service_id', 'id')
             ->where('patient_id', $id)
             ->orderBy('id', 'desc')
-            ->pluck('clinic_id');
+            ->pluck('Service_id');
         $data = [];
         $provinces = DB::table('clinics')
-            ->select('province')
-            ->where('id', $getDetails[0])
+            ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->select('clinics.province')
+            ->where('clinic_service.service_id', $getDetails[0])
             ->get();
         $data = $provinces;
         return response([
@@ -645,11 +646,12 @@ class DefaultController extends Controller
             ->select('clinic_id', 'service_id', 'id')
             ->where('patient_id', $id)
             ->orderBy('id', 'desc')
-            ->pluck('clinic_id');
+            ->pluck('service_id');
         $data = [];
         $provinces = DB::table('clinics')
-            ->select('city')
-            ->where('id', $getDetails[0])
+            ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->select('clinics.city')
+            ->where('clinic_service.service_id', $getDetails[0])
             ->get();
         $data = $provinces;
         return response([
@@ -664,11 +666,12 @@ class DefaultController extends Controller
             ->select('clinic_id', 'service_id', 'id')
             ->where('patient_id', $id)
             ->orderBy('id', 'desc')
-            ->pluck('clinic_id');
+            ->pluck('service_id');
         $data = [];
         $provinces = DB::table('clinics')
-            ->select('municipality')
-            ->where('id', $getDetails[0])
+            ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->select('clinics.municipality')
+            ->where('clinic_service.service_id', $getDetails[0])
             ->get();
         $data = $provinces;
         return response([
