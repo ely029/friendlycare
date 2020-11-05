@@ -626,7 +626,7 @@ class DefaultController extends Controller
             ->select('clinic_id', 'service_id', 'id')
             ->where('patient_id', $id)
             ->orderBy('id', 'desc')
-            ->pluck('Service_id');
+            ->pluck('service_id');
         $data = [];
         $provinces = DB::table('clinics')
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
