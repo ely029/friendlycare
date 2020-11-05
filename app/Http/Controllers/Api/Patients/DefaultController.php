@@ -665,7 +665,7 @@ class DefaultController extends Controller
             ->pluck('clinic_id');
 
         $provinces = DB::table('clinics')
-            ->select('municipallity')
+            ->select('municipality')
             ->where('id', $getDetails[0])
             ->get();
         return response([
