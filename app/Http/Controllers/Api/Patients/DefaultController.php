@@ -576,6 +576,7 @@ class DefaultController extends Controller
             ->where('clinics.philhealth_accredited_1', '<>', null)
             ->where('clinics.type', '<>', null)
             ->where('clinics.photo_url', '<>', null)
+            ->where('clinics.paid_service', '<>', null)
             ->get();
 
         return response([
