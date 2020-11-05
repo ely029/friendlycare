@@ -571,6 +571,9 @@ class DefaultController extends Controller
             ->orWhere('municipality', 'like', '%' . $obj['municipality'][0] . '%')
             ->orWhere('philhealth_accredited_1', 'like', '%' . $obj['philhealth_accredited'][0] . '%')
             ->orWhere('paid_service', 'like', '%' . $obj['paid_service'][0] . '%')
+            ->where('clinics.clinic_name', '<>', null)
+            ->where('clinics.philhealth_accredited_1', '<>', null)
+            ->where('clinics.type', '<>', null)
             ->get();
 
         return response([
@@ -582,7 +585,7 @@ class DefaultController extends Controller
     public function selectedService($id)
     {
         $details = DB::table('family_plan_type_subcategory')
-            ->select('id', 'family_plan_type_id', 'name', 'short_name', 'icon_url')
+            ->select('id', 'family_plan_type_id', 'name', 'short_name', 'icon_url', 'percentage_effective')
             ->where('id', $id)
             ->get();
 
