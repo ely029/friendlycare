@@ -138,7 +138,6 @@ class UserManagementController extends Controller
         $clinic = DB::table('clinics')
             ->select('id', 'clinic_name')
             ->where('clinic_name', '<>', null)
-            ->where('type', '<>', null)
             ->where('is_approve', '<>', 1)
             ->get();
 
