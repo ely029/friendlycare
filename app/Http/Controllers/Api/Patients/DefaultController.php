@@ -624,7 +624,6 @@ class DefaultController extends Controller
         $getDetails = DB::table('booking')
             ->select('clinic_id', 'service_id', 'id')
             ->where('patient_id', $id)
-            ->limit(1)
             ->orderBy('id', 'desc')
             ->pluck('clinic_id');
 
@@ -644,7 +643,6 @@ class DefaultController extends Controller
         $getDetails = DB::table('booking')
             ->select('clinic_id', 'service_id', 'id')
             ->where('patient_id', $id)
-            ->limit(1)
             ->orderBy('id', 'desc')
             ->pluck('clinic_id');
 
@@ -663,7 +661,6 @@ class DefaultController extends Controller
         $getDetails = DB::table('booking')
             ->select('clinic_id', 'service_id', 'id')
             ->where('patient_id', $id)
-            ->limit(1)
             ->orderBy('id', 'desc')
             ->pluck('clinic_id');
 
