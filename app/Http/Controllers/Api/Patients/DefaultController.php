@@ -619,55 +619,61 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function province()
+    public function province($id)
     {
-        $url = 'https://raw.githubusercontent.com/darklight721/philippines/master/provinces.json';
-        $response = file_get_contents($url); //Converting in json string
-        $eeee = json_decode($response, true);
-        $province = [];
-        $keyname = [];
-        for ($eee = 0;$eee <= 81; $eee++) {
-            $keyname[] = $eeee[$eee]['key'];
-            $province[] = $eeee[$eee]['name'];
-        }
-        $provinces = ['key' => $keyname, 'province' => $province];
+        $getDetails = DB::table('booking')
+            ->select('clinic_id', 'service_id', 'id')
+            ->where('patient_id', $id)
+            ->limit(1)
+            ->orderBy('id', 'desc')
+            ->pluck('clinic_id');
+
+        $provinces = DB::table('clinics')
+            ->select('province')
+            ->where('id', $getDetails[0])
+            ->get();
+
         return response([
             'name' => 'provinces',
             'details' => $provinces,
         ]);
     }
 
-    public function city()
+    public function city($id)
     {
-        $url_city = 'https://raw.githubusercontent.com/darklight721/philippines/master/cities.json';
-        $response_city = file_get_contents($url_city); //Converting in json string
-        $data_city = json_decode($response_city, true);
-        $city = [];
+        $getDetails = DB::table('booking')
+            ->select('clinic_id', 'service_id', 'id')
+            ->where('patient_id', $id)
+            ->limit(1)
+            ->orderBy('id', 'desc')
+            ->pluck('clinic_id');
 
-        for ($cities = 0; $cities <= 1000; $cities++) {
-            $city[] = $data_city[$cities]['name'];
-        }
-
+        $provinces = DB::table('clinics')
+            ->select('city')
+            ->where('id', $getDetails[0])
+            ->get();
         return response([
-            'name' => 'city',
-            'details' => $city,
+            'name' => 'provinces',
+            'details' => $provinces,
         ]);
     }
 
-    public function municipality()
+    public function municipality($id)
     {
-        $url_city = 'https://raw.githubusercontent.com/darklight721/philippines/master/cities.json';
-        $response_city = file_get_contents($url_city); //Converting in json string
-        $data_city = json_decode($response_city, true);
-        $city = [];
+        $getDetails = DB::table('booking')
+            ->select('clinic_id', 'service_id', 'id')
+            ->where('patient_id', $id)
+            ->limit(1)
+            ->orderBy('id', 'desc')
+            ->pluck('clinic_id');
 
-        for ($cities = 0; $cities <= 1000; $cities++) {
-            $city[] = $data_city[$cities]['name'];
-        }
-
+        $provinces = DB::table('clinics')
+            ->select('municipallity')
+            ->where('id', $getDetails[0])
+            ->get();
         return response([
-            'name' => 'city',
-            'details' => $city,
+            'name' => 'provinces',
+            'details' => $provinces,
         ]);
     }
 
