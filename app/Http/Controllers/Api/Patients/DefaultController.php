@@ -630,7 +630,7 @@ class DefaultController extends Controller
         $data = [];
         $provinces = DB::table('clinics')
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
-            ->select('clinics.province')
+            ->select('clinics.province', 'clinics.clinic_name')
             ->where('clinic_service.service_id', $getDetails[0])
             ->get();
         $data = $provinces;
@@ -650,7 +650,7 @@ class DefaultController extends Controller
         $data = [];
         $provinces = DB::table('clinics')
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
-            ->select('clinics.city')
+            ->select('clinics.city', 'clinics.clinic_name')
             ->where('clinic_service.service_id', $getDetails[0])
             ->get();
         $data = $provinces;
@@ -670,7 +670,7 @@ class DefaultController extends Controller
         $data = [];
         $provinces = DB::table('clinics')
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
-            ->select('clinics.municipality')
+            ->select('clinics.municipality', 'clinics.clinic_name')
             ->where('clinic_service.service_id', $getDetails[0])
             ->get();
         $data = $provinces;
