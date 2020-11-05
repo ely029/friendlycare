@@ -567,16 +567,12 @@ class DefaultController extends Controller
         $obj = json_decode($request->getContent(), true);
         $details = DB::table('clinics')
             ->select('clinics.id', 'clinics.type', 'clinics.photo_url', 'clinics.clinic_name', 'clinics.city', 'clinics.paid_service as free_consultation', 'clinics.philhealth_accredited_1')
-            ->orWhere('province', 'like', '%' . $obj['province'][0] . '%')
-            ->orWhere('city', 'like', '%' . $obj['city'][0] . '%')
-            ->orWhere('municipality', 'like', '%' . $obj['municipality'][0] . '%')
-            ->orWhere('philhealth_accredited_1', 'like', '%' . $obj['philhealth_accredited'][0] . '%')
-            ->orWhere('paid_service', 'like', '%' . $obj['paid_service'][0] . '%')
-            ->where('clinics.clinic_name', '<>', null)
-            ->where('clinics.philhealth_accredited_1', '<>', null)
-            ->where('clinics.type', '<>', null)
-            ->where('clinics.photo_url', '<>', null)
-            ->where('clinics.paid_service', '<>', null)
+            ->Where('province', 'like', '%' . $obj['province'][0] . '%')
+            ->Where('city', 'like', '%' . $obj['city'][0] . '%')
+            ->Where('municipality', 'like', '%' . $obj['municipality'][0] . '%')
+            ->Where('philhealth_accredited_1', 'like', '%' . $obj['philhealth_accredited'][0] . '%')
+            ->Where('paid_service', 'like', '%' . $obj['paid_service'][0] . '%')
+            ->where('clinics.user_id', 0)
             ->get();
 
         return response([
