@@ -73,6 +73,7 @@ class ProviderManagementController extends Controller
                 'clinics.street_address',
                 'clinics.id',
                 'clinics.philhealth_accredited_1',
+                'clinics.photo_url',
            )
             ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
             ->whereNotNull('clinics.clinic_name')
@@ -118,7 +119,19 @@ class ProviderManagementController extends Controller
             ->where('staffs.clinic_id', $id)
             ->get();
 
-        return view('admin.providerManagement.editProviderInformation', ['provider' => $provider, 'modernMethod' => $modernMethod, 'permanentMethod' => $permanentMethod, 'naturalMethod' => $naturalMethod, 'staffs' => $staff, 'paidServices' => $paidServices ]);
+        $clinicHours = DB::table('clinics')
+            ->join('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
+            ->select('clinic_hours.days', 'clinic_hours.froms', 'clinic_hours.tos')
+            ->where('clinic_hours.clinic_id', $id)
+            ->get();
+
+        $gallery = DB::table('clinic_gallery')
+            ->join('clinics', 'clinics.id', 'clinic_gallery.clinic_id')
+            ->select('clinic_gallery.file_name')
+            ->where('clinic_gallery.clinic_id', $id)
+            ->get();
+
+        return view('admin.providerManagement.editProviderInformation', ['provider' => $provider, 'modernMethod' => $modernMethod, 'permanentMethod' => $permanentMethod, 'naturalMethod' => $naturalMethod, 'staffs' => $staff, 'paidServices' => $paidServices, 'clinicHours' => $clinicHours, 'galleries' => $gallery ]);
     }
 
     public function editPage($id)
@@ -171,6 +184,17 @@ class ProviderManagementController extends Controller
     public function updateProvider(Request $requests)
     {
         $request = request()->all();
+        ClinicHours::where('clinic_id', $request['clinic_id'])->delete();
+        for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {
+            ClinicHours::create([
+                'clinic_id' => $request['clinic_id'],
+                'id_value' => $clinic_hours,
+                'days' => $request['days'][$clinic_hours],
+                'froms' => $request['from'][$clinic_hours],
+                'tos' => $request['to'][$clinic_hours],
+                'is_checked' => 1,
+            ]);
+        }
         if ($requests->file('gallery') !== null) {
             ClinicGallery::where('clinic_id', $request['clinic_id'])->delete();
 
@@ -241,6 +265,7 @@ class ProviderManagementController extends Controller
         $icon_url = url('assets/app/img/'.$icon->getClientOriginalName());
         $icon->move($destination, $icon->getClientOriginalName());
         $request['photo_url'] = $icon_url;
+        $request['street_address'] = $request['address'];
 
         Clinics::create($request);
         $user = DB::table('clinics')->where('email', $request['email'])->pluck('id');

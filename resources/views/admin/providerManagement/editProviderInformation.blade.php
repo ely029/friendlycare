@@ -45,7 +45,7 @@
              @csrf
              <div class="row">
                  <div class="col-md-6">
-                        <img class="rounded-cirle" width="100" height="100" src="{{ asset('assets/app/img/avatar6.png')}}"/>
+                        <img class="rounded-cirle" width="100" height="100" src="{{ $providers->photo_url }}"/>
                                 <div class="edit-page-provider-info-image-side">
                                     <span>{{ $providers->clinic_name }}</span><br>
                                     <span>{{$providers->email }}</span><br>
@@ -64,7 +64,10 @@
                         <h4><b>Clinic Info</b></h4>
                         </div>
                         <div class="col-md-6">
-                            <span>Gallery</span>
+                            <span>Gallery</span><br/>
+                            @foreach($galleries as $gallery)
+                <img height="50" width="50" src="{{ url(('uploads/'.$gallery->file_name)) }}">
+                  @endforeach<br/>
                         </div>
                     </div>
                     <div class="row clinic-info-street">
@@ -147,7 +150,22 @@
                                   <span>No</span>
                                   @endif
                               </div>
-                          </div>
+                    </div>
+                    <div class="row bg-white">
+                      <div class="col-md-12">
+                      <h5>Clinic Hours</h5>
+                      </div>
+                    </div>
+                    @foreach ($clinicHours as $hours)
+                    <div class="row bg-white">
+                      <div class="col-md-4">
+                      <span>{{ $hours->days}}</span>
+                      </div>
+                      <div class="col-md-8">
+                      <span>{{ $hours->froms}} - {{ $hours->tos }}</span>
+                      </div>
+                    </div>
+                    @endforeach
                     <div class="row">
                           <div class="col-md-6">
                               <a href="{{ route('editPage',$providers->id )}}" class="btn btn-success">Edit Profile</a>

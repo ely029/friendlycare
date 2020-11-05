@@ -150,6 +150,94 @@
                       </td>
                   </tr>
                   <tr>
+                  <td>Clinic Hours</td>
+                  <td><div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                <span>Sunday</span>
+                    <input checked type="checkbox" name="days[]" value="sunday">
+                    <input type="time" name="from[]">
+                    <input type="time" name="to[]">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                <span>Monday</span>
+                    <input checked type="checkbox" name="days[]" value="monday">
+                    <input type="time" name="from[]">
+                    <input type="time" name="to[]">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                <span>Tuesday</span>
+                    <input checked type="checkbox" name="days[]" value="tuesday">
+                    <input type="time" name="from[]">
+                    <input type="time" name="to[]">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                <span>Wednesday</span>
+                    <input checked type="checkbox" name="days[]" value="wednesday">
+                    <input type="time" name="from[]">
+                    <input type="time" name="to[]">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                <span>Thursday</span>
+                    <input checked type="checkbox" name="days[]" value="thursday">
+                    <input type="time" name="from[]">
+                    <input type="time" name="to[]">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                <span>Friday</span>
+                    <input checked type="checkbox" name="days[]" value="friday">
+                    <input type="time" name="from[]">
+                    <input type="time" name="to[]">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                <span>Saturday</span>
+                    <input checked type="checkbox" name="days[]" value="saturday">
+                    <input type="time" name="from[]">
+                    <input type="time" name="to[]">
+                </div>
+            </div>
+            </td>
+                  </tr>
+                  <tr>
                   <td>Gallery</td>
                   <td>                  
                   @foreach($galleries as $gallery)
