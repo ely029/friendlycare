@@ -85,16 +85,48 @@ class BookingController extends Controller
             ->limit(1)
             ->pluck('service_id');
 
-        $clinic = DB::table('clinics')
-            ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
-            ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
-            ->where('clinic_service.service_id', $getMethod[0])
-            ->where('clinics.province', 'like', '%' . $obj['province'][0] . '%')
-            ->Where('clinics.city', 'like', '%' . $obj['city'][0] . '%')
-            ->Where('clinics.municipality', 'like', '%' . $obj['municipality'][0] . '%')
-            ->Where('clinics.paid_service', $obj['free_consultation'][0])
-            ->where('clinics.philhealth_accredited_1', 'like', '%' . $obj['philhealth_accredited'][0] . '%')
-            ->get();
+        if ($obj['philhealth_accredited'][0] === 1 && $obj['free_consultation'][0] === 1) {
+            $clinic = DB::table('clinics')
+                ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+                ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
+                ->where('clinic_service.service_id', $getMethod[0])
+                ->where('clinics.province', 'like', '%' . $obj['province'][0] . '%')
+                ->Where('clinics.city', 'like', '%' . $obj['city'][0] . '%')
+                ->Where('clinics.municipality', 'like', '%' . $obj['municipality'][0] . '%')
+                ->Where('clinics.paid_service', $obj['free_consultation'][0])
+                ->where('clinics.philhealth_accredited_1', 'like', '%' . $obj['philhealth_accredited'][0] . '%')
+                ->get();
+        } elseif ($obj['philhealth_accredited'][0] === 0 && $obj['free_consultation'][0] === 1) {
+            $clinic = DB::table('clinics')
+                ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+                ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
+                ->where('clinic_service.service_id', $getMethod[0])
+                ->where('clinics.province', 'like', '%' . $obj['province'][0] . '%')
+                ->Where('clinics.city', 'like', '%' . $obj['city'][0] . '%')
+                ->Where('clinics.municipality', 'like', '%' . $obj['municipality'][0] . '%')
+                ->Where('clinics.paid_service', $obj['free_consultation'][0])
+                ->get();
+        } elseif ($obj['philhealth_accredited'][0] === 1 && $obj['free_consultation'][0] === 0) {
+            $clinic = DB::table('clinics')
+                ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+                ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
+                ->where('clinic_service.service_id', $getMethod[0])
+                ->where('clinics.province', 'like', '%' . $obj['province'][0] . '%')
+                ->Where('clinics.city', 'like', '%' . $obj['city'][0] . '%')
+                ->Where('clinics.municipality', 'like', '%' . $obj['municipality'][0] . '%')
+                ->Where('clinics.paid_service', $obj['free_consultation'][0])
+                ->where('clinics.philhealth_accredited_1', 'like', '%' . $obj['philhealth_accredited'][0] . '%')
+                ->get();
+        } else {
+            $clinic = DB::table('clinics')
+                ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+                ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
+                ->where('clinic_service.service_id', $getMethod[0])
+                ->where('clinics.province', 'like', '%' . $obj['province'][0] . '%')
+                ->Where('clinics.city', 'like', '%' . $obj['city'][0] . '%')
+                ->Where('clinics.municipality', 'like', '%' . $obj['municipality'][0] . '%')
+                ->get();
+        }
 
         return response([
             'name' => 'postMethodWithTagged',
