@@ -114,21 +114,10 @@ class DefaultController extends Controller
     public function providerInfo($id)
     {
         $user = Staffs::where('user_id', $id)->first();
-        $details = DB::table('clinics')
-            ->select('clinics.email',
-               'clinics.contact_number',
-               'clinics.street_address',
-               'clinics.description',
-               'clinics.clinic_name',
-               'clinics.city',
-               'clinics.photo_url',
-               'clinics.type',
-               )
-            ->where('clinics.id', $user['clinic_id'])
-            ->get();
+        $provider = Clinics::where(['is_approve' => 1, 'id' => $user['clinic_id']])->get();
 
         return response([
-            'data' => $details,
+            'data' => $provider,
         ]);
     }
 

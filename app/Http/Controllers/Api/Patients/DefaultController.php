@@ -628,6 +628,7 @@ class DefaultController extends Controller
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
             ->select('clinics.province', 'clinics.clinic_name')
             ->where('clinic_service.service_id', $getDetails[0])
+            ->where('clinics.province', '<>', null)
             ->get();
         $data = $provinces;
         return response([
