@@ -123,7 +123,7 @@ class BookingController extends Controller
                 ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
                 ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
                 ->where('clinic_service.service_id', $getMethod[0])
-                ->where('clinics.province', 'like', '%' . $obj['province'][0] . '%')
+                ->Where('clinics.province', 'like', '%' . $obj['province'][0] . '%')
                 ->Where('clinics.city', 'like', '%' . $obj['city'][0] . '%')
                 ->Where('clinics.municipality', 'like', '%' . $obj['municipality'][0] . '%')
                 ->where('clinics.user_id', 0)
