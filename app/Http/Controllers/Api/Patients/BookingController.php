@@ -104,8 +104,8 @@ class BookingController extends Controller
                 ->where('clinic_service.service_id', $getMethod[0])
                 ->where('clinics.province', 'like', '%' . $obj['province'][0] . '%')
                 ->Where('clinics.city', 'like', '%' . $obj['city'][0] . '%')
-                ->Where('clinics.paid_service', $obj['free_consultation'][0])
-                ->where('clinics.philhealth_accredited_1', 0)
+                ->where('clinics.philhealth_accredited_1', 1)
+                ->where('clinics.paid_service', 0)
                 ->where('clinics.user_id', 0)
                 ->get();
         } elseif ($obj['philhealth_accredited'][0] === 1 && $obj['free_consultation'][0] === 0) {
@@ -117,7 +117,7 @@ class BookingController extends Controller
                 ->Where('clinics.city', 'like', '%' . $obj['city'][0] . '%')
                 ->Where('clinics.municipality', 'like', '%' . $obj['municipality'][0] . '%')
                 ->where('clinics.philhealth_accredited_1', $obj['philhealth_accredited'][0])
-                ->Where('clinics.paid_service', 0)
+                ->Where('clinics.paid_service', 1)
                 ->where('clinics.user_id', 0)
                 ->get();
         } else {
@@ -129,10 +129,10 @@ class BookingController extends Controller
                 ->Where('clinics.city', 'like', '%' . $obj['city'][0] . '%')
                 ->Where('clinics.municipality', 'like', '%' . $obj['municipality'][0] . '%')
                 ->where('clinics.user_id', 0)
-                ->orWhere('clinics.philhealth_accredited_1',0)
-                ->orWhere('clinics.philhealth_accredited_1',1)
-                ->orWhere('clinics.paid_service',0)
-                ->orWhere('clinics.paid_service',1)
+                ->orWhere('clinics.philhealth_accredited_1', 0)
+                ->orWhere('clinics.philhealth_accredited_1', 1)
+                ->orWhere('clinics.paid_service', 0)
+                ->orWhere('clinics.paid_service', 1)
                 ->get();
         }
 
