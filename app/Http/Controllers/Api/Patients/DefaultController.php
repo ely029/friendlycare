@@ -550,10 +550,7 @@ class DefaultController extends Controller
         $details = DB::table('clinics')
             ->select('clinics.id', 'paid_service as free_consultation', 'clinics.clinic_name', 'clinics.photo_url', 'clinics.street_address', 'clinics.philhealth_accredited_1', 'clinics.type')
             ->where('is_approve', 1)
-            ->where('clinic_name', '<>', null)
-            ->where('type', '<>', null)
-            ->where('photo_url', '<>', null)
-            ->where('paid_service', '<>', null)
+            ->where('users_id',0)
             ->get();
 
         return response([
