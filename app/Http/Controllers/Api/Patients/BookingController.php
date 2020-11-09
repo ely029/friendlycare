@@ -117,6 +117,7 @@ class BookingController extends Controller
                 ->Where('clinics.city', 'like', '%' . $obj['city'][0] . '%')
                 ->Where('clinics.municipality', 'like', '%' . $obj['municipality'][0] . '%')
                 ->where('clinics.philhealth_accredited_1', $obj['philhealth_accredited'][0])
+                ->Where('clinics.paid_service', 0)
                 ->where('clinics.user_id', 0)
                 ->get();
         } else {
@@ -128,6 +129,10 @@ class BookingController extends Controller
                 ->Where('clinics.city', 'like', '%' . $obj['city'][0] . '%')
                 ->Where('clinics.municipality', 'like', '%' . $obj['municipality'][0] . '%')
                 ->where('clinics.user_id', 0)
+                ->orWhere('clinics.philhealth_accredited_1',0)
+                ->orWhere('clinics.philhealth_accredited_1',1)
+                ->orWhere('clinics.paid_service',0)
+                ->orWhere('clinics.paid_service',1)
                 ->get();
         }
 
