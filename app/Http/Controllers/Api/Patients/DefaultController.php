@@ -651,6 +651,7 @@ class DefaultController extends Controller
             ->select('clinics.city')
             ->distinct('clinics.city')
             ->where('clinic_service.service_id', $getDetails[0])
+            ->where('city', '<>', null)
             ->get();
         $data = $provinces;
         return response([
@@ -671,6 +672,7 @@ class DefaultController extends Controller
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
             ->select('clinics.municipality')
             ->distinct('clinics.municipality')
+            ->where('municipality', '<>', null)
             ->where('clinic_service.service_id', $getDetails[0])
             ->get();
         $data = $provinces;
