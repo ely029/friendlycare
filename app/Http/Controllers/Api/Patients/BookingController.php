@@ -109,14 +109,15 @@ class BookingController extends Controller
                 ->where('clinics.user_id', 0)
                 ->get();
         } elseif ($obj['philhealth_accredited'][0] === 1 && $obj['free_consultation'][0] === 0) {
-            $clinic = DB::table('clinics')
-                ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            $clinic = DB::table('clinic_service')
+                ->join('clinics', 'clinic_service.clinic_id', 'clinics.id')
                 ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
+                ->distinct('clinics.clinic_name')
                 ->where('clinic_service.service_id', $getMethod[0])
                 ->where('clinics.province', 'like', '%' . $obj['province'][0] . '%')
                 ->Where('clinics.city', 'like', '%' . $obj['city'][0] . '%')
                 ->Where('clinics.municipality', 'like', '%' . $obj['municipality'][0] . '%')
-                ->where('clinics.philhealth_accredited_1', $obj['philhealth_accredited'][0])
+                ->where('clinics.philhealth_accredited_1', 1)
                 ->orWhere('clinics.paid_service', 1)
                 ->where('clinics.user_id', 0)
                 ->get();
