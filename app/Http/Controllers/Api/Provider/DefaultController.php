@@ -170,8 +170,8 @@ class DefaultController extends Controller
     public function getClinicHours($id)
     {
         $schedules = DB::table('clinics')
-            ->join('staffs', 'staffs.clinic_id', 'clinics.id')
-            ->join('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
+            ->leftJoin('staffs', 'staffs.clinic_id', 'clinics.id')
+            ->leftJoin('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
             ->select('clinic_hours.days', 'clinic_hours.froms', 'clinic_hours.tos')
             ->where('staffs.user_id', $id)
             ->get();
