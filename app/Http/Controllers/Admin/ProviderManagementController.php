@@ -292,14 +292,16 @@ class ProviderManagementController extends Controller
             }
         }
         for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {
-            ClinicHours::create([
-                'clinic_id' => session('id'),
-                'id_value' => $clinic_hours,
-                'days' => $request['days'][$clinic_hours],
-                'froms' => $request['from'][$clinic_hours],
-                'tos' => $request['to'][$clinic_hours],
-                'is_checked' => 1,
-            ]);
+            if (isset($request['days'][$clinic_hours])) {
+                ClinicHours::create([
+                    'clinic_id' => session('id'),
+                    'id_value' => $clinic_hours,
+                    'days' => $request['days'][$clinic_hours],
+                    'froms' => $request['from'][$clinic_hours],
+                    'tos' => $request['to'][$clinic_hours],
+                    'is_checked' => 1,
+                ]);
+            }
         }
         return redirect()->action('Admin\ProviderManagementController@createThirdPage');
     }

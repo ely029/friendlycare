@@ -84,6 +84,8 @@
                     <input type="text" name="trainings" value="{{ $user->trainings }}" class="form-control">
                 </div>   
             </div>
+            @if ($user->role_id == 2)
+            @else
             <div class="row bg-white">
                 <div class="col-md-12">
                     <small>Clinic</small><br/>
@@ -94,6 +96,7 @@
                     </select>
                 </div>   
             </div>
+            @endif
             <div class="row bg-white">
                 <div class="col-md-4">
                   <input type="submit" class="btn btn-success" value="Update Profile"/>
