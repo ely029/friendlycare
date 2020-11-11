@@ -135,6 +135,7 @@ class DefaultController extends Controller
         'users.gender',
         'users.email',
         'users.age',
+        'users.contact_number',
         'patients.city',
         'patients.citymunicipality',
         'patients.province',
@@ -173,6 +174,7 @@ class DefaultController extends Controller
         'users.gender',
         'users.email',
         'users.age',
+        'users.contact_number',
         'patients.city',
         'patients.citymunicipality',
         'patients.province',
@@ -224,6 +226,7 @@ class DefaultController extends Controller
             'birth_date' => $request['birth_date'],
             'email' => $request['email'],
             'age' => $this->age($request['birth_date']),
+            'contact_number' => $request['contact_number'],
         ]);
         Patients::where('user_id', $request['id'])->update([
             'religion' => $request['religion'],
@@ -256,6 +259,7 @@ class DefaultController extends Controller
         'users.gender',
         'users.email',
         'users.age',
+        'users.contact_number',
         'patients.citymunicipality',
         'patients.province',
         'users.contact_number_1',
