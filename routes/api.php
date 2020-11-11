@@ -110,3 +110,8 @@ Route::get('/fpm', 'Provider\DefaultController@getAllFPM');
 Route::get('/province/{id}', 'Patients\DefaultController@province');
 Route::get('/city/{id}', 'Patients\DefaultController@city');
 Route::get('/municipality/{id}', 'Patients\DefaultController@municipality');
+
+//TimeSlot
+
+Route::get('/booking/timeslot/{id}', 'Provider\DefaultController@getProviderTimeSlot');
+Route::post('/booking/timeslot/{id}', 'Provider\DefaultController@postProviderTimeSlot');

@@ -10,6 +10,7 @@ use App\Clinics;
 use App\ClinicService;
 use App\Http\Controllers\Controller;
 use App\PaidServices;
+use App\PatientTimeSlot;
 use App\Staffs;
 use App\User;
 use Illuminate\Http\Request;
@@ -560,5 +561,46 @@ class DefaultController extends Controller
             ->get();
 
         return response([$fpm]);
+    }
+
+    public function getProviderTimeSlot($id)
+    {
+        $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
+
+        $data = DB::table('patient_time_slot')
+            ->select('number')
+            ->where('clinic_id', $clinic[0])
+            ->get();
+
+        return response([
+            'name' => 'GetTimeSlot',
+            'details' => $data,
+        ]);
+    }
+
+    public function postProviderTimeSlot(Request $request, $id)
+    {
+        $obj = json_decode($request->getContent(), true);
+        $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
+        $data = DB::table('patient_time_slot')
+            ->select('clinic_id')
+            ->where('clinic_id', $clinic[0])
+            ->first();
+
+        if ($data === null) {
+            PatientTimeSlot::create([
+                'clinic_id' => $clinic[0],
+                'number' => $obj['timeslot'][0],
+            ]);
+        } else {
+            PatientTimeSlot::where('clinic_id', $clinic[0])->update([
+                'number' => $obj['timeslot'][0],
+            ]);
+        }
+
+        return response([
+            'name' => 'postTimeSlot',
+            'details' => $obj['timeslot'][0],
+        ]);
     }
 }
