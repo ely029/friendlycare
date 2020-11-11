@@ -104,12 +104,11 @@ class DefaultController extends Controller
         if ($this->age($request['birth_date']) < 9) {
             return response()->json('Your age are not able to register.', 422);
         }
-
         $request['age'] = $this->age($request['birth_date']);
         $request['password'] = bcrypt($request['password']);
         $request['role_id'] = 3;
         $request['name'] = $request['first_name'] . ' ' . $request['last_name'];
-
+        $request['contact_number_1'] = $request['contact_number'];
         $user = User::create($request);
 
         $request['user_id'] = $user->id;
@@ -135,11 +134,10 @@ class DefaultController extends Controller
         'users.gender',
         'users.email',
         'users.age',
-        'users.contact_number',
         'patients.city',
         'patients.citymunicipality',
         'patients.province',
-        'users.contact_number_1',
+        'users.contact_number_1 as contact_number',
         'patients.religion',
         'patients.occupation',
         'patients.street_address',
@@ -174,11 +172,10 @@ class DefaultController extends Controller
         'users.gender',
         'users.email',
         'users.age',
-        'users.contact_number',
         'patients.city',
         'patients.citymunicipality',
         'patients.province',
-        'users.contact_number_1',
+        'users.contact_number_1 as contact_number',
         'patients.religion',
         'patients.occupation',
         'patients.street_address',
@@ -226,7 +223,7 @@ class DefaultController extends Controller
             'birth_date' => $request['birth_date'],
             'email' => $request['email'],
             'age' => $this->age($request['birth_date']),
-            'contact_number' => $request['contact_number'],
+            'contact_number_1' => $request['contact_number'],
         ]);
         Patients::where('user_id', $request['id'])->update([
             'religion' => $request['religion'],
@@ -259,10 +256,9 @@ class DefaultController extends Controller
         'users.gender',
         'users.email',
         'users.age',
-        'users.contact_number',
         'patients.citymunicipality',
         'patients.province',
-        'users.contact_number_1',
+        'users.contact_number_1 as contact_number',
         'patients.religion',
         'patients.occupation',
         'patients.street_address',
@@ -488,7 +484,7 @@ class DefaultController extends Controller
             ->select(
                'clinics.id',
                'clinics.email',
-               'clinics.contact_number',
+               'clinics.contact_number_1 as contact_number',
                'clinics.street_address',
                'clinics.description',
                'clinics.clinic_name',

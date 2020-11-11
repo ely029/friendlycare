@@ -89,6 +89,7 @@ class User extends Authenticatable
         'profession',
         'professions',
         'trainings',
+        'contact_number_1',
     ];
 
     /*\
