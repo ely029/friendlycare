@@ -94,6 +94,7 @@ class DefaultController extends Controller
             'gender' => 'required|max:2',
             'password' => 'required|min:8',
             'birth_date' => 'required',
+            'contact_number' => 'required|min:8|max:15',
         ]);
 
         if ($validator->fails()) {
