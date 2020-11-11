@@ -149,19 +149,28 @@ class UserManagementController extends Controller
     public function updateUser()
     {
         $request = request()->all();
-
-        User::find($request['id'])->update([
-            'name' => $request['first_name'] . ' ' . $request['last_name'],
-            'first_name' => $request['first_name'],
-            'last_name' => $request['last_name'],
-            'email' => $request['email'],
-            'professions' => $request['professions'],
-            'trainings' => $request['trainings'],
-        ]);
-
-        Staffs::where('user_id', $request['id'])->update([
-            'clinic_id' => $request['clinic'],
-        ]);
+        if ($request['role_id'] === '2') {
+            User::find($request['id'])->update([
+                'name' => $request['first_name'] . ' ' . $request['last_name'],
+                'first_name' => $request['first_name'],
+                'last_name' => $request['last_name'],
+                'email' => $request['email'],
+                'professions' => $request['professions'],
+                'trainings' => $request['trainings'],
+            ]);
+        } else {
+            User::find($request['id'])->update([
+                'name' => $request['first_name'] . ' ' . $request['last_name'],
+                'first_name' => $request['first_name'],
+                'last_name' => $request['last_name'],
+                'email' => $request['email'],
+                'professions' => $request['professions'],
+                'trainings' => $request['trainings'],
+            ]);
+            Staffs::where('user_id', $request['id'])->update([
+                'clinic_id' => $request['clinic'],
+            ]);
+        }
 
         return redirect('/user/list');
     }
