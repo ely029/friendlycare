@@ -75,6 +75,60 @@ class BookingController extends Controller
         ]);
     }
 
+    public function searchClinic(Request $request)
+    {
+        $obj = json_decode($request->getContent(), true);
+
+        if ($obj['philhealth_accredited'][0] === 1 && $obj['paid_service'][0] === 1) {
+            $details = DB::table('clinics')
+                ->select('clinics.id', 'clinics.type', 'clinics.photo_url', 'clinics.clinic_name', 'clinics.city', 'clinics.paid_service as free_consultation', 'clinics.philhealth_accredited_1')
+                ->Where('province', 'like', '%' . $obj['province'][0] . '%')
+                ->Where('city', 'like', '%' . $obj['city'][0] . '%')
+                ->Where('municipality', 'like', '%' . $obj['municipality'][0] . '%')
+                ->Where('philhealth_accredited_1', 1)
+                ->Where('paid_service', 0)
+                ->where('clinics.user_id', 0)
+                ->get();
+        } elseif ($obj['philhealth_accredited'][0] === 1 && $obj['paid_service'][0] === 0) {
+            $details = DB::table('clinics')
+                ->select('clinics.id', 'clinics.type', 'clinics.photo_url', 'clinics.clinic_name', 'clinics.city', 'clinics.paid_service as free_consultation', 'clinics.philhealth_accredited_1')
+                ->Where('province', 'like', '%' . $obj['province'][0] . '%')
+                ->Where('city', 'like', '%' . $obj['city'][0] . '%')
+                ->Where('municipality', 'like', '%' . $obj['municipality'][0] . '%')
+                ->Where('philhealth_accredited_1', 1)
+                ->Where('paid_service', 1)
+                ->Where('paid_service', 0)
+                ->where('clinics.user_id', 0)
+                ->get();
+        } elseif ($obj['philhealth_accredited'][0] === 0 && $obj['paid_service'][0] === 1) {
+            $details = DB::table('clinics')
+                ->select('clinics.id', 'clinics.type', 'clinics.photo_url', 'clinics.clinic_name', 'clinics.city', 'clinics.paid_service as free_consultation', 'clinics.philhealth_accredited_1')
+                ->Where('province', 'like', '%' . $obj['province'][0] . '%')
+                ->Where('city', 'like', '%' . $obj['city'][0] . '%')
+                ->Where('municipality', 'like', '%' . $obj['municipality'][0] . '%')
+                ->Where('philhealth_accredited_1', 1)
+                ->Where('philhealth_accredited_1', 0)
+                ->Where('paid_service', 0)
+                ->where('clinics.user_id', 0)
+                ->get();
+        } else {
+            $details = DB::table('clinics')
+                ->select('clinics.id', 'clinics.type', 'clinics.photo_url', 'clinics.clinic_name', 'clinics.city', 'clinics.paid_service as free_consultation', 'clinics.philhealth_accredited_1')
+                ->Where('province', 'like', '%' . $obj['province'][0] . '%')
+                ->Where('city', 'like', '%' . $obj['city'][0] . '%')
+                ->Where('municipality', 'like', '%' . $obj['municipality'][0] . '%')
+                ->Where('philhealth_accredited_1', 'like', '%' . $obj['philhealth_accredited'][0] . '%')
+                ->Where('paid_service', 'like', '%' . $obj['paid_service'][0] . '%')
+                ->where('clinics.user_id', 0)
+                ->get();
+        }
+
+        return response([
+            'name' => 'searchClinic',
+            'details' => $details,
+        ]);
+    }
+
     public function searchClinicWithMethodTagged(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
@@ -93,8 +147,8 @@ class BookingController extends Controller
                 ->where('clinics.province', 'like', '%' . $obj['province'][0] . '%')
                 ->Where('clinics.city', 'like', '%' . $obj['city'][0] . '%')
                 ->Where('clinics.municipality', 'like', '%' . $obj['municipality'][0] . '%')
-                ->Where('clinics.paid_service', $obj['free_consultation'][0])
-                ->where('clinics.philhealth_accredited_1', $obj['philhealth_accredited'][0])
+                ->Where('clinics.paid_service', 0)
+                ->where('clinics.philhealth_accredited_1', 1)
                 ->where('clinics.user_id', 0)
                 ->get();
         } elseif ($obj['philhealth_accredited'][0] === 0 && $obj['free_consultation'][0] === 1) {
@@ -105,6 +159,7 @@ class BookingController extends Controller
                 ->where('clinics.province', 'like', '%' . $obj['province'][0] . '%')
                 ->Where('clinics.city', 'like', '%' . $obj['city'][0] . '%')
                 ->where('clinics.philhealth_accredited_1', 1)
+                ->where('clinics.philhealth_accredited_1', 0)
                 ->where('clinics.paid_service', 0)
                 ->where('clinics.user_id', 0)
                 ->get();

@@ -559,25 +559,6 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function searchClinic(Request $request)
-    {
-        $obj = json_decode($request->getContent(), true);
-        $details = DB::table('clinics')
-            ->select('clinics.id', 'clinics.type', 'clinics.photo_url', 'clinics.clinic_name', 'clinics.city', 'clinics.paid_service as free_consultation', 'clinics.philhealth_accredited_1')
-            ->Where('province', 'like', '%' . $obj['province'][0] . '%')
-            ->Where('city', 'like', '%' . $obj['city'][0] . '%')
-            ->Where('municipality', 'like', '%' . $obj['municipality'][0] . '%')
-            ->Where('philhealth_accredited_1', 'like', '%' . $obj['philhealth_accredited'][0] . '%')
-            ->Where('paid_service', 'like', '%' . $obj['paid_service'][0] . '%')
-            ->where('clinics.user_id', 0)
-            ->get();
-
-        return response([
-            'name' => 'searchClinic',
-            'details' => $details,
-        ]);
-    }
-
     public function selectedService($id)
     {
         $details = DB::table('family_plan_type_subcategory')
