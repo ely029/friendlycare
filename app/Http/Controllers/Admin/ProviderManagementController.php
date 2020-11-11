@@ -186,14 +186,16 @@ class ProviderManagementController extends Controller
         $request = request()->all();
         ClinicHours::where('clinic_id', $request['clinic_id'])->delete();
         for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {
-            ClinicHours::create([
-                'clinic_id' => $request['clinic_id'],
-                'id_value' => $clinic_hours,
-                'days' => $request['days'][$clinic_hours],
-                'froms' => $request['from'][$clinic_hours],
-                'tos' => $request['to'][$clinic_hours],
-                'is_checked' => 1,
-            ]);
+            if (isset($request['days'][$clinic_hours])) {
+                ClinicHours::create([
+                    'clinic_id' => $request['clinic_id'],
+                    'id_value' => $clinic_hours,
+                    'days' => $request['days'][$clinic_hours],
+                    'froms' => $request['from'][$clinic_hours],
+                    'tos' => $request['to'][$clinic_hours],
+                    'is_checked' => 1,
+                ]);
+            }
         }
         if ($requests->file('gallery') !== null) {
             ClinicGallery::where('clinic_id', $request['clinic_id'])->delete();
