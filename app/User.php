@@ -77,7 +77,6 @@ class User extends Authenticatable
         'role_id',
         'municipality',
         'age',
-        'contact_number',
         'province',
         'city',
         'birth_date',
