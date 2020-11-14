@@ -485,7 +485,7 @@ class DefaultController extends Controller
             ->select(
                'clinics.id',
                'clinics.email',
-               'clinics.contact_number_1 as contact_number',
+               'clinics.contact_number as contact_number',
                'clinics.street_address',
                'clinics.description',
                'clinics.clinic_name',
