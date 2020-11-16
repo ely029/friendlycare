@@ -42,6 +42,12 @@ class Booking extends Model
             ->join('booking_time', 'booking_time.booking_id', 'booking.id')
             ->select('users.name as patient_name', 'booking.time_slot', 'booking_time.time_slot', 'booking.status', 'users.age', 'users.birth_date', 'users.gender', 'users.email', 'patients.family_plan_type_id', 'booking.referal')
             ->where('booking.id', $id)
+            ->where('booking.is_booked', 1)
             ->get();
+    }
+
+    public function approveBooking($id, $obj)
+    {
+        return $this->DB::update('update booking set status = ? where id = ?', [$obj['status'][0], $id]);
     }
 }

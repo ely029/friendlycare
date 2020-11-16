@@ -405,4 +405,19 @@ class BookingController extends Controller
             'details' => $details,
         ]);
     }
+
+    public function approveBooking(Request $request, $id)
+    {
+        $obj = json_decode($request->getContent(), true);
+        $booking = new Booking();
+        $booking->approveBooking($id, $obj);
+
+        $data = Booking::where('id', $id)->get();
+
+        return response([
+            'name' => 'BookApproved',
+            'message' => 'Book Approved!',
+            'data' => $data,
+        ]);
+    }
 }
