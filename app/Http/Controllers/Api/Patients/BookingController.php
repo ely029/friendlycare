@@ -8,6 +8,7 @@ use App\Booking;
 use App\BookingTime;
 use App\Http\Controllers\Controller;
 use App\Patients;
+use App\Staffs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -386,8 +387,9 @@ class BookingController extends Controller
 
     public function getBooking($id)
     {
+        $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
         $booking = new Booking();
-        $details = $booking->getBookingByPatient($id);
+        $details = $booking->getBookingByPatient($clinic[0]);
 
         return response([
             'name' => 'BookingsPerPatient',
