@@ -28,7 +28,7 @@ class Booking extends Model
             ->leftJoin('users', 'users.id', 'booking.patient_id')
             ->select('users.id as user_id', 'booking.id as booking_id', 'users.name', 'family_plan_type_subcategory.name as service_name', 'booking.time_slot', 'booking.status')
             ->where('booking.patient_id', $patient_id)
-            ->where('booking.is_approved', 1)
+            ->where('booking.is_booked', 1)
             ->get();
     }
 }
