@@ -410,7 +410,6 @@ class BookingController extends Controller
     {
         $obj = json_decode($request->getContent(), true);
         $booking = new Booking();
-        $booking->approveBooking($id, $obj);
 
         $data = Booking::where('id', $id)->get();
 
@@ -419,5 +418,10 @@ class BookingController extends Controller
             'message' => 'Book Approved!',
             'data' => $data,
         ]);
+    }
+
+    public function bookings()
+    {
+        return Booking::all();
     }
 }
