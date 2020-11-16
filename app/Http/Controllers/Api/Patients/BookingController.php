@@ -397,6 +397,10 @@ class BookingController extends Controller
 
     public function getBookingPerId($id)
     {
+        Booking::where('id', $id)->update([
+            'is_read' => 0,
+        ]);
+
         $booking = new Booking();
         $details = $booking->getBookingById($id);
 
@@ -421,6 +425,8 @@ class BookingController extends Controller
 
     public function bookings()
     {
-        return Booking::all();
+        return DB::table('booking')
+            ->select('id', 'service_id', 'clinic_id', 'time_slot', 'is_cancelled', 'is_approved', 'patient_id', 'referal', 'is_booked', 'no_show', 'status', 'is_read')
+            ->get();
     }
 }
