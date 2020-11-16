@@ -374,7 +374,7 @@ class BookingController extends Controller
         DB::update('update booking set service_id = ? where patient_id = ? order by id desc limit 1', [$obj['method'][0], $id]);
     }
 
-    public function getAllBookings($id)
+    public function getAllBookings()
     {
         $details = Booking::where(['is_booked' => 1])->get();
 
