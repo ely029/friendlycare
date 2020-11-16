@@ -376,7 +376,7 @@ class BookingController extends Controller
 
     public function getAllBookings($id)
     {
-        $details = Booking::where(['is_booked' => 1, 'patient_id' => $id])->get();
+        $details = Booking::where(['is_booked' => 1])->get();
 
         return response([
             'name' => 'Bookings',
