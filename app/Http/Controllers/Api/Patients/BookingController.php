@@ -384,7 +384,7 @@ class BookingController extends Controller
         ]);
     }
 
-    public function getBookingByPatient($id)
+    public function getBooking($id)
     {
         $booking = new Booking();
         $details = $booking->getBookingByPatient($id);

@@ -107,7 +107,7 @@ Route::get('/patient/fpmpage/{id}', 'Provider\DefaultController@fpmPagePerMethod
 Route::get('/fpm', 'Provider\DefaultController@getAllFPM');
 
 //Provider Booking
-Route::get('/booking/provider/{id}', 'Patients\BookingController@getBookingByPatient');
+Route::get('/booking/newrequest/provider/{id}', 'Patients\BookingController@getBooking');
 Route::get('/booking/{id}', 'Patients\BookingController@getBookingPerId');
 Route::post('/booking/approveBook/{id}', 'Patients\BookingController@approveBooking');
 
