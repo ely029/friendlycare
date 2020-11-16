@@ -406,11 +406,8 @@ class BookingController extends Controller
         ]);
     }
 
-    public function approveBooking(Request $request, $id)
+    public function approveBooking($id)
     {
-        $obj = json_decode($request->getContent(), true);
-        $booking = new Booking();
-
         $data = Booking::where('id', $id)->get();
 
         return response([
