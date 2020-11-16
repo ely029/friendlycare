@@ -383,4 +383,15 @@ class BookingController extends Controller
             'details' => $details,
         ]);
     }
+
+    public function getBookingByPatient($id)
+    {
+        $booking = new Booking();
+        $details = $booking->getBookingByPatient($id);
+
+        return response([
+            'name' => 'BookingsPerPatient',
+            'details' => $details,
+        ]);
+    }
 }
