@@ -394,4 +394,15 @@ class BookingController extends Controller
             'details' => $details,
         ]);
     }
+
+    public function getBookingPerId($id)
+    {
+        $booking = new Booking();
+        $details = $booking->getBookingById($id);
+
+        return response([
+            'name' => 'BookingPerBookingId',
+            'details' => $details,
+        ]);
+    }
 }

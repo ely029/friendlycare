@@ -108,6 +108,7 @@ Route::get('/fpm', 'Provider\DefaultController@getAllFPM');
 
 //Provider Booking
 Route::get('/booking/provider/{id}', 'Patients\BookingController@getBookingByPatient');
+Route::get('booking/{id}', 'Patients\BookingController@getBookingPerId');
 
 //API for dropdown province municipality and city
 Route::get('/province/{id}', 'Patients\DefaultController@province');
