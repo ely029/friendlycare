@@ -385,14 +385,26 @@ class BookingController extends Controller
         ]);
     }
 
-    public function getBooking($id)
+    public function getNewRequestBooking($id)
     {
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
         $booking = new Booking();
         $details = $booking->getBookingByPatient($clinic[0]);
 
         return response([
-            'name' => 'BookingsPerPatient',
+            'name' => 'NewRequestBooking',
+            'details' => $details,
+        ]);
+    }
+
+    public function getBookings($id)
+    {
+        $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
+        $booking = new Booking();
+        $details = $booking->getBookings($clinic[0]);
+
+        return response([
+            'name' => 'UpcomingBookings',
             'details' => $details,
         ]);
     }
