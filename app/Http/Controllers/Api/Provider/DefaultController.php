@@ -568,7 +568,7 @@ class DefaultController extends Controller
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
 
         $data = DB::table('patient_time_slot')
-            ->select('number')
+            ->select('number_of_slots as number')
             ->where('clinic_id', $clinic[0])
             ->get();
 
@@ -590,11 +590,11 @@ class DefaultController extends Controller
         if ($data === null) {
             PatientTimeSlot::create([
                 'clinic_id' => $clinic[0],
-                'number' => $obj['timeslot'][0],
+                'number_of_slots' => $obj['timeslot'][0],
             ]);
         } else {
             PatientTimeSlot::where('clinic_id', $clinic[0])->update([
-                'number' => $obj['timeslot'][0],
+                'number_of_slots' => $obj['timeslot'][0],
             ]);
         }
 
