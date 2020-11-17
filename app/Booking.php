@@ -31,6 +31,7 @@ class Booking extends Model
             ->where('booking.clinic_id', $clinic_id)
             ->where('booking.is_booked', 1)
             ->whereDay('booking.time_slot', '>=', date('d'))
+            ->orderBy('booking.time_slot')
             ->get();
     }
 
