@@ -13,5 +13,6 @@ class BookingTime extends Model
         'patient_id',
         'time_slot',
         'booking_id',
+        'status',
     ];
 }

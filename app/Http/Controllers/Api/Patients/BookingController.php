@@ -277,8 +277,6 @@ class BookingController extends Controller
             ->orderBy('id', 'desc')
             ->pluck('id');
 
-        DB::update('update booking set time_slot = ?, referal = ?, is_booked = ? where patient_id = ? order by id desc limit 1', [$obj['date'][0], $obj['referal'][0], 1, $id]);
-
         for ($eee = 0;$eee <= 100; $eee++) {
             if (isset($obj['time'][$eee])) {
                 BookingTime::create([
@@ -467,11 +465,9 @@ class BookingController extends Controller
     public function approveBooking(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
-        //DB::update('update booking set status = ? where id = ? and ', [$obj['status'][0], $id]);
-        DB::table('booking')
-            ->join('booking_time', 'booking_time.booking_id', 'booking.id')
-            ->where(['booking.id' => $id, 'booking_time.time_slot' => $obj['time_slot'][0]])
-            ->update(['booking.status', 1]);
+        DB::update('update booking set status = ? where id = ?', [1, $id]);
+        DB::update('update booking_time set status = ? where time_slot = ?', [1, $obj['time_slot'][0]]);
+        BookingTime::where(['booking_id' => $id, 'status' => null])->delete();
         $data = Booking::where('id', $id)->get();
 
         return response([
