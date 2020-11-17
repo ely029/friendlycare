@@ -477,6 +477,28 @@ class BookingController extends Controller
         ]);
     }
 
+    public function cancellationDetails($id)
+    {
+        $booking = new Booking();
+        $details = $booking->cancellationDetails($id);
+
+        return response([
+            'name' => 'CancellationDetails',
+            'details' => $details,
+        ]);
+    }
+
+    public function approveCancellationDetails(Request $request, $id)
+    {
+        $obj = json_decode($request->getContent(), true);
+        DB::update('update booking set cancellation_message_1 = ?, status = ? where id = ?', [$obj['cancellation_message'][0], 3, $id]);
+        DB::update('update booking_time set status = ? where booking_id = ?', [3, $id]);
+        return response([
+            'name' => 'ApproveCancellation',
+            'message' => 'This booking is cancelled',
+        ]);
+    }
+
     public function bookings()
     {
         return DB::table('booking')

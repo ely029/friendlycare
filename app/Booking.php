@@ -102,4 +102,15 @@ class Booking extends Model
             ->where('booking.is_booked', 1)
             ->get();
     }
+
+    public function cancellationDetails($id)
+    {
+        return DB::table('booking')
+            ->leftJoin('users', 'booking.patient_id', 'users.id')
+            ->leftJoin('booking_time', 'booking.id', 'booking_time.booking_id')
+            ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->select('users.name', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'family_plan_type_subcategory.name as service_name', 'users.email', 'users.contact_number_1 as contact_number')
+            ->where('booking.id', $id)
+            ->get();
+    }
 }
