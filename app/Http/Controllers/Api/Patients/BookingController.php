@@ -405,7 +405,33 @@ class BookingController extends Controller
         $details = $booking->getBookings($clinic[0], $date);
 
         return response([
-            'name' => 'UpcomingBookings',
+            'name' => 'BookingsToday',
+            'details' => $details,
+        ]);
+    }
+
+    public function getBookingsYesterday($id)
+    {
+        $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
+        $booking = new Booking();
+        $date = date('Y-m-d', strtotime('-1 days'));
+        $details = $booking->getBookingsYesterday($clinic[0], $date);
+
+        return response([
+            'name' => 'BookingsYesterday',
+            'details' => $details,
+        ]);
+    }
+
+    public function getBookingsTommorow($id)
+    {
+        $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
+        $booking = new Booking();
+        $date = date('Y-m-d', strtotime('+1 days'));
+        $details = $booking->getBookingsTommorow($clinic[0], $date);
+
+        return response([
+            'name' => 'BookingsTommorow',
             'details' => $details,
         ]);
     }
