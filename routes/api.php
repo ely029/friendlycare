@@ -119,6 +119,10 @@ Route::post('/booking/approveBook/{id}', 'Patients\BookingController@approveBook
 Route::get('/booking/cancellation/provider/{id}', 'Patients\BookingController@cancellationDetails');
 Route::post('/booking/cancellation/provider/{id}', 'Patients\BookingController@approveCancellationDetails');
 
+//Provider Confirm Service
+Route::get('/booking/confirmService/provider/{id}', 'Patients\BookingController@getConfirmServiceDetails');
+Route::post('/booking/confirmService/provider/{id}', 'Patients\BookingController@postConfirmService');
+
 //API for dropdown province municipality and city
 Route::get('/province/{id}', 'Patients\DefaultController@province');
 Route::get('/city/{id}', 'Patients\DefaultController@city');

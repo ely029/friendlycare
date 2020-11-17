@@ -499,6 +499,28 @@ class BookingController extends Controller
         ]);
     }
 
+    public function getConfirmServiceDetails($id)
+    {
+        $booking = new Booking();
+        $details = $booking->getConfirmServiceDetails($id);
+
+        return response([
+            'name' => 'confirmServiceDetails',
+            'details' => $details,
+        ]);
+    }
+
+    public function postConfirmService(Request $request, $id)
+    {
+        $obj = json_decode($request->getContent(), true);
+        DB::update('update booking set service_id = ? where id = ?', [$obj['service'][0], $id]);
+
+        return response([
+            'name' => 'postConfirmService',
+            'message' => 'service confirmed!',
+        ]);
+    }
+
     public function bookings()
     {
         return DB::table('booking')
