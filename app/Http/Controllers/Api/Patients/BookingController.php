@@ -451,6 +451,19 @@ class BookingController extends Controller
         ]);
     }
 
+    public function bookingsDatePicker(Request $request, $id)
+    {
+        $obj = json_decode($request->getContent(), true);
+        $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
+        $booking = new Booking();
+        $details = $booking->bookingsDatePicker($clinic[0], $obj);
+
+        return response([
+            'name' => 'BookingsDatePicker',
+            'details' => $details,
+        ]);
+    }
+
     public function approveBooking(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);

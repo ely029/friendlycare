@@ -111,6 +111,7 @@ Route::get('/booking/newrequest/provider/{id}', 'Patients\BookingController@getN
 Route::get('/booking/bookingstoday/provider/{id}', 'Patients\BookingController@getBookings');
 Route::get('/booking/bookingsyesterday/provider/{id}', 'Patients\BookingController@getBookingsYesterday');
 Route::get('/booking/bookingstommorow/provider/{id}', 'Patients\BookingController@getBookingsTommorow');
+Route::post('/booking/bookingsdatepicker/provider/{id}', 'Patients\BookingController@bookingsDatePicker');
 Route::get('/booking/{id}', 'Patients\BookingController@getBookingPerId');
 Route::post('/booking/approveBook/{id}', 'Patients\BookingController@approveBooking');
 

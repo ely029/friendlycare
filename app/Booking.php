@@ -76,6 +76,20 @@ class Booking extends Model
             ->get();
     }
 
+    public function bookingsDatePicker($clinic_id, $obj)
+    {
+        return DB::table('booking')
+            ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->leftJoin('users', 'users.id', 'booking.patient_id')
+            ->leftJoin('booking_time', 'booking_time.booking_id', 'booking.id')
+            ->select('users.id as user_id', 'booking.is_read', 'booking.id as booking_id', 'users.name', 'family_plan_type_subcategory.name as service_name', 'booking_time.time_slot', 'booking.status', 'booking.time_slot as date_booked')
+            ->where('booking.clinic_id', $clinic_id)
+            ->where('booking.is_booked', 1)
+            ->where('booking.status', '<>', null)
+            ->where('booking.time_slot', $obj['date'][0])
+            ->get();
+    }
+
     public function getBookingById($id)
     {
         return DB::table('booking')
