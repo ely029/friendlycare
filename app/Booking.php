@@ -45,6 +45,7 @@ class Booking extends Model
             ->where('booking.clinic_id', $clinic_id)
             ->where('booking.is_booked', 1)
             ->where('booking.status', '<>', null)
+            ->order('booking_time.time_slot')
             ->whereBetween('booking.time_slot', [$date, $date])
             ->get();
     }
@@ -59,6 +60,7 @@ class Booking extends Model
             ->where('booking.clinic_id', $clinic_id)
             ->where('booking.is_booked', 1)
             ->where('booking.status', '<>', null)
+            ->order('booking_time.time_slot')
             ->where('booking.time_slot', $date)
             ->get();
     }
@@ -74,6 +76,7 @@ class Booking extends Model
             ->where('booking.is_booked', 1)
             ->where('booking.status', '<>', null)
             ->where('booking.time_slot', $date)
+            ->order('booking_time.time_slot')
             ->get();
     }
 
