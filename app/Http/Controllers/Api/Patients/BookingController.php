@@ -389,7 +389,7 @@ class BookingController extends Controller
     {
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
         $booking = new Booking();
-        $details = $booking->getBookingByPatient($clinic[0]);
+        $details = $booking->getNewRequestBooking($clinic[0]);
 
         return response([
             'name' => 'NewRequestBooking',
