@@ -467,7 +467,11 @@ class BookingController extends Controller
     public function approveBooking(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
-        DB::update('update booking set status = ? where id = ?', [$obj['status'][0], $id]);
+        //DB::update('update booking set status = ? where id = ? and ', [$obj['status'][0], $id]);
+        DB::table('booking')
+            ->join('booking_time', 'booking_time.booking_id', 'booking.id')
+            ->where(['booking.id' => $id, 'booking_time.time_slot' => $obj['time_slot'][0]])
+            ->update(['booking.status', 1]);
         $data = Booking::where('id', $id)->get();
 
         return response([

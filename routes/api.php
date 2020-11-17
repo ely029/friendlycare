@@ -115,6 +115,9 @@ Route::post('/booking/bookingsdatepicker/provider/{id}', 'Patients\BookingContro
 Route::get('/booking/{id}', 'Patients\BookingController@getBookingPerId');
 Route::post('/booking/approveBook/{id}', 'Patients\BookingController@approveBooking');
 
+//Provider Reschedule
+Route::get('/booking/reschedule/{id}', 'Patients\BookingController@getRescheduleDetails');
+
 //API for dropdown province municipality and city
 Route::get('/province/{id}', 'Patients\DefaultController@province');
 Route::get('/city/{id}', 'Patients\DefaultController@city');
