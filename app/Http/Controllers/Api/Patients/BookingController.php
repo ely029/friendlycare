@@ -401,7 +401,8 @@ class BookingController extends Controller
     {
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
         $booking = new Booking();
-        $details = $booking->getBookings($clinic[0]);
+        $date = date('Y-m-d');
+        $details = $booking->getBookings($clinic[0], $date);
 
         return response([
             'name' => 'UpcomingBookings',

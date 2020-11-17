@@ -34,7 +34,7 @@ class Booking extends Model
             ->get();
     }
 
-    public function getBookings($clinic_id)
+    public function getBookings($clinic_id, $date)
     {
         return DB::table('booking')
             ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
@@ -43,7 +43,8 @@ class Booking extends Model
             ->select('users.id as user_id', 'booking.is_read', 'booking.id as booking_id', 'users.name', 'family_plan_type_subcategory.name as service_name', 'booking_time.time_slot', 'booking.status', 'booking.time_slot as date_booked')
             ->where('booking.clinic_id', $clinic_id)
             ->where('booking.is_booked', 1)
-            ->where('booking.status', '<>', null)
+            ->where('booking.status', null)
+            ->whereBetween('booking.time_slot', [$date, $date])
             ->get();
     }
 
