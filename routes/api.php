@@ -127,7 +127,7 @@ Route::post('/booking/confirmService/provider/{id}', 'Patients\BookingController
 //Provider Reschedule
 Route::get('/booking/reschedule/provider/{id}', 'Patients\BookingController@getRescheduleDetails');
 Route::post('/booking/reschedule/setupTime/{id}', 'Patients\BookingController@rescheduleTimeSetUp');
-Route::post('/booking/reschedule/setupTime/{id}', 'Patients\BookingController@createReschedule');
+Route::post('/booking/reschedule/createReschedule/{id}', 'Patients\BookingController@createReschedule');
 //API for dropdown province municipality and city
 Route::get('/province/{id}', 'Patients\DefaultController@province');
 Route::get('/city/{id}', 'Patients\DefaultController@city');
