@@ -278,6 +278,8 @@ class BookingController extends Controller
             ->orderBy('id', 'desc')
             ->pluck('id');
 
+        DB::update('update booking set is_approved = ? where patient_id = ? order by id desc limit 1', [1, $id]);
+
         return $this->checkPatientCount($id, $getDetails, $obj);
     }
 
