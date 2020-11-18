@@ -519,6 +519,11 @@ class BookingController extends Controller
             ->get();
     }
 
+    public function bookingTime()
+    {
+        return BookingTime::all();
+    }
+
     private function checkPatientCount($id, $getDetails, $obj)
     {
         for ($eee = 0; $eee <= 100; $eee++) {
