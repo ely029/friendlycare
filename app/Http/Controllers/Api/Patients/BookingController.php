@@ -524,6 +524,87 @@ class BookingController extends Controller
         return BookingTime::all();
     }
 
+    public function getRescheduleDetails($id)
+    {
+        $booking = new Booking();
+        $details = $booking->getRescheduleDetails($id);
+
+        return response([
+            'name' => 'rescheduleDetails',
+            'details' => $details,
+        ]);
+    }
+
+    public function rescheduleTimeSetUp(Request $request, $id)
+    {
+        $obj = json_decode($request->getContent(), true);
+        //get the day
+        $timestamp = strtotime($obj['date'][0]);
+        $day = date('l', $timestamp);
+
+        $getDetails = DB::table('staffs')
+            ->select('clinic_id')
+            ->where('user_id', $id)
+            ->pluck('clinic_id');
+
+        $getStartTime = DB::table('clinic_hours')
+            ->select('froms')
+            ->where('days', $day)
+            ->where('clinic_id', $getDetails[0])
+            ->pluck('froms');
+
+        $getEndTime = DB::table('clinic_hours')
+            ->select('tos')
+            ->where('days', $day)
+            ->where('clinic_id', $getDetails[0])
+            ->pluck('tos');
+
+        $starttime = $getStartTime[0];  // your start time
+        $endtime = $getEndTime[0];  // End time
+        $duration = '30';  // split by 30 mins
+
+        $array_of_time = [];
+        $start_time = strtotime($starttime); //change to strtotime
+        $end_time = strtotime($endtime); //change to strtotime
+
+        $add_mins = $duration * 60;
+
+        while ($start_time <= $end_time) { // loop between time
+            $array_of_time[] = date('h:i A', $start_time);
+            $start_time += $add_mins; // to check endtie=me
+        }
+
+        return response([
+            'name' => 'rescheduleSetUpTime',
+            'details' => $array_of_time,
+        ]);
+    }
+
+    public function createReschedule(Request $request, $id)
+    {
+        BookingTime::where('booking_id', $id)->delete();
+        $obj = json_decode($request->getContent(), true);
+        $getPatient = DB::table('booking')
+            ->select('patient_id')
+            ->where('id', $id)
+            ->pluck('patient_id');
+
+        for ($eee = 0; $eee <= 100; $eee++) {
+            if (isset($obj['time'][$eee])) {
+                BookingTime::create([
+                    'patient_id' => $getPatient[0],
+                    'booking_id' => $id,
+                    'time_slot' => $obj['time'][$eee],
+                ]);
+            }
+        }
+
+        return response([
+            'name' => 'postProviderReschedule',
+            'message' => 'Reschedule is successful',
+        ]);
+    }
+
     private function checkPatientCount($id, $getDetails, $obj)
     {
         for ($eee = 0; $eee <= 100; $eee++) {

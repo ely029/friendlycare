@@ -102,7 +102,6 @@ class Booking extends Model
             ->join('booking_time', 'booking_time.booking_id', 'booking.id')
             ->select('users.id as patient_id', 'family_plan_type_subcategory.name as service_name', 'users.contact_number_1 as contact_number', 'users.name as patient_name', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'booking.status', 'users.age', 'users.birth_date', 'users.gender', 'users.email', 'patients.family_plan_type_id', 'booking.referal')
             ->where('booking.id', $id)
-            ->where('booking.is_approved', 1)
             ->get();
     }
 
@@ -113,6 +112,17 @@ class Booking extends Model
             ->leftJoin('booking_time', 'booking.id', 'booking_time.booking_id')
             ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
             ->select('users.name', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'family_plan_type_subcategory.name as service_name', 'users.email', 'users.contact_number_1 as contact_number')
+            ->where('booking.id', $id)
+            ->get();
+    }
+
+    public function getRescheduleDetails($id)
+    {
+        return DB::table('booking')
+            ->leftJoin('users', 'users.id', 'booking.patient_id')
+            ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->leftJoin('booking_time', 'booking_time.booking_id', 'booking.id')
+            ->select('users.id as patient_id', 'booking.id as booking_id', 'users.name as patient_name', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'users.email', 'users.contact_number_1 as contact_number')
             ->where('booking.id', $id)
             ->get();
     }
