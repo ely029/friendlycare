@@ -31,8 +31,6 @@ class Booking extends Model
             ->where('booking.clinic_id', $clinic_id)
             ->where('booking.status', '<>', 3)
             ->where('booking.is_approved', 1)
-            ->where('booking.status', null)
-            ->whereDay('booking.time_slot', '>=', date('d'))
             ->orderBy('booking.time_slot')
             ->get();
     }
