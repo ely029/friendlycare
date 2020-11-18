@@ -278,19 +278,6 @@ class BookingController extends Controller
             ->orderBy('id', 'desc')
             ->pluck('id');
 
-        $getClinicId = DB::table('booking')
-            ->select('clinic_id')
-            ->where('patient_id', $id)
-            ->limit(1)
-            ->orderBy('id', 'desc')
-            ->pluck('clinic_id');
-
-        $getSlot = PatientTimeSlot::where('clinic_id', $getClinicId[0])->first();
-        $countPatient = DB::table('booking_time')
-            ->select('booking_time.id')
-            ->where('time_slot', $obj['time'][0])
-            ->where('patient_id', $id)
-            ->count();
         return $this->checkPatientCount($id, $getDetails, $obj);
     }
 
