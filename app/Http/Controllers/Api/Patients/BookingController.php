@@ -532,11 +532,6 @@ class BookingController extends Controller
 
     private function checkPatientCount($countPatient, $getSlot, $id, $getDetails, $obj)
     {
-        if ($countPatient >= $getSlot->number_of_slot) {
-            return response([
-                'message' => 'Number of Patient in this clinic is exceeded. Choose another clinic or method. Thank you',
-            ], 422);
-        }
         for ($eee = 0; $eee <= 100; $eee++) {
             if (isset($obj['time'][$eee])) {
                 BookingTime::create([
