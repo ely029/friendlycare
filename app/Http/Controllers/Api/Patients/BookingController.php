@@ -292,14 +292,10 @@ class BookingController extends Controller
                     ->select('booking_time.id')
                     ->where('patient_id', $id)
                     ->count();
-
-                $this->checkPatientCount($countPatient, $getSlot, $id, $getDetails, $obj, $eee);
             }
-        }
 
-        return response([
-            'response' => 'Booking Created Succesfully',
-        ]);
+            return $this->checkPatientCount($countPatient, $getSlot, $id, $getDetails, $obj, $eee);
+        }
     }
 
     public function selectedClinic($id)
@@ -544,11 +540,15 @@ class BookingController extends Controller
             return response([
                 'message' => 'Number of Patient in this clinic is exceeded. Choose another clinic or method. Thank you',
             ], 422);
+            BookingTime::create([
+                'patient_id' => $id,
+                'booking_id' => $getDetails[0],
+                'time_slot' => $obj['time'][$eee],
+            ]);
+        } else {
+            return response([
+                'response' => 'Booking Created Succesfully',
+            ]);
         }
-        BookingTime::create([
-            'patient_id' => $id,
-            'booking_id' => $getDetails[0],
-            'time_slot' => $obj['time'][$eee],
-        ]);
     }
 }
