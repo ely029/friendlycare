@@ -31,7 +31,6 @@ class Booking extends Model
             ->where('booking.clinic_id', $clinic_id)
             ->where('booking.status', '<>', 3)
             ->where('booking.is_approved', 1)
-            ->orderBy('booking.time_slot')
             ->get();
     }
 
@@ -62,7 +61,6 @@ class Booking extends Model
             ->where('booking.status', '<>', null)
             ->where('booking.status', '<>', 3)
             ->where('booking.is_approved', 1)
-            ->orderBy('booking_time.time_slot')
             ->where('booking.time_slot', $date)
             ->get();
     }
