@@ -291,7 +291,7 @@ class BookingController extends Controller
             ->where('time_slot', $obj['time'][0])
             ->where('patient_id', $id)
             ->count();
-        return $this->checkPatientCount($countPatient, $getSlot, $id, $getDetails, $obj);
+        return $this->checkPatientCount($id, $getDetails, $obj);
     }
 
     public function selectedClinic($id)
@@ -530,7 +530,7 @@ class BookingController extends Controller
             ->get();
     }
 
-    private function checkPatientCount($countPatient, $getSlot, $id, $getDetails, $obj)
+    private function checkPatientCount($id, $getDetails, $obj)
     {
         for ($eee = 0; $eee <= 100; $eee++) {
             if (isset($obj['time'][$eee])) {
