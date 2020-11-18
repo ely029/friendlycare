@@ -30,6 +30,7 @@ class Booking extends Model
             ->select('users.id as user_id', 'booking.is_read', 'booking.id as booking_id', 'users.name', 'family_plan_type_subcategory.name as service_name', 'booking_time.time_slot', 'booking.status', 'booking.time_slot as date_booked')
             ->where('booking.clinic_id', $clinic_id)
             ->where('booking.is_booked', 1)
+            ->where('booking.status', '<>', 3)
             ->whereDay('booking.time_slot', '>=', date('d'))
             ->orderBy('booking.time_slot')
             ->get();

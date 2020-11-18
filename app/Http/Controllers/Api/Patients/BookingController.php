@@ -8,6 +8,7 @@ use App\Booking;
 use App\BookingTime;
 use App\Http\Controllers\Controller;
 use App\Patients;
+use App\PatientTimeSlot;
 use App\Staffs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -277,13 +278,22 @@ class BookingController extends Controller
             ->orderBy('id', 'desc')
             ->pluck('id');
 
+        $getClinicId = DB::table('booking')
+            ->select('clinic_id')
+            ->where('patient_id', $id)
+            ->limit(1)
+            ->orderBy('id', 'desc')
+            ->pluck('clinic_id');
+
+        $getSlot = PatientTimeSlot::where('clinic_id', $getClinicId[0])->first();
         for ($eee = 0;$eee <= 100; $eee++) {
             if (isset($obj['time'][$eee])) {
-                BookingTime::create([
-                    'patient_id' => $id,
-                    'booking_id' => $getDetails[0],
-                    'time_slot' => $obj['time'][$eee],
-                ]);
+                $countPatient = DB::table('booking_time')
+                    ->select('booking_time.id')
+                    ->where('patient_id', $id)
+                    ->count();
+
+                $this->checkPatientCount($countPatient, $getSlot, $id, $getDetails, $obj, $eee);
             }
         }
 
@@ -526,5 +536,19 @@ class BookingController extends Controller
         return DB::table('booking')
             ->select('id', 'service_id', 'clinic_id', 'time_slot', 'is_cancelled', 'is_approved', 'patient_id', 'referal', 'is_booked', 'no_show', 'status', 'is_read')
             ->get();
+    }
+
+    private function checkPatientCount($countPatient, $getSlot, $id, $getDetails, $obj, $eee)
+    {
+        if ($countPatient >= $getSlot->number_of_slot) {
+            return response([
+                'message' => 'Number of Patient in this clinic is exceeded. Choose another clinic or method. Thank you',
+            ], 422);
+        }
+        BookingTime::create([
+            'patient_id' => $id,
+            'booking_id' => $getDetails[0],
+            'time_slot' => $obj['time'][$eee],
+        ]);
     }
 }
