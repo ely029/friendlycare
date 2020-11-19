@@ -604,7 +604,7 @@ class DefaultController extends Controller
     public function holidayManagementPostHolidayTitle(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
-        $getClinicId = DB::table('staff')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
+        $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
 
         DB::update('update holiday set holiday_title = ? where clinic_id = ? order by id desc limit 1', [$obj['holiday_title'][0], $getClinicId[0]]);
 
