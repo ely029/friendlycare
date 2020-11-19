@@ -591,6 +591,40 @@ class DefaultController extends Controller
         ]);
     }
 
+    public function holidayManagementPostDate(Request $request, $id)
+    {
+        $obj = json_decode($request->getContent(), true);
+        $getClinicId = DB::table('staff')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
+
+        Holiday::create([
+            'clinic_id' => $getClinicId,
+            'date' => $obj['date'][0],
+        ]);
+    }
+
+    public function holidayManagementPostHolidayTitle(Request $request, $id)
+    {
+        $obj = json_decode($request->getContent(), true);
+        $getClinicId = DB::table('staff')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
+
+        DB::update('update holiday set holiday_title = ? where clinic_id = ? order by id desc limit 1', [$obj['holiday_title'][0], $getClinicId[0]]);
+
+        return response([
+            'name' => 'postHolidayTitle',
+            'message' => 'posted the hoilday',
+        ]);
+    }
+
+    public function holidayManagementDeleteHoliday($id)
+    {
+        Holiday::where('id', $id)->delete();
+
+        return response([
+            'name' => 'DeleteHoliday',
+            'message' => 'Holiday Deleted',
+        ]);
+    }
+
     public function postProviderTimeSlot(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);

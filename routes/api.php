@@ -131,6 +131,9 @@ Route::post('/booking/reschedule/setupTime/{id}', 'Patients\BookingController@re
 Route::post('/booking/reschedule/createReschedule/{id}', 'Patients\BookingController@createReschedule');
 //Provider Holiday Management
 Route::get('/holidaymanagement/{id}', 'Provider\DefaultController@getHolidayManagementDetails');
+Route::post('/holidaymanagement/postDate/{id}', 'Provider\DefaultController@holidayManagementPostDate');
+Route::post('/holidaymanagement/posttitle/{id}', 'Provider\DefaultController@holidayManagementPostHolidayTitle');
+Route::post('/holidaymanagement/delete/{id}', 'Provider\DefaultController@holidayManagementDeleteHoliday');
 
 //API for dropdown province municipality and city
 Route::get('/province/{id}', 'Patients\DefaultController@province');
