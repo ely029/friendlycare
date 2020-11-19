@@ -582,7 +582,7 @@ class DefaultController extends Controller
     public function getHolidayManagementDetails($id)
     {
         $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
-        $details = Holiday::where('clinic_id', $getClinicId[0])->get();
+        $details = DB::table('holiday')->select('date', 'holiday_title')->where('clinic_id', $getClinicId[0])->orderBy('date')->get();
 
         return response([
             'name' => 'getHoliday',
