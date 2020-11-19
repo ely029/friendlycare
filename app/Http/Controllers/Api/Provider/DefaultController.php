@@ -594,6 +594,13 @@ class DefaultController extends Controller
     {
         $obj = json_decode($request->getContent(), true);
         $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
+        $searchDate = DB::table('holiday')->select('id')->where('date', $obj['date'][0])->where('clinic_id', $getClinicId[0])->count();
+
+        if ($searchDate >= 1) {
+            return response([
+                'message' => 'Date you are entered are already posted. please choose another date',
+            ]);
+        }
 
         Holiday::create([
             'clinic_id' => $getClinicId[0],
