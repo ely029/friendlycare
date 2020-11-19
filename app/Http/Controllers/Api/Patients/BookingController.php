@@ -505,7 +505,7 @@ class BookingController extends Controller
     public function postConfirmService(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
-        DB::update('update booking set confirmed_service = ?, status = ? where id = ?', [$obj['service'][0], 4, $id]);
+        DB::update('update booking set service_id = ?, status = ? where id = ?', [$obj['service'][0], 4, $id]);
 
         return response([
             'name' => 'postConfirmService',
