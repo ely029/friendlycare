@@ -596,7 +596,7 @@ class DefaultController extends Controller
         $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
 
         Holiday::create([
-            'clinic_id' => $getClinicId,
+            'clinic_id' => $getClinicId[0],
             'date' => $obj['date'][0],
         ]);
     }
