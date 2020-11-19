@@ -135,4 +135,40 @@ class Booking extends Model
             ->where('booking.id', $id)
             ->get();
     }
+
+    public function getInboxDetails($id)
+    {
+        return DB::table('booking')
+            ->leftJoin('users', 'users.id', 'booking.patient_id')
+            ->leftjoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->leftjoin('clinics', 'booking.clinic_id', 'clinics.id')
+            ->leftJoin('booking_time', 'booking_time.booking_id', 'booking.id')
+            ->select('users.id as user_id', 'booking.id as booking_id', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'booking.status', 'clinics.clinic_name')
+            ->where('booking.patient_id', $id)
+            ->get();
+    }
+
+    public function getInboxDetailsPerBooking($id)
+    {
+        return DB::table('booking')
+            ->leftJoin('clinics', 'booking.clinic_id', 'clinic.id')
+            ->leftjoin('booking_time', 'booking.id', 'booking_time.booking_id')
+            ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->select('users.id as user_id', 'booking.id as booking_id', 'clinics.clinic_name', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'booking.status', 'family_plan_type_subcategory.name as service_name', 'clinics.email', 'clinics.contact_number', 'clinics.street_address')
+            ->where('booking.id', $id)
+            ->get();
+    }
+
+    public function filterPerStatus($id, $obj)
+    {
+        return DB::table('booking')
+            ->leftJoin('users', 'users.id', 'booking.patient_id')
+            ->leftjoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->leftjoin('clinics', 'booking.clinic_id', 'clinics.id')
+            ->leftJoin('booking_time', 'booking_time.booking_id', 'booking.id')
+            ->select('users.id as user_id', 'booking.id as booking_id', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'booking.status', 'clinics.clinic_name')
+            ->where('booking.patient_id', $id)
+            ->where('booking.status', $obj['status'][0])
+            ->get();
+    }
 }
