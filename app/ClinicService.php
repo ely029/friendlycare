@@ -20,7 +20,7 @@ class ClinicService extends Model
     {
         return DB::table('clinic_service')
             ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'clinic_service.service_id')
-            ->select('family_plan_type_subcategory.name as service_name')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name as service_name')
             ->where('clinic_service.clinic_id', $id)
             ->get();
     }
