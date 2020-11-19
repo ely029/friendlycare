@@ -588,6 +588,9 @@ class BookingController extends Controller
             ->select('patient_id')
             ->where('id', $id)
             ->pluck('patient_id');
+        Booking::where('id', $id)->update([
+            'time_slot' => $obj['date'][0],
+        ]);
 
         for ($eee = 0; $eee <= 100; $eee++) {
             if (isset($obj['time'][$eee])) {
