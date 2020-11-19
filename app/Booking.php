@@ -130,7 +130,7 @@ class Booking extends Model
     {
         return DB::table('booking')
             ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
-            ->leftJoin('users', 'users.id', 'bookings.patient_id')
+            ->leftJoin('users', 'users.id', 'booking.patient_id')
             ->leftJoin('booking_time', 'booking_time.booking_id', 'booking.id')
             ->select('users.name', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'family_plan_type_subcategory.name as service_avail')
             ->where('booking.id', $id)
