@@ -594,7 +594,7 @@ class DefaultController extends Controller
     public function holidayManagementPostDate(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
-        $getClinicId = DB::table('staff')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
+        $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
 
         Holiday::create([
             'clinic_id' => $getClinicId,
