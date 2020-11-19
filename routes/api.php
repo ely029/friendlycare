@@ -139,6 +139,11 @@ Route::post('/holidaymanagement/postDate/{id}', 'Provider\DefaultController@holi
 Route::post('/holidaymanagement/posttitle/{id}', 'Provider\DefaultController@holidayManagementPostHolidayTitle');
 Route::post('/holidaymanagement/delete/{id}', 'Provider\DefaultController@holidayManagementDeleteHoliday');
 
+//Patient Inbox
+Route::get('/patient/inbox/{id}', 'Patients\BookingsController@getInboxDetails');
+Route::get('/patient/inbox/booking/{id}', 'Patients\BookingsController@getInboxPerBooking');
+Route::post('/patient/inbox/filter/{id}', 'Patients\BookingsController@filterPerStatus');
+
 //API for dropdown province municipality and city
 Route::get('/province/{id}', 'Patients\DefaultController@province');
 Route::get('/city/{id}', 'Patients\DefaultController@city');
