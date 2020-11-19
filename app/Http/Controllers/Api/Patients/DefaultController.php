@@ -662,6 +662,20 @@ class DefaultController extends Controller
         ]);
     }
 
+    public function postReschedule(Request $request, $id)
+    {
+        $obj = json_decode($request->getContent(), true);
+        Booking::where('id', $id)->update([
+            'status' => 3,
+            'cancellation_message_1' => $obj['cancellation_message'],
+        ]);
+
+        return response([
+            'name' => 'PostPatientReshcedule',
+            'message' => 'Booking has been cancelled',
+        ]);
+    }
+
     public function postClinic(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
