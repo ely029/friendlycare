@@ -129,6 +129,10 @@ Route::get('/booking/clinicservice/{id}', 'Patients\BookingController@getClinicS
 Route::get('/booking/reschedule/provider/{id}', 'Patients\BookingController@getRescheduleDetails');
 Route::post('/booking/reschedule/setupTime/{id}', 'Patients\BookingController@rescheduleTimeSetUp');
 Route::post('/booking/reschedule/createReschedule/{id}', 'Patients\BookingController@createReschedule');
+
+//Patient Reschedule
+Route::post('/patient/reschedule/{id}', 'Patients\DefaultController@postReschedule');
+
 //Provider Holiday Management
 Route::get('/holidaymanagement/{id}', 'Provider\DefaultController@getHolidayManagementDetails');
 Route::post('/holidaymanagement/postDate/{id}', 'Provider\DefaultController@holidayManagementPostDate');
