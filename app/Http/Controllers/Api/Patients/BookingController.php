@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\Patients;
 
 use App\Booking;
 use App\BookingTime;
+use App\ClinicService;
 use App\Http\Controllers\Controller;
 use App\Patients;
 use App\PatientTimeSlot;
@@ -605,6 +606,18 @@ class BookingController extends Controller
         return response([
             'name' => 'postProviderReschedule',
             'message' => 'Reschedule is successful',
+        ]);
+    }
+
+    public function getClinicServiceByClinic($id)
+    {
+        $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
+        $clinicservice = new ClinicService();
+        $details = $clinicservice->getServices($getClinicId[0]);
+
+        return response([
+            'name' => 'getClinicService',
+            'details' => $details,
         ]);
     }
 

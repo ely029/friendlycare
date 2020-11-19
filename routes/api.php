@@ -123,11 +123,15 @@ Route::post('/booking/cancellation/provider/{id}', 'Patients\BookingController@a
 //Provider Confirm Service
 Route::get('/booking/confirmService/provider/{id}', 'Patients\BookingController@getConfirmServiceDetails');
 Route::post('/booking/confirmService/provider/{id}', 'Patients\BookingController@postConfirmService');
+Route::get('/booking/clinicservice/{id}', 'Patients\BookingController@getClinicServiceByClinic');
 
 //Provider Reschedule
 Route::get('/booking/reschedule/provider/{id}', 'Patients\BookingController@getRescheduleDetails');
 Route::post('/booking/reschedule/setupTime/{id}', 'Patients\BookingController@rescheduleTimeSetUp');
 Route::post('/booking/reschedule/createReschedule/{id}', 'Patients\BookingController@createReschedule');
+//Provider Holiday Management
+Route::get('/holidaymanagement/{id}', 'Provider\DefaultController@getHolidayManagementDetails');
+
 //API for dropdown province municipality and city
 Route::get('/province/{id}', 'Patients\DefaultController@province');
 Route::get('/city/{id}', 'Patients\DefaultController@city');

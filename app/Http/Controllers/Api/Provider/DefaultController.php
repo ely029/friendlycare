@@ -8,6 +8,7 @@ use App\ClinicGallery;
 use App\ClinicHours;
 use App\Clinics;
 use App\ClinicService;
+use App\Holiday;
 use App\Http\Controllers\Controller;
 use App\PaidServices;
 use App\PatientTimeSlot;
@@ -575,6 +576,18 @@ class DefaultController extends Controller
         return response([
             'name' => 'GetTimeSlot',
             'details' => $data,
+        ]);
+    }
+
+    public function getHolidayManagementDetails($id)
+    {
+        $holiday = new Holiday();
+        $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
+        $details = $holiday->getHolidayDetails($getClinicId[0]);
+
+        return response([
+            'name' => 'getHoliday',
+            'details' => $details,
         ]);
     }
 
