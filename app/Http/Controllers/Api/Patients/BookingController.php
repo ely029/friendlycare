@@ -393,18 +393,7 @@ class BookingController extends Controller
     {
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
         $endTime = DB::table('booking')->select('time_from', 'time_to')->where('clinic_id', $clinic[0])->get();
-        foreach ($endTime as $end) {
-            $end_time = $end->time_to;
-            $start_time = $end->time_start;
-            $string_end_time = strtotime($end_time);
-            $string_start_time = strtotime($start_time);
-
-            if ($string_end_time >= $string_start_time) {
-                Booking::where('clinic_id', $clinic[0])->update([
-                    'status' => 5,
-                ]);
-            }
-        }
+        $this->checkNoShow($clinic, $endTime);
         $booking = new Booking();
         $date = date('Y-m-d');
         $details = $booking->getBookings($clinic[0], $date);
@@ -623,7 +612,6 @@ class BookingController extends Controller
             'message' => 'Reschedule is successful',
         ]);
     }
-
     public function getClinicServiceByClinic($id)
     {
         $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
@@ -634,6 +622,14 @@ class BookingController extends Controller
             'name' => 'getClinicService',
             'details' => $details,
         ]);
+    }
+    private function insertBookings($string_end_time, $string_start_time, $clinic)
+    {
+        if ($string_end_time >= $string_start_time) {
+            Booking::where('clinic_id', $clinic[0])->update([
+                'status' => 5,
+            ]);
+        }
     }
 
     private function checkPatientCount($id, $getDetails, $obj)
@@ -650,5 +646,19 @@ class BookingController extends Controller
         return response([
             'response' => 'Booking Created Succesfully',
         ]);
+    }
+
+    private function checkNoShow($clinic, $endTime)
+    {
+        foreach ($endTime as $end) {
+            if (isset($end->time_start) && isset($end->time_to)) {
+                $end_time = $end->time_to;
+                $start_time = $end->time_start;
+                $string_end_time = strtotime($end_time);
+                $string_start_time = strtotime($start_time);
+
+                $this->insertBookings($string_end_time, $string_start_time, $clinic);
+            }
+        }
     }
 }

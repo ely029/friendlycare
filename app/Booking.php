@@ -152,7 +152,7 @@ class Booking extends Model
     public function getInboxPerBooking($id)
     {
         return DB::table('booking')
-            ->leftJoin('clinics', 'booking.clinic_id', 'clinic.id')
+            ->leftJoin('clinics', 'booking.clinic_id', 'clinics.id')
             ->leftjoin('booking_time', 'booking.id', 'booking_time.booking_id')
             ->leftJoin('users', 'users.id', 'booking.patient_id')
             ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
