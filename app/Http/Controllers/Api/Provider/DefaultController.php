@@ -633,7 +633,7 @@ class DefaultController extends Controller
 
     public function holidaySaveChanges($id)
     {
-        $getClinicId = DB::table('staffs')->select('clinic_id')->where('users_id', $id)->pluck('clinic_id');
+        $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
         Holiday::where('clinic_id', $getClinicId[0])->update([
             'is_saved' => 1,
         ]);
