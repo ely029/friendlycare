@@ -19,6 +19,8 @@ class Booking extends Model
         'time_slot',
         'clinic_id',
         'referal',
+        'time_from',
+        'time_to',
     ];
 
     public function getNewRequestBooking($clinic_id)

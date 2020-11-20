@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Patients;
 use App\PatientTimeSlot;
 use App\Staffs;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -278,10 +279,11 @@ class BookingController extends Controller
             ->limit(1)
             ->orderBy('id', 'desc')
             ->pluck('id');
+        $startTime = date('Y-m-d H:i');
+        $endtime = date('Y-m-d H:i', strtotime('3 minutes', strtotime($startTime)));
+        DB::update('update booking set is_approved = ?, time_slot = ?, time_from = ?, time_to = ? where patient_id = ? order by id desc limit 1', [1, $obj['date'][0], $startTime, $endtime, $id]);
 
-        DB::update('update booking set is_approved = ?, time_slot = ? where patient_id = ? order by id desc limit 1', [1, $obj['date'][0], $id]);
-
-        return $this->checkPatientCount($id, $getDetails, $obj);
+        return $this->checkPatientCount($id, $getDetails, $obj, $startTime, $endtime);
     }
 
     public function selectedClinic($id)
@@ -390,6 +392,18 @@ class BookingController extends Controller
     public function getBookings($id)
     {
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
+        $endTime = DB::table('booking')->select('time_from', 'time_to')->where('clinic_id', $clinic[0])->get();
+        foreach ($endTime as $end) {
+            $end_time = $end->time_to;
+            $string_end_time = strtotime($end_time);
+            $string_start_time = strtotime(date('Y-m-d H:i'));
+
+            if ($string_start_time >= $string_end_time) {
+                Booking::where('clinic_id', $clinic[0])->update([
+                    'status' => 5,
+                ]);
+            }
+        }
         $booking = new Booking();
         $date = date('Y-m-d');
         $details = $booking->getBookings($clinic[0], $date);
