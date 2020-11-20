@@ -282,6 +282,13 @@ class BookingController extends Controller
         $startTime = date('Y-m-d H:i');
         $endtime = date('Y-m-d H:i', strtotime('3 minutes', strtotime($startTime)));
         DB::update('update booking set is_approved = ?, time_slot = ?, time_from = ?, time_to = ? where patient_id = ? order by id desc limit 1', [1, $obj['date'][0], $startTime, $endtime, $id]);
+        $checkDate = DB::table('holiday')->select('holiday.id')->where('date', $obj['date'][0])->count();
+
+        if ($checkDate >= 1) {
+            return response([
+                'message' => 'The clinic on the date you set is on holiday. Please choose another date',
+            ]);
+        }
 
         return $this->checkPatientCount($id, $getDetails, $obj);
     }
@@ -587,6 +594,9 @@ class BookingController extends Controller
 
     public function createReschedule(Request $request, $id)
     {
+        Booking::where('id', $id)->update([
+            'status' => 2,
+        ]);
         BookingTime::where('booking_id', $id)->delete();
         $obj = json_decode($request->getContent(), true);
         $getPatient = DB::table('booking')
