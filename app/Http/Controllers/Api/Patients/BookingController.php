@@ -287,7 +287,7 @@ class BookingController extends Controller
         if ($checkDate >= 1) {
             return response([
                 'message' => 'The clinic on the date you set is on holiday. Please choose another date',
-            ]);
+            ], 422);
         }
 
         return $this->checkPatientCount($id, $getDetails, $obj);
