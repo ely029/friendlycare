@@ -395,6 +395,8 @@ class BookingController extends Controller
     {
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
         $booking = new Booking();
+        $endTime = DB::table('booking')->select('time_from', 'time_to')->where('clinic_id', $clinic[0])->get();
+        $this->checkNoShow($clinic, $endTime);
         $details = $booking->getNewRequestBooking($clinic[0]);
 
         return response([
