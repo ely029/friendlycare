@@ -46,6 +46,7 @@ class Booking extends Model
             ->where('booking.clinic_id', $clinic_id)
             ->where('booking.status', '<>', null)
             ->where('booking.time_slot', $date)
+            ->orWhere('booking.status', 2)
             ->get();
     }
 
