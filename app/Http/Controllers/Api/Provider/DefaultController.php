@@ -639,6 +639,17 @@ class DefaultController extends Controller
         ]);
     }
 
+    public function showCreatedHoliday($id)
+    {
+        $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
+        $details = DB::table('holiday')->select('id', 'date', 'holiday_title')->where('clinic_id', $getClinicId[0])->where('is_saved', '<>', 1)->get();
+
+        return response([
+            'name' => 'showCreatedHoliday',
+            'details' => $details,
+        ]);
+    }
+
     public function postProviderTimeSlot(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
