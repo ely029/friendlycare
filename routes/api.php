@@ -135,8 +135,7 @@ Route::post('/patient/cancellationbooking/{id}', 'Patients\DefaultController@pos
 
 //Provider Holiday Management
 Route::get('/holidaymanagement/{id}', 'Provider\DefaultController@getHolidayManagementDetails');
-Route::post('/holidaymanagement/postDate/{id}', 'Provider\DefaultController@holidayManagementPostDate');
-Route::post('/holidaymanagement/posttitle/{id}', 'Provider\DefaultController@holidayManagementPostHolidayTitle');
+Route::post('/holidaymanagement/{id}', 'Provider\DefaultController@getHolidayManagementPost');
 Route::post('/holidaymanagement/delete/{id}', 'Provider\DefaultController@holidayManagementDeleteHoliday');
 Route::post('/holidaymanagement/savechanges/{id}', 'Provider\DefaultController@holidaySaveChanges');
 Route::get('/holidaymanagement/showcreatedHoliday/{id}', 'Provider\DefaultController@showCreatedHoliday');

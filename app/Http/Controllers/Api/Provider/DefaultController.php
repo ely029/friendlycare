@@ -590,7 +590,7 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function holidayManagementPostDate(Request $request, $id)
+    public function holidayManagementPost(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
         $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
@@ -605,19 +605,14 @@ class DefaultController extends Controller
         Holiday::create([
             'clinic_id' => $getClinicId[0],
             'date' => $obj['date'][0],
+            'holiday_title' => $obj['holiday_title'][0],
         ]);
-    }
 
-    public function holidayManagementPostHolidayTitle(Request $request, $id)
-    {
-        $obj = json_decode($request->getContent(), true);
-        $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
-
-        DB::update('update holiday set holiday_title = ? where clinic_id = ? order by id desc limit 1', [$obj['holiday_title'][0], $getClinicId[0]]);
+        $data = Holiday::all();
 
         return response([
-            'name' => 'postHolidayTitle',
-            'message' => 'posted the hoilday',
+            'name' => 'PostHoliday',
+            'details' => $data,
         ]);
     }
 
