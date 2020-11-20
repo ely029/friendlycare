@@ -645,10 +645,9 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function deleteCreatedHoliday($id)
+    public function deleteCreatedHoliday()
     {
-        $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
-        Holiday::where(['clinic_id', $getClinicId[0], 'is_saved' => null])->delete();
+        Holiday::where('is_saved', null)->delete();
 
         return response([
             'name' => 'deleteCreatedHoliday',
