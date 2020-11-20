@@ -225,6 +225,20 @@ class BookingController extends Controller
     public function time(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
+        $getClinicId = DB::table('booking')
+            ->select('clinic_id')
+            ->where('patient_id', $id)
+            ->limit(1)
+            ->orderBy('id', 'desc')
+            ->pluck('clinic_id');
+
+        $checkDate = DB::table('holiday')->select('holiday.id')->where('date', $obj['date'][0])->where('clinic_id', $getClinicId[0])->count();
+
+        if ($checkDate >= 1) {
+            return response([
+                'message' => 'The clinic on the date you set is on holiday. Please choose another date',
+            ], 422);
+        }
         //get the day
         $timestamp = strtotime($obj['date'][0]);
         $day = date('l', $timestamp);
@@ -279,23 +293,10 @@ class BookingController extends Controller
             ->limit(1)
             ->orderBy('id', 'desc')
             ->pluck('id');
-        $getClinicId = DB::table('booking')
-            ->select('clinic_id')
-            ->where('patient_id', $id)
-            ->limit(1)
-            ->orderBy('id', 'desc')
-            ->pluck('clinic_id');
 
         $startTime = date('Y-m-d H:i');
         $endtime = date('Y-m-d H:i', strtotime('3 minutes', strtotime($startTime)));
         DB::update('update booking set is_approved = ?, time_slot = ?, time_from = ?, time_to = ? where patient_id = ? order by id desc limit 1', [1, $obj['date'][0], $startTime, $endtime, $id]);
-        $checkDate = DB::table('holiday')->select('holiday.id')->where('date', $obj['date'][0])->where('clinic_id', $getClinicId[0])->count();
-
-        if ($checkDate >= 1) {
-            return response([
-                'message' => 'The clinic on the date you set is on holiday. Please choose another date',
-            ], 422);
-        }
 
         return $this->checkPatientCount($id, $getDetails, $obj);
     }
