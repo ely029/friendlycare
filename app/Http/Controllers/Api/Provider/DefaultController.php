@@ -645,6 +645,17 @@ class DefaultController extends Controller
         ]);
     }
 
+    public function deleteCreatedHoliday($id)
+    {
+        $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
+        Holiday::where(['clinic_id', $getClinicId[0], 'is_saved' => null])->delete();
+
+        return response([
+            'name' => 'deleteCreatedHoliday',
+            'message' => 'created holiday deleted',
+        ]);
+    }
+
     public function postProviderTimeSlot(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
