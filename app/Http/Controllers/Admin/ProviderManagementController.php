@@ -294,7 +294,7 @@ class ProviderManagementController extends Controller
             }
         }
         for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {
-            if (isset($request['from'][$clinic_hours]) && isset($request['tos'][$clinic_hours])) {
+            if (isset($request['days'][$clinic_hours])) {
                 ClinicHours::create([
                     'clinic_id' => session('id'),
                     'id_value' => $clinic_hours,
