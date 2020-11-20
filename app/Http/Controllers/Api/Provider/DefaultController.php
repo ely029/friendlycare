@@ -582,7 +582,7 @@ class DefaultController extends Controller
     public function getHolidayManagementDetails($id)
     {
         $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
-        $details = DB::table('holiday')->select('id', 'date', 'holiday_title')->where('clinic_id', $getClinicId[0])->orderBy('date')->get();
+        $details = DB::table('holiday')->select('id', 'date', 'holiday_title')->where('clinic_id', $getClinicId[0])->where('is_saved', 1)->orderBy('date')->get();
 
         return response([
             'name' => 'getHoliday',
@@ -628,6 +628,14 @@ class DefaultController extends Controller
         return response([
             'name' => 'DeleteHoliday',
             'message' => 'Holiday Deleted',
+        ]);
+    }
+
+    public function holidaySaveChanges($id)
+    {
+        $getClinicId = DB::table('staffs')->select('clinic_id')->where('users_id', $id)->pluck('clinic_id');
+        Holiday::where('clinic_id', $getClinicId[0])->update([
+            'is_saved' => 1,
         ]);
     }
 

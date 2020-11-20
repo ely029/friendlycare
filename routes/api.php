@@ -138,6 +138,7 @@ Route::get('/holidaymanagement/{id}', 'Provider\DefaultController@getHolidayMana
 Route::post('/holidaymanagement/postDate/{id}', 'Provider\DefaultController@holidayManagementPostDate');
 Route::post('/holidaymanagement/posttitle/{id}', 'Provider\DefaultController@holidayManagementPostHolidayTitle');
 Route::post('/holidaymanagement/delete/{id}', 'Provider\DefaultController@holidayManagementDeleteHoliday');
+Route::post('/holidaymanagement/savechanges/{id}', 'Provider\DefaultController@holidaySaveChanges');
 
 //Patient Inbox
 Route::get('/patient/inbox/{id}', 'Patients\BookingsController@getInboxDetails');

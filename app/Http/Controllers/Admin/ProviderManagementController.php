@@ -270,7 +270,7 @@ class ProviderManagementController extends Controller
         $request['street_address'] = $request['address'];
 
         Clinics::create($request);
-        $user = DB::table('clinics')->where('email', $request['email'])->pluck('id');
+        $user = DB::table('clinics')->where('clinic_name', $request['clinic_name'])->pluck('id');
         session(['id' => $user[0]]);
         return view('admin.providerManagement.createProviderSecondPage');
     }
