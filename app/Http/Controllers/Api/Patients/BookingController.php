@@ -395,10 +395,11 @@ class BookingController extends Controller
         $endTime = DB::table('booking')->select('time_from', 'time_to')->where('clinic_id', $clinic[0])->get();
         foreach ($endTime as $end) {
             $end_time = $end->time_to;
+            $start_time = $end->time_start;
             $string_end_time = strtotime($end_time);
-            $string_start_time = strtotime(date('Y-m-d H:i'));
+            $string_start_time = strtotime($start_time);
 
-            if ($string_start_time >= $string_end_time) {
+            if ($string_end_time >= $string_start_time) {
                 Booking::where('clinic_id', $clinic[0])->update([
                     'status' => 5,
                 ]);
