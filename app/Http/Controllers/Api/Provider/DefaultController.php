@@ -637,7 +637,7 @@ class DefaultController extends Controller
     public function showCreatedHoliday($id)
     {
         $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
-        $details = DB::table('holiday')->select('id', 'date', 'holiday_title')->where('clinic_id', $getClinicId[0])->where('is_saved', '<>', 1)->get();
+        $details = DB::table('holiday')->select('id', 'date', 'holiday_title')->where('clinic_id', $getClinicId[0])->where('is_saved', null)->get();
 
         return response([
             'name' => 'showCreatedHoliday',
