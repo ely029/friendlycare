@@ -283,7 +283,7 @@ class BookingController extends Controller
         $endtime = date('Y-m-d H:i', strtotime('3 minutes', strtotime($startTime)));
         DB::update('update booking set is_approved = ?, time_slot = ?, time_from = ?, time_to = ? where patient_id = ? order by id desc limit 1', [1, $obj['date'][0], $startTime, $endtime, $id]);
 
-        return $this->checkPatientCount($id, $getDetails, $obj, $startTime, $endtime);
+        return $this->checkPatientCount($id, $getDetails, $obj);
     }
 
     public function selectedClinic($id)
