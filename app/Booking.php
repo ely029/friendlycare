@@ -146,7 +146,10 @@ class Booking extends Model
             ->leftJoin('booking_time', 'booking_time.booking_id', 'booking.id')
             ->select('users.id as user_id', 'booking.id as booking_id', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'booking.status', 'clinics.clinic_name')
             ->where('booking.patient_id', $id)
-            ->orWhere('booking.status', [null, 1, 2, 4])
+            ->orWhere('booking.status', null)
+            ->orWhere('booking.status', 1)
+            ->orWhere('booking.status', 2)
+            ->orWhere('booking.status', 4)
             ->get();
     }
 
