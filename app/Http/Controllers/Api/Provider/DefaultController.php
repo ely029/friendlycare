@@ -571,7 +571,7 @@ class DefaultController extends Controller
         $data = DB::table('patient_time_slot')
             ->select('number_of_slots as number')
             ->where('clinic_id', $clinic[0])
-            ->pluck('number_of_slots');
+            ->pluck('number');
 
         return response([
             'name' => 'GetTimeSlot',
