@@ -296,7 +296,7 @@ class BookingController extends Controller
 
         $startTime = date('Y-m-d H:i');
         $endtime = date('Y-m-d H:i', strtotime('3 minutes', strtotime($startTime)));
-        DB::update('update booking set is_approved = ?, time_slot = ?, time_from = ?, time_to = ?, end_time = ? where patient_id = ? order by id desc limit 1', [1, $obj['date'][0], $startTime, $endtime, strtotime($endtime), $id]);
+        DB::update('update booking set is_approved = ?, time_slot = ?, time_from = ?, time_to = ? where patient_id = ? order by id desc limit 1', [1, $obj['date'][0], $startTime, $endtime, $id]);
 
         return $this->checkPatientCount($id, $getDetails, $obj);
     }
@@ -483,6 +483,9 @@ class BookingController extends Controller
     public function approveBooking(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
+        $startTime = date('Y-m-d H:i');
+        $endtime = date('Y-m-d H:i', strtotime('3 minutes', strtotime($startTime)));
+        DB::update('update booking set end_time = ? where id = ? order by id desc limit 1', [strtotime($endtime), $id]);
         DB::update('update booking set status = ? where id = ?', [1, $id]);
         DB::update('update booking_time set status = ? where time_slot = ?', [1, $obj['time_slot'][0]]);
         BookingTime::where(['booking_id' => $id, 'status' => null])->delete();
