@@ -147,10 +147,6 @@ class Booking extends Model
             ->where('booking.patient_id', $id)
             ->where('booking.status', '<>', 5)
             ->where('booking.status', '<>', 3)
-            ->where('booking.status', null)
-            ->where('booking.status', 1)
-            ->where('booking.status', 2)
-            ->where('booking.status', 4)
             ->get();
     }
 
