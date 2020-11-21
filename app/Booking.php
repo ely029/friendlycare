@@ -139,14 +139,13 @@ class Booking extends Model
     public function getInboxDetails($id)
     {
         return DB::table('booking')
-            ->leftJoin('users', 'users.id', 'booking.patient_id')
-            ->leftjoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
-            ->leftjoin('clinics', 'booking.clinic_id', 'clinics.id')
-            ->leftJoin('booking_time', 'booking_time.booking_id', 'booking.id')
+            ->join('users', 'users.id', 'booking.patient_id')
+            ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->join('clinics', 'booking.clinic_id', 'clinics.id')
+            ->join('booking_time', 'booking_time.booking_id', 'booking.id')
             ->select('users.id as user_id', 'booking.id as booking_id', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'booking.status', 'clinics.clinic_name')
             ->where('booking.patient_id', $id)
             ->where('booking.status', '<>', 3)
-            ->orWhere('booking.status', null)
             ->get();
     }
 
