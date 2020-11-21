@@ -567,6 +567,7 @@ class DefaultController extends Controller
     public function getProviderTimeSlot($id)
     {
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
+        PatientTimeSlot::updateOrCreate(['clinic_id' => $clinic[0]]);
 
         $data = DB::table('patient_time_slot')
             ->select('number_of_slots')
