@@ -22,6 +22,7 @@ class Booking extends Model
         'time_from',
         'time_to',
         'end_time',
+        'new_request_end_time',
     ];
 
     public function getNewRequestBooking($clinic_id)
