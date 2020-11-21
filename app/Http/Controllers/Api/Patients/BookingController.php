@@ -487,7 +487,7 @@ class BookingController extends Controller
         $obj = json_decode($request->getContent(), true);
         $startTime = date('Y-m-d H:i');
         $endtime = date('Y-m-d H:i', strtotime('3 minutes', strtotime($startTime)));
-        DB::update('update booking set end_time = ?, new_request_end_time = ? where id = ? order by id desc limit 1', [strtotime($endtime), strtotime($endtime), 1]);
+        DB::update('update booking set end_time = ?, new_request_end_time = ? where id = ? order by id desc limit 1', [strtotime($endtime), strtotime($endtime), $id]);
         DB::update('update booking set status = ? where id = ?', [1, $id]);
         DB::update('update booking_time set status = ? where time_slot = ?', [1, $obj['time_slot'][0]]);
         BookingTime::where(['booking_id' => $id, 'status' => null])->delete();
