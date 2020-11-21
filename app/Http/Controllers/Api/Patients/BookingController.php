@@ -412,7 +412,7 @@ class BookingController extends Controller
         $endTime = DB::table('booking')->select('time_from', 'time_to')->where('clinic_id', $clinic[0])->get();
         $this->checkNoShow($clinic, $endTime);
         $booking = new Booking();
-        $date = date('Y-m-d');
+        $date = date('Y-m-d', strtotime('-1 days'));
         $details = $booking->getBookings($clinic[0], $date);
 
         return response([
@@ -421,11 +421,16 @@ class BookingController extends Controller
         ]);
     }
 
+    public function checkDateToday()
+    {
+        return date('Y-m-d');
+    }
+
     public function getBookingsYesterday($id)
     {
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
         $booking = new Booking();
-        $date = date('Y-m-d', strtotime('-1 days'));
+        $date = date('Y-m-d', strtotime('+1 days'));
         $details = $booking->getBookingsYesterday($clinic[0], $date);
 
         return response([
@@ -438,7 +443,7 @@ class BookingController extends Controller
     {
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
         $booking = new Booking();
-        $date = date('Y-m-d', strtotime('+1 days'));
+        $date = date('Y-m-d', strtotime('+2 days'));
         $details = $booking->getBookingsTommorow($clinic[0], $date);
 
         return response([

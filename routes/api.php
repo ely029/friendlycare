@@ -154,3 +154,5 @@ Route::get('/municipality/{id}', 'Patients\DefaultController@municipality');
 
 Route::get('/booking/timeslot/{id}', 'Provider\DefaultController@getProviderTimeSlot');
 Route::post('/booking/timeslot/{id}', 'Provider\DefaultController@postProviderTimeSlot');
+
+Route::get('/checkdatetoday', 'Patients\BookingController@checkDateToday');
