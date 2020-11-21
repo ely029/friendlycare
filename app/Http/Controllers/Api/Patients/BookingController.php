@@ -509,7 +509,7 @@ class BookingController extends Controller
     public function approveCancellationDetails(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
-        DB::update('update booking set cancellation_message_1 = ?, status = ? where id = ?', [$obj['cancellation_message'][0], 3, $id]);
+        DB::update('update booking set cancellation_message_1 = ?, time_slot = ? status = ? where id = ?', [$obj['cancellation_message'][0], $obj['date'][0], 3, $id]);
         DB::update('update booking_time set status = ? where booking_id = ?', [3, $id]);
         return response([
             'name' => 'ApproveCancellation',
@@ -568,6 +568,21 @@ class BookingController extends Controller
         //get the day
         $timestamp = strtotime($obj['date'][0]);
         $day = date('l', $timestamp);
+
+        $getClinicId = DB::table('booking')
+            ->select('clinic_id')
+            ->where('patient_id', $id)
+            ->limit(1)
+            ->orderBy('id', 'desc')
+            ->pluck('clinic_id');
+
+        $checkDate = DB::table('holiday')->select('holiday.id')->where('date', $obj['date'][0])->where('clinic_id', $getClinicId[0])->count();
+
+        if ($checkDate >= 1) {
+            return response([
+                'message' => 'The clinic on the date you set is on holiday. Please choose another date',
+            ], 422);
+        }
 
         $getDetails = DB::table('staffs')
             ->select('clinic_id')
