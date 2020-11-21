@@ -175,6 +175,7 @@ class Booking extends Model
             ->select('users.id as user_id', 'booking.id as booking_id', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'booking.status', 'clinics.clinic_name')
             ->where('booking.patient_id', $id)
             ->where('booking.status', $obj['status'][0])
+            ->where('booking.is_approve', 1)
             ->get();
     }
 }
