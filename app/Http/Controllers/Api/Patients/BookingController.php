@@ -296,7 +296,7 @@ class BookingController extends Controller
 
         $startTime = date('Y-m-d H:i');
         $endtime = date('Y-m-d H:i', strtotime('3 minutes', strtotime($startTime)));
-        DB::update('update booking set is_approved = ?, time_slot = ?, time_from = ?, time_to = ? where patient_id = ? order by id desc limit 1', [1, $obj['date'][0], $startTime, $endtime, $id]);
+        DB::update('update booking set is_approved = ?, time_slot = ?, time_from = ?, time_to = ?, end_time = ? where patient_id = ? order by id desc limit 1', [1, $obj['date'][0], $startTime, $endtime, strtotime($endtime), $id]);
 
         return $this->checkPatientCount($id, $getDetails, $obj);
     }
@@ -409,9 +409,9 @@ class BookingController extends Controller
     public function getBookings($id)
     {
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
-        $endTime = DB::table('booking')->select('time_from', 'time_to')->where('clinic_id', $clinic[0])->get();
-        $this->checkNoShow($clinic, $endTime);
         $booking = new Booking();
+        $timenow = strtotime(date('Y-m-d H:i'));
+        DB::update('update booking set status = 5 where end_time <='.$timenow.' and is_approved = 1 and (status = 1 or status = 2 or status = 4)');
         $date = date('Y-m-d');
         $details = $booking->getBookings($clinic[0], $date);
 
