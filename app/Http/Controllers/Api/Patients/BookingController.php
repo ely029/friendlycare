@@ -412,7 +412,7 @@ class BookingController extends Controller
         $endTime = DB::table('booking')->select('time_from', 'time_to')->where('clinic_id', $clinic[0])->get();
         $this->checkNoShow($clinic, $endTime);
         $booking = new Booking();
-        $date = date('Y-m-d', strtotime('-1 days'));
+        $date = date('Y-m-d');
         $details = $booking->getBookings($clinic[0], $date);
 
         return response([
