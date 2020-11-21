@@ -569,13 +569,13 @@ class DefaultController extends Controller
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
 
         $data = DB::table('patient_time_slot')
-            ->select('number_of_slots as number')
+            ->select('number_of_slots')
             ->where('clinic_id', $clinic[0])
-            ->pluck('number');
+            ->get();
 
         return response([
             'name' => 'GetTimeSlot',
-            'details' => $data[0],
+            'details' => $data,
         ]);
     }
 
