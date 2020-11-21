@@ -569,11 +569,9 @@ class BookingController extends Controller
         $timestamp = strtotime($obj['date'][0]);
         $day = date('l', $timestamp);
 
-        $getClinicId = DB::table('booking')
+        $getClinicId = DB::table('staffs')
             ->select('clinic_id')
-            ->where('patient_id', $id)
-            ->limit(1)
-            ->orderBy('id', 'desc')
+            ->where('user_id', $id)
             ->pluck('clinic_id');
 
         $checkDate = DB::table('holiday')->select('holiday.id')->where('date', $obj['date'][0])->where('clinic_id', $getClinicId[0])->count();
