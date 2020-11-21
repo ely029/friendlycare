@@ -147,9 +147,9 @@ class Booking extends Model
             ->select('users.id as user_id', 'booking.id as booking_id', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'booking.status', 'clinics.clinic_name')
             ->where('booking.patient_id', $id)
             ->where('booking.status', null)
-            ->where('booking.status', 1)
-            ->where('booking.status', 2)
-            ->where('booking.status', 4)
+            ->orWhere('booking.status', 1)
+            ->orWhere('booking.status', 2)
+            ->orWhere('booking.status', 4)
             ->get();
     }
 
