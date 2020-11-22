@@ -4,31 +4,141 @@
 @section('description', 'Dashboard')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <aside class="col-2 px-0 fixed-top" id="left">
-
-            <div class="list-group w-100">
-                <span>Management</span>
-                <a href="{{ route('userManagement') }}" class="list-group-item active">User Management</a>
-                <a href="{{ route('providerManagement') }}" class="list-group-item">Provider Management</a>
-                <span>Content</span>
-                <a href="{{ route('basicPages')}}" class="list-group-item">Basic Pages</a>
-                <a href="{{ route('familyPlanningMethod.index')}}" class="list-group-item">Family Planning Method</a>
+<div class="wrapper">
+<div class="sidebar">
+        <div class="sidebar__logo">
+          <div class="sidebar__logo-wrapper"><img class="sidebar__logo-image" src="{{URL::asset('img/logo.png')}}" alt="e-Plano Logo" /></div>
+          <span class="sidebar__logo-text">e-Plano</span>
+        </div>
+        <div class="sidebar__container">
+          <div class="sidebar__menu">
+            <h3 class="sidebar__title">Controls</h3>
+            <ul class="sidebar__list">
+              <li class="sidebar__item">
+                <a class="sidebar__link" href="user-management.php">
+                  <div class="sidebar__wrapper">
+                    <img class="sidebar__icon" src="{{URL::asset('img/icon-user-management.png')}}" alt="User Management icon for e-plano" />
+                    <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-user-management-white.png')}}" alt="User Management icon on hover for e-plano" />
+                  </div>
+                  <span class="sidebar__text">User Management</span>
+                </a>
+              </li>
+              <li class="sidebar__item">
+                <a class="sidebar__link" href="provider-management.php">
+                  <div class="sidebar__wrapper">
+                    <img class="sidebar__icon" src="{{URL::asset('img/icon-provider-management.png')}}" alt="Provider Management icon for e-plano" />
+                    <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-provider-management-white.png')}}" alt="Provider Management icon on hover for e-plano" />
+                  </div>
+                  <span class="sidebar__text">Provider Management</span>
+                </a>
+              </li>
+              <li class="sidebar__item">
+                <a class="sidebar__link" href="staff-management.php">
+                  <div class="sidebar__wrapper">
+                    <img class="sidebar__icon" src="{{URL::asset('img/icon-staff-management.png')}}" alt="Staff Management icon for e-plano" />
+                    <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-staff-management-white.png')}}" alt="staff Management icon on hover for e-plano" />
+                  </div>
+                  <span class="sidebar__text">Staff Management</span>
+                </a>
+              </li>
+              <li class="sidebar__item">
+                <a class="sidebar__link" href="patient-management.php">
+                  <div class="sidebar__wrapper">
+                    <img class="sidebar__icon" src="{{URL::asset('img/icon-patient-management.png')}}" alt="Patient Management icon for e-plano" />
+                    <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-patient-management-white.png')}}" alt="Patient Management icon on hover for e-plano" />
+                  </div>
+                  <span class="sidebar__text">Patient Management</span>
+                </a>
+              </li>
+            </ul>
+            <h3 class="sidebar__title">Content</h3>
+            <ul class="sidebar__list">
+              <li class="sidebar__item">
+                <a class="sidebar__link" href="family-planning-methods.php">
+                  <div class="sidebar__wrapper">
+                    <img class="sidebar__icon" src="{{URL::asset('img/icon-family-planning.png')}}" alt="Family Planning Methods icon for e-plano" />
+                    <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-family-planning-white.png')}}" alt="Family Planning Methods icon on hover for e-plano" />
+                  </div>
+                  <span class="sidebar__text">Family planning methods</span>
+                </a>
+              </li>
+              <li class="sidebar__item">
+                <a class="sidebar__link" href="basic-pages.php">
+                  <div class="sidebar__wrapper">
+                    <img class="sidebar__icon" src="{{URL::asset('img/icon-basic-pages.png')}}" alt="Basic Pages icon for e-plano" />
+                    <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-basic-pages-white.png')}}" alt="Basic Pages icon on hover for e-plano" />
+                  </div>
+                  <span class="sidebar__text">Basic Pages</span>
+                </a>
+              </li>
+              <li class="sidebar__item">
+                <a class="sidebar__link" href=".php">
+                  <div class="sidebar__wrapper">
+                    <img class="sidebar__icon" src="{{URL::asset('img/icon-events-and-pn.png')}}" alt="Events &amp; Push Notifications icon for e-plano" />
+                    <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-events-and-pn-white.png')}}" alt="Events &amp; Push Notifications icon on hover for e-plano" />
+                  </div>
+                  <span class="sidebar__text">Events &amp; push notifications</span>
+                </a>
+              </li>
+            </ul>
+            <h3 class="sidebar__title">Reports</h3>
+            <ul class="sidebar__list">
+              <li class="sidebar__item">
+                <a class="sidebar__link" href="bookings.php">
+                  <div class="sidebar__wrapper">
+                    <img class="sidebar__icon" src="{{URL::asset('img/icon-bookings.png')}}" alt="Bookings icon for e-plano" />
+                    <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-bookings-white.png')}}" alt="Bookings icon on hover for e-plano" />
+                  </div>
+                  <span class="sidebar__text">Bookings</span>
+                </a>
+              </li>
+              <li class="sidebar__item">
+                <a class="sidebar__link" href="survey.php">
+                  <div class="sidebar__wrapper">
+                    <img class="sidebar__icon" src="{{URL::asset('img/icon-survey.png')}}" alt="Survey icon for e-plano" /><img class="sidebar__icon sidebar__icon--white" src="img/icon-survey-white.png" alt="Survey icon on hover for e-plano" />
+                  </div>
+                  <span class="sidebar__text">Survey</span>
+                </a>
+              </li>
+            </ul>
+            <h3 class="sidebar__title">Others</h3>
+            <ul class="sidebar__list">
+              <li class="sidebar__item">
+                <a class="sidebar__link" href="ad-management.php">
+                  <div class="sidebar__wrapper">
+                    <img class="sidebar__icon" src="{{URL::asset('img/icon-ad-management.png')}}" alt="Ad management icon for e-plano" />
+                    <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-ad-management-white.png')}}" alt="Ad management icon on hover for e-plano" />
+                  </div>
+                  <span class="sidebar__text">Ad management</span>
+                </a>
+              </li>
+              <li class="sidebar__item">
+                <a class="sidebar__link" href="admin-logs.php">
+                  <div class="sidebar__wrapper">
+                    <img class="sidebar__icon" src="{{URL::asset('img/icon-admin-log.png')}}" alt="Admin logs icon for e-plano" />
+                    <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-admin-log-white.png')}}" alt="Admin logs icon on hover for e-plano" />
+                  </div>
+                  <span class="sidebar__text">Admin logs</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <a class="sidebar__footer" href="my-account.php">
+            <div class="sidebar__footer-content">
+              <h2 class="sidebar__footer-heading">My Account</h2>
+              <span class="sidebar__footer-span">Admin</span>
             </div>
-
-        </aside>
-        <main class="col-10 invisible">
-            <!--hidden spacer-->
-        </main>
-        <main class="col offset-2 h-100">
-            <div class="row bg-light">
-                <div class="col-12 py-4">
-                    <h2>Create User</h2>
-                    <span>User Management</span><span>Create User</span>
-                </div>
-            </div>
-            <div class="row">
+            <div class="sidebar__footer-wrapper"><img class="sidebar__footer-image" src="{{ URL::asset('img/icon-arrow-right.png') }}" alt="navigation to the user profile" /></div>
+          </a>
+        </div>
+      </div>
+      <div class="section">
+        <div class="section__top">
+          <h1 class="section__title">Create user</h1>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="user-management.php">User management</a><a class="breadcrumbs__link" href="create-user.php">Create user</a><a class="breadcrumbs__link"></a></div>
+        </div>
+        <div class="section__container">
+        <div class="row">
                 <div class="col-md-12">
                 @if ($errors->any())
   <div class="alert alert-danger">
@@ -39,90 +149,39 @@
      </ul>
   </div>
 @endif
-                </div>
-            </div>
-            <div class="row bg-white">
-                <div class="col-md-4">
-                <select class="form-control" name="clinic" id="role">
-                    <option value="">Please Select</option>
-                    <option value="{{ route('adminFirstPage') }}">Admin</option>
-                    <option value="{{ route('staffFirstPage') }}" selected>Staff</option>
+
+          <form class="form" method="POST" action="{{ route('createAdmin' )}}">
+            @csrf
+            <div class="form__inline">
+              <div class="form__content">
+                <select class="form__input form__input--select" id="role">
+                  <option disabled selected>---</option>
+                  <option value="{{ route('adminFirstPage') }}" selected>Admin</option>
+                  <option value="{{ route('staffFirstPage') }}">Staff</option>
                 </select>
-                </div>
-                <div class="col-md-4">
-                <form method="POST" action="{{ route('createStaff') }}">
-                    @csrf
-                <select class="form-control" name="clinic" value=" {{ old('clinic') }}">
-                    <option value="">Select a clinic</option>
-                    @foreach ($clinics as $clinic)
+                <label class="form__label">Role*</label>
+              </div>
+              <div class="form__content">
+                <select class="form__input form__input--search">
+                @foreach ($clinics as $clinic)
                     <option value="{{ $clinic->id }}">{{ $clinic->clinic_name }}</option>
                     @endforeach
                 </select>
-                </div>
+                <label class="form__label">Provider clinic</label>
+              </div>
             </div>
-            <div class="row">
-                 <div class="col-md-4">
-                    <input type="text" value="{{ old('first_name') }}" id="first_name" name="first_name" class="form-control" placeholder="First Name">
-                </div>
-                <div class="col-md-4">
-                    <input type="text" id="last_name" value="{{ old('last_name') }}" name="last_name" class="form-control" placeholder="Last Name">
-                </div>
-                <div class="col-md-4">        
-                </div>
+            <div class="form__inline">
+              <div class="form__content"><input class="form__input" type="text" placeholder="First name*" name="first_name" value="{{ old('first_name')}}" /><label class="form__label">First name* </label></div>
+              <div class="form__content"><input class="form__input" type="text" placeholder="Last name*" name="last_name" value="{{ old('last_name')}}"/><label class="form__label">Last name* </label></div>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-                        <input type="text" value="{{ old('professions') }}" class="form-control" name="professions" placeholder="Professional (optional)">
-                </div>
-                <div class="col-md-4">
-                        <input type="text" class="form-control" value="{{ old('trainings') }}" name="trainings" placeholder="Training (optional)">
-                </div>   
+            <div class="form__inline">
+              <div class="form__content"><input class="form__input" type="text" placeholder="Profession (optional)" value="{{ old('professions')}}"name="professions"/><label class="form__label">Profession (optional)</label></div>
+              <div class="form__content"><input class="form__input" type="text" placeholder="Training (optional)" name="trainings" value="{{ old('trainings')}}"/><label class="form__label">Training (optional)</label></div>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-                        <input type="text" value="{{ old('email') }}" class="form-control" name="email" placeholder="Email">
-                </div>
-                <div class="col-md-4">
-                </div>
-                <div class="col-md-4">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                </div>
-                <div class="col-md-6">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <input data-toggle="modal" data-target="#confirmProviderCreation" type="button" id="admin-create" value="Create Account" class="btn btn-info">
-                </div>
-                <div class="col-md-6">
-                </div>
-            </div>
-
-            <div class="modal fade" id="confirmProviderCreation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Create Admin Account</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    You are about to create an Staff account. Proceed?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                    <input type="submit" class="btn btn-success" value="Create Account"/>
-                                </div>
-                        </div>
-                    </div>
-            </div>
-        </form>
-            
-        </main>
-    </div>
+            <div class="form__content"><input class="form__input" type="text" placeholder="Email Address*" name="email" value="{{ old('email')}}"/><label class="form__label">Email Address*</label></div>
+            <div class="form__button form__button--end"><input type="submit" class="button" value="Create Account"></div>
+          </form>
+        </div>
+      </div>
 </div>
 @endsection

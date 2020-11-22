@@ -55,7 +55,10 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="{{ config('app.locale', config('app.fallback_locale')) }}">
-
+    <meta property="og:image" content="img/logo.png" />
+    <meta name="theme-color" content="#911aa2" />
+    <meta name="description" content="" />
+    <link rel="icon" href="img/logo.png" />
     {{-- Twitter Cards --}}
     {{-- https://dev.twitter.com/cards/overview --}}
     {{-- https://cards-dev.twitter.com/validator --}}
@@ -68,8 +71,7 @@
     {{-- Facebook & Twitter Commons --}}
     <meta property="og:title" content="@yield('title', config('app.name'))">
     <meta property="og:description" content="@yield('description', config('boilerplate.description'))">
-    <meta property="og:image" content="@yield('image', asset('apple-touch-icon.png'))">
-
+    
     {{-- Theme Color --}}
     {{-- https://github.com/h5bp/html5-boilerplate/blob/v7.3.0/dist/doc/extend.md#theme-color --}}
     <meta name="theme-color" content="#fafafa">

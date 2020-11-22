@@ -13,6 +13,18 @@
             </span>
           </div>
         </div>
+        <div>
+        <div class="col-md-12">
+                @if ($errors->any())
+  <div class="alert alert-danger">
+     <ul>
+        @foreach ($errors->all() as $error)
+           <li>{{ $error }}</li>
+        @endforeach
+     </ul>
+  </div>
+@endif
+        </div>
         <div class="login__card">
           <h2 class="section__heading">Login</h2>
           <form class="form form--login" method="POST" action="{{route('authenticate')}}">
