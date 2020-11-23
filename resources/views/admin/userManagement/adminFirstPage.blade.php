@@ -15,7 +15,7 @@
             <h3 class="sidebar__title">Controls</h3>
             <ul class="sidebar__list">
               <li class="sidebar__item">
-                <a class="sidebar__link" href="user-management.php">
+                <a class="sidebar__link" href="{{ route('userManagement')}}">
                   <div class="sidebar__wrapper">
                     <img class="sidebar__icon" src="{{URL::asset('img/icon-user-management.png')}}" alt="User Management icon for e-plano" />
                     <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-user-management-white.png')}}" alt="User Management icon on hover for e-plano" />
@@ -24,7 +24,7 @@
                 </a>
               </li>
               <li class="sidebar__item">
-                <a class="sidebar__link" href="provider-management.php">
+                <a class="sidebar__link" href="{{ route('providerManagement')}}">
                   <div class="sidebar__wrapper">
                     <img class="sidebar__icon" src="{{URL::asset('img/icon-provider-management.png')}}" alt="Provider Management icon for e-plano" />
                     <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-provider-management-white.png')}}" alt="Provider Management icon on hover for e-plano" />
@@ -54,7 +54,7 @@
             <h3 class="sidebar__title">Content</h3>
             <ul class="sidebar__list">
               <li class="sidebar__item">
-                <a class="sidebar__link" href="family-planning-methods.php">
+                <a class="sidebar__link" href="{{  route('familyPlanningMethod.index')}}">
                   <div class="sidebar__wrapper">
                     <img class="sidebar__icon" src="{{URL::asset('img/icon-family-planning.png')}}" alt="Family Planning Methods icon for e-plano" />
                     <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-family-planning-white.png')}}" alt="Family Planning Methods icon on hover for e-plano" />
@@ -63,7 +63,7 @@
                 </a>
               </li>
               <li class="sidebar__item">
-                <a class="sidebar__link" href="basic-pages.php">
+                <a class="sidebar__link" href="{{ route('basicPages')}}">
                   <div class="sidebar__wrapper">
                     <img class="sidebar__icon" src="{{URL::asset('img/icon-basic-pages.png')}}" alt="Basic Pages icon for e-plano" />
                     <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-basic-pages-white.png')}}" alt="Basic Pages icon on hover for e-plano" />
@@ -131,7 +131,7 @@
             <div class="sidebar__footer-wrapper"><img class="sidebar__footer-image" src="{{ URL::asset('img/icon-arrow-right.png') }}" alt="navigation to the user profile" /></div>
           </a>
         </div>
-      </div>
+</div>
       <div class="section">
         <div class="section__top">
           <h1 class="section__title">Create user</h1>
@@ -170,14 +170,14 @@
               </div>
             </div>
             <div class="form__inline">
-              <div class="form__content"><input class="form__input" type="text" placeholder="First name*" name="first_name" /><label class="form__label">First name* </label></div>
-              <div class="form__content"><input class="form__input" type="text" placeholder="Last name*" name="last_name"/><label class="form__label">Last name* </label></div>
+              <div class="form__content"><input class="form__input" type="text" placeholder="First name*" name="first_name" value="{{ old('first_name')}}" /><label class="form__label">First name* </label></div>
+              <div class="form__content"><input class="form__input" type="text" placeholder="Last name*" name="last_name" value="{{ old('last_name')}}"/><label class="form__label">Last name* </label></div>
             </div>
             <div class="form__inline">
-              <div class="form__content"><input class="form__input" type="text" placeholder="Profession (optional)" name="professions"/><label class="form__label">Profession (optional)</label></div>
-              <div class="form__content"><input class="form__input" type="text" placeholder="Training (optional)" name="trainings"/><label class="form__label">Training (optional)</label></div>
+              <div class="form__content"><input class="form__input" type="text" placeholder="Profession (optional)" name="professions" value="{{ old('professions')}}"/><label class="form__label">Profession (optional)</label></div>
+              <div class="form__content"><input class="form__input" type="text" placeholder="Training (optional)" name="trainings" value="{{ old('trainings')}}"/><label class="form__label">Training (optional)</label></div>
             </div>
-            <div class="form__content"><input class="form__input" type="text" placeholder="Email Address*" name="email" /><label class="form__label">Email Address*</label></div>
+            <div class="form__content"><input class="form__input" type="text" placeholder="Email Address*" value="{{ old('email')}}"name="email" /><label class="form__label">Email Address*</label></div>
             <div class="form__button form__button--end"><input type="submit" class="button" value="Create Account"></div>
           </form>
         </div>
