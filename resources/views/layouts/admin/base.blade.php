@@ -55,10 +55,10 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="{{ config('app.locale', config('app.fallback_locale')) }}">
-    <meta property="og:image" content="img/logo.png" />
+    <meta property="og:image" content="{{URL::asset('img/logo.png')}}" />
     <meta name="theme-color" content="#911aa2" />
     <meta name="description" content="" />
-    <link rel="icon" href="img/logo.png" />
+    <link rel="icon" href="{{URL::asset('img/logo.png')}}" />
     {{-- Twitter Cards --}}
     {{-- https://dev.twitter.com/cards/overview --}}
     {{-- https://cards-dev.twitter.com/validator --}}
