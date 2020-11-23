@@ -696,7 +696,7 @@ class BookingController extends Controller
         $bookedTime = date('H:i:s', strtotime($getBookedTime->time_slot));
         $starttime = strtotime($getBookedDate->time_slot.''.$bookedTime);
         $endtime = date('Y-m-d H:i', strtotime('3 minutes', $starttime));
-        DB::update('update booking new_request_end_time = ? where id = ?', [strtotime($endtime), $getDetails[0]]);
+        DB::update('update booking set new_request_end_time = ? where id = ?', [strtotime($endtime), $getDetails[0]]);
         return response([
             'response' => 'Booking Created Succesfully',
         ]);
