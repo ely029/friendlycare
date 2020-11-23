@@ -537,19 +537,6 @@ AddDefaultCharset utf-8
 #    @TB: Telescope: Routes break when CSP is enabled.
 #    @TB: Jira Service Desk: data: 'unsafe-inline' jsd-widget.atlassian.com js-agent.newrelic.com mgas.prod.public.atl-paas.net bam.nr-data.net 'sha256-unawk8oxMjxPG04UXJudRjZPb/aQ/CshgfawzK+tomg=' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-Y6ai26KOs6jiBfB2W6Ib5hdojTZB0+Dc5/pa9UyE+Cg=' 'sha256-AtkzPTuPDnHpL8H5SmAf+64ROXOzJFh/4aXFHMy039I=' 'sha256-dn9ugA46c5czZ7eQEv3ju7W8wJ95gWvqY5eMzzM0I54=' 'sha256-RayO1Qclzbx5Q0ItHlQPOF0aEAFq7oBN25tzbjYPdp8=' 'sha256-AJwuK6dCZjyhpNbFsOf0nzNjfVSeoWIITp60TTdd+fE=' 'sha256-0qAqv94y09xSFsaHfRcSClvV6D1hJSLzTn2gGGUJ5SQ=' 'sha256-GtAcDfNMtAK5L3ZL1hWm0tKjLLOtAEkl60PvJsVdPpc=' 'sha256-CZr12+HDAScA2Lw6+dONsS2zuzu0xqMT42UgrDohGII=' 'sha256-wCu9EA0cTPVqhm91EuVe/y2Xp3kg0L0kg8UzYtQcZOQ=' 'sha256-uhSL4byw5ai27z2pG0rycp0/iIqxIRJP5VmGXim65ZY=' 'sha256-7e7JS33BxKUR1zX3YApQdT/HaolhNAuxel9N2G5i4Q8=' 'sha256-qUqV2P6/nDN49TFtx7/+L8n9DkmO7/0Efi4T7bBIN2Y=' 'sha256-QS6hqxR7OTerpDd/4L00/9AjvZdcIyMaG6EYZxzag2g=' 'sha256-P6P16G2OjZAmvzedPcPaxPG6PVVhCdvW2FWlryoooDU=' 'sha256-XJwkxR8ieF960DkkgAE75sWX3xbVjTtNdPtRQ/Akbtw=' 'sha256-MqaZNk7XcsEzgxHS1EmbKVyvTZCt0upYAz/ChRnw434='
 #    @TB: Laravel: 'sha256-BYc9LFyz9out28kCQ3Nbtwf/lYv6DZW5gLpzDy5Rvf0=' 'sha256-eh7VB8CaeINTGgsIYCPEw9zAYtsgZ77HmDq+8fQK3bI='
-
-    <If "%{THE_REQUEST} =~ m#\s\/(?!telescope|docs\/api)\/?#">
-        Header set Content-Security-Policy "default-src 'none';\
-            base-uri 'none';\
-            connect-src jsd-widget.atlassian.com mgas.prod.public.atl-paas.net bam.nr-data.net;\
-            form-action 'self';\
-            font-src 'self' data:;\
-            frame-ancestors 'none';\
-            img-src 'self' data:;\
-            script-src 'self' google-analytics.com jsd-widget.atlassian.com js-agent.newrelic.com bam.nr-data.net 'sha256-unawk8oxMjxPG04UXJudRjZPb/aQ/CshgfawzK+tomg=';\
-            style-src 'self' 'sha256-BYc9LFyz9out28kCQ3Nbtwf/lYv6DZW5gLpzDy5Rvf0=' 'sha256-eh7VB8CaeINTGgsIYCPEw9zAYtsgZ77HmDq+8fQK3bI=' 'sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=' 'sha256-Y6ai26KOs6jiBfB2W6Ib5hdojTZB0+Dc5/pa9UyE+Cg=' 'sha256-AtkzPTuPDnHpL8H5SmAf+64ROXOzJFh/4aXFHMy039I=' 'sha256-dn9ugA46c5czZ7eQEv3ju7W8wJ95gWvqY5eMzzM0I54=' 'sha256-RayO1Qclzbx5Q0ItHlQPOF0aEAFq7oBN25tzbjYPdp8=' 'sha256-AJwuK6dCZjyhpNbFsOf0nzNjfVSeoWIITp60TTdd+fE=' 'sha256-0qAqv94y09xSFsaHfRcSClvV6D1hJSLzTn2gGGUJ5SQ=' 'sha256-GtAcDfNMtAK5L3ZL1hWm0tKjLLOtAEkl60PvJsVdPpc=' 'sha256-CZr12+HDAScA2Lw6+dONsS2zuzu0xqMT42UgrDohGII=' 'sha256-wCu9EA0cTPVqhm91EuVe/y2Xp3kg0L0kg8UzYtQcZOQ=' 'sha256-uhSL4byw5ai27z2pG0rycp0/iIqxIRJP5VmGXim65ZY=' 'sha256-7e7JS33BxKUR1zX3YApQdT/HaolhNAuxel9N2G5i4Q8=' 'sha256-qUqV2P6/nDN49TFtx7/+L8n9DkmO7/0Efi4T7bBIN2Y=' 'sha256-QS6hqxR7OTerpDd/4L00/9AjvZdcIyMaG6EYZxzag2g=' 'sha256-P6P16G2OjZAmvzedPcPaxPG6PVVhCdvW2FWlryoooDU=' 'sha256-XJwkxR8ieF960DkkgAE75sWX3xbVjTtNdPtRQ/Akbtw=' 'sha256-MqaZNk7XcsEzgxHS1EmbKVyvTZCt0upYAz/ChRnw434=';\
-            " "expr=%{CONTENT_TYPE} =~ m#text/html#i"
-    </If>
 </IfModule>
 
 # ----------------------------------------------------------------------
