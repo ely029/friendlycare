@@ -25,6 +25,7 @@
   </div>
 @endif
         </div>
+        </div>
         <div class="login__card">
           <h2 class="section__heading">Login</h2>
           <form class="form form--login" method="POST" action="{{route('authenticate')}}">
