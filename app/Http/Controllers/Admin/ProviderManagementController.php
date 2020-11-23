@@ -19,6 +19,7 @@ class ProviderManagementController extends Controller
     {
         $users = DB::table('clinics')
             ->select('clinics.email', 'clinics.type', 'clinics.id', 'clinics.clinic_name')
+            ->where('clinics.email', '<>', 'null')
             ->where('clinics.is_approve', '<>', 0)
             ->get();
 
