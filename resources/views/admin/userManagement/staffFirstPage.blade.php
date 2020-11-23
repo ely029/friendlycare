@@ -156,8 +156,8 @@
               <div class="form__content">
                 <select class="form__input form__input--select" id="role">
                   <option disabled selected>---</option>
-                  <option value="{{ route('adminFirstPage') }}" selected>Admin</option>
-                  <option value="{{ route('staffFirstPage') }}">Staff</option>
+                  <option value="{{ route('adminFirstPage') }}">Admin</option>
+                  <option value="{{ route('staffFirstPage') }}" selected>Staff</option>
                 </select>
                 <label class="form__label">Role*</label>
               </div>
