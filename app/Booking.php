@@ -167,14 +167,13 @@ class Booking extends Model
     public function filterPerStatus($id, $obj)
     {
         return DB::table('booking')
-            ->join('users', 'users.id', 'booking.patient_id')
-            ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
-            ->join('clinics', 'booking.clinic_id', 'clinics.id')
-            ->join('booking_time', 'booking_time.booking_id', 'booking.id')
+            ->leftJoin('users', 'users.id', 'booking.patient_id')
+            ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->leftJoin('clinics', 'booking.clinic_id', 'clinics.id')
+            ->leftJoin('booking_time', 'booking_time.booking_id', 'booking.id')
             ->select('users.id as user_id', 'booking.id as booking_id', 'booking.is_read', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'booking.status', 'clinics.clinic_name')
             ->where('booking.patient_id', $id)
             ->where('booking.status', $obj['status'][0])
-            ->where('booking.is_approved', 1)
             ->get();
     }
 }
