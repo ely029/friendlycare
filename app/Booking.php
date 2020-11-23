@@ -48,7 +48,7 @@ class Booking extends Model
             ->where('booking.clinic_id', $clinic_id)
             ->where('booking.time_slot', $date)
             ->where('booking.is_approved', 1)
-            ->where('booking.status', 6)
+            ->where('booking.status', '<>', 6)
             ->get();
     }
 
