@@ -23,6 +23,9 @@ class BookingsController extends Controller
 
     public function getInboxPerBooking($id)
     {
+        Booking::where('id', $id)->update([
+            'is_read_patient_booking' => 0,
+        ]);
         $bookings = new Booking();
         $details = $bookings->getInboxPerBooking($id);
 
