@@ -397,7 +397,7 @@ class BookingController extends Controller
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
         $booking = new Booking();
         $timenow = strtotime(date('Y-m-d H:i'));
-        DB::update('update booking set status = 5 where new_request_end_time >='.$timenow.' and is_approved = 1');
+        DB::update('update booking set status = 5 where new_request_end_time <='.$timenow.' and is_approved = 1');
         $endTime = DB::table('booking')->select('time_from', 'time_to')->where('clinic_id', $clinic[0])->get();
         $this->checkNoShow($clinic, $endTime);
         $details = $booking->getNewRequestBooking($clinic[0]);
@@ -413,7 +413,7 @@ class BookingController extends Controller
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
         $booking = new Booking();
         $timenow = strtotime(date('Y-m-d H:i'));
-        DB::update('update booking set status = 5 where end_time >='.$timenow.' and is_approved = 1 and (status = 1 or status = 2 or status = 4)');
+        DB::update('update booking set status = 5 where end_time <='.$timenow.' and is_approved = 1 and (status = 1 or status = 2 or status = 4)');
         $date = date('Y-m-d');
         $details = $booking->getBookings($clinic[0], $date);
 
