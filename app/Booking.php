@@ -145,7 +145,7 @@ class Booking extends Model
             ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
             ->leftjoin('clinics', 'booking.clinic_id', 'clinics.id')
             ->leftJoin('booking_time', 'booking_time.booking_id', 'booking.id')
-            ->select('users.id as user_id', 'booking.is_read', 'booking.id as booking_id', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'booking.status', 'clinics.clinic_name')
+            ->select('users.id as user_id', 'booking.is_read_patient_booking', 'booking.id as booking_id', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'booking.status', 'clinics.clinic_name')
             ->where('booking.patient_id', $id)
             ->where('booking.status', '<>', 5)
             ->where('booking.status', '<>', 3)
