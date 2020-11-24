@@ -65,7 +65,7 @@
                 </a>
               </li>
               <li class="sidebar__item">
-                <a class="sidebar__link" href=".php">
+                <a class="sidebar__link" href="{{route('notifications.index')}}">
                   <div class="sidebar__wrapper">
                     <img class="sidebar__icon" src="{{URL::asset('img/icon-events-and-pn.png')}}" alt="Events &amp; Push Notifications icon for e-plano" />
                     <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-events-and-pn-white.png')}}" alt="Events &amp; Push Notifications icon on hover for e-plano" />

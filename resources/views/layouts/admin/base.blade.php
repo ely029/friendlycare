@@ -79,7 +79,6 @@
     {{-- CSRF Protection --}}
     {{-- See VerifyCsrfToken.php --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' https://* 'unsafe-inline'; script-src 'nonce-a9d09b55f2b66e00f4d27f8b453003e6' https://xxxx;" />
     {{-- Google Analytics --}}
     @if($googleAnalyticsTrackingId = config('boilerplate.google_analytics_tracking_id'))
         <meta name="google_analytics_tracking_id" content="{{ $googleAnalyticsTrackingId }}">
@@ -137,11 +136,8 @@
     </main>
 
     @stack('scripts')
-    <script type="text/javascript" nonce="a9d09b55f2b66e00f4d27f8b453003e6" src="{{ asset('assets/app/js/app.js') }}"></script>
-    <script type="text/javascript" nonce="a9d09b55f2b66e00f4d27f8b453003e6" src="{{ asset('assets/app/js/main.js') }}"></script>
-    <script type="text/javascript" nonce="a9d09b55f2b66e00f4d27f8b453003e6" src="{{ asset('assets/app/js/admin.js') }}"></script>
-    <script type="text/javascript" nonce="a9d09b55f2b66e00f4d27f8b453003e6" src="{{ asset('assets/app/js/bootstrap.min.js') }}"></script>
-    </script>
+    <script type="text/javascript"  src="{{ asset('assets/app/js/app.js') }}"></script>
+    
     
     @if(config('boilerplate.google_analytics_tracking_id'))
         <script src="{{ asset('assets/base/js/google-analytics.js') }}"></script>
