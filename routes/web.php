@@ -112,7 +112,7 @@ Route::group(['prefix' => 'fpm'], static function () {
 });
 
 ///events and notifications
-Route::group(['prefix' => 'notification'], static function() {
+Route::group(['prefix' => 'notification'], static function () {
     Route::get('/list', 'Admin\NotificationsController@index')->name('notifications.index');
 });
 
