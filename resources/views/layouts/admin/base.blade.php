@@ -138,6 +138,7 @@
 
     @stack('scripts')
     <script type="text/javascript" nonce="a9d09b55f2b66e00f4d27f8b453003e6" src="{{ asset('assets/app/js/app.js') }}"></script>
+    <script type="text/javascript" nonce="a9d09b55f2b66e00f4d27f8b453003e6" src="{{ asset('assets/app/js/main.js') }}"></script>
     <script type="text/javascript" nonce="a9d09b55f2b66e00f4d27f8b453003e6" src="{{ asset('assets/app/js/admin.js') }}"></script>
     <script type="text/javascript" nonce="a9d09b55f2b66e00f4d27f8b453003e6" src="{{ asset('assets/app/js/bootstrap.min.js') }}"></script>
     </script>
