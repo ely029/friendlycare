@@ -4,22 +4,29 @@
 @section('description', 'Dashboard')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <aside class="col-2 px-0 fixed-top" id="left">
-            <div class="list-group w-100">
-                <span>Management</span>
-                <a href="{{ route('userManagement') }}" class="list-group-item active">User Management</a>
-                <a href="{{ route('providerManagement') }}" class="list-group-item">Provider Management</a>
-                <span>Content</span>
-                <a href="{{ route('basicPages')}}" class="list-group-item">Basic Pages</a>
-                <a href="{{ route('familyPlanningMethod.index')}}" class="list-group-item">Family Planning Method</a>
+<div class="wrapper">
+  @include('includes.sidebar')
+</div>
+      <div class="section">
+        <div class="section__top">
+          <h1 class="section__title">Create User</h1>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="user-management.php">Create User</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
+        </div>
+        <div class="section__container">
+        <div class="row bg-white">
+                <select class="form-control" id="role">
+                    <option value="">Please Select</option>
+                    <option value="{{ route('adminFirstPage') }}">Admin</option>
+                    <option value="{{ route('staffFirstPage') }}">Staff</option>
+                </select>
             </div>
+        </div>
+      </div>
+    </div>
+@endsection
 
-        </aside>
-        <main class="col-10 invisible">
-            <!--hidden spacer-->
-        </main>
+<!-- <div class="container-fluid">
+        @include('includes.sidebar')
         <main class="col offset-2 h-100">
             <div class="row bg-light">
                 <div class="col-12 py-4">
@@ -34,6 +41,4 @@
                 </select>
             </div>
         </main>
-    </div>
-</div>
-@endsection
+</div> -->

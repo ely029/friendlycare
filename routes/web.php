@@ -111,6 +111,11 @@ Route::group(['prefix' => 'fpm'], static function () {
     Route::post('update/', 'Admin\FamilyPlanningMethodController@update')->name('familyPlanningMethod.update');
 });
 
+///events and notifications
+Route::group(['prefix' => 'notification'], static function() {
+    Route::get('/list', 'Admin\NotificationsController@index')->name('notifications.index');
+});
+
     Route::get('/', 'HomeController@index');
     Route::get('/portal', 'Admin\AdminController@showLogin')->name('adminLogin');
     Route::post('/authenticate', 'Admin\AdminController@authenticate')->name('authenticate');
