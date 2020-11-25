@@ -64,9 +64,9 @@ class BasicPagesController extends Controller
                 $checkCount = DB::table('basic_page_section')
                     ->select('id')
                     ->where('title', $request['title'][$eee])->count();
-            }
 
-            $this->updateBasicPageSection($checkCount, $request, $eee);
+                $this->updateBasicPageSection($checkCount, $request, $eee);
+            }
             BasicPageSection::create([
                 'basic_page_id' => $request['id'],
                 'title' => $request['title'][$eee],
