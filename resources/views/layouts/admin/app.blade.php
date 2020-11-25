@@ -1,11 +1,5 @@
 @extends('layouts.admin.base')
 
-@push('scripts')
-<script type="text/javascript"  src="{{ asset('assets/app/js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript"  src="{{ asset('assets/app/js/main.js') }}"></script>
-    <script type="text/javascript"  src="{{ asset('assets/app/js/admin.js') }}"></script>
-    <script type="text/javascript"  src="{{ asset('assets/app/js/notification.js') }}"></script>
-@endpush
 @push('styles')
 
     <!-- Styles -->

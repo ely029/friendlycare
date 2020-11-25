@@ -29,6 +29,39 @@
                 </div>
             </div>
            @foreach ($content as $contents)
+
+           @if($contents->id = 3)
+           <div class="row">
+                <div class="col-md-12">
+                    <form method="POST" action="{{ route('basicPages.storeEdit')}}">
+                        @csrf
+                        <span>Title</span><br/>
+                        <input type="text" name="content_name" value="{{ $contents->content_name}}"/>
+                        <input type="hidden" name="id" value="{{ $contents->id }}">
+                        <br/>
+                        @foreach($contentss as $contentsss)
+                        <div class="row">
+                            <div class="col-md-12">
+                                <small>Title</small>
+                            <input type="text" name="title[]" value="{{ $contentsss->title}}"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <small>Content</small>
+                                <textarea name="content[]" style="width:500px;height:200px;">{{ $contentsss->content }}</textarea>
+                            </div>
+                        </div>
+                        @endforeach
+                        <div class="sections">
+                        </div>
+                        <br/>
+                        <input type="submit" value="Save Changes" class="btn btn-success"/>
+                        <input type="button"  class="btn btn-primary add-section" value="Add Section"/>
+                    </form>
+                </div>
+           </div>
+           @else
            <div class="row">
                 <div class="col-md-12">
                     <form method="POST" action="{{ route('basicPages.storeEdit')}}">
@@ -41,6 +74,7 @@
                     </form>
                 </div>
            </div>
+           @endif
            @endforeach
         </main>
     </div>

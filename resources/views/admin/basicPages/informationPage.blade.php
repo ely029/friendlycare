@@ -22,7 +22,28 @@
             <!--hidden spacer-->
         </main>
         <main class="col offset-2 h-100">
-        @foreach ($content as $contents)
+        @foreach ($content as $contentss)
+        @if($contentss->id = '3')
+        <div class="row">
+            <div class="col-md-12">
+                {{$contentss->content_name}}
+            </div>
+        </div>
+                @foreach($contents as $content)
+                <small>Title</small>
+                <div class="row">
+                      <div class="col-md-12">
+                          {{ $content->section_title}}
+                      </div>
+                </div>
+                <small>Content</small>
+                <div class="row">
+                      <div class="col-md-12">
+                          {{ $content->content}}
+                      </div>
+                </div>
+                @endforeach
+        @else
         <div class="row">
                 <div class="col-12 py-4">
                     <h2>{{ $contents->content_name }}</h2>
@@ -39,11 +60,13 @@
                 {{ $contents->content }}
                 </div>
            </div>
+        @endif
+        
            <div class="row">
                 <div class="col-md-12">
-                    @if ($contents->id == 4)
+                    @if ($contentss->id == 4)
                     @else
-                    <a href="{{ route('basicPages.editPage',$contents->id)}}" class="btn btn-success">Edit content</a>
+                    <a href="{{ route('basicPages.editPage',$contentss->id)}}" class="btn btn-success">Edit content</a>
                     @endif
                 </div>
            </div>

@@ -44,7 +44,6 @@ Route::post('/patients/login', 'Patients\DefaultController@login');
 Route::get('/patients/users', 'Patients\DefaultController@getAllUsers');
 Route::get('/patients/id/{id}', 'Patients\DefaultController@getUserById');
 Route::post('/patients/update', 'Patients\DefaultController@update');
-Route::get('/consentform', 'BasicPagesController@consentForm');
 Route::post('/patients/verification', 'Patients\DefaultController@verification');
 Route::post('/patients/reset', 'Patients\DefaultController@resetPassword');
 Route::get('/patients/fpm/{id}', 'Patients\DefaultController@getFpmMethodsShow');
@@ -150,6 +149,11 @@ Route::get('/province/{id}', 'Patients\DefaultController@province');
 Route::get('/city/{id}', 'Patients\DefaultController@city');
 Route::get('/municipality/{id}', 'Patients\DefaultController@municipality');
 
+//Basic Pages
+Route::get('/consentform', 'BasicPagesController@consentForm');
+Route::get('/consentformsection', 'BasicPagesController@consentFormSection');
+Route::get('/aboutus', 'BasicPagesController@aboutUs');
+Route::get('/termsandcondition', 'BasicPagesController@termsOfService');
 //TimeSlot
 
 Route::get('/booking/timeslot/{id}', 'Provider\DefaultController@getProviderTimeSlot');

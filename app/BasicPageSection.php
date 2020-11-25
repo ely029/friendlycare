@@ -6,12 +6,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BasicPages extends Model
+class BasicPageSection extends Model
 {
-    protected $table = 'basic_pages';
-    protected $fillable = [
-        'content_name',
-        'content',
+    protected $table = 'basic_page_section';
 
+    protected $fillable = [
+        'title',
+        'content',
+        'basic_page_id',
     ];
 }

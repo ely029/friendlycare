@@ -136,8 +136,6 @@
     </main>
 
     @stack('scripts')
-    <script type="text/javascript"  src="{{ asset('assets/app/js/app.js') }}"></script>
-    
     
     @if(config('boilerplate.google_analytics_tracking_id'))
         <script src="{{ asset('assets/base/js/google-analytics.js') }}"></script>
