@@ -37,7 +37,7 @@ class BasicPagesController extends Controller
     public function storeEdit()
     {
         $request = request()->all();
-        if ($request['id'] === 3) {
+        if ($request['id'] === '3') {
             $this->checkAndInsertofData($request);
         }
         BasicPages::find($request['id'])->update([
@@ -56,6 +56,12 @@ class BasicPagesController extends Controller
                 'content' => $request['content'][$eee],
             ]);
         }
+
+        BasicPageSection::create([
+            'basic_page_id' => $request['id'],
+            'title' => $request['title'][$eee],
+            'content' => $request['content'][$eee],
+        ]);
     }
     private function checkAndInsertofData($request)
     {
@@ -64,14 +70,8 @@ class BasicPagesController extends Controller
                 $checkCount = DB::table('basic_page_section')
                     ->select('id')
                     ->where('title', $request['title'][$eee])->count();
-
                 $this->updateBasicPageSection($checkCount, $request, $eee);
             }
-            BasicPageSection::create([
-                'basic_page_id' => $request['id'],
-                'title' => $request['title'][$eee],
-                'content' => $request['content'][$eee],
-            ]);
         }
     }
 }
