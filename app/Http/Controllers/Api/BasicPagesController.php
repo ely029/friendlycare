@@ -20,7 +20,7 @@ class BasicPagesController extends Controller
 
     public function consentFormSection()
     {
-        $content = BasicPageSection::where('basic_page_id', 3)->first();
+        $content = BasicPageSection::where('basic_page_id', 3)->get();
 
         return response([
             'name' => 'consentFormSection',
