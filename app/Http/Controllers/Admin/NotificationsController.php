@@ -62,9 +62,17 @@ class NotificationsController extends Controller
         }
 
         $request = request()->all();
-        $request['is_approve'] = 1;
-        $request['date_string'] = strtotime($request['date']);
-        EventsNotification::create($request);
+        if ($request['type'] === '2') {
+            $request['is_approve'] = 1;
+            $request['date_string'] = strtotime($request['date']);
+            $request['display_type'] = 'Announcements';
+            EventsNotification::create($request);
+        } else {
+            $request['is_approve'] = 1;
+            $request['date_string'] = strtotime($request['date']);
+            $request['display_type'] = 'Events';
+            EventsNotification::create($request);
+        }
 
         return redirect()->action('Admin\NotificationsController@index');
     }

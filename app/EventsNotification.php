@@ -19,5 +19,7 @@ class EventsNotification extends Model
         'date',
         'time',
         'is_approve',
+        'patient_id',
+        'display_type',
     ];
 }

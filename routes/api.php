@@ -113,7 +113,7 @@ Route::get('/booking/bookingsyesterday/provider/{id}', 'Patients\BookingControll
 Route::get('/booking/bookingstommorow/provider/{id}', 'Patients\BookingController@getBookingsTommorow');
 Route::post('/booking/bookingsdatepicker/provider/{id}', 'Patients\BookingController@bookingsDatePicker');
 Route::get('/booking/{id}', 'Patients\BookingController@getBookingPerId');
-Route::post('/booking/approveBook/{id}', 'Patients\BookingController@approveBooking');
+Route::post('/booking/approveBook/{id}', 'Patients\BookingssController@approveBooking');
 
 //Provider cancellation
 Route::get('/booking/cancellation/provider/{id}', 'Patients\BookingController@cancellationDetails');
@@ -160,3 +160,6 @@ Route::get('/booking/timeslot/{id}', 'Provider\DefaultController@getProviderTime
 Route::post('/booking/timeslot/{id}', 'Provider\DefaultController@postProviderTimeSlot');
 
 Route::get('/checkdatetoday', 'Patients\BookingController@checkDateToday');
+
+//Notifications
+Route::get('/notifications/{id}', 'Patients\NotificationsController@getNotifications');
