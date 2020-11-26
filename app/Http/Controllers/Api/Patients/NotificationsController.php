@@ -30,4 +30,17 @@ class NotificationsController extends Controller
             'details' => $data,
         ]);
     }
+
+    public function notificationDetails($id)
+    {
+        $details = DB::table('events_notification')
+            ->select('title', 'created_at', 'message', 'display_type')
+            ->where('id', $id)
+            ->get();
+
+        return response([
+            'name' => 'getNotificationDetails',
+            'details' => $details,
+        ]);
+    }
 }

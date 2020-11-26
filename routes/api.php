@@ -163,3 +163,4 @@ Route::get('/checkdatetoday', 'Patients\BookingController@checkDateToday');
 
 //Notifications
 Route::get('/notifications/{id}', 'Patients\NotificationsController@getNotifications');
+Route::get('/notifications/patient/{id}', 'Patients\NotificationsController@notificationDetails');
