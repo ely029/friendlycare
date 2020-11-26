@@ -14,11 +14,11 @@ class NotificationsController extends Controller
     public function getNotifications($id)
     {
         $events = DB::table('events_notification')
-            ->select('title', 'display_type as type', 'is_read')
+            ->select('id', 'title', 'display_type as type', 'is_read')
             ->where('date_string', '>=', strtotime(date('Y-m-d')));
 
         $notifications = DB::table('events_notification')
-            ->select('title', 'display_type as type', 'is_read')
+            ->select('id', 'title', 'display_type as type', 'is_read')
             ->where('schedule', null)
             ->where('patient_id', $id)
             ->where('display_type', 'Notifications');
@@ -34,7 +34,7 @@ class NotificationsController extends Controller
     public function notificationDetails($id)
     {
         $details = DB::table('events_notification')
-            ->select('title', 'created_at', 'message', 'display_type')
+            ->select('id', 'title', 'created_at', 'message', 'display_type')
             ->where('id', $id)
             ->get();
 
