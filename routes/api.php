@@ -117,7 +117,7 @@ Route::post('/booking/approveBook/{id}', 'Patients\BookingssController@approveBo
 
 //Provider cancellation
 Route::get('/booking/cancellation/provider/{id}', 'Patients\BookingController@cancellationDetails');
-Route::post('/booking/cancellation/provider/{id}', 'Patients\BookingController@approveCancellationDetails');
+Route::post('/booking/cancellation/provider/{id}', 'Patients\BookingssController@approveCancellationDetails');
 
 //Provider Confirm Service
 Route::get('/booking/confirmService/provider/{id}', 'Patients\BookingController@getConfirmServiceDetails');
@@ -127,7 +127,7 @@ Route::get('/booking/clinicservice/{id}', 'Patients\BookingController@getClinicS
 //Provider Reschedule
 Route::get('/booking/reschedule/provider/{id}', 'Patients\BookingController@getRescheduleDetails');
 Route::post('/booking/reschedule/setupTime/{id}', 'Patients\BookingController@rescheduleTimeSetUp');
-Route::post('/booking/reschedule/createReschedule/{id}', 'Patients\BookingController@createReschedule');
+Route::post('/booking/reschedule/createReschedule/{id}', 'Patients\BookingssController@createReschedule');
 
 //Patient Reschedule
 Route::post('/patient/cancellationbooking/{id}', 'Patients\DefaultController@postReschedule');

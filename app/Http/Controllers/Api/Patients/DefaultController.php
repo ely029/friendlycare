@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\Patients;
 
 use App\Booking;
+use App\EventsNotification;
 use App\FpmMethods;
 use App\Http\Controllers\Controller;
 use App\Mail\EmailVerification;
@@ -668,6 +669,18 @@ class DefaultController extends Controller
         Booking::where('id', $id)->update([
             'status' => 3,
             'cancellation_message_1' => $obj['cancellation_message'],
+        ]);
+        $getPatientId = DB::table('booking')->select('patient_id')->where('id', $id)->pluck('patient_id');
+        $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
+        $getTime = DB::table('booking')->select('time_slot')->where('id', $id)->pluck('time_slot');
+        $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
+        $message = 'You had cancelled your appointment at '.$getClinicName[0].' dated '.$getTime[0].'';
+
+        EventsNotification::create([
+            'patient_id' => $getPatientId[0],
+            'message' => $message,
+            'display_type' => 'Notifications',
+            'title' => 'Booking Cancelled',
         ]);
 
         return response([

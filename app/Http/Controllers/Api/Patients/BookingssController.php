@@ -49,4 +49,66 @@ class BookingssController extends Controller
             'title' => 'Booking Accepted',
         ]);
     }
+
+    public function approveCancellationDetails(Request $request, $id)
+    {
+        $obj = json_decode($request->getContent(), true);
+        DB::update('update booking set cancellation_message_1 = ?, status = ? where id = ?', [$obj['cancellation_message'][0], 3, $id]);
+        DB::update('update booking_time set status = ? where booking_id = ?', [3, $id]);
+        $getPatientId = DB::table('booking')->select('patient_id')->where('id', $id)->pluck('patient_id');
+        $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
+        $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
+        $message = 'Your Clinic,'.$getClinicName[0].' had cancelled your appointment';
+        EventsNotification::create([
+            'patient_id' => $getPatientId[0],
+            'message' => $message,
+            'display_type' => 'Notifications',
+            'title' => 'Booking Cancelled',
+        ]);
+        return response([
+            'name' => 'ApproveCancellation',
+            'message' => 'This booking is cancelled',
+        ]);
+    }
+
+    public function createReschedule(Request $request, $id)
+    {
+        Booking::where('id', $id)->update([
+            'status' => 2,
+        ]);
+        BookingTime::where('booking_id', $id)->delete();
+        $obj = json_decode($request->getContent(), true);
+        $getPatient = DB::table('booking')
+            ->select('patient_id')
+            ->where('id', $id)
+            ->pluck('patient_id');
+        Booking::where('id', $id)->update([
+            'time_slot' => $obj['date'][0],
+        ]);
+
+        for ($eee = 0; $eee <= 100; $eee++) {
+            if (isset($obj['time'][$eee])) {
+                BookingTime::create([
+                    'patient_id' => $getPatient[0],
+                    'booking_id' => $id,
+                    'time_slot' => $obj['time'][$eee],
+                ]);
+            }
+        }
+        $getPatientId = DB::table('booking')->select('patient_id')->where('id', $id)->pluck('patient_id');
+        $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
+        $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
+        $message = 'Your Booking  at '.$getClinicName[0].' had been rescheduled at '.$obj['date'][0].', '.$obj['time'][$eee].'';
+        EventsNotification::create([
+            'patient_id' => $getPatientId[0],
+            'message' => $message,
+            'display_type' => 'Notifications',
+            'title' => 'Booking Rescheduled',
+        ]);
+
+        return response([
+            'name' => 'postProviderReschedule',
+            'message' => 'Reschedule is successful',
+        ]);
+    }
 }

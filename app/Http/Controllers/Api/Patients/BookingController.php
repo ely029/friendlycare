@@ -494,17 +494,6 @@ class BookingController extends Controller
         ]);
     }
 
-    public function approveCancellationDetails(Request $request, $id)
-    {
-        $obj = json_decode($request->getContent(), true);
-        DB::update('update booking set cancellation_message_1 = ?, status = ? where id = ?', [$obj['cancellation_message'][0], 3, $id]);
-        DB::update('update booking_time set status = ? where booking_id = ?', [3, $id]);
-        return response([
-            'name' => 'ApproveCancellation',
-            'message' => 'This booking is cancelled',
-        ]);
-    }
-
     public function getConfirmServiceDetails($id)
     {
         $booking = new Booking();
@@ -520,6 +509,16 @@ class BookingController extends Controller
     {
         $obj = json_decode($request->getContent(), true);
         DB::update('update booking set service_id = ?, status = ? where id = ?', [$obj['service'][0], 4, $id]);
+
+        $getPatientId = DB::table('booking')->select('patient_id')->where('id', $id)->pluck('patient_id');
+        $message = 'Your Clinic has already confirmed and your booking are already completed';
+
+        EventsNotification::create([
+            'patient_id' => $getPatientId[0],
+            'message' => $message,
+            'display_type' => 'Notifications',
+            'title' => 'Booking Confirmed and Completed',
+        ]);
 
         return response([
             'name' => 'postConfirmService',
@@ -605,37 +604,6 @@ class BookingController extends Controller
         return response([
             'name' => 'rescheduleSetUpTime',
             'details' => $array_of_time,
-        ]);
-    }
-
-    public function createReschedule(Request $request, $id)
-    {
-        Booking::where('id', $id)->update([
-            'status' => 2,
-        ]);
-        BookingTime::where('booking_id', $id)->delete();
-        $obj = json_decode($request->getContent(), true);
-        $getPatient = DB::table('booking')
-            ->select('patient_id')
-            ->where('id', $id)
-            ->pluck('patient_id');
-        Booking::where('id', $id)->update([
-            'time_slot' => $obj['date'][0],
-        ]);
-
-        for ($eee = 0; $eee <= 100; $eee++) {
-            if (isset($obj['time'][$eee])) {
-                BookingTime::create([
-                    'patient_id' => $getPatient[0],
-                    'booking_id' => $id,
-                    'time_slot' => $obj['time'][$eee],
-                ]);
-            }
-        }
-
-        return response([
-            'name' => 'postProviderReschedule',
-            'message' => 'Reschedule is successful',
         ]);
     }
     public function getClinicServiceByClinic($id)
