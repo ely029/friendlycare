@@ -33,6 +33,9 @@ class NotificationsController extends Controller
 
     public function notificationDetails($id)
     {
+        EventsNotification::where('id', $id)->update([
+            'is_read' => 1,
+        ]);
         $getPatientId = DB::table('events_notification')->select('patient_id')->where('id', $id)->pluck('patient_id');
         $details = DB::table('events_notification')
             ->leftJoin('booking', 'booking.patient_id', 'events_notification.patient_id')
@@ -43,6 +46,47 @@ class NotificationsController extends Controller
 
         return response([
             'name' => 'getNotificationDetails',
+            'details' => $details,
+        ]);
+    }
+
+    public function filter(Request $request, $id)
+    {
+        $obj = json_decode($request->getContent(), true);
+        if ($obj['filter'][0] === 'Events') {
+            $details = DB::table('events_notification')
+                ->select('id', 'title', 'display_type as type', 'is_read')
+                ->where('date_string', '>=', strtotime(date('Y-m-d')))
+                ->get();
+        } elseif ($obj['filter'][0] === 'Notifications') {
+            $details = DB::table('events_notification')
+                ->select('id', 'title', 'display_type as type', 'is_read')
+                ->where('schedule', null)
+                ->where('patient_id', $id)
+                ->where('display_type', 'Notifications')
+                ->get();
+        } elseif ($obj['filter'][0] === 'Announcements') {
+            $details = DB::table('events_notification')
+                ->select('id', 'title', 'display_type as type', 'is_read')
+                ->where('schedule', null)
+                ->where('patient_id', $id)
+                ->where('display_type', 'Announcements')
+                ->get();
+        } else {
+            $events = DB::table('events_notification')
+                ->select('id', 'title', 'display_type as type', 'is_read')
+                ->where('date_string', '>=', strtotime(date('Y-m-d')));
+
+            $notifications = DB::table('events_notification')
+                ->select('id', 'title', 'display_type as type', 'is_read')
+                ->where('schedule', null)
+                ->where('patient_id', $id)
+                ->where('display_type', 'Notifications');
+
+            $details = $events->union($notifications)->get();
+        }
+        return response([
+            'name' => 'notifications',
             'details' => $details,
         ]);
     }

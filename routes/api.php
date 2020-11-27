@@ -170,3 +170,4 @@ Route::get('/rating/{id}', 'Patients\RatingController@getRatingDetails');
 Route::post('/rating', 'Patients\RatingController@postRating');
 Route::get('/rating', 'Patients\RatingController@rating');
 Route::get('/ratingdetails', 'Patients\RatingController@ratingDetails');
+Route::post('/rating/filter/{id}', 'Patients\NotificationsController@filter');
