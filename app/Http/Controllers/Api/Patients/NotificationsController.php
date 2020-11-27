@@ -33,9 +33,12 @@ class NotificationsController extends Controller
 
     public function notificationDetails($id)
     {
+        $getPatientId = DB::table('events_notification')->select('patient_id')->where('id', $id)->pluck('patient_id');
         $details = DB::table('events_notification')
-            ->select('id', 'title', 'created_at', 'message', 'display_type')
-            ->where('id', $id)
+            ->leftJoin('booking', 'booking.patient_id', 'events_notification.patient_id')
+            ->select('events_notification.id', 'events_notification.title', 'events_notification.created_at', 'events_notification.message', 'events_notification.display_type', 'booking.status', 'booking.id as booking_id')
+            ->where('events_notification.id', $id)
+            ->where('booking.patient_id', $getPatientId[0])
             ->get();
 
         return response([
