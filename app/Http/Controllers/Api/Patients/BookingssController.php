@@ -33,7 +33,7 @@ class BookingssController extends Controller
         $getDate = DB::table('booking')->select('time_slot')->where('id', $id)->pluck('time_slot');
         $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
         $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
-        $message = 'Your booking for '.$getDate[0].' has been confirmed at '.$getClinicName[0].'\r\r\r\r Check your Bookings menu to learn more details.\r\r\r\r\r Please be reminded, you can not cancel bookings within 3 days of your appointment date';
+        $message = 'Your booking for '.$getDate[0].' has been confirmed at '.$getClinicName[0].'\n\n\n\n\n Check your Bookings menu to learn more details.\n\n\n\n\n Please be reminded, you can not cancel bookings within 3 days of your appointment date';
 
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
