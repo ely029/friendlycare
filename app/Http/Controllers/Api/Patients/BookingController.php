@@ -509,9 +509,10 @@ class BookingController extends Controller
     {
         $obj = json_decode($request->getContent(), true);
         DB::update('update booking set service_id = ?, status = ? where id = ?', [$obj['service'][0], 4, $id]);
-
+        $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
+        $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
         $getPatientId = DB::table('booking')->select('patient_id')->where('id', $id)->pluck('patient_id');
-        $message = 'Your Clinic has already confirmed and your booking are already completed';
+        $message = $getClinicName[0];
 
         EventsNotification::create([
             'patient_id' => $getPatientId[0],

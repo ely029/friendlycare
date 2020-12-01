@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\Patients;
 
 use App\EventsNotification;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -37,7 +38,8 @@ class NotificationsController extends Controller
             'is_read' => 1,
         ]);
         $details = DB::table('events_notification')
-            ->select('events_notification.id', 'events_notification.title', 'events_notification.created_at', 'events_notification.message', 'events_notification.display_type', 'events_notification.status')
+
+            ->select('events_notification.id', 'events_notification.title', DB::raw('DATE_FORMAT(events_notification.created_at, "%m/%d/%Y %H:%i %p") as created_at'), 'events_notification.message as clinic_name', 'events_notification.display_type', 'events_notification.status')
             ->where('events_notification.id', $id)
             ->get();
 

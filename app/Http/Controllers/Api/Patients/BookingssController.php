@@ -33,13 +33,14 @@ class BookingssController extends Controller
         $getDate = DB::table('booking')->select('time_slot')->where('id', $id)->pluck('time_slot');
         $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
         $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
-        $message = 'Your booking for '.$getDate[0].' has been confirmed at '.$getClinicName[0].'\n\n\n\n\n Check your Bookings menu to learn more details.\n\n\n\n\n Please be reminded, you can not cancel bookings within 3 days of your appointment date';
+        $message = $getClinicName[0];
 
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
             'message' => $message,
             'display_type' => 'Notifications',
             'title' => 'Booking Accepted',
+            'appointment_date' => $getDate[0],
         ]);
 
         return response([
@@ -59,7 +60,7 @@ class BookingssController extends Controller
         $getPatientId = DB::table('booking')->select('patient_id')->where('id', $id)->pluck('patient_id');
         $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
         $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
-        $message = 'Your Clinic,'.$getClinicName[0].' had cancelled your appointment';
+        $message = $getClinicName[0];
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
             'message' => $message,
@@ -99,12 +100,13 @@ class BookingssController extends Controller
         $getPatientId = DB::table('booking')->select('patient_id')->where('id', $id)->pluck('patient_id');
         $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
         $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
-        $message = 'Your Booking  at '.$getClinicName[0].' had been rescheduled at '.$obj['date'][0].', '.$obj['time'][$eee].'';
+        $message = $getClinicName[0];
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
             'message' => $message,
             'display_type' => 'Notifications',
             'title' => 'Booking Rescheduled',
+            'appointment_date' => $obj['date'][0],
         ]);
 
         return response([

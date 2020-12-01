@@ -22,5 +22,6 @@ class EventsNotification extends Model
         'patient_id',
         'display_type',
         'status',
+        'appointment_date',
     ];
 }
