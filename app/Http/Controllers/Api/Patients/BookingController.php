@@ -521,6 +521,7 @@ class BookingController extends Controller
             'display_type' => 'Notifications',
             'title' => 'Booking Confirmed and Completed',
             'status' => 4,
+            'booking_id' => $id,
         ]);
 
         return response([
