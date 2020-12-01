@@ -48,7 +48,7 @@ class BookingssController extends Controller
             'data' => $data,
             'title' => 'Booking Accepted',
         ])
-            ->header('Content-type', 'text/plain');
+            ->header('Content-type', 'application/json');
     }
 
     public function approveCancellationDetails(Request $request, $id)
