@@ -37,7 +37,8 @@ class BookingssController extends Controller
 
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
-            'message' => $message,
+            'message' => '',
+            'clinic_name' => $message,
             'display_type' => 'Notifications',
             'title' => 'Booking Accepted',
             'appointment_date' => $getDate[0],
@@ -58,12 +59,15 @@ class BookingssController extends Controller
         DB::update('update booking set cancellation_message_1 = ?, status = ? where id = ?', [$obj['cancellation_message'][0], 3, $id]);
         DB::update('update booking_time set status = ? where booking_id = ?', [3, $id]);
         $getPatientId = DB::table('booking')->select('patient_id')->where('id', $id)->pluck('patient_id');
+        $getPatientDate = DB::table('booking')->select('time_slot')->where('id', $id)->pluck('time_slot');
         $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
         $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
         $message = $getClinicName[0];
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
-            'message' => $message,
+            'message' => '',
+            'clinic_name' => $message,
+            'appointment_date' => $getPatientDate[0],
             'display_type' => 'Notifications',
             'title' => 'Booking Cancelled',
         ]);
@@ -103,7 +107,8 @@ class BookingssController extends Controller
         $message = $getClinicName[0];
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
-            'message' => $message,
+            'message' => '',
+            'clinic_name' => $message,
             'display_type' => 'Notifications',
             'title' => 'Booking Rescheduled',
             'appointment_date' => $obj['date'][0],

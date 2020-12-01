@@ -23,5 +23,6 @@ class EventsNotification extends Model
         'display_type',
         'status',
         'appointment_date',
+        'clinic_name',
     ];
 }
