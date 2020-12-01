@@ -41,7 +41,7 @@ class BookingssController extends Controller
             'clinic_name_1' => $message,
             'display_type' => 'Notifications',
             'title' => 'Booking Accepted',
-            'appointment_date_1' => $getDate[0],
+            'appointement_date_1' => $getDate[0],
         ]);
 
         return response([
@@ -67,7 +67,7 @@ class BookingssController extends Controller
             'patient_id' => $getPatientId[0],
             'message' => '',
             'clinic_name_1' => $message,
-            'appointment_date_1' => $getPatientDate[0],
+            'appointement_date_1' => $getPatientDate[0],
             'display_type' => 'Notifications',
             'title' => 'Booking Cancelled',
         ]);
@@ -111,7 +111,7 @@ class BookingssController extends Controller
             'clinic_name_1' => $message,
             'display_type' => 'Notifications',
             'title' => 'Booking Rescheduled',
-            'appointment_date_1' => $obj['date'][0],
+            'appointement_date_1' => $obj['date'][0],
         ]);
 
         return response([
