@@ -37,7 +37,7 @@ class NotificationsController extends Controller
             'is_read' => 1,
         ]);
         $details = DB::table('events_notification')
-            ->select('events_notification.id', 'events_notification.title', 'events_notification.created_at', 'events_notification.message', 'events_notification.display_type')
+            ->select('events_notification.id', 'events_notification.title', 'events_notification.created_at', 'events_notification.message', 'events_notification.display_type','events_notification.status')
             ->where('events_notification.id', $id)
             ->get();
 
