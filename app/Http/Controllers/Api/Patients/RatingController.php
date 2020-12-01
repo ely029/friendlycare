@@ -19,7 +19,7 @@ class RatingController extends Controller
         $details = DB::table('booking')
             ->leftJoin('clinics', 'clinics.id', 'booking.clinic_id')
             ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
-            ->select('clinics.clinic_name', 'family_plan_type_subcategory.name as service_name')
+            ->select('clinics.clinic_name', 'family_plan_type_subcategory.name as service_name', 'clinics.id as clinic_id')
             ->where('booking.id', $id)
             ->get();
 
