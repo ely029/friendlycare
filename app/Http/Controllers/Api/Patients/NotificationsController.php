@@ -70,8 +70,7 @@ class NotificationsController extends Controller
                 ->get();
         } else {
             $events = DB::table('events_notification')
-                ->select('id', 'title', 'display_type as type', 'is_read')
-                ->where('date_string', '>=', strtotime(date('Y-m-d')));
+                ->select('id', 'title', 'display_type as type', 'is_read');
 
             $notifications = DB::table('events_notification')
                 ->select('id', 'title', 'display_type as type', 'is_read')
