@@ -518,6 +518,7 @@ class BookingController extends Controller
             'message' => $message,
             'display_type' => 'Notifications',
             'title' => 'Booking Confirmed and Completed',
+            'status' => 4,
         ]);
 
         return response([

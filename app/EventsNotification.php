@@ -21,5 +21,6 @@ class EventsNotification extends Model
         'is_approve',
         'patient_id',
         'display_type',
+        'status',
     ];
 }
