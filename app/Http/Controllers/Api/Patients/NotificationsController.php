@@ -19,7 +19,6 @@ class NotificationsController extends Controller
 
         $notifications = DB::table('events_notification')
             ->select('id', 'title', 'display_type as type', 'is_read')
-            ->where('schedule', null)
             ->where('patient_id', $id)
             ->where('display_type', 'Notifications');
 
