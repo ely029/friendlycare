@@ -67,7 +67,6 @@ class NotificationsController extends Controller
         } elseif ($obj['filter'][0] === 'Announcements') {
             $details = DB::table('events_notification')
                 ->select('id', 'title', 'display_type as type', 'is_read')
-                ->where('schedule', null)
                 ->where('patient_id', $id)
                 ->where('display_type', 'Announcements')
                 ->get();
