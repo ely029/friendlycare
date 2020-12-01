@@ -38,7 +38,7 @@ class BookingssController extends Controller
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
             'message' => '',
-            'clinic_name' => $message,
+            'clinic_name_1' => $message,
             'display_type' => 'Notifications',
             'title' => 'Booking Accepted',
             'appointment_date' => $getDate[0],
@@ -66,7 +66,7 @@ class BookingssController extends Controller
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
             'message' => '',
-            'clinic_name' => $message,
+            'clinic_name_1' => $message,
             'appointment_date' => $getPatientDate[0],
             'display_type' => 'Notifications',
             'title' => 'Booking Cancelled',
@@ -108,7 +108,7 @@ class BookingssController extends Controller
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
             'message' => '',
-            'clinic_name' => $message,
+            'clinic_name_1' => $message,
             'display_type' => 'Notifications',
             'title' => 'Booking Rescheduled',
             'appointment_date' => $obj['date'][0],

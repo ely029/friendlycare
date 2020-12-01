@@ -24,5 +24,7 @@ class EventsNotification extends Model
         'status',
         'appointment_date',
         'clinic_name',
+        'clinic_name_1',
+        'is_rated',
     ];
 }
