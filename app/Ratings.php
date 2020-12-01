@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Ratings extends Model
 {
@@ -14,4 +15,14 @@ class Ratings extends Model
         'clinic_id',
         'review',
     ];
+
+    public function providerRatingDetails($id)
+    {
+        return DB::table('ratings_details')
+            ->leftJoin('ratings', 'ratings.id', 'ratings_details.rating_id')
+            ->leftJoin('users', 'ratings.patient_id', 'users.id')
+            ->select('ratings.review', 'ratings_details.ratings', 'users.name')
+            ->where('ratings.clinic_id', $id)
+            ->get();
+    }
 }
