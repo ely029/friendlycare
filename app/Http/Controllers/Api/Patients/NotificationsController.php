@@ -70,7 +70,9 @@ class NotificationsController extends Controller
                 ->get();
         } else {
             $events = DB::table('events_notification')
-                ->select('id', 'title', 'display_type as type', 'is_read');
+                ->select('id', 'title', 'display_type as type', 'is_read')
+                ->where('display_type', 'Announcements')
+                ->orWhere('display_type', 'Events');
 
             $notifications = DB::table('events_notification')
                 ->select('id', 'title', 'display_type as type', 'is_read')
