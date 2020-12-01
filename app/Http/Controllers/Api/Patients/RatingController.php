@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Patients;
 
+use App\Booking;
 use App\EventsNotification;
 use App\Http\Controllers\Controller;
 use App\RatingDetails;
@@ -41,7 +42,9 @@ class RatingController extends Controller
         EventsNotification::where(['patient_id' => $obj['patient_id'], 'status' => 4])->update([
             'is_rated' => 1,
         ]);
-
+        Booking::where(['clinic_id' => $obj['clinic_id'][0], 'patient_id' => $obj['patient_id'][0]])->update([
+            'is_rated' => 1,
+        ]);
         for ($eee = 0; $eee <= 2; $eee++) {
             RatingDetails::create([
                 'ratings' => $obj['ratings'][$eee],

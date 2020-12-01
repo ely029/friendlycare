@@ -23,6 +23,7 @@ class Booking extends Model
         'time_to',
         'end_time',
         'new_request_end_time',
+        'is_rated',
     ];
 
     public function getNewRequestBooking($clinic_id)
@@ -159,7 +160,7 @@ class Booking extends Model
             ->leftJoin('booking_time', 'booking.id', 'booking_time.booking_id')
             ->leftJoin('users', 'users.id', 'booking.patient_id')
             ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
-            ->select('users.id as user_id', 'booking.id as booking_id', 'clinics.clinic_name', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'booking.status', 'family_plan_type_subcategory.name as service_name', 'clinics.email', 'clinics.contact_number', 'clinics.street_address')
+            ->select('users.id as user_id', 'booking.id as booking_id', 'clinics.clinic_name', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'booking.status', 'family_plan_type_subcategory.name as service_name', 'clinics.email', 'clinics.contact_number', 'clinics.street_address', 'booking.is_rated')
             ->where('booking.id', $id)
             ->get();
     }
