@@ -42,6 +42,7 @@ class BookingssController extends Controller
             'display_type' => 'Notifications',
             'title' => 'Booking Accepted',
             'appointement_date_1' => $getDate[0],
+            'booking_id' => $id,
         ]);
 
         return response([
