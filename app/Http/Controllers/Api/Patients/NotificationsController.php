@@ -39,7 +39,7 @@ class NotificationsController extends Controller
         ]);
         $details = DB::table('events_notification')
 
-            ->select('events_notification.id', 'events_notification.title', DB::raw('DATE_FORMAT(events_notification.created_at, "%m/%d/%Y %H:%i %p") as created_at'), 'events_notification.message as clinic_name', 'events_notification.display_type', 'events_notification.status')
+            ->select('events_notification.id', 'events_notification.title', DB::raw('DATE_FORMAT(events_notification.created_at, "%m/%d/%Y %H:%i %p") as created_at'), 'events_notification.message as clinic_name', 'events_notification.apppointment_date as date_booked', 'events_notification.display_type', 'events_notification.status')
             ->where('events_notification.id', $id)
             ->get();
 
