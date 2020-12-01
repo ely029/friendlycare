@@ -38,7 +38,6 @@ class NotificationsController extends Controller
         ]);
         $details = DB::table('events_notification')
             ->join('booking', 'booking.patient_id', 'events_notification.patient_id')
-            ->join('users', 'events_notification.patient_id', 'users.id')
             ->select('events_notification.id', 'events_notification.title', 'events_notification.created_at', 'events_notification.message', 'events_notification.display_type', 'booking.status', 'booking.id as booking_id')
             ->where('events_notification.id', $id)
             ->get();
