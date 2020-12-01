@@ -517,7 +517,7 @@ class BookingController extends Controller
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
             'message' => '',
-            'clinic_name' => $message,
+            'clinic_name_1' => $message,
             'display_type' => 'Notifications',
             'title' => 'Booking Confirmed and Completed',
             'status' => 4,
