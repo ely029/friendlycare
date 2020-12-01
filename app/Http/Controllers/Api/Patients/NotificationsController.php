@@ -15,7 +15,9 @@ class NotificationsController extends Controller
     {
         $events = DB::table('events_notification')
             ->select('id', 'title', 'display_type as type', 'is_read')
-            ->where('date_string', '>=', strtotime(date('Y-m-d')));
+            ->where('date_string', '>=', strtotime(date('Y-m-d')))
+            ->where('display_type', 'Announcements')
+            ->orWhere('display_type', 'Events');
 
         $notifications = DB::table('events_notification')
             ->select('id', 'title', 'display_type as type', 'is_read')
