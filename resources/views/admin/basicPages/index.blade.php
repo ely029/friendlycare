@@ -4,7 +4,42 @@
 @section('description', 'Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div class="wrapper">
+@include('includes.sidebar')
+</div>
+
+<div class="section">
+<div class="section__top">
+    <h1 class="section__title">Basic Pages</h1>
+    <div class="breadcrumbs"><a class="breadcrumbs__link" href="basic-pages.php">Basic Pages</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
+</div>
+<div class="section__container">
+    <table class="table" id="basic">
+    <thead>
+        <tr>
+        <th class="table__head">Title</th>
+        <th class="table__head">Content</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="table__row js-view" data-href="about.php">
+        <td class="table__details">About us</td>
+        <td class="table__details">Lorem ipsum</td>
+        </tr>
+        <tr class="table__row js-view" data-href="tos.php">
+        <td class="table__details">Terms of service</td>
+        <td class="table__details">Lorem ipsum</td>
+        </tr>
+        <tr class="table__row js-view" data-href="consent-form.php">
+        <td class="table__details">Consent form</td>
+        <td class="table__details">Lorem ipsum</td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+</div>
+
+<!-- <div class="container-fluid">
     <div class="row">
         <aside class="col-2 px-0 fixed-top" id="left">
         @csrf
@@ -19,7 +54,7 @@
 
         </aside>
         <main class="col-10 invisible">
-            <!--hidden spacer-->
+            hidden spacer
         </main>
         <main class="col offset-2 h-100">
         <div class="row">
@@ -42,5 +77,5 @@
             </table>
         </main>
     </div>
-</div>
+</div> -->
 @endsection

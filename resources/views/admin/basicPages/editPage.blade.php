@@ -4,7 +4,75 @@
 @section('description', 'Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div class="wrapper">
+@include('includes.sidebar')
+</div>
+
+<!-- for about us -->
+<div class="section">
+<div class="section__top">
+    <h1 class="section__title">About us</h1>
+    <div class="breadcrumbs"><a class="breadcrumbs__link" href="basic-pages.php">Basic pages</a><a class="breadcrumbs__link" href="about.php">About us</a><a class="breadcrumbs__link" href="edit-about.php">Edit</a></div>
+</div>
+<div class="section__container">
+    <h2 class="section__heading">About us</h2>
+    <div class="form">
+    <div class="form__input form__input--message js-editor-content"></div>
+    <div class="form__button form__button--end"><button class="button" type="button">Save changes</button></div>
+    </div>
+</div>
+</div>
+
+
+<!-- for consent form -->
+<div class="section">
+<div class="section__top">
+    <h1 class="section__title">Consent form</h1>
+    <div class="breadcrumbs">
+    <a class="breadcrumbs__link" href="basic-pages.php">Basic pages</a><a class="breadcrumbs__link" href="consent-form.php">Consent form</a><a class="breadcrumbs__link" href="edit-consent-form.php">Edit</a>
+    </div>
+</div>
+<div class="section__container">
+    <div class="form">
+    <div id="js-consent-form">
+        <div class="form__container">
+        <div class="form__content form__content--full"><input class="form__input" type="text" /><label class="form__label form__label--visible" for="">Title</label></div>
+        <div class="form__content form__content--full"><input class="form__input" type="text" /><label class="form__label form__label--visible" for="">Section title</label></div>
+        <div class="form__content form__content--full">
+            <div class="form__input form__input--message js-editor-content"></div>
+            <label class="form__label form__label--visible" for="">Content</label>
+        </div>
+        <div class="form__button form__button--end">
+            <button class="button button--medium js-delete-section" type="button">Delete section</button><button class="button button--medium js-add-section" type="button">Add section</button>
+        </div>
+        </div>
+    </div>
+    <div class="form__button form__button--end"><button class="button js-trigger" type="button">Save changes</button></div>
+    </div>
+    <div class="modal js-modal">
+    <div class="modal__background js-modal-background"></div>
+    <div class="modal__container">
+        <div class="modal__box">
+        <h2 class="modal__title">Save changes?</h2>
+        <p class="modal__text">All changes will update the version of the app. Are you sure you want to Save?</p>
+        <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium" type="button">Save changes</button></div>
+        </div>
+    </div>
+    </div>
+    <div class="modal js-modal">
+    <div class="modal__background js-modal-background"></div>
+    <div class="modal__container">
+        <div class="modal__box">
+        <h2 class="modal__title">Delete section?</h2>
+        <p class="modal__text">Are you sure you want to delete this section?</p>
+        <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium button--medium__delete" type="button">Delete section</button></div>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+
+<!-- <div class="container-fluid">
     <div class="row">
         <aside class="col-2 px-0 fixed-top" id="left">
         @csrf
@@ -19,7 +87,7 @@
 
         </aside>
         <main class="col-10 invisible">
-            <!--hidden spacer-->
+            hidden spacer
         </main>
         <main class="col offset-2 h-100">
         <div class="row">
@@ -78,5 +146,5 @@
            @endforeach
         </main>
     </div>
-</div>
+</div> -->
 @endsection
