@@ -10,10 +10,10 @@
 <div class="section">
         <div class="section__top">
           <h1 class="section__title">Family planning methods</h1>
-          <div class="breadcrumbs"><a class="breadcrumbs__link" href="family-planning-methods.php">Family planning methods</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('familyPlanningMethod.firstPage') }}">Family planning methods</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
-          <a class="button button--create" href="create-method.php">Create new method<i class="fa fa-plus"></i></a>
+          <a class="button button--create" href="{{ route('familyPlanningMethod.firstPage') }}">Create new method<i class="fa fa-plus"></i></a>
           <table class="table" id="table">
             <thead>
               <tr>
@@ -23,14 +23,22 @@
                 <th class="table__head">Category</th>
               </tr>
             </thead>
+            @foreach($details as $detail)
             <tbody>
-              <tr class="table__row js-view" data-href="view-method.php">
-                <td class="table__details">01</td>
-                <td class="table__details">John Smith</td>
-                <td class="table__details">johnsmith@gmail.com</td>
-                <td class="table__details">Staff</td>
+              <tr class="table__row js-view" data-href="{{ route('familyPlanningMethod.information',$detail->id)}}">
+              <td>{{ $detail->id }}</td>
+                            <td>{{ $detail->name }}</td>
+                            <td>{{ $detail->short_name }}</td>
+                            @if ($detail->family_plan_type_id == '1')
+                            <td>Modern Method</td>
+                            @elseif ($detail->family_plan_type_id == '2')
+                            <td>Permanent Method</td>
+                            @elseif ($detail->family_plan_type_id == '3')
+                            <td>Natural Method</td>
+                            @endif
               </tr>
             </tbody>
+              @endforeach
           </table>
         </div>
       </div>

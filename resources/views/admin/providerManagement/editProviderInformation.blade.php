@@ -7,189 +7,134 @@
 <div class="wrapper">
 @include('includes.sidebar')
 </div>
-
+@foreach ($provider as $providers)
 <div class="section">
         <div class="section__top">
-          <h1 class="section__title">FriendlyCare Cubao</h1>
-          <div class="breadcrumbs"><a class="breadcrumbs__link" href="provider-management.php">Provider management</a><a class="breadcrumbs__link" href="view-provider.php">FriendlyCare Cubao</a><a class="breadcrumbs__link"></a></div>
+          <h1 class="section__title">{{ $providers->clinic_name}}</h1>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="provider-management.php">Provider management</a><a class="breadcrumbs__link" href="view-provider.php">{{ $providers->clinic_name }}</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
-          <form class="form" id="js-provider-form" action="">
-            <div class="tabs">
-              <ul class="tabs__list">
-                <li class="tabs__item tabs__item--current">
-                  <div class="tabs__wrapper"><img class="tabs__image" src="img/icon-step.png" alt="Step 1" /></div>
-                  <span class="tabs__text">Company info</span>
-                </li>
-                <li class="tabs__item">
-                  <div class="tabs__wrapper"><img class="tabs__image" src="img/icon-step.png" alt="Step 2" /></div>
-                  <span class="tabs__text">Gallery / schedule</span>
-                </li>
-                <li class="tabs__item">
-                  <div class="tabs__wrapper"><img class="tabs__image" src="img/icon-step.png" alt="Step 3" /></div>
-                  <span class="tabs__text">Clinic services</span>
-                </li>
-                <li class="tabs__item">
-                  <div class="tabs__wrapper"><img class="tabs__image" src="img/icon-step.png" alt="Step 4" /></div>
-                  <span class="tabs__text">Paid services</span>
-                </li>
-              </ul>
-            </div>
-            <div class="tabs__details tabs__details--active">
-              <ul class="form__group form__group--upload">
-                <li class="form__group-item">
-                  <div class="form__wrapper"><img class="form__image" src="img/placeholder.jpg" alt="Image placeholder" /></div>
-                </li>
-                <li class="form__group-item">
-                  <div class="form__content">
-                    <input class="button button--upload" id="js-upload" type="file" accept="image/*" name="js-upload" /><label class="form__label form__label--upload" for="js-upload">Upload a logo or a clinic photo</label>
-                  </div>
-                </li>
-              </ul>
-              <div class="form__inline">
-                <div class="form__content"><input class="form__input" type="text" placeholder="Provider name*" required /><label class="form__label">Provider name* </label></div>
-                <div class="form__content">
-                  <select class="form__input form__input--select" id="region" required></select>
-                  <label class="form__label">Region*</label>
+          <form class="form form--viewProvider" id="js-provider-form" action="">
+            <ul class="form__group form__group--viewProvider">
+              <li class="form__group-item">
+                <div class="form__wrapper"><img class="form__image" src="img/placeholder.jpg" alt="Image placeholder" /></div>
+              </li>
+              <li class="form__group-item">
+                <div class="form__content form__content--reverse">
+                  <label class="form__label form__label--blue">{{ $providers->clinic_name}}</label>
+                  <span class="form__text form__text--group">
+                    <div id="rateYo"></div>
+                    <span class="form__text">(17)</span><a class="form__link form__link--gray" href="">View reviews?</a>
+                  </span>
+                  <span class="form__text">{{ $providers->email}}</span><span class="form__text">{{$providers->contact_number }}</span>
                 </div>
-              </div>
-              <div class="form__inline">
-                <div class="form__content"><input class="form__input" type="text" placeholder="Category*" required /><label class="form__label">Category*</label></div>
-                <div class="form__content">
-                  <select class="form__input form__input--select" id="province" required></select>
-                  <label class="form__label">Province*</label>
+              </li>
+              <li class="form__group-item">
+                <div class="form__content form__content--reverse">
+                  <label class="form__label form__label--blue">Status</label><label class="form__switch" for=""> <input class="form__trigger form__trigger--switch" type="checkbox" checked /><span class="form__slider"></span></label>
                 </div>
-              </div>
-              <div class="form__inline">
-                <div class="form__content"><input class="form__input" type="number" placeholder="Contact number*" required /><label class="form__label">Contact number*</label></div>
-                <div class="form__content">
-                  <select class="form__input form__input--select" id="city" required></select>
-                  <label class="form__label">City*</label>
+              </li>
+            </ul>
+            <ul class="form__group">
+              <li class="form__group-item">
+                <h2 class="section__heading">Clinic info</h2>
+                <div class="form__content form__content--reverse">
+                  <label class="form__label form__label--visible">Address</label><span class="form__text">{{ $providers->street_address}}</span>
+                  <a class="form__link" href="">view on map</a>
                 </div>
-              </div>
-              <div class="form__inline">
-                <div class="form__content"><input class="form__input" type="email" placeholder="Email Address*" required /><label class="form__label">Email Address*</label></div>
-                <div class="form__content">
-                  <select class="form__input form__input--select" id="barangay" required></select>
-                  <label class="form__label">Barangay*</label>
+                <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Category</label><span class="form__text">
+                @if($providers->type == '1')
+                            <span>Private</span>
+                            @elseif($providers->type == '2')
+                            <span>Government</span>
+                            @elseif($providers->type == '3')
+                            <span>NGO</span>
+                            @endif
+                </span></div>
+                <div class="form__content form__content--reverse">
+                  <label class="form__label form__label--visible">Description</label>
+                  <span class="form__text">
+                    {{ $providers->description }}
+                  </span>
                 </div>
+                <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Operating hours</label>
+                @foreach ($clinicHours as $hours)
+                    <div class="row bg-white">
+                      <div class="col-md-4">
+                      <span>{{ $hours->days}}</span>
+                      </div>
+                      <div class="col-md-8">
+                      <span>{{ $hours->froms}} - {{ $hours->tos }}</span>
+                      </div>
+                    </div>
+                    @endforeach
               </div>
-              <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Street address*" /><label class="form__label">Street address*</label></div>
-              <div class="form__content form__content--full"><textarea class="form__input form__input--message" placeholder="Clinic description (optional)"></textarea><label class="form__label">Clinic description (optional)</label></div>
-              <div class="form__content">
-                <div class="form__content form__content--row">
-                  <label class="form__sublabel">Yes<input class="form__trigger" type="radio" name="philhealth-accredited" /><span class="form__radio"></span></label>
-                  <label class="form__sublabel">No<input class="form__trigger" type="radio" name="philhealth-accredited" /><span class="form__radio"></span></label>
+                <div class="form__content form__content--reverse">
+                  <label class="form__label form__label--visible">Assigned staff</label>
+                  @foreach($staffs as $staff)
+                       <span class="form__text">{{ $staff->first_name}} {{ $staff->last_name}}</span><br/>
+                       @endforeach
                 </div>
-                <label class="form__label form__label--blue" for="philhealth-accredited">Are you Philhealth accredited? </label>
-              </div>
-            </div>
-            <div class="tabs__details">
-              <ul class="form__group">
-                <li class="form__group-item"><h2 class="section__heading">Clinic gallery</h2></li>
-                <li class="form__group-item">
-                  <h2 class="section__heading">Clinic hours</h2>
-                  <ul class="form__group form__group--schedule">
+              </li>
+              <li class="form__group-item">
+                <h2 class="section__heading">Clinic gallery</h2>
+                <ul class="form__gallery">
+                  <li class="form__gallery-item"><img class="form__gallery-image" src="img/placeholder.jpg" alt="Gallery image" /></li>
+                  <li class="form__gallery-item"><img class="form__gallery-image" src="" alt="" /></li>
+                  <li class="form__gallery-item"><img class="form__gallery-image" src="" alt="" /></li>
+                  <li class="form__gallery-item"><img class="form__gallery-image" src="" alt="" /></li>
+                  <li class="form__gallery-item"><img class="form__gallery-image" src="" alt="" /></li>
+                </ul>
+                <div class="form__content form__content--reverse">
+                  <label class="form__label form__label--visible">Available services</label>
+                  <ul class="form__group form__group--viewProviderServices">
                     <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                      <h3 class="section__heading section__heading--sub">Modern method</h3>
+                      @foreach ($modernMethod as $method)
+                      <span class="form__text">{{ $method->name }}</span>
+                            @endforeach
                     </li>
                     <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">M<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                      <h3 class="section__heading section__heading--sub">Permanent method</h3>
+                      @foreach ($permanentMethod as $method)
+                      <span class="form__text">{{ $method->name }}</span>
+                            @endforeach
                     </li>
                     <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
-                    </li>
-                    <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">W<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
-                    </li>
-                    <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
-                    </li>
-                    <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">F<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
-                    </li>
-                    <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                      <h3 class="section__heading section__heading--sub">Natural method</h3>
+                      @foreach ($naturalMethod as $method)
+                      <span class="form__text">{{ $method->name }}</span>
+                            @endforeach
                     </li>
                   </ul>
-                </li>
-              </ul>
-            </div>
-            <div class="tabs__details">
-              <h2 class="section__heading">Available services</h2>
-              <ul class="form__group form__group--createProviderServices">
-                <li class="form__group-item">
-                  <h3 class="section__heading section__heading--sub">Modern method</h3>
-                  <label class="form__sublabel form__sublabel--services">COC / Pills<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">Pop / Minipills<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">Injectables<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">PSI Implants<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">IUD<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">Condom<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                </li>
-                <li class="form__group-item">
-                  <h3 class="section__heading section__heading--sub">Permanent method</h3>
-                  <label class="form__sublabel form__sublabel--services">Bilateral tubal ligation<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">No scalpel vasectomy<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"> </span></label>
-                </li>
-                <li class="form__group-item">
-                  <h3 class="section__heading section__heading--sub">Natural method</h3>
-                  <label class="form__sublabel form__sublabel--services">Lactational Amenorrhea<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">Billings Ovulation Method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">Basal body temperature<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">Sympto-thermal method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">Standard days method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                </li>
-              </ul>
-            </div>
-            <div class="tabs__details">
-              <div class="form__content">
-                <div class="form__content form__content--row">
-                  <label class="form__sublabel">Yes<input class="form__trigger" id="js-yes-paid" type="radio" name="paid-services" checked="checked" /><span class="form__radio"></span></label>
-                  <label class="form__sublabel">No<input class="form__trigger" id="js-no-paid" type="radio" name="paid-services" /><span class="form__radio"></span></label>
                 </div>
-                <label class="form__label form__label--blue" for="paid-services">Do you have paid services?</label>
-              </div>
-              <div class="js-services-content">
-                <h2 class="section__heading section__heading--margin">Which of your services are paid?</h2>
-                <ul class="form__group form__group--createProviderServices">
-                  <li class="form__group-item">
-                    <h3 class="section__heading section__heading--sub">Modern method</h3>
-                    <label class="form__sublabel form__sublabel--services">COC / Pills<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">Pop / Minipills<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">Injectables<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">PSI Implants<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">IUD<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">Condom<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  </li>
-                  <li class="form__group-item">
-                    <h3 class="section__heading section__heading--sub">Permanent method</h3>
-                    <label class="form__sublabel form__sublabel--services">Bilateral tubal ligation<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">No scalpel vasectomy<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"> </span></label>
-                  </li>
-                  <li class="form__group-item">
-                    <h3 class="section__heading section__heading--sub">Natural method</h3>
-                    <label class="form__sublabel form__sublabel--services">Lactational Amenorrhea<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">Billings Ovulation Method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">Basal body temperature<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">Sympto-thermal method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">Standard days method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  </li>
-                </ul>
+              </li>
+            </ul>
+            <div class="form__button form__button--start"><a class="button" href="{{ route('editPage',$providers->id )}}">Edit provider</a><button class="button button--transparent" type="button">Delete provider</button></div>
+          </form>
+          <div class="modal js-modal">
+            <div class="modal__background js-modal-background"></div>
+            <div class="modal__container">
+              <div class="modal__box">
+                <h2 class="modal__title">Disable provider?</h2>
+                <p class="modal__text">Disabled providers are hidden from the patient app. Are you sure you want to disable?</p>
+                <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium" type="button">Disable</button></div>
               </div>
             </div>
-            <div class="form__button form__button--end"><button class="button" type="button">Save changes</button></div>
-          </form>
+          </div>
+          <div class="modal js-modal">
+            <div class="modal__background js-modal-background"></div>
+            <div class="modal__container">
+              <div class="modal__box">
+                <h2 class="modal__title">Enable provider?</h2>
+                <p class="modal__text">Enabled providers will show in the patient's app. Are you sure you want to enable this provider?</p>
+                <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium" type="button">Enable</button></div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
+@endforeach
 <!-- 
 <div class="container-fluid">
     <div class="row">

@@ -11,6 +11,7 @@ use App\ClinicService;
 use App\Http\Controllers\Controller;
 use App\PaidServices;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\DB;
 
 class ProviderManagementController extends Controller
@@ -250,7 +251,7 @@ class ProviderManagementController extends Controller
     public function storeFirstPage(Request $requests)
     {
         $validator = \Validator::make(request()->all(), [
-            'pic' => 'required|mimes:png,gif,jpeg|max:5000',
+            'pic' => 'required|mimes:png|max:5000',
         ]);
         if ($validator->fails()) {
             return redirect('provider/create/1')
@@ -267,7 +268,6 @@ class ProviderManagementController extends Controller
         $icon_url = url('assets/app/img/'.$icon->getClientOriginalName());
         $icon->move($destination, $icon->getClientOriginalName());
         $request['photo_url'] = $icon_url;
-        $request['street_address'] = $request['address'];
 
         Clinics::create($request);
         $user = DB::table('clinics')->where('clinic_name', $request['clinic_name'])->pluck('id');
@@ -349,9 +349,9 @@ class ProviderManagementController extends Controller
                 ]);
             }
         }
-        Clinics::where('id', session('id'))->update([
-            'paid_service' => $request['paid'],
-        ]);
+        // Clinics::where('id', session('id'))->update([
+        //     'paid_service' => $request['paid'],
+        // ]);
 
         Clinics::where('id', session('id'))->update(['is_approve' => 1]);
 

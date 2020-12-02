@@ -13,8 +13,8 @@
     <div class="breadcrumbs"><a class="breadcrumbs__link" href="provider-management.php">Provider management</a><a class="breadcrumbs__link" href="create-provider.php">Create Provider</a><a class="breadcrumbs__link"></a></div>
 </div>
 <div class="section__container">
-    <form class="form" id="js-provider-form">
-    
+    <form class="form" id="js-provider-form" method="POST" action="{{ route('storeSecondPage')}}">
+     @csrf
     <div class="form__tab">
         <ul class="form__group">
         <li class="form__group-item">
@@ -26,32 +26,39 @@
             <h2 class="section__heading">Clinic hours</h2>
             <ul class="form__group form__group--schedule">
             <li class="form__group-item">
-                <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="days[]" value="sunday" /><span class="form__checkmark"></span></label>
+                <input class="form__input" name="from[]" type="time" placeholder="opening time" />
+                <input class="form__input" name="to[]" type="time" placeholder="closing time" />
             </li>
             <li class="form__group-item">
-                <label class="form__sublabel form__sublabel--day">M<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                <label class="form__sublabel form__sublabel--day">M<input class="form__trigger" type="checkbox" name="days[]" value="monday" /><span class="form__checkmark"></span></label>
+                <input class="form__input" name="from[]" type="time" placeholder="opening time" />
+                <input class="form__input" name="to[]" type="time" placeholder="closing time" />
             </li>
             <li class="form__group-item">
-                <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" type="checkbox" name="days[]" value="tuesday" /><span class="form__checkmark"></span></label>
+                <input class="form__input" name="from[]" type="time" placeholder="opening time" />
+                <input class="form__input" name="to[]" type="time" placeholder="closing time" />
             </li>
             <li class="form__group-item">
-                <label class="form__sublabel form__sublabel--day">W<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                <label class="form__sublabel form__sublabel--day">W<input class="form__trigger" type="checkbox" name="days[]" value="wednesday" /><span class="form__checkmark"></span></label>
+                <input class="form__input" name="from[]" type="time" placeholder="opening time" />
+                <input class="form__input" name="to[]" type="time" placeholder="closing time" />
             </li>
             <li class="form__group-item">
-                <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" type="checkbox" name="days[]" value="thursday" /><span class="form__checkmark"></span></label>
+                <input class="form__input" name="from[]" type="time" placeholder="opening time" />
+                <input class="form__input" name="to[]" type="time" placeholder="closing time" />
             </li>
             <li class="form__group-item">
-                <label class="form__sublabel form__sublabel--day">F<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                <label class="form__sublabel form__sublabel--day">F<input class="form__trigger" type="checkbox" name="days[]" value="friday" /><span class="form__checkmark"></span></label>
+                <input class="form__input" name="from[]" type="time" placeholder="opening time" />
+                <input class="form__input" name="to[]" type="time" placeholder="closing time" />
             </li>
             <li class="form__group-item">
-                <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="days[]" value="saturday" /><span class="form__checkmark"></span></label>
+                <input class="form__input" name="from[]" type="time" placeholder="opening time" />
+                <input class="form__input" name="to[]" type="time" placeholder="closing time" />
             </li>
             </ul>
         </li>
@@ -67,7 +74,7 @@
             <li class="steps__item"></li>
         </ul>
         </div>
-        <button class="button" type="button">Next</button>
+        <button class="button" type="submit">Next</button>
     </div>
     </form>
 </div>

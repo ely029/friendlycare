@@ -13,32 +13,28 @@
     <div class="breadcrumbs"><a class="breadcrumbs__link" href="provider-management.php">Provider management</a><a class="breadcrumbs__link" href="create-provider.php">Create Provider</a><a class="breadcrumbs__link"></a></div>
 </div>
 <div class="section__container">
-    <form class="form" id="js-provider-form">
-    
+    <form class="form" id="js-provider-form" method="POST" action="{{ route('storeThirdPage') }}">
+    @csrf
     <div class="form__tab">
         <h2 class="section__heading">Available services</h2>
         <ul class="form__group form__group--createProviderServices">
         <li class="form__group-item">
             <h3 class="section__heading section__heading--sub">Modern method</h3>
-            <label class="form__sublabel form__sublabel--services">COC / Pills<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-            <label class="form__sublabel form__sublabel--services">Pop / Minipills<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-            <label class="form__sublabel form__sublabel--services">Injectables<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-            <label class="form__sublabel form__sublabel--services">PSI Implants<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-            <label class="form__sublabel form__sublabel--services">IUD<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-            <label class="form__sublabel form__sublabel--services">Condom<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+            @foreach ($modernMethod as $method)
+            <label class="form__sublabel form__sublabel--services">{{ $method->name }}<input class="form__trigger" type="checkbox" name="modern[]" value="{{ $method->id }}" /><span class="form__checkmark"></span></label>
+            @endforeach
         </li>
         <li class="form__group-item">
             <h3 class="section__heading section__heading--sub">Permanent method</h3>
-            <label class="form__sublabel form__sublabel--services">Bilateral tubal ligation<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-            <label class="form__sublabel form__sublabel--services">No scalpel vasectomy<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"> </span></label>
+            @foreach ($permanentMethod as $method)
+            <label class="form__sublabel form__sublabel--services">{{ $method->name }}<input class="form__trigger" type="checkbox" name="modern[]" value="{{ $method->id }}" /><span class="form__checkmark"></span></label>
+            @endforeach
         </li>
         <li class="form__group-item">
             <h3 class="section__heading section__heading--sub">Natural method</h3>
-            <label class="form__sublabel form__sublabel--services">Lactational Amenorrhea<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-            <label class="form__sublabel form__sublabel--services">Billings Ovulation Method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-            <label class="form__sublabel form__sublabel--services">Basal body temperature<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-            <label class="form__sublabel form__sublabel--services">Sympto-thermal method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-            <label class="form__sublabel form__sublabel--services">Standard days method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+            @foreach ($naturalMethod as $method)
+            <label class="form__sublabel form__sublabel--services">{{ $method->name }}<input class="form__trigger" type="checkbox" name="modern[]" value="{{ $method->id }}" /><span class="form__checkmark"></span></label>
+            @endforeach
         </li>
         </ul>
     </div>
@@ -52,7 +48,7 @@
             <li class="steps__item"></li>
         </ul>
         </div>
-        <button class="button" type="button">Next</button>
+        <button class="button" type="submit">Next</button>
     </div>
     </form>
 </div>
