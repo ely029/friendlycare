@@ -22,4 +22,18 @@ class RatingController extends Controller
             'details' => $details,
         ]);
     }
+
+    public function getRatingAverage($id)
+    {
+        $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
+        $details = DB::table('ratings')
+            ->join('ratings_details', 'ratings_details.rating_id', 'ratings.id')
+            ->where('ratings.clinic_id', $getClinicId[0])
+            ->avg('ratings_details.ratings');
+
+        return response([
+            'name' => 'AverageRatingsPerProvider',
+            'details' => $details,
+        ]);
+    }
 }
