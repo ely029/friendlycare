@@ -4,7 +4,38 @@
 @section('description', 'Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div class="wrapper">
+@include('includes.sidebar')
+</div>
+<div class="section">
+        <div class="section__top">
+          <h1 class="section__title">Family planning methods</h1>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="family-planning-methods.php">Family planning methods</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
+        </div>
+        <div class="section__container">
+          <a class="button button--create" href="create-method.php">Create new method<i class="fa fa-plus"></i></a>
+          <table class="table" id="table">
+            <thead>
+              <tr>
+                <th class="table__head">ID No.</th>
+                <th class="table__head">Name</th>
+                <th class="table__head">Shortname</th>
+                <th class="table__head">Category</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table__row js-view" data-href="view-method.php">
+                <td class="table__details">01</td>
+                <td class="table__details">John Smith</td>
+                <td class="table__details">johnsmith@gmail.com</td>
+                <td class="table__details">Staff</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+<!-- <div class="container-fluid">
     <div class="row">
         <aside class="col-2 px-0 fixed-top" id="left">
         @csrf
@@ -19,7 +50,7 @@
 
         </aside>
         <main class="col-10 invisible">
-            <!--hidden spacer-->
+            hidden spacer
         </main>
         <main class="col offset-2 h-100">
             <div class="row">
@@ -81,5 +112,5 @@
             </div>
         </main>
     </div>
-</div>
+</div> -->
 @endsection

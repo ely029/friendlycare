@@ -4,7 +4,64 @@
 @section('description', 'Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div class="wrapper">
+@include('includes.sidebar')
+</div>
+<div class="section">
+        <div class="section__top">
+          <h1 class="section__title">Create method</h1>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="family-planning-methods.php">Family planning methods</a><a class="breadcrumbs__link" href="create-method.php">Create method</a><a class="breadcrumbs__link"></a></div>
+        </div>
+        <div class="section__container">
+          <form class="form form--method" id="js-provider-form">
+            <div class="form__tab">
+              <ul class="form__group form__group--editMethod">
+                <li class="form__group-item">
+                  <h2 class="section__heading">Details</h2>
+                  <ul class="form__group form__group--upload form__group--editUpload">
+                    <li class="form__group-item">
+                      <div class="form__wrapper"><img class="form__image form__image--method" src="img/placeholder.jpg" alt="Image placeholder" /></div>
+                    </li>
+                    <li class="form__group-item">
+                      <div class="form__content">
+                        <input class="button button--upload button--upload__method" id="js-upload" type="file" accept="image/*" name="js-upload" /><label class="form__label form__label--upload" for="js-upload">Upload a service icon </label>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="form__group-item">
+                  <h2 class="section__heading">Effectiveness (in percent)</h2>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Sa tamang paggamit*" required /><label class="form__label">Sa tamang paggamit* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Tipikal na bisa*" required /><label class="form__label">Tipikal na bisa* </label></div>
+                </li>
+              </ul>
+              <ul class="form__group">
+                <li class="form__group-item">
+                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Method name*" required /><label class="form__label">Method name* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Short name*" required /><label class="form__label">Short name* </label></div>
+                  <div class="form__content form__content--full">
+                    <select class="form__input form__input--select"></select>
+                    <label class="form__label">Category* </label>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="form__button form__button--steps">
+              <button class="button"  type="button">Back</button>
+              <div class="steps">
+                <ul class="steps__list">
+                  <li class="steps__item active"></li>
+                  <li class="steps__item"></li>
+                  <li class="steps__item"></li>
+                </ul>
+              </div>
+              <button class="button"  type="button">Next</button>
+            </div>
+          </form>
+        </div>
+      </div>
+<!-- <div class="container-fluid">
     <div class="row">
         <aside class="col-2 px-0 fixed-top" id="left">
         @csrf
@@ -19,7 +76,7 @@
 
         </aside>
         <main class="col-10 invisible">
-            <!--hidden spacer-->
+            hidden spacer
         </main>
         <main class="col offset-2 h-100">
         <form method="POST" action="{{ route('familyPlanningMethod.createOne')}}" enctype="multipart/form-data">
@@ -77,5 +134,5 @@
         </form>
         </main>
     </div>
-</div>
+</div> -->
 @endsection

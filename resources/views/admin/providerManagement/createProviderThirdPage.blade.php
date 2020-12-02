@@ -4,7 +4,61 @@
 @section('description', 'Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div class="wrapper">
+@include('includes.sidebar')
+</div>
+<div class="section">
+<div class="section__top">
+    <h1 class="section__title">Create provider</h1>
+    <div class="breadcrumbs"><a class="breadcrumbs__link" href="provider-management.php">Provider management</a><a class="breadcrumbs__link" href="create-provider.php">Create Provider</a><a class="breadcrumbs__link"></a></div>
+</div>
+<div class="section__container">
+    <form class="form" id="js-provider-form">
+    
+    <div class="form__tab">
+        <h2 class="section__heading">Available services</h2>
+        <ul class="form__group form__group--createProviderServices">
+        <li class="form__group-item">
+            <h3 class="section__heading section__heading--sub">Modern method</h3>
+            <label class="form__sublabel form__sublabel--services">COC / Pills<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+            <label class="form__sublabel form__sublabel--services">Pop / Minipills<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+            <label class="form__sublabel form__sublabel--services">Injectables<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+            <label class="form__sublabel form__sublabel--services">PSI Implants<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+            <label class="form__sublabel form__sublabel--services">IUD<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+            <label class="form__sublabel form__sublabel--services">Condom<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+        </li>
+        <li class="form__group-item">
+            <h3 class="section__heading section__heading--sub">Permanent method</h3>
+            <label class="form__sublabel form__sublabel--services">Bilateral tubal ligation<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+            <label class="form__sublabel form__sublabel--services">No scalpel vasectomy<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"> </span></label>
+        </li>
+        <li class="form__group-item">
+            <h3 class="section__heading section__heading--sub">Natural method</h3>
+            <label class="form__sublabel form__sublabel--services">Lactational Amenorrhea<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+            <label class="form__sublabel form__sublabel--services">Billings Ovulation Method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+            <label class="form__sublabel form__sublabel--services">Basal body temperature<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+            <label class="form__sublabel form__sublabel--services">Sympto-thermal method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+            <label class="form__sublabel form__sublabel--services">Standard days method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+        </li>
+        </ul>
+    </div>
+
+    <div class="form__button form__button--steps">
+        <button class="button" type="button">Back</button>
+        <div class="steps">
+        <ul class="steps__list">
+            <li class="steps__item active"></li>
+            <li class="steps__item"></li>
+            <li class="steps__item"></li>
+        </ul>
+        </div>
+        <button class="button" type="button">Next</button>
+    </div>
+    </form>
+</div>
+</div>
+
+<!-- <div class="container-fluid">
     <div class="row">
         <aside class="col-2 px-0 fixed-top" id="left">
 
@@ -16,7 +70,7 @@
 
         </aside>
         <main class="col-10 invisible">
-            <!--hidden spacer-->
+            hidden spacer
         </main>
         <main class="col offset-2 h-100">
             <div class="row bg-light">
@@ -133,5 +187,5 @@
             </form>       
         </main>
     </div>
-</div>
+</div> -->
 @endsection

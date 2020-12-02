@@ -4,7 +4,80 @@
 @section('description', 'Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div class="wrapper">
+@include('includes.sidebar')
+</div>
+<div class="section">
+<div class="section__top">
+    <h1 class="section__title">Create provider</h1>
+    <div class="breadcrumbs"><a class="breadcrumbs__link" href="provider-management.php">Provider management</a><a class="breadcrumbs__link" href="create-provider.php">Create Provider</a><a class="breadcrumbs__link"></a></div>
+</div>
+<div class="section__container">
+    <form class="form" id="js-provider-form">
+    <div class="form__tab">
+        <ul class="form__group form__group--upload">
+        <li class="form__group-item">
+            <div class="form__wrapper"><img class="form__image" src="img/placeholder.jpg" alt="Image placeholder" /></div>
+        </li>
+        <li class="form__group-item">
+            <div class="form__content">
+            <input class="button button--upload" id="js-upload" type="file" accept="image/*" name="js-upload" /><label class="form__label form__label--upload" for="js-upload">Upload a logo or a clinic photo</label>
+            </div>
+        </li>
+        </ul>
+        <div class="form__inline">
+        <div class="form__content"><input class="form__input" type="text" placeholder="Provider name*" required /><label class="form__label">Provider name* </label></div>
+        <div class="form__content">
+            <select class="form__input form__input--select" id="region" required></select>
+            <label class="form__label">Region*</label>
+        </div>
+        </div>
+        <div class="form__inline">
+        <div class="form__content"><input class="form__input" type="text" placeholder="Category*" required /><label class="form__label">Category*</label></div>
+        <div class="form__content">
+            <select class="form__input form__input--select" id="province" required></select>
+            <label class="form__label">Province*</label>
+        </div>
+        </div>
+        <div class="form__inline">
+        <div class="form__content"><input class="form__input" type="number" placeholder="Contact number*" required /><label class="form__label">Contact number*</label></div>
+        <div class="form__content">
+            <select class="form__input form__input--select" id="city" required></select>
+            <label class="form__label">City*</label>
+        </div>
+        </div>
+        <div class="form__inline">
+        <div class="form__content"><input class="form__input" type="email" placeholder="Email Address*" required /><label class="form__label">Email Address*</label></div>
+        <div class="form__content">
+            <select class="form__input form__input--select" id="barangay" required></select>
+            <label class="form__label">Barangay*</label>
+        </div>
+        </div>
+        <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Street address*" /><label class="form__label">Street address*</label></div>
+        <div class="form__content form__content--full"><textarea class="form__input form__input--message" placeholder="Clinic description (optional)"></textarea><label class="form__label">Clinic description (optional)</label></div>
+        <div class="form__content">
+        <div class="form__content form__content--row">
+            <label class="form__sublabel">Yes<input class="form__trigger" type="radio" name="philhealth-accredited" /><span class="form__radio"></span></label>
+            <label class="form__sublabel">No<input class="form__trigger" type="radio" name="philhealth-accredited" /><span class="form__radio"></span></label>
+        </div>
+        <label class="form__label form__label--blue" for="philhealth-accredited">Are you Philhealth accredited? </label>
+        </div>
+    </div>
+    <div class="form__button form__button--steps">
+        <button class="button" type="button">Back</button>
+        <div class="steps">
+        <ul class="steps__list">
+            <li class="steps__item active"></li>
+            <li class="steps__item"></li>
+            <li class="steps__item"></li>
+        </ul>
+        </div>
+        <button class="button" type="button">Next</button>
+    </div>
+    </form>
+</div>
+</div>
+<!-- <div class="container-fluid">
     <div class="row">
         <aside class="col-2 px-0 fixed-top" id="left">
 
@@ -18,7 +91,6 @@
 
         </aside>
         <main class="col-10 invisible">
-            <!--hidden spacer-->
         </main>
         <main class="col offset-2 h-100">
             <div class="row bg-light">
@@ -37,7 +109,7 @@
         @endforeach
      </ul>
   </div>
-@endif
+    @endif
                 </div>
             </div>
             <form method="POST" action="{{ route('storeFirstPage') }}" enctype="multipart/form-data">
@@ -109,7 +181,7 @@
     <div class="alert alert-danger">
         {{ session('message') }}
     </div>
-@endif
+    @endif
              </div>
             </div>
         </form>
@@ -117,5 +189,5 @@
         </main>
     </div>
 
-</div>
+</div> -->
 @endsection

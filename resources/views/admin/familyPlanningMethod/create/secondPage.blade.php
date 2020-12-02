@@ -4,7 +4,104 @@
 @section('description', 'Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div class="wrapper">
+@include('includes.sidebar')
+</div>
+<div class="section">
+        <div class="section__top">
+          <h1 class="section__title">Create method</h1>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="family-planning-methods.php">Family planning methods</a><a class="breadcrumbs__link" href="create-method.php">Create method</a><a class="breadcrumbs__link"></a></div>
+        </div>
+        <div class="section__container">
+          <form class="form form--method" id="js-provider-form">
+<div class="form__tab">
+              <h2 class="section__heading">Content</h2>
+              <ul class="tabs__list tabs__list--method">
+                <li class="tabs__subitem">
+                  <input class="tabs__trigger" id="description" type="radio" name="rd" checked />
+                  <div class="tabs__title"><label class="tabs__label" for="description">Description</label></div>
+                  <div class="tabs__subdetails">
+                    <h2 class="section__heading">Description</h2>
+                    <div class="form__inline">
+                      <div class="form__content form__content--half">
+                        <div class="form__input form__input--message" contenteditable placeholder="Description (English)*" required></div>
+                        <label class="form__label">Description (English)</label>
+                      </div>
+                      <div class="form__content form__content--half">
+                        <div class="form__input form__input--message" contenteditable placeholder="Description (Filipino)*" required></div>
+                        <label class="form__label">Description (Filipino)</label>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="tabs__subitem">
+                  <input class="tabs__trigger" id="how" type="radio" name="rd" />
+                  <div class="tabs__title"><label class="tabs__label" for="how">How it works</label></div>
+                  <div class="tabs__subdetails">
+                    <h2 class="section__heading">How it works</h2>
+                    <div class="form__inline">
+                      <div class="form__content form__content--half">
+                        <div class="form__input form__input--message" contenteditable placeholder="How it works (English)*" required></div>
+                        <label class="form__label">How it works (English)</label>
+                      </div>
+                      <div class="form__content form__content--half">
+                        <div class="form__input form__input--message" contenteditable placeholder="How it works (Filipino)*" required></div>
+                        <label class="form__label">How it works (Filipino)</label>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="tabs__subitem">
+                  <input class="tabs__trigger" id="side-effects" type="radio" name="rd" />
+                  <div class="tabs__title"><label class="tabs__label" for="side-effects">Possible side effects</label></div>
+                  <div class="tabs__subdetails">
+                    <h2 class="section__heading">Possible side effects</h2>
+                    <div class="form__inline">
+                      <div class="form__content form__content--half">
+                        <div class="form__input form__input--message" contenteditable placeholder="Possible side effects (English)*" required></div>
+                        <label class="form__label">Possible side effects (English)</label>
+                      </div>
+                      <div class="form__content form__content--half">
+                        <div class="form__input form__input--message" contenteditable placeholder="Possible side effects (Filipino)*" required></div>
+                        <label class="form__label">Possible side effects (Filipino)</label>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="tabs__subitem">
+                  <input class="tabs__trigger" id="additional-notes" type="radio" name="rd" />
+                  <div class="tabs__title"><label class="tabs__label" for="additional-notes">Additional notes</label></div>
+                  <div class="tabs__subdetails">
+                    <h2 class="section__heading">Additional notes</h2>
+                    <div class="form__inline">
+                      <div class="form__content form__content--half">
+                        <div class="form__input form__input--message" contenteditable placeholder="Additional notes (English)*" required></div>
+                        <label class="form__label">Additional notes (English)</label>
+                      </div>
+                      <div class="form__content form__content--half">
+                        <div class="form__input form__input--message" contenteditable placeholder="Additional notes (Filipino)*" required></div>
+                        <label class="form__label">Additional notes (Filipino)</label>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="form__button form__button--steps">
+              <button class="button"  type="button">Back</button>
+              <div class="steps">
+                <ul class="steps__list">
+                  <li class="steps__item active"></li>
+                  <li class="steps__item"></li>
+                  <li class="steps__item"></li>
+                </ul>
+              </div>
+              <button class="button"  type="button">Next</button>
+            </div>
+            </form>
+        </div>
+      </div>
+<!-- <div class="container-fluid">
     <div class="row">
         <aside class="col-2 px-0 fixed-top" id="left">
         @csrf
@@ -19,7 +116,7 @@
 
         </aside>
         <main class="col-10 invisible">
-            <!--hidden spacer-->
+            hidden spacer
         </main>
         <main class="col offset-2 h-100">
             <div class="row">
@@ -118,5 +215,5 @@
             </form>            
         </main>
     </div>
-</div>
+</div> -->
 @endsection

@@ -115,7 +115,7 @@
 
 
 
-    <main class="py-4">
+    <main>
         @if(session('alert'))
             <div class="container">
                 <div class="alert alert-{{ session('alert.context', 'info') }} alert-dismissible fade show" role="alert">

@@ -4,7 +4,75 @@
 @section('description', 'Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div class="wrapper">
+@include('includes.sidebar')
+</div>
+<div class="section">
+<div class="section__top">
+    <h1 class="section__title">Create provider</h1>
+    <div class="breadcrumbs"><a class="breadcrumbs__link" href="provider-management.php">Provider management</a><a class="breadcrumbs__link" href="create-provider.php">Create Provider</a><a class="breadcrumbs__link"></a></div>
+</div>
+<div class="section__container">
+    <form class="form" id="js-provider-form">
+    
+    <div class="form__tab">
+        <ul class="form__group">
+        <li class="form__group-item">
+            <h2 class="section__heading">Clinic gallery</h2>
+            <div class="dz-default dz-message dropzoneDragArea" id="dropzoneDragArea"><span>Upload File</span></div>
+            <div class="dropzone-previews"></div>
+        </li>
+        <li class="form__group-item">
+            <h2 class="section__heading">Clinic hours</h2>
+            <ul class="form__group form__group--schedule">
+            <li class="form__group-item">
+                <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+            </li>
+            <li class="form__group-item">
+                <label class="form__sublabel form__sublabel--day">M<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+            </li>
+            <li class="form__group-item">
+                <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+            </li>
+            <li class="form__group-item">
+                <label class="form__sublabel form__sublabel--day">W<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+            </li>
+            <li class="form__group-item">
+                <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+            </li>
+            <li class="form__group-item">
+                <label class="form__sublabel form__sublabel--day">F<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+            </li>
+            <li class="form__group-item">
+                <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+            </li>
+            </ul>
+        </li>
+        </ul>
+    </div>
+
+    <div class="form__button form__button--steps">
+        <button class="button" type="button">Back</button>
+        <div class="steps">
+        <ul class="steps__list">
+            <li class="steps__item active"></li>
+            <li class="steps__item"></li>
+            <li class="steps__item"></li>
+        </ul>
+        </div>
+        <button class="button" type="button">Next</button>
+    </div>
+    </form>
+</div>
+</div>
+<!-- <div class="container-fluid">
     <div class="row">
         <aside class="col-2 px-0 fixed-top" id="left"> 
             <div class="list-group w-100">
@@ -15,7 +83,7 @@
 
         </aside>
         <main class="col-10 invisible">
-            <!--hidden spacer-->
+            hidden spacer
         </main>
         <main class="col offset-2 h-100">
             <div class="row bg-light">
@@ -142,5 +210,5 @@
             </form>           
         </main>
     </div>
-</div>
+</div> -->
 @endsection

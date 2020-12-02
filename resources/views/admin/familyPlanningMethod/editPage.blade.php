@@ -4,7 +4,156 @@
 @section('description', 'Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div class="wrapper">
+@include('includes.sidebar')
+</div>
+<div class="section">
+        <div class="section__top">
+          <h1 class="section__title">Edit method</h1>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="family-planning-methods.php">Family planning methods</a><a class="breadcrumbs__link" href="edit-method.php">Edit method</a><a class="breadcrumbs__link"></a></div>
+        </div>
+        <div class="section__container">
+          <form class="form form--method" id="js-provider-form">
+            <div class="tabs">
+              <ul class="tabs__list">
+                <li class="tabs__item tabs__item--method tabs__item--current">
+                  <div class="tabs__wrapper"><img class="tabs__image" src="img/icon-step.png" alt="Step 1" /></div>
+                  <span class="tabs__text">Details</span>
+                </li>
+                <li class="tabs__item tabs__item--method">
+                  <div class="tabs__wrapper"><img class="tabs__image" src="img/icon-step.png" alt="Step 2" /></div>
+                  <span class="tabs__text">Content</span>
+                </li>
+                <li class="tabs__item tabs__item--method">
+                  <div class="tabs__wrapper"><img class="tabs__image" src="img/icon-step.png" alt="Step 3" /></div>
+                  <span class="tabs__text">Gallery</span>
+                </li>
+              </ul>
+            </div>
+            <div class="tabs__details tabs__details--active">
+              <ul class="form__group form__group--editMethod">
+                <li class="form__group-item">
+                  <h2 class="section__heading">Details</h2>
+                  <ul class="form__group form__group--upload form__group--uploadEditMethod">
+                    <li class="form__group-item">
+                      <div class="form__wrapper"><img class="form__image form__image--method" src="img/placeholder.jpg" alt="Image placeholder" /></div>
+                    </li>
+                    <li class="form__group-item">
+                      <div class="form__content">
+                        <input class="button button--upload button--upload__method" id="js-upload" type="file" accept="image/*" name="js-upload" /><label class="form__label form__label--upload" for="js-upload">Upload a service icon </label>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+                <li class="form__group-item">
+                  <h2 class="section__heading">Effectiveness (in percent)</h2>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Sa tamang paggamit*" required /><label class="form__label">Sa tamang paggamit* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Tipikal na bisa*" required /><label class="form__label">Tipikal na bisa* </label></div>
+                </li>
+              </ul>
+              <ul class="form__group">
+                <li class="form__group-item">
+                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Method name*" required /><label class="form__label">Method name* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Short name*" required /><label class="form__label">Short name* </label></div>
+                  <div class="form__content form__content--full">
+                    <select class="form__input form__input--select"></select>
+                    <label class="form__label">Category* </label>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="tabs__details">
+              <h2 class="section__heading">Content</h2>
+              <ul class="tabs__list tabs__list--method">
+                <li class="tabs__subitem">
+                  <input class="tabs__trigger" id="description" type="radio" name="rd" checked />
+                  <div class="tabs__title"><label class="tabs__label" for="description">Description</label></div>
+                  <div class="tabs__subdetails">
+                    <h2 class="section__heading">Description</h2>
+                    <div class="form__inline">
+                      <div class="form__content form__content--half">
+                        <div class="form__input form__input--message" contenteditable placeholder="Description (English)*" required></div>
+                        <label class="form__label">Description (English)</label>
+                      </div>
+                      <div class="form__content form__content--half">
+                        <div class="form__input form__input--message" contenteditable placeholder="Description (Filipino)*" required></div>
+                        <label class="form__label">Description (Filipino)</label>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="tabs__subitem">
+                  <input class="tabs__trigger" id="how" type="radio" name="rd" />
+                  <div class="tabs__title"><label class="tabs__label" for="how">How it works</label></div>
+                  <div class="tabs__subdetails">
+                    <h2 class="section__heading">How it works</h2>
+                    <div class="form__inline">
+                      <div class="form__content form__content--half">
+                        <div class="form__input form__input--message" contenteditable placeholder="How it works (English)*" required></div>
+                        <label class="form__label">How it works (English)</label>
+                      </div>
+                      <div class="form__content form__content--half">
+                        <div class="form__input form__input--message" contenteditable placeholder="How it works (Filipino)*" required></div>
+                        <label class="form__label">How it works (Filipino)</label>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="tabs__subitem">
+                  <input class="tabs__trigger" id="side-effects" type="radio" name="rd" />
+                  <div class="tabs__title"><label class="tabs__label" for="side-effects">Possible side effects</label></div>
+                  <div class="tabs__subdetails">
+                    <h2 class="section__heading">Possible side effects</h2>
+                    <div class="form__inline">
+                      <div class="form__content form__content--half">
+                        <div class="form__input form__input--message" contenteditable placeholder="Possible side effects (English)*" required></div>
+                        <label class="form__label">Possible side effects (English)</label>
+                      </div>
+                      <div class="form__content form__content--half">
+                        <div class="form__input form__input--message" contenteditable placeholder="Possible side effects (Filipino)*" required></div>
+                        <label class="form__label">Possible side effects (Filipino)</label>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="tabs__subitem">
+                  <input class="tabs__trigger" id="additional-notes" type="radio" name="rd" />
+                  <div class="tabs__title"><label class="tabs__label" for="additional-notes">Additional notes</label></div>
+                  <div class="tabs__subdetails">
+                    <h2 class="section__heading">Additional notes</h2>
+                    <div class="form__inline">
+                      <div class="form__content form__content--half">
+                        <div class="form__input form__input--message" contenteditable placeholder="Additional notes (English)*" required></div>
+                        <label class="form__label">Additional notes (English)</label>
+                      </div>
+                      <div class="form__content form__content--half">
+                        <div class="form__input form__input--message" contenteditable placeholder="Additional notes (Filipino)*" required></div>
+                        <label class="form__label">Additional notes (Filipino)</label>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="tabs__details">
+              <ul class="form__group">
+                <li class="form__group-item">
+                  <h2 class="section__heading">Clinic gallery</h2>
+                  <div class="dz-default dz-message dropzoneDragArea" id="dropzoneDragArea"><span>Upload File</span></div>
+                  <div class="dropzone-previews"></div>
+                </li>
+                <li class="form__group-item">
+                  <h2 class="section__heading">Video</h2>
+                  <div class="form__content form__content--full"><input class="form__input form__input--search" type="text" placeholder="Youtube link*" required /><label class="form__label">Youtube link*</label></div>
+                  <iframe class="form__video form__video--edit" src="https://www.youtube.com/embed/c6DC2FEzVjM" frameborder="0" allowfullscreen></iframe>
+                </li>
+              </ul>
+            </div>
+            <div class="form__button form__button--end"><button class="button" type="button">Save changes</button></div>
+          </form>
+        </div>
+      </div>
+<!-- <div class="container-fluid">
     <div class="row">
         <aside class="col-2 px-0 fixed-top" id="left">
         <div class="list-group w-100">
@@ -18,7 +167,7 @@
 
         </aside>
         <main class="col-10 invisible">
-            <!--hidden spacer-->
+            hidden spacer
         </main>
     
         @foreach ($details as $user)
@@ -131,5 +280,5 @@
         </main>
         @endforeach
     </div>
-</div>
+</div> -->
 @endsection
