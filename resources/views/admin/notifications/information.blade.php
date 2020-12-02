@@ -4,7 +4,41 @@
 @section('description', 'Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div class="wrapper">
+  @include('includes.sidebar')
+</div>
+
+<div class="section">
+        <div class="section__top">
+          <h1 class="section__title">Medical Caravan, Parañaque and Alabang</h1>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="notifications.php">Events &amp; Push Notifications</a><a class="breadcrumbs__link" href="view-notification.php">View</a><a class="breadcrumbs__link"></a></div>
+        </div>
+        <div class="section__container">
+          <form class="form" id="js-provider-form">
+            <h2 class="section__heading">Medical Caravan, Parañaque and Alabang</h2>
+            <div class="form__content"><span class="form__text">Event</span><label class="form__label form__label--visible">Type</label></div>
+            <div class="form__content"><span class="form__text">10/24/2020</span><label class="form__label form__label--visible">Date</label></div>
+            <div class="form__content"><span class="form__text">12:00pm</span><label class="form__label form__label--visible">Time</label></div>
+            <div class="form__content">
+              <span class="form__text">Cras eget nulla nec erat euismod faucibus ac finibus ante. Etiam enim neque, blandit at gravida quis, tempus at est. In venenatis orci ipsum, id</span>
+              <label class="form__label form__label--visible">Message</label>
+            </div>
+            <div class="form__button form__button--start"><a class="button" href="edit-notification.php">Edit notification</a><button class="button button--transparent js-trigger" type="button">Delete notification</button></div>
+          </form>
+          <div class="modal js-modal">
+            <div class="modal__background js-modal-background"></div>
+            <div class="modal__container">
+              <div class="modal__box">
+                <h2 class="modal__title">Delete notification?</h2>
+                <p class="modal__text">Are you sure you want to delete this notification?</p>
+                <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium button--medium__delete" type="button">Delete notification</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!-- <div class="container-fluid">
     <div class="row">
         <aside class="col-2 px-0 fixed-top" id="left">
         @csrf
@@ -20,7 +54,7 @@
 
         </aside>
         <main class="col-10 invisible">
-            <!--hidden spacer-->
+            hidden spacer
         </main>
         <main class="col offset-2 h-100">
         <div class="col-md-12">
@@ -75,5 +109,5 @@
             </div>
         </main>
     </div>
-</div>
+</div> -->
 @endsection

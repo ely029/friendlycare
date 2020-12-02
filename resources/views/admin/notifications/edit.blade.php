@@ -4,7 +4,65 @@
 @section('description', 'Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div class="wrapper">
+  @include('includes.sidebar')
+</div>
+
+<div class="section">
+        <div class="section__top">
+          <h1 class="section__title">Edit notification</h1>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="notifications.php">Events &amp; Push Notifications</a><a class="breadcrumbs__link" href="edit-notification.php">Edit</a><a class="breadcrumbs__link"></a></div>
+        </div>
+        <div class="section__container">
+          <form class="form" id="js-provider-form">
+            <ul class="form__group">
+              <li class="form__group-item">
+                <h2 class="section__heading">Details</h2>
+                <div class="form__content">
+                  <select class="form__input form__input--select" id="js-schedule" required>
+                    <option disabled selected>---</option>
+                    <option value="Post Now">Post Now</option>
+                    <option value="Scheduled">Scheduled</option>
+                  </select>
+                  <label class="form__label">Schedule* </label>
+                </div>
+                <div class="form__content js-scheduled-content"><input class="form__input" type="time" placeholder="Time" required /><label class="form__label">Time*</label></div>
+                <div class="form__content js-scheduled-content"><input class="form__input" type="date" placeholder="Date" required /><label class="form__label">Date*</label></div>
+                <div class="form__content">
+                  <select class="form__input form__input--select" required>
+                    <option disabled selected>---</option>
+                    <option value="Event">Event</option>
+                    <option value="Announcement">Announcement</option>
+                  </select>
+                  <label class="form__label">Type*</label>
+                </div>
+              </li>
+              <li class="form__group-item">
+                <h2 class="section__heading">Content</h2>
+                <div class="form__content"><input class="form__input" type="text" placeholder="Title" required /><label class="form__label">Title*</label></div>
+                <div class="form__content">
+                  <div class="form__input form__input--message" contenteditable placeholder="Description (English)*" required></div>
+                  <label class="form__label">Message*</label>
+                </div>
+              </li>
+            </ul>
+            <div class="form__button form__button--end"><button class="button js-trigger">Save changes</button></div>
+          </form>
+          <div class="modal js-modal">
+            <div class="modal__background js-modal-background"></div>
+            <div class="modal__container">
+              <div class="modal__box">
+                <h2 class="modal__title">Success!</h2>
+                <p class="modal__text">Your message has been saved.</p>
+                <div class="modal__button modal__button--center"><button class="button button--medium" type="button">Confirm</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- <div class="container-fluid">
     <div class="row">
         <aside class="col-2 px-0 fixed-top" id="left">
         @csrf
@@ -20,7 +78,7 @@
 
         </aside>
         <main class="col-10 invisible">
-            <!--hidden spacer-->
+            hidden spacer
         </main>
         <main class="col offset-2 h-100">
         <div class="col-md-12">
@@ -104,5 +162,5 @@
             </form>
         </main>
     </div>
-</div>
+</div> -->
 @endsection

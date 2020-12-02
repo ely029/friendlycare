@@ -4,7 +4,10 @@
 @section('description', 'Dashboard')
 
 @section('content')
-<div class="container-fluid">
+<div class="wrapper">
+  @include('includes.sidebar')
+</div>
+<!-- <div class="container-fluid">
     <div class="row">
         <aside class="col-2 px-0 fixed-top" id="left">
         @csrf
@@ -20,7 +23,7 @@
 
         </aside>
         <main class="col-10 invisible">
-            <!--hidden spacer-->
+            hidden spacer
         </main>
         <main class="col offset-2 h-100">
         <div class="row">
@@ -129,5 +132,5 @@
         </section>
         </main>
     </div>
-</div>
+</div> -->
 @endsection
