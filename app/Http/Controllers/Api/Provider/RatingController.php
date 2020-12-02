@@ -36,4 +36,23 @@ class RatingController extends Controller
             'details' => $details,
         ]);
     }
+
+    public function filter(Request $request, $id)
+    {
+        $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
+        $obj = json_decode($request->getContent(), true);
+
+        $details = DB::table('ratings')
+            ->join('users', 'users.id', 'ratings.patient_id')
+            ->join('ratings_details', 'ratings_details.rating_id', 'ratings.id')
+            ->select('users.name', 'ratings.review', 'ratings_details.ratings')
+            ->whereBetween('ratings.created_at', [$obj['date'][0].' 00:00:00', $obj['date'][0].' 24:00:00'])
+            ->where('ratings.clinic_id', $getClinicId[0])
+            ->get();
+
+        return response([
+            'name' => 'ProviderRatingFilter',
+            'details' => $details,
+        ]);
+    }
 }

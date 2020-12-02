@@ -175,3 +175,4 @@ Route::post('/notifications/patient/filter/{id}', 'Patients\NotificationsControl
 //Provider Rating
 Route::get('/rating/provider/{id}', 'Provider\RatingController@getDetails');
 Route::get('/rating/provider/clinic/{id}', 'Provider\RatingController@getRatingAverage');
+Route::post('/rating/filter/provider/{id}', 'Provider\RatingController@filter');
