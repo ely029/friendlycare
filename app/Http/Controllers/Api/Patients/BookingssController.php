@@ -71,6 +71,7 @@ class BookingssController extends Controller
             'appointement_date_1' => $getPatientDate[0],
             'display_type' => 'Notifications',
             'title' => 'Booking Cancelled',
+            'status' => 3,
         ]);
         return response([
             'name' => 'ApproveCancellation',

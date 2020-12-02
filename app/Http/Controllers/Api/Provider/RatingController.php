@@ -46,7 +46,7 @@ class RatingController extends Controller
             ->join('users', 'users.id', 'ratings.patient_id')
             ->join('ratings_details', 'ratings_details.rating_id', 'ratings.id')
             ->select('users.name', 'ratings.review', 'ratings_details.ratings')
-            ->whereBetween('ratings.created_at', [$obj['date'][0].' 00:00:00', $obj['date'][0].' 24:00:00'])
+            ->whereMonth('ratings.created_at', '=', $obj['month'][0])
             ->where('ratings.clinic_id', $getClinicId[0])
             ->get();
 

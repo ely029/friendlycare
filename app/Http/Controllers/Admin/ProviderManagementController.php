@@ -11,7 +11,6 @@ use App\ClinicService;
 use App\Http\Controllers\Controller;
 use App\PaidServices;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\DB;
 
 class ProviderManagementController extends Controller

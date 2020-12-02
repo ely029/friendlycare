@@ -55,7 +55,6 @@ class NotificationsController extends Controller
         if ($obj['filter'][0] === 'Events') {
             $details = DB::table('events_notification')
                 ->select('id', 'title', 'display_type as type', 'is_read')
-                ->where('date_string', '>=', strtotime(date('Y-m-d')))
                 ->where('display_type', 'Events')
                 ->get();
         } elseif ($obj['filter'][0] === 'Notifications') {

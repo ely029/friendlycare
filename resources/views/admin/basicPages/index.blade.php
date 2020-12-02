@@ -24,15 +24,15 @@
     <tbody>
         <tr class="table__row js-view" data-href="about.php">
         <td class="table__details">About us</td>
-        <td class="table__details">Lorem ipsum</td>
+        <td class="table__details">Sample Word</td>
         </tr>
         <tr class="table__row js-view" data-href="tos.php">
         <td class="table__details">Terms of service</td>
-        <td class="table__details">Lorem ipsum</td>
+        <td class="table__details">Sample Word</td>
         </tr>
         <tr class="table__row js-view" data-href="consent-form.php">
         <td class="table__details">Consent form</td>
-        <td class="table__details">Lorem ipsum</td>
+        <td class="table__details">Sample Word</td>
         </tr>
     </tbody>
     </table>

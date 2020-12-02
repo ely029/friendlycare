@@ -681,6 +681,7 @@ class DefaultController extends Controller
             'message' => $message,
             'display_type' => 'Notifications',
             'title' => 'Booking Cancelled',
+            'status' => 3,
         ]);
 
         return response([
