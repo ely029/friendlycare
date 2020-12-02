@@ -13,7 +13,7 @@
           <div class="breadcrumbs"><a class="breadcrumbs__link" href="provider-management.php">Provider Management</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
-          <a class="button button--create" href="create-provider.php">Create Provider<i class="fa fa-plus"></i></a>
+          <a class="button button--create" href="{{ route('providerCreateFirstPage') }}">Create Provider<i class="fa fa-plus"></i></a>
           <table class="table" id="table">
             <thead>
               <tr>
@@ -23,14 +23,22 @@
                 <th class="table__head">Assigned Staff</th>
               </tr>
             </thead>
+            @foreach ($clinics as $clinic)
             <tbody>
-              <tr class="table__row js-view" data-href="view-provider.php">
-                <td class="table__details">Shaw Clinic</td>
-                <td class="table__details">Government</td>
-                <td class="table__details">(45)</td>
-                <td class="table__details">4</td>
+              <tr class="table__row js-view" data-href="{{ route('editProviderProfile',$clinic->id)}}">
+                <td class="table__details">{{$clinic->clinic_name}}</td>
+                @if ($clinic->type == '1')
+                            <td class="table__details">Private</td>
+                            @elseif($clinic->type == '2')
+                            <td class="table__details">Government</td>
+                            @elseif($clinic->type == '3')
+                            <td class="table__details">NGO</td>
+                            @endif
+                <td class="table__details"></td>
+                <td class="table__details"></td>
               </tr>
             </tbody>
+            @endforeach
           </table>
         </div>
       </div>

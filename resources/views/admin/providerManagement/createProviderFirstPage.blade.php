@@ -12,53 +12,71 @@
     <h1 class="section__title">Create provider</h1>
     <div class="breadcrumbs"><a class="breadcrumbs__link" href="provider-management.php">Provider management</a><a class="breadcrumbs__link" href="create-provider.php">Create Provider</a><a class="breadcrumbs__link"></a></div>
 </div>
+<div class="row">
+                <div class="col-md-12">
+                @if ($errors->any())
+  <div class="alert alert-danger">
+     <ul>
+        @foreach ($errors->all() as $error)
+           <li>{{ $error }}</li>
+        @endforeach
+     </ul>
+  </div>
+    @endif
+    </div>
+</div>
 <div class="section__container">
-    <form class="form" id="js-provider-form">
+    <form class="form" id="js-provider-form" method="POST" action="{{ route('storeFirstPage') }}" enctype="multipart/form-data">
+        @csrf
     <div class="form__tab">
         <ul class="form__group form__group--upload">
         <li class="form__group-item">
-            <div class="form__wrapper"><img class="form__image" src="img/placeholder.jpg" alt="Image placeholder" /></div>
+            <div class="form__wrapper"><img class="form__image" src="{{URL::asset('img/placeholder.jpg')}}" alt="Image placeholder" /></div>
         </li>
         <li class="form__group-item">
             <div class="form__content">
-            <input class="button button--upload" id="js-upload" type="file" accept="image/*" name="js-upload" /><label class="form__label form__label--upload" for="js-upload">Upload a logo or a clinic photo</label>
+            <input class="button button--upload" id="js-upload" type="file" name="pic" /><label class="form__label form__label--upload" for="js-upload">Upload a logo or a clinic photo</label>
             </div>
         </li>
         </ul>
         <div class="form__inline">
-        <div class="form__content"><input class="form__input" type="text" placeholder="Provider name*" required /><label class="form__label">Provider name* </label></div>
+        <div class="form__content"><input class="form__input" name="clinic_name" value="{{ old('clinic_name')}}" type="text" placeholder="Provider name*" /><label class="form__label">Provider name* </label></div>
         <div class="form__content">
-            <select class="form__input form__input--select" id="region" required></select>
+            <select class="form__input form__input--select" id="region"></select>
             <label class="form__label">Region*</label>
         </div>
         </div>
         <div class="form__inline">
-        <div class="form__content"><input class="form__input" type="text" placeholder="Category*" required /><label class="form__label">Category*</label></div>
+        <div class="form__content"><select class="form__input" type="text" placeholder="Category*" name="type" >
+                            <option value="1">Private</option>
+                            <option value="2">Government</option>
+                            <option value="3">NGO</option>
+        </select><label class="form__label">Category*</label></div>
         <div class="form__content">
-            <select class="form__input form__input--select" id="province" required></select>
+            <select class="form__input form__input--select" id="province"></select>
             <label class="form__label">Province*</label>
         </div>
         </div>
         <div class="form__inline">
-        <div class="form__content"><input class="form__input" type="number" placeholder="Contact number*" required /><label class="form__label">Contact number*</label></div>
+        <div class="form__content"><input class="form__input" type="number" placeholder="Contact number*" name="contact_number" value="{{ old('contact_number')}}" /><label class="form__label">Contact number*</label></div>
         <div class="form__content">
-            <select class="form__input form__input--select" id="city" required></select>
+            <select class="form__input form__input--select" id="city" name="city"></select>
             <label class="form__label">City*</label>
         </div>
         </div>
         <div class="form__inline">
-        <div class="form__content"><input class="form__input" type="email" placeholder="Email Address*" required /><label class="form__label">Email Address*</label></div>
+        <div class="form__content"><input class="form__input" type="email" name="email" placeholder="Email Address*" value="{{ old('email')}}" /><label class="form__label">Email Address*</label></div>
         <div class="form__content">
-            <select class="form__input form__input--select" id="barangay" required></select>
+            <select class="form__input form__input--select" id="barangay"></select>
             <label class="form__label">Barangay*</label>
         </div>
         </div>
-        <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Street address*" /><label class="form__label">Street address*</label></div>
-        <div class="form__content form__content--full"><textarea class="form__input form__input--message" placeholder="Clinic description (optional)"></textarea><label class="form__label">Clinic description (optional)</label></div>
+        <div class="form__content form__content--full"><input class="form__input" type="text" name="street_address" value="{{ old('street_address')}}" placeholder="Street address*" /><label class="form__label">Street address*</label></div>
+        <div class="form__content form__content--full"><textarea class="form__input form__input--message" name="description"  placeholder="Clinic description (optional)">{{ old('description')}} </textarea><label class="form__label">Clinic description (optional)</label></div>
         <div class="form__content">
         <div class="form__content form__content--row">
-            <label class="form__sublabel">Yes<input class="form__trigger" type="radio" name="philhealth-accredited" /><span class="form__radio"></span></label>
-            <label class="form__sublabel">No<input class="form__trigger" type="radio" name="philhealth-accredited" /><span class="form__radio"></span></label>
+            <label class="form__sublabel">Yes<input class="form__trigger" type="radio" name="philhealth_accredited_1" value="1" checked /><span class="form__radio"></span></label>
+            <label class="form__sublabel">No<input class="form__trigger" type="radio" name="philhealth_accredited_1" value="0" /><span class="form__radio"></span></label>
         </div>
         <label class="form__label form__label--blue" for="philhealth-accredited">Are you Philhealth accredited? </label>
         </div>
@@ -72,7 +90,7 @@
             <li class="steps__item"></li>
         </ul>
         </div>
-        <button class="button" type="button">Next</button>
+        <button class="button" type="submit">Next</button>
     </div>
     </form>
 </div>

@@ -7,110 +7,208 @@
 <div class="wrapper">
 @include('includes.sidebar')
 </div>
+@foreach ($provider as $providers)
 <div class="section">
         <div class="section__top">
-          <h1 class="section__title">FriendlyCare Cubao</h1>
+          <h1 class="section__title">{{$providers->clinic_name}}</h1>
           <div class="breadcrumbs"><a class="breadcrumbs__link" href="provider-management.php">Provider management</a><a class="breadcrumbs__link" href="view-provider.php">FriendlyCare Cubao</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
-          <form class="form form--viewProvider" id="js-provider-form" action="">
-            <ul class="form__group form__group--viewProvider">
-              <li class="form__group-item">
-                <div class="form__wrapper"><img class="form__image" src="img/placeholder.jpg" alt="Image placeholder" /></div>
-              </li>
-              <li class="form__group-item">
-                <div class="form__content form__content--reverse">
-                  <label class="form__label form__label--blue">FriendlyCare Cubao</label>
-                  <span class="form__text form__text--group">
-                    <div id="rateYo"></div>
-                    <span class="form__text">(17)</span><a class="form__link form__link--gray" href="">View reviews?</a>
-                  </span>
-                  <span class="form__text">friendlycarecubao@friendlycare.com</span><span class="form__text">09857754852</span>
+          <form class="form" id="js-provider-form" action="">
+            <div class="tabs">
+              <ul class="tabs__list">
+                <li class="tabs__item tabs__item--current">
+                  <div class="tabs__wrapper"><img class="tabs__image" src="{{URL::asset('img/icon-step.png')}}" alt="Step 1" /></div>
+                  <span class="tabs__text">Company info</span>
+                </li>
+                <li class="tabs__item">
+                  <div class="tabs__wrapper"><img class="tabs__image" src="{{URL::asset('img/icon-step.png')}}" alt="Step 2" /></div>
+                  <span class="tabs__text">Gallery / schedule</span>
+                </li>
+                <li class="tabs__item">
+                  <div class="tabs__wrapper"><img class="tabs__image" src="img/icon-step.png" alt="Step 3" /></div>
+                  <span class="tabs__text">Clinic services</span>
+                </li>
+                <li class="tabs__item">
+                  <div class="tabs__wrapper"><img class="tabs__image" src="img/icon-step.png" alt="Step 4" /></div>
+                  <span class="tabs__text">Paid services</span>
+                </li>
+              </ul>
+            </div>
+            <div class="tabs__details tabs__details--active">
+              <ul class="form__group form__group--upload">
+                <li class="form__group-item">
+                  <div class="form__wrapper"><img class="form__image" src="img/placeholder.jpg" alt="Image placeholder" /></div>
+                </li>
+                <li class="form__group-item">
+                  <div class="form__content">
+                    <input class="button button--upload" id="js-upload" type="file" accept="image/*" name="js-upload" /><label class="form__label form__label--upload" for="js-upload">Upload a logo or a clinic photo</label>
+                  </div>
+                </li>
+              </ul>
+              <div class="form__inline">
+                <div class="form__content"><input class="form__input" type="text" placeholder="Provider name*" value="{{$providers->clinic_name}}" required /><label class="form__label">Provider name* </label></div>
+                <div class="form__content">
+                  <select class="form__input form__input--select" id="region" required></select>
+                  <label class="form__label">Region*</label>
                 </div>
-              </li>
-              <li class="form__group-item">
-                <div class="form__content form__content--reverse">
-                  <label class="form__label form__label--blue">Status</label><label class="form__switch" for=""> <input class="form__trigger form__trigger--switch" type="checkbox" checked /><span class="form__slider"></span></label>
+              </div>
+              <div class="form__inline">
+              @if ($providers->type == '1')
+                 <select name="type" class="form__input">
+                 <option value="1" selected>Private</option>
+                 <option value="2">Government</option>
+                 <option value="3">NGO</option>
+                 </select>
+                 @elseif ($providers->type == '2')
+                 <select name="type" class="form__input">
+                 <option value="1">Private</option>
+                 <option value="2" selected>Government</option>
+                 <option value="3">NGO</option>
+                 </select>
+                 @elseif ($providers->type == '3')
+                 <select name="type" class="form__input">
+                 <option value="1">Private</option>
+                 <option value="2">Government</option>
+                 <option value="3" selected>NGO</option>
+                 </select>
+                 @endif
+                <div class="form__content">
+                  <select class="form__input form__input--select" id="province" required></select>
+                  <label class="form__label">Province*</label>
                 </div>
-              </li>
-            </ul>
-            <ul class="form__group">
-              <li class="form__group-item">
-                <h2 class="section__heading">Clinic info</h2>
-                <div class="form__content form__content--reverse">
-                  <label class="form__label form__label--visible">Address</label><span class="form__text">2/F Metrolane Complex, P.Tuazon Corner 20th Avenue, Cubao, Quezon, 20th Ave, Project 4, Quezon City, Metro Manila</span>
-                  <a class="form__link" href="">view on map</a>
+              </div>
+              <div class="form__inline">
+                <div class="form__content"><input class="form__input" type="number" placeholder="Contact number*" required /><label class="form__label">Contact number*</label></div>
+                <div class="form__content">
+                  <select class="form__input form__input--select" id="city" required></select>
+                  <label class="form__label">City*</label>
                 </div>
-                <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Category</label><span class="form__text">Government</span></div>
-                <div class="form__content form__content--reverse">
-                  <label class="form__label form__label--visible">Description</label>
-                  <span class="form__text">
-                    We're located at the heart of Cubao at Metrolane complex. We offer free consultations, diagnostics, and lab procedures. <br />
-                    <br />
-                    Get expert advice on Family Planning, book an appointment free of charge.
-                  </span>
+              </div>
+              <div class="form__inline">
+                <div class="form__content"><input class="form__input" type="email" placeholder="Email Address*" required /><label class="form__label">Email Address*</label></div>
+                <div class="form__content">
+                  <select class="form__input form__input--select" id="barangay" required></select>
+                  <label class="form__label">Barangay*</label>
                 </div>
-                <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Operating hours</label><span class="form__text">6:00am to 6:00pm</span></div>
-                <div class="form__content form__content--reverse">
-                  <label class="form__label form__label--visible">Assigned staff</label><span class="form__text">John Smith </span><span class="form__text">Leoniva Reyes </span><span class="form__text">Alan Popa </span>
-                  <span class="form__text">Michelle Cruz </span><span class="form__text">Ryan Chua</span>
+              </div>
+              <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Street address*" /><label class="form__label">Street address*</label></div>
+              <div class="form__content form__content--full"><textarea class="form__input form__input--message" placeholder="Clinic description (optional)"></textarea><label class="form__label">Clinic description (optional)</label></div>
+              <div class="form__content">
+                <div class="form__content form__content--row">
+                  <label class="form__sublabel">Yes<input class="form__trigger" type="radio" name="philhealth-accredited" /><span class="form__radio"></span></label>
+                  <label class="form__sublabel">No<input class="form__trigger" type="radio" name="philhealth-accredited" /><span class="form__radio"></span></label>
                 </div>
-              </li>
-              <li class="form__group-item">
-                <h2 class="section__heading">Clinic gallery</h2>
-                <ul class="form__gallery">
-                  <li class="form__gallery-item"><img class="form__gallery-image" src="img/placeholder.jpg" alt="Gallery image" /></li>
-                  <li class="form__gallery-item"><img class="form__gallery-image" src="" alt="" /></li>
-                  <li class="form__gallery-item"><img class="form__gallery-image" src="" alt="" /></li>
-                  <li class="form__gallery-item"><img class="form__gallery-image" src="" alt="" /></li>
-                  <li class="form__gallery-item"><img class="form__gallery-image" src="" alt="" /></li>
-                </ul>
-                <div class="form__content form__content--reverse">
-                  <label class="form__label form__label--visible">Available services</label>
-                  <ul class="form__group form__group--viewProviderServices">
+                <label class="form__label form__label--blue" for="philhealth-accredited">Are you Philhealth accredited? </label>
+              </div>
+            </div>
+            <div class="tabs__details">
+              <ul class="form__group">
+                <li class="form__group-item"><h2 class="section__heading">Clinic gallery</h2></li>
+                <li class="form__group-item">
+                  <h2 class="section__heading">Clinic hours</h2>
+                  <ul class="form__group form__group--schedule">
                     <li class="form__group-item">
-                      <h3 class="section__heading section__heading--sub">Modern method</h3>
-                      <span class="form__text">COC / pills </span><span class="form__text">Pop / minipills </span><span class="form__text">Injectables </span><span class="form__text">PSI implants </span>
-                      <span class="form__text">IUD Condom</span>
+                      <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
                     </li>
                     <li class="form__group-item">
-                      <h3 class="section__heading section__heading--sub">Permanent method</h3>
-                      <span class="form__text">Bilateral tubal ligation </span><span class="form__text">No scalpel vasectomy</span>
+                      <label class="form__sublabel form__sublabel--day">M<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
                     </li>
                     <li class="form__group-item">
-                      <h3 class="section__heading section__heading--sub">Natural method</h3>
-                      <span class="form__text">Lactational Amenorrhea </span><span class="form__text">Billings Ovulation Method </span><span class="form__text">Basal body temperature </span>
-                      <span class="form__text">Sympto-thermal method </span><span class="form__text">Standard days method</span>
+                      <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                    </li>
+                    <li class="form__group-item">
+                      <label class="form__sublabel form__sublabel--day">W<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                    </li>
+                    <li class="form__group-item">
+                      <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                    </li>
+                    <li class="form__group-item">
+                      <label class="form__sublabel form__sublabel--day">F<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                    </li>
+                    <li class="form__group-item">
+                      <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
                     </li>
                   </ul>
+                </li>
+              </ul>
+            </div>
+            <div class="tabs__details">
+              <h2 class="section__heading">Available services</h2>
+              <ul class="form__group form__group--createProviderServices">
+                <li class="form__group-item">
+                  <h3 class="section__heading section__heading--sub">Modern method</h3>
+                  <label class="form__sublabel form__sublabel--services">COC / Pills<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                  <label class="form__sublabel form__sublabel--services">Pop / Minipills<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                  <label class="form__sublabel form__sublabel--services">Injectables<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                  <label class="form__sublabel form__sublabel--services">PSI Implants<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                  <label class="form__sublabel form__sublabel--services">IUD<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                  <label class="form__sublabel form__sublabel--services">Condom<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                </li>
+                <li class="form__group-item">
+                  <h3 class="section__heading section__heading--sub">Permanent method</h3>
+                  <label class="form__sublabel form__sublabel--services">Bilateral tubal ligation<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                  <label class="form__sublabel form__sublabel--services">No scalpel vasectomy<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"> </span></label>
+                </li>
+                <li class="form__group-item">
+                  <h3 class="section__heading section__heading--sub">Natural method</h3>
+                  <label class="form__sublabel form__sublabel--services">Lactational Amenorrhea<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                  <label class="form__sublabel form__sublabel--services">Billings Ovulation Method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                  <label class="form__sublabel form__sublabel--services">Basal body temperature<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                  <label class="form__sublabel form__sublabel--services">Sympto-thermal method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                  <label class="form__sublabel form__sublabel--services">Standard days method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                </li>
+              </ul>
+            </div>
+            <div class="tabs__details">
+              <div class="form__content">
+                <div class="form__content form__content--row">
+                  <label class="form__sublabel">Yes<input class="form__trigger" id="js-yes-paid" type="radio" name="paid-services" checked="checked" /><span class="form__radio"></span></label>
+                  <label class="form__sublabel">No<input class="form__trigger" id="js-no-paid" type="radio" name="paid-services" /><span class="form__radio"></span></label>
                 </div>
-              </li>
-            </ul>
-            <div class="form__button form__button--start"><a class="button" href="edit-provider.php">Edit provider</a><button class="button button--transparent" type="button">Delete provider</button></div>
+                <label class="form__label form__label--blue" for="paid-services">Do you have paid services?</label>
+              </div>
+              <div class="js-services-content">
+                <h2 class="section__heading section__heading--margin">Which of your services are paid?</h2>
+                <ul class="form__group form__group--createProviderServices">
+                  <li class="form__group-item">
+                    <h3 class="section__heading section__heading--sub">Modern method</h3>
+                    <label class="form__sublabel form__sublabel--services">COC / Pills<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                    <label class="form__sublabel form__sublabel--services">Pop / Minipills<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                    <label class="form__sublabel form__sublabel--services">Injectables<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                    <label class="form__sublabel form__sublabel--services">PSI Implants<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                    <label class="form__sublabel form__sublabel--services">IUD<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                    <label class="form__sublabel form__sublabel--services">Condom<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                  </li>
+                  <li class="form__group-item">
+                    <h3 class="section__heading section__heading--sub">Permanent method</h3>
+                    <label class="form__sublabel form__sublabel--services">Bilateral tubal ligation<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                    <label class="form__sublabel form__sublabel--services">No scalpel vasectomy<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"> </span></label>
+                  </li>
+                  <li class="form__group-item">
+                    <h3 class="section__heading section__heading--sub">Natural method</h3>
+                    <label class="form__sublabel form__sublabel--services">Lactational Amenorrhea<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                    <label class="form__sublabel form__sublabel--services">Billings Ovulation Method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                    <label class="form__sublabel form__sublabel--services">Basal body temperature<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                    <label class="form__sublabel form__sublabel--services">Sympto-thermal method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                    <label class="form__sublabel form__sublabel--services">Standard days method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="form__button form__button--end"><button class="button" type="button">Save changes</button></div>
           </form>
-          <div class="modal js-modal">
-            <div class="modal__background js-modal-background"></div>
-            <div class="modal__container">
-              <div class="modal__box">
-                <h2 class="modal__title">Disable provider?</h2>
-                <p class="modal__text">Disabled providers are hidden from the patient app. Are you sure you want to disable?</p>
-                <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium" type="button">Disable</button></div>
-              </div>
-            </div>
-          </div>
-          <div class="modal js-modal">
-            <div class="modal__background js-modal-background"></div>
-            <div class="modal__container">
-              <div class="modal__box">
-                <h2 class="modal__title">Enable provider?</h2>
-                <p class="modal__text">Enabled providers will show in the patient's app. Are you sure you want to enable this provider?</p>
-                <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium" type="button">Enable</button></div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-    </div>
+
+@endforeach
 
 <!-- <div class="container-fluid">
     <div class="row">
