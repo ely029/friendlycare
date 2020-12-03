@@ -24,11 +24,11 @@ class DefaultController extends Controller
     public function login(Request $request)
     {
         $obj = json_decode($request->getContent(), true);
-        if (\Auth::attempt(['email' => $obj['email'][0], 'password' => $obj['password'][0], 'role_id' => 3])) {
+        if (\Auth::attempt(['email' => $obj['email'], 'password' => $obj['password'], 'role_id' => 3])) {
             $user = \Auth::user();
 
             User::where('id', $user['id'])->update([
-                'fcm_notification_key' => $obj['token'][0],
+                'fcm_notification_key' => $obj['token'],
             ]);
 
             return response([
