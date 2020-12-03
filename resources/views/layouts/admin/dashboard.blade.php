@@ -10,6 +10,7 @@
 
 @push('scripts')
     {{-- @TB: If you need custom scripts for dashboard place it in assets/dashboard/js/ --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{ asset('assets/app/js/app.js') }}"></script>
     <script type="text/javascript"  src="{{ asset('assets/app/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript"  src="{{ asset('assets/app/js/main.js') }}"></script>

@@ -7,7 +7,37 @@
 <div class="wrapper">
   @include('includes.sidebar')
 </div>
-<div class="container-fluid">
+
+<div class="section">
+<div class="section__top">
+    <h1 class="section__title">Events &amp; Push Notifications</h1>
+    <div class="breadcrumbs"><a class="breadcrumbs__link" href="notifications.php">Events &amp; Push Notifications</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
+</div>
+<div class="section__container">
+    <a class="button button--create" href="create-notification.php">Create new notification<i class="fa fa-plus"></i></a>
+    <div class="table__button">
+    <button class="button button--filter">Upcoming Events</button><button class="button button--filter">Past Events</button><button class="button button--filter">Upcoming Announcements</button>
+    <button class="button button--filter">Past Announcements</button>
+    </div>
+    <table class="table" id="notificationsTable">
+    <thead>
+        <tr>
+        <th class="table__head">Date</th>
+        <th class="table__head">Title</th>
+        <th class="table__head">Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="table__row js-view" data-href="view-notification.php">
+        <td class="table__details">10/24/2020</td>
+        <td class="table__details">Merry Christmas!</td>
+        <td class="table__details">Announcement</td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+</div>
+<!-- <div class="container-fluid">
         <div class="row">
                 <div class="col-12 py-4">
                     <h2>Events & Push Notifications</h2>
@@ -112,5 +142,5 @@
                 </div>
             </div>
         </section>
-</div>
+</div> -->
 @endsection
