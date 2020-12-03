@@ -39,7 +39,7 @@
 <div class="login login--success">
     <div class="login__container login__container--password">
     <div class="login__top">
-        <div class="login__wrapper"><img class="login__image" src="img/logo.png" alt="Logo of e-Plano" /></div>
+        <div class="login__wrapper"><img class="login__image" src="{{URL::asset('img/logo.png')}}" alt="Logo of e-Plano" /></div>
         <div class="login__title">
         <h2 class="login__text">e-Plano</h2>
         <span class="login__span">

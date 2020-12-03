@@ -38,6 +38,7 @@
               </div>
               <div class="form__content">
                 <select name="clinic" class="form__input form__input--search">
+                <option value="">Choose a Clinic</option>
                 @foreach ($clinics as $clinic)
                     <option value="{{ $clinic->id }}">{{ $clinic->clinic_name }}</option>
                     @endforeach

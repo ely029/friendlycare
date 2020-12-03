@@ -62,30 +62,38 @@ class NotificationsController extends Controller
         }
 
         $request = request()->all();
-        if ($request['schedule'] === '1') {
+        if ($request['schedule'] === 'Post Now') {
             if ($request['type'] === '2') {
                 $request['is_approve'] = 1;
                 $request['date_string'] = strtotime(date('Y-m-d'));
                 $request['date'] = date('Y-m-d');
                 $request['display_type'] = 'Announcements';
+                $request['scheduled'] = $request['schedule'];
+                $request['schedule'] = 0;
                 EventsNotification::create($request);
             } else {
                 $request['is_approve'] = 1;
                 $request['date_string'] = strtotime(date('Y-m-d'));
                 $request['date'] = date('Y-m-d');
                 $request['display_type'] = 'Events';
+                $request['scheduled'] = $request['schedule'];
+                $request['schedule'] = 0;
                 EventsNotification::create($request);
             }
         } else {
-            if ($request['type'] === '2') {
+            if ($request['type'] === 'Scheduled') {
                 $request['is_approve'] = 1;
                 $request['date_string'] = strtotime($request['date']);
                 $request['display_type'] = 'Announcements';
+                $request['scheduled'] = $request['schedule'];
+                $request['schedule'] = 0;
                 EventsNotification::create($request);
             } else {
                 $request['is_approve'] = 1;
                 $request['date_string'] = strtotime($request['date']);
                 $request['display_type'] = 'Events';
+                $request['scheduled'] = $request['schedule'];
+                $request['schedule'] = 0;
                 EventsNotification::create($request);
             }
         }

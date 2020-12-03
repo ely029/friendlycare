@@ -28,5 +28,6 @@ class EventsNotification extends Model
         'is_rated',
         'appointement_date_1',
         'booking_id',
+        'scheduled',
     ];
 }

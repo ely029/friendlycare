@@ -15,40 +15,51 @@
             <a class="breadcrumbs__link" href="notifications.php">Events &amp; Push Notifications</a><a class="breadcrumbs__link" href="create-notification.php">Create new notification</a><a class="breadcrumbs__link"></a>
           </div>
         </div>
+        <div class="col-md-12">
+                @if ($errors->any())
+  <div class="alert alert-danger">
+     <ul>
+        @foreach ($errors->all() as $error)
+           <li>{{ $error }}</li>
+        @endforeach
+     </ul>
+  </div>
+@endif
         <div class="section__container">
-          <form class="form" id="js-provider-form">
-            <ul class="form__group">
+          <form class="form" id="js-provider-form" method="POST" action="{{ route('notifications.postNotification')}}">
+          @csrf  
+          <ul class="form__group">
               <li class="form__group-item">
                 <h2 class="section__heading">Details</h2>
                 <div class="form__content">
-                  <select class="form__input form__input--select" id="js-schedule" required>
+                  <select class="form__input form__input--select" name="schedule" id="js-schedule" required>
                     <option disabled selected>---</option>
                     <option value="Post Now">Post Now</option>
                     <option value="Scheduled">Scheduled</option>
                   </select>
                   <label class="form__label">Schedule* </label>
                 </div>
-                <div class="form__content js-scheduled-content"><input class="form__input" type="time" placeholder="Time" required /><label class="form__label">Time*</label></div>
-                <div class="form__content js-scheduled-content"><input class="form__input" type="date" placeholder="Date" required /><label class="form__label">Date*</label></div>
+                <div class="form__content js-scheduled-content"><input class="form__input" type="time" name="time" placeholder="Time"/><label class="form__label">Time*</label></div>
+                <div class="form__content js-scheduled-content"><input class="form__input" type="date" name="date" placeholder="Date"/><label class="form__label">Date*</label></div>
                 <div class="form__content">
-                  <select class="form__input form__input--select" required>
+                  <select name="type" class="form__input form__input--select" required>
                     <option disabled selected>---</option>
-                    <option value="Event">Event</option>
-                    <option value="Announcement">Announcement</option>
+                    <option value="1">Event</option>
+                    <option value="2">Announcement</option>
                   </select>
                   <label class="form__label">Type*</label>
                 </div>
               </li>
               <li class="form__group-item">
                 <h2 class="section__heading">Content</h2>
-                <div class="form__content"><input class="form__input" type="text" placeholder="Title" required /><label class="form__label">Title*</label></div>
+                <div class="form__content"><input class="form__input" type="text" placeholder="Title" required name="title"/><label class="form__label">Title*</label></div>
                 <div class="form__content">
-                  <div class="form__input form__input--message" contenteditable placeholder="Description (English)*" required></div>
+                  <textarea class="form__input form__input--message" contenteditable placeholder="Description (English)*" required name="message">{{ old('message') }}</textarea>
                   <label class="form__label">Message*</label>
                 </div>
               </li>
             </ul>
-            <div class="form__button form__button--end"><button class="button">Submit</button></div>
+            <div class="form__button form__button--end"><button class="button" type="submit">Submit</button></div>
           </form>
           <div class="modal js-modal">
             <div class="modal__background js-modal-background"></div>
