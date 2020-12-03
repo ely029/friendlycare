@@ -21,15 +21,15 @@ use Mail;
 
 class DefaultController extends Controller
 {
-    public function login()
+    public function login(Request $request)
     {
-        $this->validate(request(), [
-            'email' => 'required|string|email',
-            'password' => 'required|min:6',
-        ]);
-
-        if (\Auth::attempt(['email' => request('email'), 'password' => request('password'), 'role_id' => 3])) {
+        $obj = json_decode($request->getContent(), true);
+        if (\Auth::attempt(['email' => $obj['email'][0], 'password' => $obj['password'][0], 'role_id' => 3])) {
             $user = \Auth::user();
+
+            User::where('id', $user['id'])->update([
+                'fcm_notification_key' => $obj['token'][0],
+            ]);
 
             return response([
                 'login_success' => 'Login Successful',
