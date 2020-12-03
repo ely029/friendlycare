@@ -18,19 +18,19 @@
             <div class="tabs">
               <ul class="tabs__list">
                 <li class="tabs__item tabs__item--current">
-                  <div class="tabs__wrapper"><img class="tabs__image" src="{{URL::asset('img/icon-step.png')}}" alt="Step 1" /></div>
+                  <div class="tabs__wrapper"><img class="tabs__image" src="{{URL::asset('img/icon-step.svg')}}" alt="Step 1" /></div>
                   <span class="tabs__text">Company info</span>
                 </li>
                 <li class="tabs__item">
-                  <div class="tabs__wrapper"><img class="tabs__image" src="{{URL::asset('img/icon-step.png')}}" alt="Step 2" /></div>
+                  <div class="tabs__wrapper"><img class="tabs__image" src="{{URL::asset('img/icon-step.svg')}}" alt="Step 2" /></div>
                   <span class="tabs__text">Gallery / schedule</span>
                 </li>
                 <li class="tabs__item">
-                  <div class="tabs__wrapper"><img class="tabs__image" src="img/icon-step.png" alt="Step 3" /></div>
+                  <div class="tabs__wrapper"><img class="tabs__image" src="{{URL::asset('img/icon-step.svg')}}" alt="Step 3" /></div>
                   <span class="tabs__text">Clinic services</span>
                 </li>
                 <li class="tabs__item">
-                  <div class="tabs__wrapper"><img class="tabs__image" src="img/icon-step.png" alt="Step 4" /></div>
+                  <div class="tabs__wrapper"><img class="tabs__image" src="{{URL::asset('img/icon-step.svg')}}" alt="Step 4" /></div>
                   <span class="tabs__text">Paid services</span>
                 </li>
               </ul>

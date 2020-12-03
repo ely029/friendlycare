@@ -48,6 +48,7 @@
         </div>
         <div class="form__inline">
         <div class="form__content"><select class="form__input form__input--select" type="text" placeholder="Category*" name="type" >
+                            <option value="">Choose Category</option>
                             <option value="1">Private</option>
                             <option value="2">Government</option>
                             <option value="3">NGO</option>

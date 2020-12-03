@@ -13,6 +13,17 @@
           <div class="breadcrumbs"><a class="breadcrumbs__link" href="user-management.php">User management</a><a class="breadcrumbs__link" href="edit-user.php">Edit user</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
+        <div class="row">
+                <div class="col-md-12">
+                @if ($errors->any())
+  <div class="alert alert-danger">
+     <ul>
+        @foreach ($errors->all() as $error)
+           <li>{{ $error }}</li>
+        @endforeach
+     </ul>
+  </div>
+@endif
         @foreach ($users as $user)
         <form class="form" method="POST" action="{{ route('updateUser') }}">
             @csrf
@@ -30,8 +41,8 @@
               <input type="hidden"  name="role_id" value="{{ $user->role_id }}">
             </div>
             <div class="form__inline">
-              <div class="form__content"><input class="form__input" type="text" name="professions" placeholder="Profession (optional)" value="{{ $user->profession }}"/><label class="form__label">Profession (optional)</label></div>
-              <div class="form__content"><input class="form__input" type="text" name="trainings" placeholder="Training (optional)" value="{{ $user->training }}"/><label class="form__label">Training (optional)</label></div>
+              <div class="form__content"><input class="form__input" type="text" name="professions" placeholder="Profession (optional)" value="{{ $user->professions }}"/><label class="form__label">Profession (optional)</label></div>
+              <div class="form__content"><input class="form__input" type="text" name="trainings" placeholder="Training (optional)" value="{{ $user->trainings }}"/><label class="form__label">Training (optional)</label></div>
             </div>
             @if ($user->role_id == 2)
             @else
@@ -48,7 +59,26 @@
             @endif
             <div class="form__inline">
             <div class="form__content"><input class="form__input" type="text" placeholder="Email Address" value="{{ $user->email }}" name="email"/><label class="form__label">Email Address</label></div>
-            <div class="form__button form__button--end"><input type="submit" class="button" value="Save Changes"></div>
+            <div class="form__button form__button--end"><input type="button" data-toggle="modal" data-target="#confirmCreateFPM" class="button" value="Save Changes"></div>
+            <div class="modal fade" id="confirmCreateFPM" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Save Changes</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    You are about to save the changes. Proceed?
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <input type="submit" class="btn btn-success" value="Save Changes"/>
+                                </div>
+                        </div>
+                    </div>
+             </div>
           </form>
         @endforeach
         </div>

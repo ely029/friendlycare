@@ -149,6 +149,19 @@ class UserManagementController extends Controller
     public function updateUser()
     {
         $request = request()->all();
+        $validator = \Validator::make(request()->all(), [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'professions' => 'required',
+            'trainings' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('user/edit/'.$request['id'])
+                ->withErrors($validator)
+                ->withInput();
+        }
         if ($request['role_id'] === '2') {
             User::find($request['id'])->update([
                 'name' => $request['first_name'] . ' ' . $request['last_name'],

@@ -40,7 +40,6 @@
                 <h2 class="section__heading">Clinic info</h2>
                 <div class="form__content form__content--reverse">
                   <label class="form__label form__label--visible">Address</label><span class="form__text">{{ $providers->street_address}}</span>
-                  <a class="form__link" href="">view on map</a>
                 </div>
                 <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Category</label><span class="form__text">
                 @if($providers->type == '1')

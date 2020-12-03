@@ -250,7 +250,11 @@ class ProviderManagementController extends Controller
     public function storeFirstPage(Request $requests)
     {
         $validator = \Validator::make(request()->all(), [
-            'pic' => 'required|mimes:png|max:5000',
+            'pic' => 'required|mimes:png,jpeg,jpg|max:5000',
+            'clinic_name' => 'required',
+            'contact_number' => 'required',
+            'email' => 'required',
+            'street_address' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect('provider/create/1')

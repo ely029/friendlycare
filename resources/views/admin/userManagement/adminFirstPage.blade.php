@@ -53,7 +53,26 @@
               <div class="form__content"><input class="form__input" type="text" placeholder="Training (optional)" name="trainings" value="{{ old('trainings')}}"/><label class="form__label">Training (optional)</label></div>
             </div>
             <div class="form__content"><input class="form__input" type="text" placeholder="Email Address*" value="{{ old('email')}}"name="email" /><label class="form__label">Email Address*</label></div>
-            <div class="form__button form__button--end"><input type="submit" class="button" value="Create Account"></div>
+            <div class="form__button form__button--end"><input type="button" data-toggle="modal" data-target="#confirmCreateFPM" class="button" value="Create Account"></div>
+            <div class="modal fade" id="confirmCreateFPM" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Create Account</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    You are about to create an Admin. Proceed?
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <input type="submit" class="btn btn-success" value="Create Account"/>
+                                </div>
+                        </div>
+                    </div>
+            </div>
           </form>
         </div>
       </div>
