@@ -117,6 +117,9 @@ class BookingssController extends Controller
             'appointement_date_1' => $obj['date'][0],
         ]);
 
+        $parameter = 2;
+        $this->pushNotification($parameter, $getPatientId[0]);
+
         return response([
             'name' => 'postProviderReschedule',
             'message' => 'Reschedule is successful',
@@ -132,6 +135,43 @@ class BookingssController extends Controller
             $notification = [
                 'title' => 'Booking Confirmed',
                 'body' => 'Your Booking is confirmed',
+                'icon' => 'myIcon',
+                'sound' => 'defaultSound',
+                'priority' => 'high',
+                'contentAvailable' => true,
+            ];
+
+            $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
+
+            $fcmNotification = [
+                'to' => $token,
+                'notification' => $notification,
+                'data' => $extraNotifications,
+            ];
+
+            $headers = [
+                'Authorization: key=AAAAhGKDgoo:APA91bGxHrVfvIgku3NIcP7P3EerjE1cE_zHRXp9dVOp8RYkhb3o1Cv5g26R5Lx8vXFZoBCM10-YsSCfyBkxy34ORiqK_hLJjrJcAxnIUOswhJrgxHoOtmTgUca0gXkb4kx_ZkyAEa84',
+                'Content-Type: application/json',
+            ];
+            $chh = curl_init();
+            curl_setopt($chh, CURLOPT_URL, $fcmurl);
+            curl_setopt($chh, CURLOPT_POST, true);
+            curl_setopt($chh, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($chh, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($chh, CURLOPT_SSL_VERIFYPEER, $headers);
+            curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
+            $result = curl_exec($chh);
+            curl_close($chh);
+
+            return $result;
+        }
+        if ($parameter === 2) {
+            $user = DB::table('users')->select('fcm_notification_key')->where('id', $id)->pluck('fcm_notification_key');
+            $fcmurl = 'https://fcm.googleapis.com/fcm/send';
+            $token = $user[0];
+            $notification = [
+                'title' => 'Booking Rescheduled',
+                'body' => 'Your Booking is Rescheduled',
                 'icon' => 'myIcon',
                 'sound' => 'defaultSound',
                 'priority' => 'high',
