@@ -523,10 +523,40 @@ class BookingController extends Controller
             'status' => 4,
             'booking_id' => $id,
         ]);
-
+        $user = DB::table('users')->select('fcm_notification_key')->where('id', $getPatientId[0])->pluck('fcm_notification_key');
+        $fcmurl = 'https://fcm.googleapis.com/fcm/send';
+        $token = $user[0];
+        $notification = [
+            'title' => 'Booking Completed',
+            'body' => 'Your Booking is now Completed',
+            'icon' => 'myIcon',
+            'sound' => 'defaultSound',
+            'priority' => 'high',
+            'contentAvailable' => true,
+        ];
+        $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
+        $fcmNotification = [
+            'to' => $token,
+            'notification' => $notification,
+            'data' => $extraNotifications,
+        ];
+        $headers = [
+            'Authorization: key=AAAAhGKDgoo:APA91bGxHrVfvIgku3NIcP7P3EerjE1cE_zHRXp9dVOp8RYkhb3o1Cv5g26R5Lx8vXFZoBCM10-YsSCfyBkxy34ORiqK_hLJjrJcAxnIUOswhJrgxHoOtmTgUca0gXkb4kx_ZkyAEa84',
+            'Content-Type: application/json',
+        ];
+        $chh = curl_init();
+        curl_setopt($chh, CURLOPT_URL, $fcmurl);
+        curl_setopt($chh, CURLOPT_POST, true);
+        curl_setopt($chh, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($chh, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($chh, CURLOPT_SSL_VERIFYPEER, $headers);
+        curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
+        $result = curl_exec($chh);
+        curl_close($chh);
         return response([
             'name' => 'postConfirmService',
             'message' => 'service confirmed!',
+            'details' => $result,
         ]);
     }
 

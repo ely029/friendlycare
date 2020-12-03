@@ -117,6 +117,7 @@ class BookingssController extends Controller
             'display_type' => 'Notifications',
             'title' => 'Booking Rescheduled',
             'appointement_date_1' => $obj['date'][0],
+            'status' => 2,
         ]);
 
         $parameter = 2;
