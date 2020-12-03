@@ -125,13 +125,13 @@ class BookingssController extends Controller
 
     public function pushNotification($parameter, $id)
     {
-        $user = DB::table('users')->select('fcm_notification_key')->where('id', $id)->pluck('fcm_notification_key');
-        $fcmurl = 'https://fcm.googleapis.com/fcm/send';
-        $token = $user[0];
         if ($parameter === 1) {
+            $user = DB::table('users')->select('fcm_notification_key')->where('id', $id)->pluck('fcm_notification_key');
+            $fcmurl = 'https://fcm.googleapis.com/fcm/send';
+            $token = $user[0];
             $notification = [
                 'title' => 'Booking Confirmed',
-                'body' => 'Your Booking are confirmed',
+                'body' => 'Your Booking is confirmed',
                 'icon' => 'myIcon',
                 'sound' => 'defaultSound',
                 'priority' => 'high',
@@ -157,9 +157,10 @@ class BookingssController extends Controller
             curl_setopt($chh, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($chh, CURLOPT_SSL_VERIFYPEER, $headers);
             curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
+            $result = curl_exec($chh);
             curl_close($chh);
         }
 
-        return true;
+        return $result;
     }
 }
