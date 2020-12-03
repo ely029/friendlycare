@@ -13,7 +13,8 @@
           <div class="breadcrumbs"><a class="breadcrumbs__link" href="family-planning-methods.php">Family planning methods</a><a class="breadcrumbs__link" href="create-method.php">Create method</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
-          <form class="form form--method" id="js-provider-form">
+          <form class="form form--method" id="js-provider-form" method="POST" action="{{ route('familyPlanningMethod.createOne')}}" enctype="multipart/form-data">
+           @csrf
             <div class="form__tab">
               <ul class="form__group form__group--editMethod">
                 <li class="form__group-item">
@@ -24,23 +25,28 @@
                     </li>
                     <li class="form__group-item">
                       <div class="form__content">
-                        <input class="button button--upload button--upload__method" id="js-upload" type="file" accept="image/*" name="js-upload" /><label class="form__label form__label--upload" for="js-upload">Upload a service icon </label>
+                        <input name="icon" class="button button--upload button--upload__method" id="js-upload" type="file" accept="image/*" name="js-upload" /><label class="form__label form__label--upload" for="js-upload">Upload a service icon </label>
                       </div>
                     </li>
                   </ul>
                 </li>
                 <li class="form__group-item">
                   <h2 class="section__heading">Effectiveness (in percent)</h2>
-                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Sa tamang paggamit*" required /><label class="form__label">Sa tamang paggamit* </label></div>
-                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Tipikal na bisa*" required /><label class="form__label">Tipikal na bisa* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" name="percent_effective" value="{{ old('percent_effective') }}" placeholder="Sa tamang paggamit*" required /><label class="form__label">Sa tamang paggamit* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" name="typical_validity" value="{{ old('typical_validity') }}"placeholder="Tipikal na bisa*" required /><label class="form__label">Tipikal na bisa* </label></div>
                 </li>
               </ul>
               <ul class="form__group">
                 <li class="form__group-item">
-                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Method name*" required /><label class="form__label">Method name* </label></div>
-                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Short name*" required /><label class="form__label">Short name* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Method name*" name="name" value="{{ old('name') }}" required /><label class="form__label">Method name* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Short name*" short_name" value="{{ old('short_name') }}" required /><label class="form__label">Short name* </label></div>
                   <div class="form__content form__content--full">
-                    <select class="form__input form__input--select"></select>
+                    <select name="family_plan_type_id" class="form__input form__input--select">
+                         <option value="">Select Method...</option>
+                         <option value="1">Modern Method</option>
+                         <option value="2">Permanent Method</option>
+                         <option value="3">Natural Method</option>
+                     </select>
                     <label class="form__label">Category* </label>
                   </div>
                 </li>
@@ -56,7 +62,7 @@
                   <li class="steps__item"></li>
                 </ul>
               </div>
-              <button class="button"  type="button">Next</button>
+              <button class="button"  type="submit">Next</button>
             </div>
           </form>
         </div>

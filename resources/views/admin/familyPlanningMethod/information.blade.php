@@ -7,10 +7,11 @@
 <div class="wrapper">
 @include('includes.sidebar')
 </div>
+@foreach ($details as $detail)
 <div class="section">
         <div class="section__top">
-          <h1 class="section__title">COC / pills</h1>
-          <div class="breadcrumbs"><a class="breadcrumbs__link" href="family-planning-methods.php">Family planning methods</a><a class="breadcrumbs__link" href="method-profile.php">COC / pills</a><a class="breadcrumbs__link"></a></div>
+          <h1 class="section__title">{{ $detail->name }} / {{ $detail->short_name }}</h1>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="family-planning-methods.php">Family planning methods</a><a class="breadcrumbs__link" href="method-profile.php">{{ $detail->name }} / {{ $detail->short_name }}</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
           <form class="form" action="">
@@ -19,7 +20,7 @@
                 <div class="form__wrapper"><img class="form__image form__image--method" src="img/placeholder.jpg" alt="Image placeholder" /></div>
               </li>
               <li class="form__group-item">
-                <div class="form__content form__content--reverse"><label class="form__label form__label--blue">Combined oral contraceptive (COC) or pills</label></div>
+                <div class="form__content form__content--reverse"><label class="form__label form__label--blue">{{$detail->name}}</label></div>
               </li>
             </ul>
             <div class="form__content form__content--reverse form__content--gallery">
@@ -36,58 +37,57 @@
             <ul class="form__group form__group--viewMethod">
               <li class="form__group-item">
                 <h2 class="section__heading">Effectiveness</h2>
-                <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Sa tamang paggamit</label><span class="form__text">99.7%</span></div>
-                <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Tipikal na bisa</label><span class="form__text">92.0%</span></div>
+                <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Sa tamang paggamit</label><span class="form__text">{{ $detail->percent_effective }}</span></div>
+                <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Tipikal na bisa</label><span class="form__text">{{ $detail->typical_validity }}</span></div>
               </li>
               <li class="form__group-item">
                 <h2 class="section__heading">Description</h2>
                 <div class="form__content form__content--reverse">
                   <label class="form__label form__label--visible">Description (English)</label>
-                  <span class="form__text">Naglalaman ng dalawang synthetic hormones (estrogen at progesterone), gaya ng natural na ginagawa ng katawan ng babae.</span>
+                  <span class="form__text">{{ $detail->description_english }}</span>
                 </div>
                 <div class="form__content form__content--reverse">
                   <label class="form__label form__label--visible">Description (Filipino)</label>
-                  <span class="form__text">Naglalaman ng dalawang synthetic hormones (estrogen at progesterone), gaya ng natural na ginagawa ng katawan ng babae.</span>
+                  <span class="form__text">{{ $detail->description_filipino }}</span>
                 </div>
                 <h2 class="section__heading">How it works</h2>
                 <div class="form__content form__content--reverse">
                   <label class="form__label form__label--visible">How it works (English)</label>
-                  <span class="form__text">Sa pag dagdag ng estrogen at progesterone, mapipigilan ang paglabas ng itlog mula sa ovaries. Pinapakapal ang cervical mucus na humahadlang sa pagpasok ng itlog sa uterus or matris.</span>
+                  <span class="form__text">{{ $detail->how_it_works_english }}</span>
                 </div>
                 <div class="form__content form__content--reverse">
                   <label class="form__label form__label--visible">How it works (Filipino)</label>
-                  <span class="form__text">Sa pag dagdag ng estrogen at progesterone, mapipigilan ang paglabas ng itlog mula sa ovaries. Pinapakapal ang cervical mucus na humahadlang sa pagpasok ng itlog sa uterus or matris.</span>
+                  <span class="form__text">{{ $detail->how_it_works_filipino }}</span>
                 </div>
                 <h2 class="section__heading">Possible side effects</h2>
                 <div class="form__content form__content--reverse">
-                  <label class="form__label form__label--visible">Possible side effects (English)</label><span class="form__text">Pagkahilo o pagsusuka </span>
-                  <span class="form__text">Spotting, light bleeding na hindi napapanahon sa regla </span><span class="form__text">Weight gain </span><span class="form__text">Bahagyang sakit ng ulo </span>
-                  <span class="form__text">Breast tenderness</span>
+                  <label class="form__label form__label--visible">Possible side effects (English)</label>
+                  <span class="form__text">{{ $detail->side_effect_english }} </span>
                 </div>
                 <div class="form__content form__content--reverse">
-                  <label class="form__label form__label--visible">Possible side effects (Filipino)</label><span class="form__text">Pagkahilo o pagsusuka </span>
-                  <span class="form__text">Spotting, light bleeding na hindi napapanahon sa regla </span><span class="form__text">Weight gain </span><span class="form__text">Bahagyang sakit ng ulo </span>
-                  <span class="form__text">Breast tenderness</span>
+                  <label class="form__label form__label--visible">Possible side effects (Filipino)</label>
+                  <span class="form__text">{{ $detail->side_effect_filipino }}</span>
                 </div>
                 <h2 class="section__heading">Additional notes</h2>
                 <div class="form__content form__content--reverse">
                   <label class="form__label form__label--visible">Additional notes (English)</label>
                   <span class="form__text">
-                    Walang dapat ikabahala sa mga karaniwang side effect ng paggamit ng COC. Unti-unting nababawasan ang mga ito sa tuluyan at di napuputol na paggamit. Karaniwang nawawala ang mga side effect makalipas ng ilang buwan.
+                  {{ $detail->additional_note_english }}
                   </span>
                 </div>
                 <div class="form__content form__content--reverse">
                   <label class="form__label form__label--visible">Additional notes (Filipino)</label>
                   <span class="form__text">
-                    Walang dapat ikabahala sa mga karaniwang side effect ng paggamit ng COC. Unti-unting nababawasan ang mga ito sa tuluyan at di napuputol na paggamit. Karaniwang nawawala ang mga side effect makalipas ng ilang buwan.
+                  {{ $detail->additional_note_filipino }}
                   </span>
                 </div>
               </li>
             </ul>
-            <div class="form__button form__button--start"><a class="button" href="edit-method.php">Edit method</a><button class="button button--transparent" type="button">Delete method</button></div>
+            <div class="form__button form__button--start"><a class="button" href="{{ route('familyPlanningMethod.edit',$detail->id)}}">Edit method</a><button class="button button--transparent" type="button">Delete method</button></div>
           </form>
         </div>
       </div>
+@endforeach
 <!-- <div class="container-fluid">
     <div class="row">
         <aside class="col-2 px-0 fixed-top" id="left">

@@ -14,7 +14,8 @@
           <div class="breadcrumbs"><a class="breadcrumbs__link" href="family-planning-methods.php">Family planning methods</a><a class="breadcrumbs__link" href="create-method.php">Create method</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
-          <form class="form form--method" id="js-provider-form">
+          <form class="form form--method" id="js-provider-form" method="POST" action="{{ route('familyPlanningMethod.createThree') }}" enctype="multipart/form-data">
+          @csrf
             <div class="form__tab">
               <ul class="form__group">
                 <li class="form__group-item">
@@ -38,7 +39,7 @@
                   <li class="steps__item"></li>
                 </ul>
               </div>
-              <button class="button"  type="button">Next</button>
+              <button class="button"  type="submit">Next</button>
             </div>
             </form>
         </div>

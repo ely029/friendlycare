@@ -13,7 +13,19 @@
           <div class="breadcrumbs"><a class="breadcrumbs__link" href="family-planning-methods.php">Family planning methods</a><a class="breadcrumbs__link" href="create-method.php">Create method</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
-          <form class="form form--method" id="js-provider-form">
+          <form class="form form--method" id="js-provider-form" method="POST" action=" {{ route('familyPlanningMethod.createTwo')}}">
+          @csrf
+          <div class="row">
+                <div class="col-md-12">
+                @if ($errors->any())
+  <div class="alert alert-danger">
+     <ul>
+        @foreach ($errors->all() as $error)
+           <li>{{ $error }}</li>
+        @endforeach
+     </ul>
+  </div>
+  @endif
 <div class="form__tab">
               <h2 class="section__heading">Content</h2>
               <ul class="tabs__list tabs__list--method">
@@ -24,11 +36,11 @@
                     <h2 class="section__heading">Description</h2>
                     <div class="form__inline">
                       <div class="form__content form__content--half">
-                        <div class="form__input form__input--message" contenteditable placeholder="Description (English)*" required></div>
+                        <div class="form__input form__input--message" contenteditable placeholder="Description (English)*" required name="description_english"></div>
                         <label class="form__label">Description (English)</label>
                       </div>
                       <div class="form__content form__content--half">
-                        <div class="form__input form__input--message" contenteditable placeholder="Description (Filipino)*" required></div>
+                        <div class="form__input form__input--message" contenteditable placeholder="Description (Filipino)*" required name="description_tagalog"></div>
                         <label class="form__label">Description (Filipino)</label>
                       </div>
                     </div>
@@ -96,7 +108,7 @@
                   <li class="steps__item"></li>
                 </ul>
               </div>
-              <button class="button"  type="button">Next</button>
+              <button class="button"  type="submit">Next</button>
             </div>
             </form>
         </div>

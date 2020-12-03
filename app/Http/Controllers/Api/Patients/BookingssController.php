@@ -34,7 +34,6 @@ class BookingssController extends Controller
         $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
         $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
         $message = $getClinicName[0];
-
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
             'message' => '',
