@@ -7,7 +7,8 @@
 <div class="wrapper">
 @include('includes.sidebar')
 </div>
-
+@foreach ($content as $contents)
+@if($contents->id != 3)
 <!-- for about us -->
 <div class="section">
 <div class="section__top">
@@ -22,8 +23,7 @@
     </div>
 </div>
 </div>
-
-
+@else
 <!-- for consent form -->
 <div class="section">
 <div class="section__top">
@@ -71,6 +71,8 @@
     </div>
 </div>
 </div>
+@endif
+@endforeach
 
 <!-- <div class="container-fluid">
     <div class="row">
