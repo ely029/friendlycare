@@ -20,7 +20,7 @@
             <div class="form__content"><span class="form__text">10/24/2020</span><label class="form__label form__label--visible">Date</label></div>
             <div class="form__content"><span class="form__text">12:00pm</span><label class="form__label form__label--visible">Time</label></div>
             <div class="form__content">
-              <span class="form__text">Cras eget nulla nec erat euismod faucibus ac finibus ante. Etiam enim neque, blandit at gravida quis, tempus at est. In venenatis orci ipsum, id</span>
+              <span class="form__text">Sample Message</span>
               <label class="form__label form__label--visible">Message</label>
             </div>
             <div class="form__button form__button--start"><a class="button" href="edit-notification.php">Edit notification</a><button class="button button--transparent js-trigger" type="button">Delete notification</button></div>
