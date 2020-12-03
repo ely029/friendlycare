@@ -17,10 +17,10 @@
           <form class="form" action="">
             <div class="form__inline">
               <div class="form__content">
-                <select class="form__input form__input--select" id="js-role">
+                <select class="form__input form__input--select" id="role">
                   <option disabled selected>---</option>
-                  <option id="js-admin" value="Admin">Admin</option>
-                  <option id="js-staff" value="Staff">Staff</option>
+                  <option id="js-admin" value="{{ route('adminFirstPage') }}">Admin</option>
+                  <option id="js-staff" value="{{ route('staffFirstPage') }}">Staff</option>
                 </select>
                 <label class="form__label">Role*</label>
               </div>
