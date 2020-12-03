@@ -159,8 +159,9 @@ class BookingssController extends Controller
             curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
             $result = curl_exec($chh);
             curl_close($chh);
-        }
 
-        return $result;
+            return $result;
+        }
+        return true;
     }
 }
