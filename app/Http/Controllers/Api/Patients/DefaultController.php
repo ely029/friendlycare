@@ -135,6 +135,7 @@ class DefaultController extends Controller
         'users.gender',
         'users.email',
         'users.age',
+        'users.fcm_notification_token',
         'patients.city',
         'patients.citymunicipality',
         'patients.province',
