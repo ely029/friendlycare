@@ -43,6 +43,8 @@ class BookingssController extends Controller
             'appointement_date_1' => $getDate[0],
             'booking_id' => $id,
         ]);
+        $parameter = 1;
+        $this->pushNotification($parameter, $getPatient[0]);
 
         return response([
             'name' => 'BookApproved',
@@ -118,6 +120,50 @@ class BookingssController extends Controller
         return response([
             'name' => 'postProviderReschedule',
             'message' => 'Reschedule is successful',
+        ]);
+    }
+
+    public function pushNotification($parameter, $id)
+    {
+        $user = DB::table('users')->select('fcm_notification_key')->where('id', $id)->pluck('fcm_notification_key');
+        $fcmurl = 'https://fcm.googleapis.com/fcm/send';
+        $token = $user[0];
+        if ($parameter === 1) {
+            $notification = [
+                'title' => 'Booking Confirmed',
+                'body' => 'Your Booking are confirmed',
+                'icon' => 'myIcon',
+                'sound' => 'defaultSound',
+                'priority' => 'high',
+                'contentAvailable' => true,
+            ];
+        }
+
+        $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
+
+        $fcmNotification = [
+            'to' => $token,
+            'notification' => $notification,
+            'data' => $extraNotifications,
+        ];
+
+        $headers = [
+            'Authorization: key=AAAAhGKDgoo:APA91bGxHrVfvIgku3NIcP7P3EerjE1cE_zHRXp9dVOp8RYkhb3o1Cv5g26R5Lx8vXFZoBCM10-YsSCfyBkxy34ORiqK_hLJjrJcAxnIUOswhJrgxHoOtmTgUca0gXkb4kx_ZkyAEa84',
+            'Content-Type: application/json',
+        ];
+
+        $chh = curl_init();
+        curl_setopt($chh, CURLOPT_URL, $fcmurl);
+        curl_setopt($chh, CURLOPT_POST, true);
+        curl_setopt($chh, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($chh, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($chh, CURLOPT_SSL_VERIFYPEER, $headers);
+        curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
+        $result = curl_exec($chh);
+        curl_close($chh);
+
+        return response([
+            'response' => $result,
         ]);
     }
 }
