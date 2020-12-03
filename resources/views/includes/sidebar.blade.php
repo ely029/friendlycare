@@ -26,15 +26,6 @@
                 </a>
               </li>
               <li class="sidebar__item">
-                <a class="sidebar__link" href="staff-management.php">
-                  <div class="sidebar__wrapper">
-                    <img class="sidebar__icon" src="{{URL::asset('img/icon-staff-management.png')}}" alt="Staff Management icon for e-plano" />
-                    <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-staff-management-white.png')}}" alt="staff Management icon on hover for e-plano" />
-                  </div>
-                  <span class="sidebar__text">Staff Management</span>
-                </a>
-              </li>
-              <li class="sidebar__item">
                 <a class="sidebar__link" href="patient-management.php">
                   <div class="sidebar__wrapper">
                     <img class="sidebar__icon" src="{{URL::asset('img/icon-patient-management.png')}}" alt="Patient Management icon for e-plano" />
