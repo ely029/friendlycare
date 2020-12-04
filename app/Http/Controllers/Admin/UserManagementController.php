@@ -44,7 +44,6 @@ class UserManagementController extends Controller
         $users = DB::table('clinics')
             ->select('clinics.id', 'clinics.clinic_name')
             ->where('is_approve', 1)
-            ->where('province', '<>', 'null')
             ->get();
 
         return view('admin.userManagement.staffFirstPage', ['clinics' => $users]);

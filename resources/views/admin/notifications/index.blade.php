@@ -14,7 +14,7 @@
     <div class="breadcrumbs"><a class="breadcrumbs__link" href="notifications.php">Events &amp; Push Notifications</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
 </div>
 <div class="section__container">
-    <a class="button button--create" href="create-notification.php">Create new notification<i class="fa fa-plus"></i></a>
+    <a class="button button--create" href="{{ route('notifications.create') }}">Create new notification<i class="fa fa-plus"></i></a>
     <div class="table__button">
     <button class="button button--filter">Upcoming Events</button><button class="button button--filter">Past Events</button><button class="button button--filter">Upcoming Announcements</button>
     <button class="button button--filter">Past Announcements</button>
@@ -28,11 +28,13 @@
         </tr>
     </thead>
     <tbody>
-        <tr class="table__row js-view" data-href="view-notification.php">
+    @foreach($upcomingEvent as $events)
+    <tr class="table__row js-view" data-href="view-notification.php">
         <td class="table__details">10/24/2020</td>
         <td class="table__details">Merry Christmas!</td>
         <td class="table__details">Announcement</td>
         </tr>
+    @endforeach
     </tbody>
     </table>
 </div>
