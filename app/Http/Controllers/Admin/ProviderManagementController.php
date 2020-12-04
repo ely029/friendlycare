@@ -89,6 +89,11 @@ class ProviderManagementController extends Controller
             ->whereNotNull('clinics.clinic_name')
             ->get();
 
+        $ratings = DB::table('ratings')
+            ->join('ratings_details', 'ratings_details.rating_id', 'ratings.id')
+            ->where('ratings.clinic_id', $id)
+            ->avg('ratings_details.ratings');
+
         $permanentMethod = DB::table('family_plan_type_subcategory')
             ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
             ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
@@ -131,7 +136,7 @@ class ProviderManagementController extends Controller
             ->where('clinic_gallery.clinic_id', $id)
             ->get();
 
-        return view('admin.providerManagement.editProviderInformation', ['provider' => $provider, 'modernMethod' => $modernMethod, 'permanentMethod' => $permanentMethod, 'naturalMethod' => $naturalMethod, 'staffs' => $staff, 'paidServices' => $paidServices, 'clinicHours' => $clinicHours, 'galleries' => $gallery ]);
+        return view('admin.providerManagement.editProviderInformation', ['provider' => $provider, 'modernMethod' => $modernMethod, 'permanentMethod' => $permanentMethod, 'naturalMethod' => $naturalMethod, 'staffs' => $staff, 'paidServices' => $paidServices, 'clinicHours' => $clinicHours, 'galleries' => $gallery, 'ratings' => $ratings ]);
     }
 
     public function editPage($id)
@@ -156,10 +161,9 @@ class ProviderManagementController extends Controller
 
         $gallery = DB::table('clinic_gallery')
             ->join('clinics', 'clinics.id', 'clinic_gallery.clinic_id')
-            ->select('clinic_gallery.file_name')
+            ->select('clinic_gallery.file_na\me')
             ->where('clinic_gallery.clinic_id', $id)
             ->get();
-
         $modernMethod = DB::table('family_plan_type_subcategory')
             ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
             ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id')

@@ -23,6 +23,7 @@
                 <div class="form__content form__content--reverse">
                   <label class="form__label form__label--blue">{{ $providers->clinic_name}}</label>
                   <span class="form__text form__text--group">
+                    <input type="hidden" id="rate" value="{{ $ratings }}">
                     <div id="rateYo"></div>
                     <span class="form__text">(17)</span><a class="form__link form__link--gray" href="">View reviews?</a>
                   </span>
