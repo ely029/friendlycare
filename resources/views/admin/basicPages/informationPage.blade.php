@@ -40,7 +40,7 @@
         <ul class="accordion__list">
         @foreach($contents as $content)
         <li class="accordion__item">
-            <input class="accordion__trigger" id="trigger1" type="radio" name="rd" />
+            <input class="accordion__trigger" id="trigger{{$content->id}}" type="radio" name="rd{{$content->id}}" />
             <label class="accordion__title" for="trigger1">
             {{ $content->section_title}}
             <div class="accordion__arrow"></div>

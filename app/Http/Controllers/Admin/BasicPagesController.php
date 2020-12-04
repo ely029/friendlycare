@@ -20,7 +20,7 @@ class BasicPagesController extends Controller
     public function informationPage($id)
     {
         $contents = DB::table('basic_page_section')
-            ->select('basic_page_section.title as section_title', 'basic_page_section.content')
+            ->select('basic_page_section.title as section_title', 'basic_page_section.content', 'basic_page_section.id')
             ->where('basic_page_id', $id)
             ->get();
 
@@ -30,7 +30,7 @@ class BasicPagesController extends Controller
     }
     public function editPage($id)
     {
-        $contents = DB::table('basic_page_section')->select('title', 'content')->where('basic_page_id', $id)->get();
+        $contents = DB::table('basic_page_section')->select('title', 'content', 'id')->where('basic_page_id', $id)->get();
         $content = BasicPages::where('id', $id)->get();
         return view('admin.basicPages.editPage', ['content' => $content, 'contentss' => $contents]);
     }
@@ -39,11 +39,12 @@ class BasicPagesController extends Controller
         $request = request()->all();
         if ($request['id'] === '3') {
             $this->checkAndInsertofData($request);
+        } else {
+            BasicPages::find($request['id'])->update([
+                'content_name' => $request['content_name'],
+                'content' => $request['content'],
+            ]);
         }
-        BasicPages::find($request['id'])->update([
-            'content_name' => $request['content_name'],
-            'content' => $request['content'],
-        ]);
 
         return redirect('basicpages/list');
     }
@@ -55,13 +56,13 @@ class BasicPagesController extends Controller
                 'title' => $request['title'][$eee],
                 'content' => $request['content'][$eee],
             ]);
+        } else {
+            BasicPageSection::create([
+                'basic_page_id' => $request['id'],
+                'title' => $request['title'][$eee],
+                'content' => $request['content'][$eee],
+            ]);
         }
-
-        BasicPageSection::create([
-            'basic_page_id' => $request['id'],
-            'title' => $request['title'][$eee],
-            'content' => $request['content'][$eee],
-        ]);
     }
     private function checkAndInsertofData($request)
     {
