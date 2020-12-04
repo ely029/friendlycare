@@ -36,11 +36,11 @@
                     <h2 class="section__heading">Description</h2>
                     <div class="form__inline">
                       <div class="form__content form__content--half">
-                        <div class="form__input form__input--message" contenteditable placeholder="Description (English)*" required name="description_english"></div>
+                        <textarea class="form__input form__input--message" contenteditable placeholder="Description (English)*" required name="description_english">{{ old('description_english') }}</textarea>
                         <label class="form__label">Description (English)</label>
                       </div>
                       <div class="form__content form__content--half">
-                        <div class="form__input form__input--message" contenteditable placeholder="Description (Filipino)*" required name="description_tagalog"></div>
+                        <textarea class="form__input form__input--message" contenteditable placeholder="Description (Filipino)*" required name="description_tagalog">{{ old('description_tagalog') }}</textarea>
                         <label class="form__label">Description (Filipino)</label>
                       </div>
                     </div>
@@ -53,11 +53,11 @@
                     <h2 class="section__heading">How it works</h2>
                     <div class="form__inline">
                       <div class="form__content form__content--half">
-                        <div class="form__input form__input--message" contenteditable placeholder="How it works (English)*" required></div>
+                        <textarea class="form__input form__input--message" contenteditable placeholder="How it works (English)*" required name="how_it_works_english"> {{ old('how_it_works_english') }}</textarea>
                         <label class="form__label">How it works (English)</label>
                       </div>
                       <div class="form__content form__content--half">
-                        <div class="form__input form__input--message" contenteditable placeholder="How it works (Filipino)*" required></div>
+                        <textarea class="form__input form__input--message" contenteditable placeholder="How it works (Filipino)*" required name="how_it_works_tagalog">{{ old('how_it_works_tagalog') }}</textarea>
                         <label class="form__label">How it works (Filipino)</label>
                       </div>
                     </div>
@@ -70,11 +70,11 @@
                     <h2 class="section__heading">Possible side effects</h2>
                     <div class="form__inline">
                       <div class="form__content form__content--half">
-                        <div class="form__input form__input--message" contenteditable placeholder="Possible side effects (English)*" required></div>
+                        <textarea class="form__input form__input--message" contenteditable placeholder="Possible side effects (English)*" required name="side_effect_english">{{old('side_effect_english')}}</textarea>
                         <label class="form__label">Possible side effects (English)</label>
                       </div>
                       <div class="form__content form__content--half">
-                        <div class="form__input form__input--message" contenteditable placeholder="Possible side effects (Filipino)*" required></div>
+                        <textarea class="form__input form__input--message" contenteditable placeholder="Possible side effects (Filipino)*" required name="side_effect_tagalog">{{ old('side_effect_tagalog')}}</textarea>
                         <label class="form__label">Possible side effects (Filipino)</label>
                       </div>
                     </div>
@@ -87,11 +87,11 @@
                     <h2 class="section__heading">Additional notes</h2>
                     <div class="form__inline">
                       <div class="form__content form__content--half">
-                        <div class="form__input form__input--message" contenteditable placeholder="Additional notes (English)*" required></div>
+                        <textarea class="form__input form__input--message" contenteditable placeholder="Additional notes (English)*" required name="additional_note_english">{{ old('additional_note_english') }}</textarea>
                         <label class="form__label">Additional notes (English)</label>
                       </div>
                       <div class="form__content form__content--half">
-                        <div class="form__input form__input--message" contenteditable placeholder="Additional notes (Filipino)*" required></div>
+                        <textarea class="form__input form__input--message" contenteditable placeholder="Additional notes (Filipino)*" required name="additional_note_tagalog">{{ old('additional_note_tagalog') }}</textarea>
                         <label class="form__label">Additional notes (Filipino)</label>
                       </div>
                     </div>

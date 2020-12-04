@@ -17,15 +17,15 @@
             <div class="tabs">
               <ul class="tabs__list">
                 <li class="tabs__item tabs__item--method tabs__item--current">
-                  <div class="tabs__wrapper"><img class="tabs__image" src="img/icon-step.png" alt="Step 1" /></div>
+                  <div class="tabs__wrapper"><img class="tabs__image" src="{{URL::asset('img/icon-step.svg')}}" alt="Step 1" /></div>
                   <span class="tabs__text">Details</span>
                 </li>
                 <li class="tabs__item tabs__item--method">
-                  <div class="tabs__wrapper"><img class="tabs__image" src="img/icon-step.png" alt="Step 2" /></div>
+                  <div class="tabs__wrapper"><img class="tabs__image" src="{{URL::asset('img/icon-step.svg')}}" alt="Step 2" /></div>
                   <span class="tabs__text">Content</span>
                 </li>
                 <li class="tabs__item tabs__item--method">
-                  <div class="tabs__wrapper"><img class="tabs__image" src="img/icon-step.png" alt="Step 3" /></div>
+                  <div class="tabs__wrapper"><img class="tabs__image" src="{{URL::asset('img/icon-step.svg')}}" alt="Step 3" /></div>
                   <span class="tabs__text">Gallery</span>
                 </li>
               </ul>
