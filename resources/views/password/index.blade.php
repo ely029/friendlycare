@@ -18,15 +18,17 @@
         <div class="login__card">
         <h2 class="section__heading">Welcome!</h2>
         <p class="login__details">e-Plano has created an account for you. Please create a password to complete the process (Minimum of 8 characters).</p>
-        <form class="form form--login" action="">
-            <div class="form__content"><input class="form__input" id="js-password" type="password" placeholder="Enter password" /><label class="form__label">Enter password</label><i class="fa fa-eye-slash" id="js-eye"></i></div>
-            <div class="form__content"><input class="form__input" id="js-password" type="password" placeholder="Confirm password" /><label class="form__label">Confirm password</label><i class="fa fa-eye-slash" id="js-eye"></i></div>
-            <div class="form__button"><a class="button" href="">Create account</a></div>
+        <form class="form form--login" action="{{ route('password.readyPassword')}}" method="POST">
+          @csrf
+          <input type="hidden" name="id" value="{{ $id }}">
+            <div class="form__content"><input class="form__input" name="password" id="js-password" type="password" placeholder="Enter password" /><label class="form__label">Enter password</label><i class="fa fa-eye-slash" id="js-eye"></i></div>
+            <div class="form__content"><input class="form__input" name="password_confirmation" id="js-password" type="password" placeholder="Confirm password" /><label class="form__label">Confirm password</label><i class="fa fa-eye-slash" id="js-eye"></i></div>
+            <div class="form__button"><input class="button" type="submit" value="Create Account"/></div>
         </form>
         </div>
         <div class="login__card">
         <h2 class="section__heading">Account details</h2>
-        <form class="form form--login" action="">
+        <form class="form form--login">
             <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Email</label><span class="form__text">johnsmith@gmail.com</span></div>
             <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Provider clinic</label><span class="form__text">Shaw Clinic</span></div>
         </form>
@@ -52,8 +54,8 @@
         <h2 class="section__heading">Password reset</h2>
         <p class="login__details">Enter your new password (Minimum of 8 characters).</p>
         <form class="form form--login" action="">
-        <div class="form__content"><input class="form__input" id="js-password" type="password" placeholder="Enter password" /><label class="form__label">Enter password</label><i class="fa fa-eye-slash" id="js-eye"></i></div>
-        <div class="form__content"><input class="form__input" id="js-password" type="password" placeholder="Confirm password" /><label class="form__label">Confirm password</label><i class="fa fa-eye-slash" id="js-eye"></i></div>
+        <div class="form__content"><input class="form__input" name="password" id="js-password" type="password" placeholder="Enter password" /><label class="form__label">Enter password</label><i class="fa fa-eye-slash" id="js-eye"></i></div>
+        <div class="form__content"><input class="form__input" name="password_confirmation" id="js-password" type="password" placeholder="Confirm password" /><label class="form__label">Confirm password</label><i class="fa fa-eye-slash" id="js-eye"></i></div>
         <div class="form__button"><a class="button" href="">Create account</a></div>
         </form>
     </div>

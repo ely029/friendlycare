@@ -10,19 +10,24 @@
 @foreach ($content as $contents)
 @if($contents->id != 3)
 <!-- for about us -->
+<form method="POST" action="{{ route('basicPages.storeEdit')}}">
+    @csrf
+    <input type="hidden" name="id" value="{{ $contents->id }}">
+    <input type="hidden" name="content_name" value="{{ $contents->content_name }}">
 <div class="section">
 <div class="section__top">
-    <h1 class="section__title">About us</h1>
-    <div class="breadcrumbs"><a class="breadcrumbs__link" href="basic-pages.php">Basic pages</a><a class="breadcrumbs__link" href="about.php">About us</a><a class="breadcrumbs__link" href="edit-about.php">Edit</a></div>
+    <h1 class="section__title">{{ $contents->content_name}}</h1>
+    <div class="breadcrumbs"><a class="breadcrumbs__link" href="basic-pages.php">Basic pages</a><a class="breadcrumbs__link" href="about.php">{{ $contents->content_name}}</a><a class="breadcrumbs__link" href="edit-about.php">Edit</a></div>
 </div>
 <div class="section__container">
-    <h2 class="section__heading">About us</h2>
+    <h2 class="section__heading">{{ $contents->content_name}}</h2>
     <div class="form">
-    <div class="form__input form__input--message js-editor-content"></div>
-    <div class="form__button form__button--end"><button class="button" type="button">Save changes</button></div>
+    <textarea name="content" class="form__input form__input--message js-editor-content">{{ $contents->content }}</textarea>
+    <div class="form__button form__button--end"><input type="submit" value="Save changes" class="button"></div>
     </div>
 </div>
 </div>
+</form>
 @else
 <!-- for consent form -->
 <div class="section">
@@ -32,14 +37,18 @@
     <a class="breadcrumbs__link" href="basic-pages.php">Basic pages</a><a class="breadcrumbs__link" href="consent-form.php">Consent form</a><a class="breadcrumbs__link" href="edit-consent-form.php">Edit</a>
     </div>
 </div>
+<form method="POST" action="{{ route('basicPages.storeEdit')}}">
+@csrf
+<input type="hidden" name="id" value="{{ $contents->id }}">
 <div class="section__container">
-    <div class="form">
+<div class="form">
+<div class="form__content form__content--full"><input class="form__input" type="text"  /><label class="form__label form__label--visible" for="">Title</label></div>
+@foreach($contentss as $contentsss)
     <div id="js-consent-form">
         <div class="form__container">
-        <div class="form__content form__content--full"><input class="form__input" type="text" /><label class="form__label form__label--visible" for="">Title</label></div>
-        <div class="form__content form__content--full"><input class="form__input" type="text" /><label class="form__label form__label--visible" for="">Section title</label></div>
+        <div class="form__content form__content--full"><input class="form__input" type="text" name="title" value="{{ $contentsss->title}}"  /><label class="form__label form__label--visible" for="">Section title</label></div>
         <div class="form__content form__content--full">
-            <div class="form__input form__input--message js-editor-content"></div>
+            <textarea class="form__input form__input--message js-editor-content" name="content[]">{{ $contentsss->content }}</textarea>
             <label class="form__label form__label--visible" for="">Content</label>
         </div>
         <div class="form__button form__button--end">
@@ -47,7 +56,8 @@
         </div>
         </div>
     </div>
-    <div class="form__button form__button--end"><button class="button js-trigger" type="button">Save changes</button></div>
+    @endforeach
+    <div class="form__button form__button--end"><input class="button" type="submit" value="Save Changes"></div>
     </div>
     <div class="modal js-modal">
     <div class="modal__background js-modal-background"></div>
@@ -70,6 +80,7 @@
     </div>
     </div>
 </div>
+</form>
 </div>
 @endif
 @endforeach
