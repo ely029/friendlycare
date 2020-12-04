@@ -10,7 +10,7 @@
 <div class="section">
 <div class="section__top">
     <h1 class="section__title">Create provider</h1>
-    <div class="breadcrumbs"><a class="breadcrumbs__link" href="provider-management.php">Provider management</a><a class="breadcrumbs__link" href="create-provider.php">Create Provider</a><a class="breadcrumbs__link"></a></div>
+    <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('providerManagement')}}">Provider management</a><a class="breadcrumbs__link" href="create-provider.php">Create Provider</a><a class="breadcrumbs__link"></a></div>
 </div>
 <div class="section__container">
     <form class="form" id="js-provider-form" method="POST" action="{{ route('storeThirdPage') }}">

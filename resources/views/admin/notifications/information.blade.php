@@ -11,7 +11,7 @@
 <div class="section">
         <div class="section__top">
           <h1 class="section__title">Medical Caravan, Parañaque and Alabang</h1>
-          <div class="breadcrumbs"><a class="breadcrumbs__link" href="notifications.php">Events &amp; Push Notifications</a><a class="breadcrumbs__link" href="view-notification.php">View</a><a class="breadcrumbs__link"></a></div>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{route('notifications.index')}}">Events &amp; Push Notifications</a><a class="breadcrumbs__link" href="view-notification.php">View</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
           <form class="form" id="js-provider-form">

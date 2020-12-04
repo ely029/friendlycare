@@ -10,7 +10,7 @@
       <div class="section">
         <div class="section__top">
           <h1 class="section__title">User Management</h1>
-          <div class="breadcrumbs"><a class="breadcrumbs__link" href="user-management.php">User Management</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('userManagement')}}">User Management</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
           <a class="button button--create" href="{{ route('userRole') }}">Create Account<i class="fa fa-plus"></i></a>

@@ -10,7 +10,7 @@
 <div class="section">
         <div class="section__top">
           <h1 class="section__title">Provider Management</h1>
-          <div class="breadcrumbs"><a class="breadcrumbs__link" href="provider-management.php">Provider Management</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('providerManagement')}}">Provider Management</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
           <a class="button button--create" href="{{ route('providerCreateFirstPage') }}">Create Provider<i class="fa fa-plus"></i></a>

@@ -17,7 +17,7 @@
 <div class="section">
 <div class="section__top">
     <h1 class="section__title">{{ $contents->content_name}}</h1>
-    <div class="breadcrumbs"><a class="breadcrumbs__link" href="basic-pages.php">Basic pages</a><a class="breadcrumbs__link" href="about.php">{{ $contents->content_name}}</a><a class="breadcrumbs__link" href="edit-about.php">Edit</a></div>
+    <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('basicPages')}}">Basic pages</a><a class="breadcrumbs__link" href="about.php">{{ $contents->content_name}}</a><a class="breadcrumbs__link" href="edit-about.php">Edit</a></div>
 </div>
 <div class="section__container">
     <h2 class="section__heading">{{ $contents->content_name}}</h2>
@@ -34,7 +34,7 @@
 <div class="section__top">
     <h1 class="section__title">Consent form</h1>
     <div class="breadcrumbs">
-    <a class="breadcrumbs__link" href="basic-pages.php">Basic pages</a><a class="breadcrumbs__link" href="consent-form.php">Consent form</a><a class="breadcrumbs__link" href="edit-consent-form.php">Edit</a>
+    <a class="breadcrumbs__link" href="{{ route('basicPages')}}">Basic pages</a><a class="breadcrumbs__link" href="consent-form.php">Consent form</a><a class="breadcrumbs__link" href="edit-consent-form.php">Edit</a>
     </div>
 </div>
 <form method="POST" action="{{ route('basicPages.storeEdit')}}">

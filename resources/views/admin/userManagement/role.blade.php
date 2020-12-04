@@ -11,7 +11,7 @@
 <div class="section">
         <div class="section__top">
           <h1 class="section__title">Create user</h1>
-          <div class="breadcrumbs"><a class="breadcrumbs__link" href="user-management.php">User management</a><a class="breadcrumbs__link" href="create-user.php">Create user</a><a class="breadcrumbs__link"></a></div>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('userManagement')}}">User management</a><a class="breadcrumbs__link" href="create-user.php">Create user</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
           <form class="form" action="">
