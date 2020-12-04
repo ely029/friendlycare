@@ -45,13 +45,10 @@ class RatingController extends Controller
         Booking::where(['clinic_id' => $obj['clinic_id'][0], 'patient_id' => $obj['patient_id'][0]])->update([
             'is_rated' => 1,
         ]);
-        for ($eee = 0; $eee <= 2; $eee++) {
-            RatingDetails::create([
-                'ratings' => $obj['ratings'][$eee],
-                'rating_no' => $eee,
-                'rating_id' => $id[0],
-            ]);
-        }
+        RatingDetails::create([
+            'ratings' => array_sum($obj['ratings']),
+            'rating_id' => $id[0],
+        ]);
 
         return response([
             'name' => 'postRating',
