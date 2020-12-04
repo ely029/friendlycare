@@ -11,7 +11,7 @@
 <div class="section">
         <div class="section__top">
           <h1 class="section__title">{{ $detail->name }} / {{ $detail->short_name }}</h1>
-          <div class="breadcrumbs"><a class="breadcrumbs__link" href="family-planning-methods.php">Family planning methods</a><a class="breadcrumbs__link" href="method-profile.php">{{ $detail->name }} / {{ $detail->short_name }}</a><a class="breadcrumbs__link"></a></div>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{  route('familyPlanningMethod.index')}}">Family planning methods</a><a class="breadcrumbs__link" href="method-profile.php">{{ $detail->name }} / {{ $detail->short_name }}</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
           <form class="form" action="">
