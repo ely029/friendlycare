@@ -7,14 +7,17 @@
 <div class="wrapper">
 @include('includes.sidebar')
 </div>
+@foreach ($details as $user)
 <div class="section">
         <div class="section__top">
           <h1 class="section__title">Edit method</h1>
           <div class="breadcrumbs"><a class="breadcrumbs__link" href="family-planning-methods.php">Family planning methods</a><a class="breadcrumbs__link" href="edit-method.php">Edit method</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
-          <form class="form form--method" id="js-provider-form">
-            <div class="tabs">
+          <form class="form form--method" id="js-provider-form" method="POST" action="{{ route('familyPlanningMethod.update')}}" enctype="multipart/form-data">
+          @csrf  
+          <input type="hidden" name="id" value="{{ $user->id }}"/>
+          <div class="tabs">
               <ul class="tabs__list">
                 <li class="tabs__item tabs__item--method tabs__item--current">
                   <div class="tabs__wrapper"><img class="tabs__image" src="{{URL::asset('img/icon-step.svg')}}" alt="Step 1" /></div>
@@ -36,7 +39,7 @@
                   <h2 class="section__heading">Details</h2>
                   <ul class="form__group form__group--upload form__group--uploadEditMethod">
                     <li class="form__group-item">
-                      <div class="form__wrapper"><img class="form__image form__image--method" src="img/placeholder.jpg" alt="Image placeholder" /></div>
+                      <div class="form__wrapper"><img class="form__image form__image--method" src="{{URL::asset('img/placeholder.jpg')}}" alt="Image placeholder" /></div>
                     </li>
                     <li class="form__group-item">
                       <div class="form__content">
@@ -47,14 +50,14 @@
                 </li>
                 <li class="form__group-item">
                   <h2 class="section__heading">Effectiveness (in percent)</h2>
-                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Sa tamang paggamit*" required /><label class="form__label">Sa tamang paggamit* </label></div>
-                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Tipikal na bisa*" required /><label class="form__label">Tipikal na bisa* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Sa tamang paggamit*" required name="percent_effective" value="{{$user->percent_effective}}" /><label class="form__label">Sa tamang paggamit* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Tipikal na bisa*" required name="typical_validity" value="{{$user->typical_validity}}"/><label class="form__label">Tipikal na bisa* </label></div>
                 </li>
               </ul>
               <ul class="form__group">
                 <li class="form__group-item">
-                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Method name*" required /><label class="form__label">Method name* </label></div>
-                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Short name*" required /><label class="form__label">Short name* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Method name*" required name="name" value="{{$user->name}}" /><label class="form__label">Method name* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Short name*" name="short_name" value="{{$user->short_name}}" /><label class="form__label">Short name* </label></div>
                   <div class="form__content form__content--full">
                     <select class="form__input form__input--select"></select>
                     <label class="form__label">Category* </label>
@@ -72,11 +75,11 @@
                     <h2 class="section__heading">Description</h2>
                     <div class="form__inline">
                       <div class="form__content form__content--half">
-                        <div class="form__input form__input--message" contenteditable placeholder="Description (English)*" required></div>
+                        <textarea class="form__input form__input--message" contenteditable placeholder="Description (English)*" name="description_english" required>{{ $user->description_english }}</textarea>
                         <label class="form__label">Description (English)</label>
                       </div>
                       <div class="form__content form__content--half">
-                        <div class="form__input form__input--message" contenteditable placeholder="Description (Filipino)*" required></div>
+                        <textarea class="form__input form__input--message" contenteditable placeholder="Description (Filipino)*" required name="description_tagalog">{{ $user->description_filipino}}</textarea>
                         <label class="form__label">Description (Filipino)</label>
                       </div>
                     </div>
@@ -89,11 +92,11 @@
                     <h2 class="section__heading">How it works</h2>
                     <div class="form__inline">
                       <div class="form__content form__content--half">
-                        <div class="form__input form__input--message" contenteditable placeholder="How it works (English)*" required></div>
+                        <textarea class="form__input form__input--message" contenteditable placeholder="How it works (English)*" required name="how_it_works_english">{{ $user->how_it_works_english }}</textarea>
                         <label class="form__label">How it works (English)</label>
                       </div>
                       <div class="form__content form__content--half">
-                        <div class="form__input form__input--message" contenteditable placeholder="How it works (Filipino)*" required></div>
+                        <textarea class="form__input form__input--message" contenteditable placeholder="How it works (Filipino)*" name="how_it_works_tagalog" required>{{ $user->how_it_works_filipino }}</textarea>
                         <label class="form__label">How it works (Filipino)</label>
                       </div>
                     </div>
@@ -106,11 +109,11 @@
                     <h2 class="section__heading">Possible side effects</h2>
                     <div class="form__inline">
                       <div class="form__content form__content--half">
-                        <div class="form__input form__input--message" contenteditable placeholder="Possible side effects (English)*" required></div>
+                        <textarea class="form__input form__input--message" contenteditable placeholder="Possible side effects (English)*" required name="side_effect_english">{{ $user->side_effect_english }}</textarea>
                         <label class="form__label">Possible side effects (English)</label>
                       </div>
                       <div class="form__content form__content--half">
-                        <div class="form__input form__input--message" contenteditable placeholder="Possible side effects (Filipino)*" required></div>
+                        <textarea class="form__input form__input--message" contenteditable placeholder="Possible side effects (Filipino)*" required name="side_effect_tagalog">{{$user->side_effect_filipino }}</textarea>
                         <label class="form__label">Possible side effects (Filipino)</label>
                       </div>
                     </div>
@@ -123,11 +126,11 @@
                     <h2 class="section__heading">Additional notes</h2>
                     <div class="form__inline">
                       <div class="form__content form__content--half">
-                        <div class="form__input form__input--message" contenteditable placeholder="Additional notes (English)*" required></div>
+                        <textarea class="form__input form__input--message" contenteditable placeholder="Additional notes (English)*" required name="additional_note_english">{{ $user->additional_note_english }}</textarea>
                         <label class="form__label">Additional notes (English)</label>
                       </div>
                       <div class="form__content form__content--half">
-                        <div class="form__input form__input--message" contenteditable placeholder="Additional notes (Filipino)*" required></div>
+                        <textarea class="form__input form__input--message" contenteditable placeholder="Additional notes (Filipino)*" required name="additional_note_tagalog">{{ $user->additional_note_filipino }}</textarea>
                         <label class="form__label">Additional notes (Filipino)</label>
                       </div>
                     </div>
@@ -144,15 +147,16 @@
                 </li>
                 <li class="form__group-item">
                   <h2 class="section__heading">Video</h2>
-                  <div class="form__content form__content--full"><input class="form__input form__input--search" type="text" placeholder="Youtube link*" required /><label class="form__label">Youtube link*</label></div>
+                  <div class="form__content form__content--full"><input class="form__input form__input--search" name="video_link" value="{{$user->video_link}}" type="text" placeholder="Youtube link*" required /><label class="form__label">Youtube link*</label></div>
                   <iframe class="form__video form__video--edit" src="https://www.youtube.com/embed/c6DC2FEzVjM" frameborder="0" allowfullscreen></iframe>
                 </li>
               </ul>
             </div>
-            <div class="form__button form__button--end"><button class="button" type="button">Save changes</button></div>
+            <div class="form__button form__button--end"><button class="button" type="submit">Save changes</button></div>
           </form>
         </div>
       </div>
+@endforeach
 <!-- <div class="container-fluid">
     <div class="row">
         <aside class="col-2 px-0 fixed-top" id="left">

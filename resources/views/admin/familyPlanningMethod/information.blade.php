@@ -83,7 +83,28 @@
                 </div>
               </li>
             </ul>
-            <div class="form__button form__button--start"><a class="button" href="{{ route('familyPlanningMethod.edit',$detail->id)}}">Edit method</a><button class="button button--transparent" type="button">Delete method</button></div>
+            <div class="form__button form__button--start">
+            <a class="button" href="{{ route('familyPlanningMethod.edit',$detail->id)}}">Edit method</a>
+            <button class="button button--transparent" data-toggle="modal" data-target="#confirmCreateFPM" type="button">Delete method</button></div>
+            <div class="modal fade" id="confirmCreateFPM" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete Method</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    You are about to delete this method. Proceed?
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <a type="submit" class="btn btn-success" href="{{ route('familyPlanningMethod.delete', $detail->id)}}">Delete Method</a>
+                                </div>
+                        </div>
+                    </div>
+            </div>
           </form>
         </div>
       </div>
