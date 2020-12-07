@@ -60,7 +60,7 @@
                 <div class="modal__box">
                   <h2 class="modal__title">Account created</h2>
                   <p class="modal__text">You are about to create an admin. Proceed?</p>
-                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><input type="submit" class="button button--medium button--medium" type="button">Create account</div>
+                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><input type="submit" class="button button--medium button--medium" type="button" value="Create account"></div>
                 </div>
               </div>
             </div>
