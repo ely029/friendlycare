@@ -13,6 +13,12 @@
     <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('providerManagement')}}">Provider management</a><a class="breadcrumbs__link" href="create-provider.php">Create Provider</a><a class="breadcrumbs__link"></a></div>
 </div>
 <div class="section__container">
+    @if ($errors->any())
+
+    @foreach ($errors->all() as $error)
+    <div class="alert alert-danger">{{ $error }}</div>
+    @endforeach
+    @endif
     <form class="form" id="js-provider-form" method="POST" action="{{ route('storeThirdPage') }}">
     @csrf
     <div class="form__tab">

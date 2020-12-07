@@ -13,17 +13,13 @@
           <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('userManagement')}}">User management</a><a class="breadcrumbs__link" href="edit-user.php">Edit user</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
-        <div class="row">
-                <div class="col-md-12">
-                @if ($errors->any())
-  <div class="alert alert-danger">
-     <ul>
-        @foreach ($errors->all() as $error)
-           <li>{{ $error }}</li>
-        @endforeach
-     </ul>
-  </div>
-@endif
+        @if ($errors->any())
+
+  @foreach ($errors->all() as $error)
+  <div class="alert alert-danger">{{ $error }}</div>
+  @endforeach
+    @endif
+        
         @foreach ($users as $user)
         <form class="form" method="POST" action="{{ route('updateUser') }}">
             @csrf
