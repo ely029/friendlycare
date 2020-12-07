@@ -50,7 +50,6 @@ class NotificationsController extends Controller
 
     public function postNotification()
     {
-        dd(request()->all());
         $validator = \Validator::make(request()->all(), [
             'title' => 'required',
             'message' => 'required',
