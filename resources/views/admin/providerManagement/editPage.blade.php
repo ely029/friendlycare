@@ -11,7 +11,7 @@
 <div class="section">
         <div class="section__top">
           <h1 class="section__title">{{$providers->clinic_name}}</h1>
-          <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('providerManagement')}}">Provider management</a><a class="breadcrumbs__link" href="view-provider.php">FriendlyCare Cubao</a><a class="breadcrumbs__link"></a></div>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('providerManagement')}}">Provider management</a><a class="breadcrumbs__link" href="view-provider.php">{{$providers->clinic_name}}</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
           <form class="form" id="js-provider-form" action="">
@@ -96,8 +96,13 @@
               <div class="form__content form__content--full"><textarea class="form__input form__input--message" placeholder="Clinic description (optional)"></textarea><label class="form__label">Clinic description (optional)</label></div>
               <div class="form__content">
                 <div class="form__content form__content--row">
-                  <label class="form__sublabel">Yes<input class="form__trigger" type="radio" name="philhealth-accredited" /><span class="form__radio"></span></label>
-                  <label class="form__sublabel">No<input class="form__trigger" type="radio" name="philhealth-accredited" /><span class="form__radio"></span></label>
+                @if($providers->philhealth_accredited_1 == '1')
+                <label class="form__sublabel">Yes<input class="form__trigger" type="radio" name="philhealth_accredited_1" checked /><span class="form__radio"></span></label>
+                  <label class="form__sublabel">No<input class="form__trigger" type="radio" name="philhealth_accredited_1" /><span class="form__radio"></span></label>
+                  @else
+                  <label class="form__sublabel">Yes<input class="form__trigger" type="radio" name="philhealth_accredited_1" /><span class="form__radio"></span></label>
+                  <label class="form__sublabel">No<input class="form__trigger" type="radio" name="philhealth_accredited_1" checked/><span class="form__radio"></span></label>
+                @endif
                 </div>
                 <label class="form__label form__label--blue" for="philhealth-accredited">Are you Philhealth accredited? </label>
               </div>
@@ -109,32 +114,32 @@
                   <h2 class="section__heading">Clinic hours</h2>
                   <ul class="form__group form__group--schedule">
                     <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                      <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="days[]" value="sunday" /><span class="form__checkmark"></span></label>
+                      <input class="form__input" type="time" placeholder="opening time" name="from[]"/><input class="form__input" type="time" name="to[]" placeholder="closing time" />
                     </li>
                     <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">M<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                      <label class="form__sublabel form__sublabel--day">M<input class="form__trigger" type="checkbox" name="days[]" value="monday" /><span class="form__checkmark"></span></label>
+                      <input class="form__input" type="time" placeholder="opening time" name="from[]"/><input class="form__input" type="time" name="to[]" placeholder="closing time" />
                     </li>
                     <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                      <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" type="checkbox" name="days[]" value="tuesday" /><span class="form__checkmark"></span></label>
+                      <input class="form__input" type="time" placeholder="opening time" name="from[]"/><input class="form__input" type="time" name="to[]" placeholder="closing time" />
                     </li>
                     <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">W<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                      <label class="form__sublabel form__sublabel--day">W<input class="form__trigger" name="days[]" value="wednesday" /><span class="form__checkmark"></span></label>
+                      <input class="form__input" type="time" placeholder="opening time" name="from[]"/><input class="form__input" type="time" name="to[]" placeholder="closing time" />
                     </li>
                     <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                      <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" name="days[]" value="thursday" /><span class="form__checkmark"></span></label>
+                      <input class="form__input" type="time" placeholder="opening time" name="from[]"/><input class="form__input" type="time" name="to[]" placeholder="closing time" />
                     </li>
                     <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">F<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                      <label class="form__sublabel form__sublabel--day">F<input class="form__trigger" type="checkbox" name="days[]" value="friday" /><span class="form__checkmark"></span></label>
+                      <input class="form__input" type="time" placeholder="opening time" name="from[]"/><input class="form__input" type="time" name="to[]" placeholder="closing time" />
                     </li>
                     <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" /><input class="form__input" type="time" placeholder="closing time" />
+                      <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="days[]" value="saturday" /><span class="form__checkmark"></span></label>
+                      <input class="form__input" type="time" placeholder="opening time" name="from[]"/><input class="form__input" type="time" name="to[]" placeholder="closing time" />
                     </li>
                   </ul>
                 </li>
@@ -145,25 +150,23 @@
               <ul class="form__group form__group--createProviderServices">
                 <li class="form__group-item">
                   <h3 class="section__heading section__heading--sub">Modern method</h3>
-                  <label class="form__sublabel form__sublabel--services">COC / Pills<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">Pop / Minipills<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">Injectables<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">PSI Implants<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">IUD<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">Condom<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                  @foreach($modernMethod as $method)
+                  <label class="form__sublabel form__sublabel--services">{{ $method->name}}<input class="form__trigger" type="checkbox" name="avail_services[]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                  @endforeach
                 </li>
                 <li class="form__group-item">
                   <h3 class="section__heading section__heading--sub">Permanent method</h3>
-                  <label class="form__sublabel form__sublabel--services">Bilateral tubal ligation<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">No scalpel vasectomy<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"> </span></label>
+                  @foreach($permanentMethod as $method)
+                  <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" value="{{$method->id}}" name="avail_services[]" /><span class="form__checkmark"></span></label>
+                  @endforeach
+                </li>
                 </li>
                 <li class="form__group-item">
                   <h3 class="section__heading section__heading--sub">Natural method</h3>
-                  <label class="form__sublabel form__sublabel--services">Lactational Amenorrhea<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">Billings Ovulation Method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">Basal body temperature<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">Sympto-thermal method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                  <label class="form__sublabel form__sublabel--services">Standard days method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                  @foreach($naturalMethod as $method)
+                  <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" value="{{$method->id}}" name="avail_services[]" /><span class="form__checkmark"></span></label>
+                  @endforeach
+                </li>
                 </li>
               </ul>
             </div>
@@ -180,30 +183,28 @@
                 <ul class="form__group form__group--createProviderServices">
                   <li class="form__group-item">
                     <h3 class="section__heading section__heading--sub">Modern method</h3>
-                    <label class="form__sublabel form__sublabel--services">COC / Pills<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">Pop / Minipills<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">Injectables<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">PSI Implants<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">IUD<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">Condom<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                    @foreach($modernMethod as $method)
+                  <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" name="services[]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                  @endforeach
                   </li>
                   <li class="form__group-item">
                     <h3 class="section__heading section__heading--sub">Permanent method</h3>
-                    <label class="form__sublabel form__sublabel--services">Bilateral tubal ligation<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">No scalpel vasectomy<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"> </span></label>
+                    @foreach($permanentMethod as $method)
+                  <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" name="services[]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                  @endforeach
+
                   </li>
                   <li class="form__group-item">
                     <h3 class="section__heading section__heading--sub">Natural method</h3>
-                    <label class="form__sublabel form__sublabel--services">Lactational Amenorrhea<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">Billings Ovulation Method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">Basal body temperature<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">Sympto-thermal method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
-                    <label class="form__sublabel form__sublabel--services">Standard days method<input class="form__trigger" type="checkbox" name="" /><span class="form__checkmark"></span></label>
+                    @foreach($naturalMethod as $method)
+                  <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" name="services[]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                  @endforeach
+
                   </li>
                 </ul>
               </div>
             </div>
-            <div class="form__button form__button--end"><button class="button" type="button">Save changes</button></div>
+            <div class="form__button form__button--end"><button class="button" type="submit">Save changes</button></div>
           </form>
         </div>
       </div>

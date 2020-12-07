@@ -161,24 +161,21 @@ class ProviderManagementController extends Controller
 
         $gallery = DB::table('clinic_gallery')
             ->join('clinics', 'clinics.id', 'clinic_gallery.clinic_id')
-            ->select('clinic_gallery.file_na\me')
+            ->select('clinic_gallery.file_name')
             ->where('clinic_gallery.clinic_id', $id)
             ->get();
         $modernMethod = DB::table('family_plan_type_subcategory')
-            ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'family_plan_type_subcategory.short_name')
             ->where('family_plan_type_subcategory.family_plan_type_id', 1)
             ->get();
 
         $permanentMethod = DB::table('family_plan_type_subcategory')
-            ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'family_plan_type_subcategory.short_name')
             ->where('family_plan_type_subcategory.family_plan_type_id', 2)
             ->get();
 
         $naturalMethod = DB::table('family_plan_type_subcategory')
-            ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'family_plan_type_subcategory.short_name')
             ->where('family_plan_type_subcategory.family_plan_type_id', 3)
             ->get();
 
@@ -188,8 +185,8 @@ class ProviderManagementController extends Controller
     public function updateProvider(Request $requests)
     {
         $request = request()->all();
-        ClinicHours::where('clinic_id', $request['clinic_id'])->delete();
         for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {
+            ClinicHours::where('clinic_id', $request['clinic_id'])->delete();
             if (isset($request['days'][$clinic_hours])) {
                 ClinicHours::create([
                     'clinic_id' => $request['clinic_id'],
@@ -222,6 +219,16 @@ class ProviderManagementController extends Controller
                 PaidServices::where('clinic_id', $request['clinic_id'])->delete();
                 PaidServices::create([
                     'service_id' => $request['services'][$eee],
+                    'clinic_id' => $request['clinic_id'],
+                    'is_checked' => 1,
+                ]);
+            }
+        }
+        for ($eee = 0;$eee <= 10000;$eee++) {
+            if (isset($request['services'][$eee])) {
+                ClinicService::where('clinic_id', $request['clinic_id'])->delete();
+                ClinicService::create([
+                    'service_id' => $request['avail_services'][$eee],
                     'clinic_id' => $request['clinic_id'],
                     'is_checked' => 1,
                 ]);

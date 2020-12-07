@@ -8,7 +8,7 @@
   @include('includes.sidebar')
 </div>
 
-<div class="section">
+<!-- <div class="section">
 <div class="section__top">
     <h1 class="section__title">Events &amp; Push Notifications</h1>
     <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{route('notifications.index')}}">Events &amp; Push Notifications</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
@@ -16,10 +16,11 @@
 <div class="section__container">
     <a class="button button--create" href="{{ route('notifications.create') }}">Create new notification<i class="fa fa-plus"></i></a>
     <div class="table__button">
-    <button class="button button--filter">Upcoming Events</button><button class="button button--filter">Past Events</button><button class="button button--filter">Upcoming Announcements</button>
+    <button class="button button--filter" data-toggle="tab" href="#nav-upcoming-events">Upcoming Events</button>
+    <button class="button button--filter" data-toggle="tab" href="#nav-past-events" aria-selected="true">Past Events</button><button class="button button--filter">Upcoming Announcements</button>
     <button class="button button--filter">Past Announcements</button>
     </div>
-    <table class="table" id="notificationsTable">
+    <table class="table fade show active" id="nav-upcoming-events" role="tabpanel" aria-labelledby="nav-home-tab">
     <thead>
         <tr>
         <th class="table__head">Date</th>
@@ -37,9 +38,27 @@
     @endforeach
     </tbody>
     </table>
+    <table class="table fade" id="nav-past-events" role="tabpanel" aria-labelledby="nav-profile-tab">
+    <thead>
+        <tr>
+        <th class="table__head">Date</th>
+        <th class="table__head">Title</th>
+        <th class="table__head">Type</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach($pastEvent as $events)
+    <tr class="table__row js-view" data-href="view-notification.php">
+        <td class="table__details">10/24/2020</td>
+        <td class="table__details">Merry Christmas!</td>
+        <td class="table__details">Announcement</td>
+        </tr>
+    @endforeach
+    </tbody>
+    </table>
 </div>
-</div>
-<!-- <div class="container-fluid">
+</div> -->
+<div class="container-fluid">
         <div class="row">
                 <div class="col-12 py-4">
                     <h2>Events & Push Notifications</h2>
@@ -144,5 +163,5 @@
                 </div>
             </div>
         </section>
-</div> -->
+</div>
 @endsection
