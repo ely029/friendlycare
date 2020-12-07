@@ -17,7 +17,7 @@
           <form class="form form--viewProvider" id="js-provider-form" action="">
             <ul class="form__group form__group--viewProvider">
               <li class="form__group-item">
-                <div class="form__wrapper"><img class="form__image" src="img/placeholder.jpg" alt="Image placeholder" /></div>
+                <div class="form__wrapper"><img class="form__image" src="{{URL::asset('img/placeholder.jpg')}}" alt="Image placeholder" /></div>
               </li>
               <li class="form__group-item">
                 <div class="form__content form__content--reverse">
@@ -79,11 +79,9 @@
               <li class="form__group-item">
                 <h2 class="section__heading">Clinic gallery</h2>
                 <ul class="form__gallery">
-                  <li class="form__gallery-item"><img class="form__gallery-image" src="img/placeholder.jpg" alt="Gallery image" /></li>
-                  <li class="form__gallery-item"><img class="form__gallery-image" src="" alt="" /></li>
-                  <li class="form__gallery-item"><img class="form__gallery-image" src="" alt="" /></li>
-                  <li class="form__gallery-item"><img class="form__gallery-image" src="" alt="" /></li>
-                  <li class="form__gallery-item"><img class="form__gallery-image" src="" alt="" /></li>
+                @foreach($galleries as $gallery)
+                <li class="form__gallery-item"><img class="form__gallery-image" src="{{ url(('uploads/'.$gallery->file_name)) }}" alt="Gallery image" /></li>
+                @endforeach
                 </ul>
                 <div class="form__content form__content--reverse">
                   <label class="form__label form__label--visible">Available services</label>
