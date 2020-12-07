@@ -48,37 +48,41 @@
             @else
             <div class="form__inline">
                 <div class="form__content">
-                    <select placeholder="Clinic" name="clinic" class="form-control form__input">
+                    <select placeholder="Clinic" name="clinic" class="form__input--select form__input">
                         <option value="">Choose a Clinic</option>
                         @foreach($clinic as $clinics)
                         <option value="{{ $clinics->id}}">{{$clinics->clinic_name}}</option>
                         @endforeach
                     </select>
                 </div>
+                <div class="form__content">
+                  <input class="form__input" type="text" placeholder="Email Address" value="{{ $user->email }}" name="email"/>
+                  <label class="form__label">Email Address</label>
+                </div>
+
             </div>
             @endif
-            <div class="form__inline">
-            <div class="form__content"><input class="form__input" type="text" placeholder="Email Address" value="{{ $user->email }}" name="email"/><label class="form__label">Email Address</label></div>
-            <div class="form__button form__button--end"><input type="button" data-toggle="modal" data-target="#confirmCreateFPM" class="button" value="Save Changes"></div>
+            
+            <div class="form__button form__button--end">
+              <input type="button" data-toggle="modal" data-target="#confirmCreateFPM" class="button" value="Save Changes">
+            </div>
             <div class="modal fade" id="confirmCreateFPM" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Save Changes</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    You are about to save the changes. Proceed?
-                                </div>
-                                <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <input type="submit" class="btn btn-success" value="Save Changes"/>
-                                </div>
-                        </div>
-                    </div>
-             </div>
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Save Changes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div class="modal-body">You are about to save the changes. Proceed?</div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-success" value="Save Changes"/>
+                </div>
+              </div>
+            </div>
           </form>
         @endforeach
         </div>

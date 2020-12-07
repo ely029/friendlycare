@@ -10,7 +10,7 @@
 @foreach ($content as $contents)
 @if($contents->id != 3)
 <!-- for about us -->
-<form method="POST" action="{{ route('basicPages.storeEdit')}}">
+<form class="form--full" method="POST" action="{{ route('basicPages.storeEdit')}}">
     @csrf
     <input type="hidden" name="id" value="{{ $contents->id }}">
     <input type="hidden" name="content_name" value="{{ $contents->content_name }}">

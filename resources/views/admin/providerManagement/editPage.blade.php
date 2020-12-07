@@ -55,19 +55,19 @@
               </div>
               <div class="form__inline">
               @if ($providers->type == '1')
-                 <select name="type" class="form__input">
+                 <select name="type" class="form__input form__input--select">
                  <option value="1" selected>Private</option>
                  <option value="2">Government</option>
                  <option value="3">NGO</option>
                  </select>
                  @elseif ($providers->type == '2')
-                 <select name="type" class="form__input">
+                 <select name="type" class="form__input form__input--select">
                  <option value="1">Private</option>
                  <option value="2" selected>Government</option>
                  <option value="3">NGO</option>
                  </select>
                  @elseif ($providers->type == '3')
-                 <select name="type" class="form__input">
+                 <select name="type" class="form__input form__input--select">
                  <option value="1">Private</option>
                  <option value="2">Government</option>
                  <option value="3" selected>NGO</option>

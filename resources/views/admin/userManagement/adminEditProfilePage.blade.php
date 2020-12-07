@@ -24,7 +24,7 @@
             @endif
             <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Profession </label><span class="form__text">{{ $user->professions }}</span></div>
             <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Training </label><span class="form__text">{{ $user->trainings }}</span></div>
-            <div class="form__button"><a class="button" href="{{ route('editUserProfile',$user->id)}}">Edit profile</a>
+            <div class="form__button form__button--start"><a class="button" href="{{ route('editUserProfile',$user->id)}}">Edit profile</a>
             <a data-toggle="modal" data-target="#confirmCreateFPM" class="button button--transparent" href="#">Delete account</a>
           </div>
           </form>
