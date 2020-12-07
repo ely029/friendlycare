@@ -25,10 +25,21 @@
             <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Profession </label><span class="form__text">{{ $user->professions }}</span></div>
             <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Training </label><span class="form__text">{{ $user->trainings }}</span></div>
             <div class="form__button form__button--start"><a class="button" href="{{ route('editUserProfile',$user->id)}}">Edit profile</a>
-            <a data-toggle="modal" data-target="#confirmCreateFPM" class="button button--transparent" href="#">Delete account</a>
+            <a class="button button--transparent js-trigger" href="#">Delete account</a>
           </div>
           </form>
-          <div class="modal fade" id="confirmCreateFPM" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+          <div class="modal js-modal" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal__background js-modal-background"></div>
+              <div class="modal__container">
+                <div class="modal__box">
+                  <h2 class="modal__title">Delete account?</h2>
+                  <p class="modal__text">You are about to delete the user. Proceed?</p>
+                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><a href="{{ route('deleteUser', $user->id)}}" class="button button--medium button--medium" type="button">Delete account</a></div>
+                </div>
+              </div>
+            </div>
+          <!-- <div class="modal fade" id="confirmCreateFPM" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                                 <div class="modal-header">
@@ -47,7 +58,7 @@
                         </div>
                     </div>
              </div>
-        </div>
+        </div> -->
       @endforeach
       </div>
 </div>

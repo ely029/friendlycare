@@ -56,7 +56,19 @@
             </div>
             <div class="form__content"><input class="form__input" type="text" placeholder="Email Address*" name="email" value="{{ old('email')}}"/><label class="form__label">Email Address*</label></div>
             <div class="form__button form__button--end"><input type="submit" class="button" data-toggle="modal" data-target="#confirmCreateFPM" value="Create Account"></div>
-            <div class="modal fade" id="confirmCreateFPM" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            
+            <div class="modal js-modal" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal__background js-modal-background"></div>
+              <div class="modal__container">
+                <div class="modal__box">
+                  <h2 class="modal__title">Account created</h2>
+                  <p class="modal__text">You are about to create a staff. Proceed?</p>
+                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><input type="submit" class="button button--medium button--medium" type="button">Create account</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="modal fade" id="confirmCreateFPM" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                                 <div class="modal-header">
@@ -74,7 +86,7 @@
                                 </div>
                         </div>
                     </div>
-            </div>
+            </div> -->
           </form>
         </div>
       </div>
