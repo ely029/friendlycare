@@ -22,7 +22,10 @@
     <span class="form__text">
     {{ $contentss->content }}
     </span>
+    @if ($contentss->id != 1)
     <div class="form__button form__button--start"><a class="button" href="{{ route('basicPages.editPage',$contentss->id)}}">Edit content </a></div>
+    @else
+    @endif
     </div>
 </div>
 </div>
