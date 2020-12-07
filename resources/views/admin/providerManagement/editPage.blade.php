@@ -14,6 +14,12 @@
           <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('providerManagement')}}">Provider management</a><a class="breadcrumbs__link" href="view-provider.php">{{$providers->clinic_name}}</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
+        @if ($errors->any())
+
+        @foreach ($errors->all() as $error)
+        <div class="alert alert-danger">{{ $error }}</div>
+        @endforeach
+          @endif
           <form class="form" id="js-provider-form" action="">
             <div class="tabs">
               <ul class="tabs__list">

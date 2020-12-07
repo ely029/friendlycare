@@ -13,19 +13,17 @@
     <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('providerManagement')}}">Provider management</a><a class="breadcrumbs__link" href="create-provider.php">Create Provider</a><a class="breadcrumbs__link"></a></div>
 </div>
 <div class="row">
-                <div class="col-md-12">
-                @if ($errors->any())
-  <div class="alert alert-danger">
-     <ul>
-        @foreach ($errors->all() as $error)
-           <li>{{ $error }}</li>
-        @endforeach
-     </ul>
-  </div>
-    @endif
+    <div class="col-md-12">
+    
     </div>
 </div>
 <div class="section__container">
+    @if ($errors->any())
+
+    @foreach ($errors->all() as $error)
+    <div class="alert alert-danger">{{ $error }}</div>
+    @endforeach
+    @endif
     <form class="form" id="js-provider-form" method="POST" action="{{ route('storeFirstPage') }}" enctype="multipart/form-data">
         @csrf
     <div class="form__tab">
