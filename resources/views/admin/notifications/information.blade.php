@@ -7,23 +7,23 @@
 <div class="wrapper">
   @include('includes.sidebar')
 </div>
-
+@foreach($details as $detail)
 <div class="section">
         <div class="section__top">
-          <h1 class="section__title">Medical Caravan, Parañaque and Alabang</h1>
+          <h1 class="section__title">{{ $detail->title}}</h1>
           <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{route('notifications.index')}}">Events &amp; Push Notifications</a><a class="breadcrumbs__link" href="view-notification.php">View</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
           <form class="form" id="js-provider-form">
-            <h2 class="section__heading">Medical Caravan, Parañaque and Alabang</h2>
+            <h2 class="section__heading">{{ $detail->title}}</h2>
             <div class="form__content"><span class="form__text">Event</span><label class="form__label form__label--visible">Type</label></div>
-            <div class="form__content"><span class="form__text">10/24/2020</span><label class="form__label form__label--visible">Date</label></div>
-            <div class="form__content"><span class="form__text">12:00pm</span><label class="form__label form__label--visible">Time</label></div>
+            <div class="form__content"><span class="form__text"> {{ $detail->date}}</span><label class="form__label form__label--visible">Date</label></div>
+            <div class="form__content"><span class="form__text">{{ $detail->time}}</span><label class="form__label form__label--visible">Time</label></div>
             <div class="form__content">
-              <span class="form__text">Sample Message</span>
-              <label class="form__label form__label--visible">Message</label>
+              <span class="form__text">{{ $detail->title}}</span>
+              <label class="form__label form__label--visible">{{ $detail->message }}</label>
             </div>
-            <div class="form__button form__button--start"><a class="button" href="edit-notification.php">Edit notification</a><button class="button button--transparent js-trigger" type="button">Delete notification</button></div>
+            <div class="form__button form__button--start"><a class="button" href="{{ route('notifications.edit', $detail->id)}}">Edit notification</a><a href="{{route('notifications.delete', $detail->id)}}" class="button button--transparent js-trigger">Delete notification</a></div>
           </form>
           <div class="modal js-modal">
             <div class="modal__background js-modal-background"></div>
@@ -31,12 +31,15 @@
               <div class="modal__box">
                 <h2 class="modal__title">Delete notification?</h2>
                 <p class="modal__text">Are you sure you want to delete this notification?</p>
-                <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium button--medium__delete" type="button">Delete notification</button></div>
+                <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button>
+                <button class="button button--medium button--medium__delete" type="button">Delete notification</button></div>
               </div>
             </div>
           </div>
         </div>
       </div>
+@endforeach
+
 
 <!-- <div class="container-fluid">
     <div class="row">

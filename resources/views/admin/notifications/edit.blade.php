@@ -14,40 +14,59 @@
           <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{route('notifications.index')}}">Events &amp; Push Notifications</a><a class="breadcrumbs__link" href="edit-notification.php">Edit</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
-          <form class="form" id="js-provider-form">
-            <ul class="form__group">
+        @foreach($details as $detail)
+                <form class="form" id="js-provider-form" method="POST" action="{{ route('notifications.postEdit')}}">
+                  @csrf
+                  <input type="hidden" value="{{ $detail->id }}" name="id"/> 
+                <ul class="form__group">
               <li class="form__group-item">
                 <h2 class="section__heading">Details</h2>
                 <div class="form__content">
-                  <select class="form__input form__input--select" id="js-schedule" required>
+                  <select class="form__input form__input--select" name="schedule" id="js-schedule" required>
                     <option disabled selected>---</option>
+                    @if($detail->schedule = 2)
                     <option value="Post Now">Post Now</option>
+                    <option value="Scheduled" selected>Scheduled</option>
+                    @else
+                    <option value="Post Now" selected>Post Now</option>
                     <option value="Scheduled">Scheduled</option>
+                    @endif
                   </select>
                   <label class="form__label">Schedule* </label>
                 </div>
-                <div class="form__content js-scheduled-content"><input class="form__input" type="time" placeholder="Time" required /><label class="form__label">Time*</label></div>
-                <div class="form__content js-scheduled-content"><input class="form__input" type="date" placeholder="Date" required /><label class="form__label">Date*</label></div>
+                @if($detail->schedule = 2)
+                <div class="form__content"><input class="form__input" type="time" name="time" value="{{$detail->time}}"placeholder="Time"/><label class="form__label">Time*</label></div>
+                <div class="form__content"><input class="form__input" type="date" name="date" value="{{$detail->date}}"placeholder="Date"/><label class="form__label">Date*</label></div>
+                @else
+                <div class="form__content js-scheduled-content"><input class="form__input" type="time" placeholder="Time"/><label class="form__label">Time*</label></div>
+                <div class="form__content js-scheduled-content"><input class="form__input" type="date" placeholder="Date"/><label class="form__label">Date*</label></div>
+                @endif
                 <div class="form__content">
-                  <select class="form__input form__input--select" required>
+                  <select class="form__input form__input--select" name="type" required>
                     <option disabled selected>---</option>
-                    <option value="Event">Event</option>
-                    <option value="Announcement">Announcement</option>
+                    @if($detail->type = 1)
+                    <option value="1" selected>Event</option>
+                    <option value="2" >Announcement</option>
+                    @else
+                    <option value="1">Event</option>
+                    <option value="2" selected>Announcement</option>
+                    @endif
                   </select>
                   <label class="form__label">Type*</label>
                 </div>
               </li>
               <li class="form__group-item">
                 <h2 class="section__heading">Content</h2>
-                <div class="form__content"><input class="form__input" type="text" placeholder="Title" required /><label class="form__label">Title*</label></div>
+                <div class="form__content"><input class="form__input" type="text" placeholder="Title" value="{{$detail->title}}" name="title" required /><label class="form__label">Title*</label></div>
                 <div class="form__content">
-                  <div class="form__input form__input--message" contenteditable placeholder="Description (English)*" required></div>
+                  <textarea class="form__input form__input--message" name="message" contenteditable placeholder="Description (English)*" required>{{ $detail->message }}</textarea>
                   <label class="form__label">Message*</label>
                 </div>
               </li>
             </ul>
-            <div class="form__button form__button--end"><button class="button js-trigger">Save changes</button></div>
+            <div class="form__button form__button--end"><button class="button js-trigger" type="submit">Save changes</button></div>
           </form>
+        @endforeach
           <div class="modal js-modal">
             <div class="modal__background js-modal-background"></div>
             <div class="modal__container">

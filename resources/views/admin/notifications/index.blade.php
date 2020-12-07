@@ -112,7 +112,7 @@
                                         @foreach($pastEvent as $events)
                                         <tr>
                                             <td>{{$events->date}}</td>
-                                            <td>{{$events->title}}</td>
+                                            <td><a href="{{ route('notifications.information',$events->id)}}">{{ $events->title}}</a></td>
                                             <td>Event</td>
                                         </tr>
                                         @endforeach
@@ -151,7 +151,7 @@
                                         @foreach($pastAnnouncement as $events)
                                         <tr>
                                             <td>{{ $events->date}}</td>
-                                            <td>{{ $events->title }}</td>
+                                            <td><a href="{{ route('notifications.information',$events->id)}}">{{ $events->title}}</a></td>
                                             <td>Announcement</td>
                                         </tr>
                                         @endforeach
