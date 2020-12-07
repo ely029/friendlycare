@@ -225,7 +225,7 @@ class ProviderManagementController extends Controller
             }
         }
         for ($eee = 0;$eee <= 10000;$eee++) {
-            if (isset($request['services'][$eee])) {
+            if (isset($request['avail_services'][$eee])) {
                 ClinicService::where('clinic_id', $request['clinic_id'])->delete();
                 ClinicService::create([
                     'service_id' => $request['avail_services'][$eee],
@@ -239,9 +239,8 @@ class ProviderManagementController extends Controller
             'street_address' => $request['street_address'],
             'description' => $request['description'],
             'contact_number' => $request['contact_number'],
-            'city' => $request['city'],
-            'municipality' => $request['municipality'],
-            'province' => $request['province'],
+            'city' => $request['city'] ?? '',
+            'province' => $request['province'] ?? '',
             'email' => $request['email'],
             'type' => $request['type'],
             'paid_service' => $request['paid'],

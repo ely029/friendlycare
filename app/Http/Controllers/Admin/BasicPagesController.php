@@ -52,8 +52,8 @@ class BasicPagesController extends Controller
     public function updateBasicPageSection($checkCount, $request, $eee)
     {
         if ($checkCount >= 1) {
-            BasicPageSection::where('title', $request['title'][$eee])->update([
-                'title' => $request['title'][$eee],
+            BasicPageSection::where('id', $request['content_id'][$eee])->update([
+                'title' => $request['content_name'][$eee],
                 'content' => $request['content'][$eee],
             ]);
         } else {
@@ -67,10 +67,10 @@ class BasicPagesController extends Controller
     private function checkAndInsertofData($request)
     {
         for ($eee = 0;$eee <= 1000;$eee++) {
-            if (isset($request['title'][$eee])) {
+            if (isset($request['content_id'][$eee])) {
                 $checkCount = DB::table('basic_page_section')
                     ->select('id')
-                    ->where('title', $request['title'][$eee])->count();
+                    ->where('id', $request['content_id'][$eee])->count();
                 $this->updateBasicPageSection($checkCount, $request, $eee);
             }
         }
