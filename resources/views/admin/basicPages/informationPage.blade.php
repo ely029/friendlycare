@@ -47,7 +47,7 @@
         @foreach($contents as $content)
         <li class="accordion__item">
             <input class="accordion__trigger" id="trigger{{$content->id}}" type="radio" name="rd{{$content->id}}" />
-            <label class="accordion__title" for="trigger1">
+            <label class="accordion__title" for="trigger{{$content->id}}">
             {{ $content->section_title}}
             <div class="accordion__arrow"></div>
             </label>
