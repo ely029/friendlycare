@@ -34,7 +34,6 @@ $(function(){
     rating: $('#rate').val()
    });
    $("#dropzoneDragArea").dropzone({ url: "/file/post" });
-   alert($('#js-schedule-1').val());
    if($('#js-schedule-1').val() == 'Post Now') {
        $('.js-scheduled-content-1').hide();
    } else {
