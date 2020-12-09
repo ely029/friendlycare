@@ -63,6 +63,8 @@ class BasicPagesController extends Controller
                 'content' => $request['content'][$eee],
             ]);
         }
+
+        BasicPageSection::where(['content' => null, 'section_title_1' => null])->delete();
     }
     public function deleteBasicSection($id)
     {
