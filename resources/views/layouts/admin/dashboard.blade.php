@@ -34,6 +34,20 @@ $(function(){
     rating: $('#rate').val()
    });
    $("#dropzoneDragArea").dropzone({ url: "/file/post" });
+   alert($('#js-schedule-1').val());
+   if($('#js-schedule-1').val() == 'Post Now') {
+       $('.js-scheduled-content-1').hide();
+   } else {
+       $('.js-scheduled-content-1').show();
+   }
+
+   $('#js-schedule-1').change(function(){
+       if($('#js-schedule-1').val() == 'Scheduled') {
+        $('.js-scheduled-content-1').show();
+       } else {
+        $('.js-scheduled-content-1').hide();
+       }
+   });   
 });
 </script>
 

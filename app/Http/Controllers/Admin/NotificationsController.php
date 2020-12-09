@@ -53,6 +53,8 @@ class NotificationsController extends Controller
         $validator = \Validator::make(request()->all(), [
             'title' => 'required',
             'message' => 'required',
+            'type' => 'required',
+            'schedule' => 'required',
         ]);
 
         if ($validator->fails()) {
