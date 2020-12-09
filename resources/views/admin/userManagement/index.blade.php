@@ -26,9 +26,9 @@
             </thead>
             <tbody>
             @foreach($admin as $admins)
-            <tr class="table__row js-view">
+            <tr class="table__row js-view" data-href="{{ route('editUserProfilePage',$admins->id) }}">
                 <td class="table__details">{{ $admins->id }}</td>
-                <td class="table__details"><a href="{{ route('editUserProfilePage',$admins->id) }}">{{ $admins->name }}</a></td>
+                <td class="table__details">{{ $admins->name }}</a></td>
                 <td class="table__details">{{ $admins->email }}</td>
                 @if($admins->role_id == '2')
                             <td>Admin</td>

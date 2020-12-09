@@ -17,7 +17,7 @@
           <form class="form" action="">
             <ul class="form__group form__group--uploadViewMethod">
               <li class="form__group-item">
-                <div class="form__wrapper"><img class="form__image form__image--method" src="img/placeholder.jpg" alt="Image placeholder" /></div>
+                <div class="form__wrapper"><img class="form__image form__image--method" src="{{URL::asset('img/placeholder.jpg')}}" alt="Image placeholder" /></div>
               </li>
               <li class="form__group-item">
                 <div class="form__content form__content--reverse"><label class="form__label form__label--blue">{{$detail->name}}</label></div>
@@ -26,11 +26,11 @@
             <div class="form__content form__content--reverse form__content--gallery">
               <h2 class="section__heading">Gallery</h2>
               <ul class="form__gallery form__gallery--method">
-                <li class="form__gallery-item"><img class="form__gallery-image" src="img/placeholder.jpg" alt="Gallery image" /></li>
-                <li class="form__gallery-item"><img class="form__gallery-image" src="" alt="" /></li>
-                <li class="form__gallery-item"><img class="form__gallery-image" src="" alt="" /></li>
-                <li class="form__gallery-item"><img class="form__gallery-image" src="" alt="" /></li>
-                <li class="form__gallery-item"><img class="form__gallery-image" src="" alt="" /></li>
+                <li class="form__gallery-item"><img class="form__gallery-image" src="{{URL::asset('img/placeholder.jpg')}}" alt="Gallery image" /></li>
+                <li class="form__gallery-item"><img class="form__gallery-image" src="{{URL::asset('img/placeholder.jpg')}}" alt="" /></li>
+                <li class="form__gallery-item"><img class="form__gallery-image" src="{{URL::asset('img/placeholder.jpg')}}" alt="" /></li>
+                <li class="form__gallery-item"><img class="form__gallery-image" src="{{URL::asset('img/placeholder.jpg')}}" alt="" /></li>
+                <li class="form__gallery-item"><img class="form__gallery-image" src="{{URL::asset('img/placeholder.jpg')}}" alt="" /></li>
               </ul>
               <iframe class="form__video" src="https://www.youtube.com/embed/c6DC2FEzVjM" frameborder="0" allowfullscreen></iframe>
             </div>

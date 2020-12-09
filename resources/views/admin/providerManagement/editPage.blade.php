@@ -63,23 +63,32 @@
               </div>
               <div class="form__inline">
               @if ($providers->type == '1')
+                <div class="form__content"> 
                  <select name="type" class="form__input form__input--select">
                  <option value="1" selected>Private</option>
                  <option value="2">Government</option>
                  <option value="3">NGO</option>
                  </select>
+                 <label class="form__label">Category*</label>
+                 </div>
                  @elseif ($providers->type == '2')
+                  <div class="form__content"> 
                  <select name="type" class="form__input form__input--select">
                  <option value="1">Private</option>
                  <option value="2" selected>Government</option>
                  <option value="3">NGO</option>
                  </select>
+                 <label class="form__label">Category*</label>
+                 </div>
                  @elseif ($providers->type == '3')
+                  <div class="form__content"> 
                  <select name="type" class="form__input form__input--select">
                  <option value="1">Private</option>
                  <option value="2">Government</option>
                  <option value="3" selected>NGO</option>
                  </select>
+                 <label class="form__label">Category*</label>
+                 </div>
                  @endif
                 <div class="form__content">
                   <select class="form__input form__input--select" id="province"></select>

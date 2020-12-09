@@ -21,7 +21,7 @@
                   <h2 class="section__heading">Details</h2>
                   <ul class="form__group form__group--upload form__group--editUpload">
                     <li class="form__group-item">
-                      <div class="form__wrapper"><img class="form__image form__image--method" src="img/placeholder.jpg" alt="Image placeholder" /></div>
+                      <div class="form__wrapper"><img class="form__image form__image--method" src="{{URL::asset('img/placeholder.jpg')}}" alt="Image placeholder" /></div>
                     </li>
                     <li class="form__group-item">
                       <div class="form__content">
