@@ -20,7 +20,7 @@ class BasicPagesController extends Controller
     public function informationPage($id)
     {
         $contents = DB::table('basic_page_section')
-            ->select('basic_page_section.title as section_title', 'basic_page_section.content', 'basic_page_section.id')
+            ->select('basic_page_section.section_title_1 as section_title', 'basic_page_section.content', 'basic_page_section.id')
             ->where('basic_page_id', $id)
             ->get();
 
@@ -53,13 +53,13 @@ class BasicPagesController extends Controller
     {
         if ($checkCount >= 1) {
             BasicPageSection::where('id', $request['content_id'][$eee])->update([
-                'title' => $request['content_name'][$eee],
+                'section_title_1' => $request['content_name'][$eee],
                 'content' => $request['content'][$eee],
             ]);
         } else {
             BasicPageSection::create([
                 'basic_page_id' => $request['id'],
-                'title' => $request['content_name'][$eee],
+                'section_title_1' => $request['content_name'][$eee],
                 'content' => $request['content'][$eee],
             ]);
         }

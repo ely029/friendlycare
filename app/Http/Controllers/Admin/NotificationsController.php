@@ -30,14 +30,14 @@ class NotificationsController extends Controller
             ->select('id', 'title', 'date', 'type')
             ->where('is_approve', 1)
             ->where('type', 2)
-            // ->where('date_string', '>=', strtotime(date('Y-m-d')))
+            ->where('date_string', '>=', strtotime(date('Y-m-d')))
             ->get();
 
         $pastAnnouncement = DB::table('events_notification')
             ->select('id', 'title', 'date', 'type')
             ->where('is_approve', 1)
             ->where('type', 2)
-            // ->where('date_string', '<=', strtotime(date('Y-m-d')))
+            ->where('date_string', '<=', strtotime(date('Y-m-d')))
             ->get();
 
         return view('admin.notifications.index', ['upcomingEvent' => $upcomingEvent, 'pastEvent' => $pastEvent, 'upcomingAnnouncement' => $upcomingAnnouncement, 'pastAnnouncement' => $pastAnnouncement]);
