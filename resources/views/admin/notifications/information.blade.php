@@ -21,8 +21,10 @@
             @else
             <div class="form__content"><span class="form__text">Events</span><label class="form__label form__label--visible">Type</label></div>
             @endif
-            <div class="form__content"><span class="form__text"> {{ $detail->date}}</span><label class="form__label form__label--visible">Date</label></div>
-            <div class="form__content"><span class="form__text">{{ $detail->time}}</span><label class="form__label form__label--visible">Time</label></div>
+            <div class="form__inline">
+              <div class="form__content"><span class="form__text"> {{ $detail->date}}</span><label class="form__label form__label--visible">Date</label></div>
+              <div class="form__content"><span class="form__text">{{ $detail->time}}</span><label class="form__label form__label--visible">Time</label></div>
+            </div>
             <div class="form__content">
               <span class="form__text">{{$detail->message}}</span>
               <label class="form__label form__label--visible">Message</label>

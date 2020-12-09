@@ -15,22 +15,18 @@
             <a class="breadcrumbs__link" href="{{route('notifications.index')}}">Events &amp; Push Notifications</a><a class="breadcrumbs__link" >Create new notification</a><a class="breadcrumbs__link"></a>
           </div>
         </div>
-        <div class="col-md-12">
-                @if ($errors->any())
-  <div class="alert alert-danger">
-     <ul>
-        @foreach ($errors->all() as $error)
-           <li>{{ $error }}</li>
-        @endforeach
-     </ul>
-  </div>
-@endif
         <div class="section__container">
+        @if ($errors->any())
+
+        @foreach ($errors->all() as $error)
+        <div class="alert alert-danger">{{ $error }}</div>
+        @endforeach
+        @endif
           <form class="form" id="js-provider-form" method="POST" action="{{ route('notifications.postNotification')}}">
           @csrf  
           <ul class="form__group">
               <li class="form__group-item">
-                <h2 class="section__heading">Details</h2>
+                <h2 class="secion__heading">Details</h2>
                 <div class="form__content">
                   <select class="form__input form__input--select" name="schedule" id="js-schedule" required>
                     <option disabled selected>---</option>
@@ -81,7 +77,6 @@
               </div>
             </div>
           </div>
-        </div>
       </div>
 
 <!-- <div class="container-fluid">

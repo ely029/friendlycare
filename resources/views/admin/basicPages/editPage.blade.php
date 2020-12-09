@@ -25,7 +25,7 @@
 <div class="section__container">
     <h2 class="section__heading">{{ $contents->content_name}}</h2>
     <div class="form">
-    <textarea name="content" class="form__input form__input--message js-editor-content">{{ $contents->content }}</textarea>
+    <textarea name="content" class="form__input form__input--full form__input--message js-editor-content">{{ $contents->content }}</textarea>
     <div class="form__button form__button--end"><input type="submit" value="Save changes" class="button"></div>
     </div>
 </div>
