@@ -23,6 +23,8 @@
 
 <script type="text/javascript">
 $(function(){
+    $('#js-consent-form').show();
+    $('#js-consent-form2').hide();
    $('.rateYo').rateYo({
     normalFill: "#F0F0F0",
     ratedFill: "#B964C4",
@@ -47,6 +49,9 @@ $(function(){
         $('.js-scheduled-content-1').hide();
        }
    });   
+   $('.js-add-section1').click(function(){
+       $('#js-consent-form2').show();
+   });
 });
 </script>
 

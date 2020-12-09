@@ -25,7 +25,7 @@
 <div class="section__container">
     <h2 class="section__heading">{{ $contents->content_name}}</h2>
     <div class="form">
-    <textarea name="content" class="form__input form__input--full form__input--message js-editor-content">{{ $contents->content }}</textarea>
+    <textarea name="content" class="form__input form__input--message js-editor-content">{{ $contents->content }}</textarea>
     <div class="form__button form__button--end"><input type="submit" value="Save changes" class="button"></div>
     </div>
 </div>
@@ -64,6 +64,19 @@
     </div>
     @endforeach
     <div id="js-consent-form">
+        <div class="form__container">
+        <input type="hidden" value="0" name="content_id[]">
+        <div class="form__content form__content--full"><input class="form__input" type="text" name="content_name[]" value=""  /><label class="form__label form__label--visible" for="">Section title</label></div>
+        <div class="form__content form__content--full">
+            <textarea class="form__input form__input--message js-editor-content" name="content[]"></textarea>
+            <label class="form__label form__label--visible" for="">Content</label>
+        </div>
+        <div class="form__button form__button--end">
+            <button class="button button--medium js-add-section1" type="button">Add section</button>
+        </div>
+        </div>
+    </div>
+    <div id="js-consent-form2">
         <div class="form__container">
         <input type="hidden" value="0" name="content_id[]">
         <div class="form__content form__content--full"><input class="form__input" type="text" name="content_name[]" value=""  /><label class="form__label form__label--visible" for="">Section title</label></div>
