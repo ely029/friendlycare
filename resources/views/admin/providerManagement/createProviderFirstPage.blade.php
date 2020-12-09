@@ -40,7 +40,7 @@
         <div class="form__inline">
         <div class="form__content"><input class="form__input" name="clinic_name" value="{{ old('clinic_name')}}" type="text" placeholder="Provider name*" /><label class="form__label">Provider name* </label></div>
         <div class="form__content">
-            <select class="form__input form__input--select" id="region"></select>
+            <select class="form__input form__input--select" name="city" id="region"></select>
             <label class="form__label">Region*</label>
         </div>
         </div>

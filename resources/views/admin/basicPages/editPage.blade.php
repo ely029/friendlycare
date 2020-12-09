@@ -61,7 +61,7 @@
     <div id="js-consent-form">
         <div class="form__container">
         <input type="hidden" value="0" name="content_id[]">
-        <div class="form__content form__content--full"><input class="form__input" type="text" name="title" value="Consent Form"  /><label class="form__label form__label--visible" for="">Section title</label></div>
+        <div class="form__content form__content--full"><input class="form__input" type="text" name="content_name[]" value=""  /><label class="form__label form__label--visible" for="">Section title</label></div>
         <div class="form__content form__content--full">
             <textarea class="form__input form__input--message js-editor-content" name="content[]"></textarea>
             <label class="form__label form__label--visible" for="">Content</label>

@@ -10,16 +10,16 @@
 
 @push('scripts')
     {{-- @TB: If you need custom scripts for dashboard place it in assets/dashboard/js/ --}}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
     <script src="{{ asset('assets/app/js/app.js') }}"></script>
     <script type="text/javascript"  src="{{ asset('assets/app/js/main.js') }}"></script>
     <script type="text/javascript"  src="{{ asset('assets/app/js/admin.js') }}"></script>
     <script type="text/javascript"  src="{{ asset('assets/app/js/notification.js') }}"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
+<script src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations-v1.0.0.js"></script>
+
 <script type="text/javascript">
 $(function(){
    $('#rateYo').rateYo({
@@ -29,4 +29,43 @@ $(function(){
    $("#dropzoneDragArea").dropzone({ url: "/file/post" });
 });
 </script>
+
+<script type="text/javascript">
+            
+            var my_handlers = {
+
+                fill_provinces:  function(){
+
+                    var region_code = $(this).val();
+                    $('#province').ph_locations('fetch_list', [{"region_code": region_code}]);
+                    
+                },
+
+                fill_cities: function(){
+
+                    var province_code = $(this).val();
+                    $('#city').ph_locations( 'fetch_list', [{"province_code": province_code}]);
+                },
+
+
+                fill_barangays: function(){
+
+                    var city_code = $(this).val();
+                    $('#barangay').ph_locations('fetch_list', [{"city_code": city_code}]);
+                }
+            };
+
+            $(function(){
+                $('#region').on('change', my_handlers.fill_provinces);
+                $('#province').on('change', my_handlers.fill_cities);
+                $('#city').on('change', my_handlers.fill_barangays);
+
+                $('#region').ph_locations({'location_type': 'regions'});
+                $('#province').ph_locations({'location_type': 'provinces'});
+                $('#city').ph_locations({'location_type': 'cities'});
+                $('#barangay').ph_locations({'location_type': 'barangays'});
+
+                $('#region').ph_locations('fetch_list');
+            });
+        </script>
 @endpush

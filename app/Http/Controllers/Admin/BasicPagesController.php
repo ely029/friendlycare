@@ -59,7 +59,7 @@ class BasicPagesController extends Controller
         } else {
             BasicPageSection::create([
                 'basic_page_id' => $request['id'],
-                'title' => $request['title'][$eee],
+                'title' => $request['content_name'][$eee],
                 'content' => $request['content'][$eee],
             ]);
         }
