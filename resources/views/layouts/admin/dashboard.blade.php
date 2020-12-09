@@ -18,17 +18,19 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
-<script src="https://cdn.tiny.cloud/1/yjtil7vjw9cus6nrlnbphyor2ey71lojenzvv4yqmy0luh43/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<!-- <script src="https://cdn.tiny.cloud/1/yjtil7vjw9cus6nrlnbphyor2ey71lojenzvv4yqmy0luh43/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
 <script src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations-v1.0.0.js"></script>
 
 <script type="text/javascript">
 $(function(){
    $('.rateYo').rateYo({
-    normalFill: "#A0A0A0",
+    normalFill: "#F0F0F0",
+    ratedFill: "#B964C4",
     rating: $('.provider_rate').val()
    });
    $('#rateYo').rateYo({
-    normalFill: "#A0A0A0",
+    normalFill: "#F0F0F0",
+    ratedFill: "#B964C4",
     rating: $('#rate').val()
    });
    $("#dropzoneDragArea").dropzone({ url: "/file/post" });

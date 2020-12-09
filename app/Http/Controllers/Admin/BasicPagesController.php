@@ -64,6 +64,12 @@ class BasicPagesController extends Controller
             ]);
         }
     }
+    public function deleteBasicSection($id)
+    {
+        BasicPageSection::where('id', $id)->delete();
+
+        return redirect('basicpages/list');
+    }
     private function checkAndInsertofData($request)
     {
         for ($eee = 0;$eee <= 1000;$eee++) {

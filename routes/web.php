@@ -83,6 +83,7 @@ Route::group(['prefix' => 'basicpages', 'middleware' => 'auth'], static function
     Route::get('/{id}', 'Admin\BasicPagesController@informationPage')->name('basicPages.informationPage');
     Route::get('/edit/{id}', 'Admin\BasicPagesController@editPage')->name('basicPages.editPage');
     Route::post('/update', 'Admin\BasicPagesController@storeEdit')->name('basicPages.storeEdit');
+    Route::get('/delete/{id}', 'Admin\BasicPagesController@deleteBasicSection')->name('basicPages.deleteBasicSection');
 });
 
 Route::group(['prefix' => 'reset'], static function () {
