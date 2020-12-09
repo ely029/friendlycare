@@ -42,10 +42,10 @@
 <input type="hidden" name="id" value="{{ $contents->id }}">
 <div class="section__container">
 <div class="form">
-<div class="form__content form__content--full"><input class="form__input" type="text"  /><label class="form__label form__label--visible" for="">Title</label></div>
+<div class="form__content form__content--full"><input class="form__input" type="text" value="Consent Form"  /><label class="form__label form__label--visible" for="">Title</label></div>
 @foreach($contentss as $contentsss)
 <input type="hidden" value="{{ $contentsss->id }}" name="content_id[]">
-    <div id="js-consent-form">
+    <div id="js-consent-form1">
         <div class="form__container">
         <div class="form__content form__content--full"><input class="form__input" type="text" name="content_name[]" value="{{ $contentsss->title}}"  /><label class="form__label form__label--visible" for="">Section title</label></div>
         <div class="form__content form__content--full">
@@ -53,7 +53,7 @@
             <label class="form__label form__label--visible" for="">Content</label>
         </div>
         <div class="form__button form__button--end">
-            <button class="button button--medium js-delete-section" type="button">Delete section</button>
+            <a class="button button--medium js-delete-section" href="{{ route('basicPages.deleteBasicSection',$contentsss->id)}}"type="button">Delete section</a>
         </div>
         </div>
     </div>
@@ -67,7 +67,7 @@
             <label class="form__label form__label--visible" for="">Content</label>
         </div>
         <div class="form__button form__button--end">
-        <a class="button button--medium js-delete-section" href="#" type="button">Delete section</a>
+        <a class="button button--medium js-delete-section" type="button">Delete section</a>
             <button class="button button--medium js-add-section" type="button">Add section</button>
         </div>
         </div>
