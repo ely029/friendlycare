@@ -110,8 +110,18 @@
             </ul>
             <div class="form__button form__button--start">
             <a class="button" href="{{ route('editPage',$providers->id )}}">Edit provider</a>
-            <a class="button button--transparent" data-toggle="modal" data-target="#confirmProviderCreation">Delete provider</a></div>
-            <div class="modal fade" id="confirmProviderCreation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <a class="button button--transparent js-trigger">Delete provider</a></div>
+            <div class="modal js-modal" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal__background js-modal-background"></div>
+              <div class="modal__container">
+                <div class="modal__box">
+                  <h2 class="modal__title">Delete provider?</h2>
+                  <p class="modal__text">You are about to delete this provider. Proceed?</p>
+                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><a href="{{ route('deleteProvider',$providers->id )}}" class="button button--medium button--medium__delete" role="button">Delete provider</a></div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="modal fade" id="confirmProviderCreation" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                                 <div class="modal-header">
@@ -129,9 +139,9 @@
                                 </div>
                         </div>
                     </div>
-            </div>
+            </div> -->
           </form>
-          <div class="modal js-modal">
+          <!-- <div class="modal js-modal">
             <div class="modal__background js-modal-background"></div>
             <div class="modal__container">
               <div class="modal__box">
@@ -150,7 +160,7 @@
                 <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium" type="button">Enable</button></div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
 @endforeach
