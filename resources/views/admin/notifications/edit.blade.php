@@ -22,9 +22,9 @@
               <li class="form__group-item">
                 <h2 class="section__heading">Details</h2>
                 <div class="form__content">
-                  <select class="form__input form__input--select" name="schedule" id="js-schedule" required>
+                  <select class="form__input form__input--select" name="schedule" id="js-schedule-1" required>
                     <option disabled selected>---</option>
-                    @if($detail->schedule = 2)
+                    @if($detail->scheduled == 'Scheduled')
                     <option value="Post Now">Post Now</option>
                     <option value="Scheduled" selected>Scheduled</option>
                     @else
@@ -34,22 +34,17 @@
                   </select>
                   <label class="form__label">Schedule* </label>
                 </div>
-                @if($detail->schedule = 2)
-                <div class="form__content"><input class="form__input" type="time" name="time" value="{{$detail->time}}"placeholder="Time"/><label class="form__label">Time*</label></div>
-                <div class="form__content"><input class="form__input" type="date" name="date" value="{{$detail->date}}"placeholder="Date"/><label class="form__label">Date*</label></div>
-                @else
-                <div class="form__content js-scheduled-content"><input class="form__input" type="time" placeholder="Time"/><label class="form__label">Time*</label></div>
-                <div class="form__content js-scheduled-content"><input class="form__input" type="date" placeholder="Date"/><label class="form__label">Date*</label></div>
-                @endif
+                <div class="form__content js-scheduled-content-1"><input class="form__input" type="time" name="time" value="{{$detail->time}}"placeholder="Time"/><label class="form__label">Time*</label></div>
+                <div class="form__content js-scheduled-content-1"><input class="form__input" type="date" name="date" value="{{$detail->date}}"placeholder="Date"/><label class="form__label">Date*</label></div>
                 <div class="form__content">
                   <select class="form__input form__input--select" name="type" required>
                     <option disabled selected>---</option>
-                    @if($detail->type = 1)
-                    <option value="1" selected>Event</option>
-                    <option value="2" >Announcement</option>
-                    @else
+                    @if($detail->type == '2')
                     <option value="1">Event</option>
-                    <option value="2" selected>Announcement</option>
+                    <option value="2" selected >Announcement</option>
+                    @else
+                    <option value="1" selected>Event</option>
+                    <option value="2">Announcement</option>
                     @endif
                   </select>
                   <label class="form__label">Type*</label>

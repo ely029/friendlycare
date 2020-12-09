@@ -16,7 +16,11 @@
         <div class="section__container">
           <form class="form" id="js-provider-form">
             <h2 class="section__heading">{{ $detail->title}}</h2>
-            <div class="form__content"><span class="form__text">Event</span><label class="form__label form__label--visible">Type</label></div>
+            @if ($detail->type == '2')
+            <div class="form__content"><span class="form__text">Announcements</span><label class="form__label form__label--visible">Type</label></div>
+            @else
+            <div class="form__content"><span class="form__text">Events</span><label class="form__label form__label--visible">Type</label></div>
+            @endif
             <div class="form__content"><span class="form__text"> {{ $detail->date}}</span><label class="form__label form__label--visible">Date</label></div>
             <div class="form__content"><span class="form__text">{{ $detail->time}}</span><label class="form__label form__label--visible">Time</label></div>
             <div class="form__content">
