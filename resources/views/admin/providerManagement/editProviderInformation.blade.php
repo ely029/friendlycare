@@ -11,7 +11,7 @@
 <div class="section">
         <div class="section__top">
           <h1 class="section__title">{{ $providers->clinic_name}}</h1>
-          <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('providerManagement')}}">Provider management</a><a class="breadcrumbs__link" href="view-provider.php">{{ $providers->clinic_name }}</a><a class="breadcrumbs__link"></a></div>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('providerManagement')}}">Provider management</a><a class="breadcrumbs__link">{{ $providers->clinic_name }}</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
           <form class="form form--viewProvider" id="js-provider-form" action="">

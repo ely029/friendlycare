@@ -11,7 +11,7 @@
       @foreach ($users as $user)
       <div class="section__top">
           <h1 class="section__title">{{$user->name}}</h1>
-          <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('userManagement')}}">User management</a><a class="breadcrumbs__link" href="create-user.php">Create user</a><a class="breadcrumbs__link"></a></div>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('userManagement')}}">User management</a><a class="breadcrumbs__link">Create user</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
           <h3 class="section__heading">{{ $user->name }}</h3>

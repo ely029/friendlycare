@@ -12,7 +12,7 @@
         <div class="section__top">
           <h1 class="section__title">Create new notification</h1>
           <div class="breadcrumbs">
-            <a class="breadcrumbs__link" href="{{route('notifications.index')}}">Events &amp; Push Notifications</a><a class="breadcrumbs__link" href="create-notification.php">Create new notification</a><a class="breadcrumbs__link"></a>
+            <a class="breadcrumbs__link" href="{{route('notifications.index')}}">Events &amp; Push Notifications</a><a class="breadcrumbs__link" >Create new notification</a><a class="breadcrumbs__link"></a>
           </div>
         </div>
         <div class="col-md-12">

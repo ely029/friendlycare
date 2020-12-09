@@ -11,7 +11,7 @@
 <div class="section">
         <div class="section__top">
           <h1 class="section__title">Create method</h1>
-          <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{  route('familyPlanningMethod.index')}}">Family planning methods</a><a class="breadcrumbs__link" href="create-method.php">Create method</a><a class="breadcrumbs__link"></a></div>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{  route('familyPlanningMethod.index')}}">Family planning methods</a><a class="breadcrumbs__link" >Create method</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
           <form class="form form--method" id="js-provider-form" method="POST" action="{{ route('familyPlanningMethod.createThree') }}" enctype="multipart/form-data">

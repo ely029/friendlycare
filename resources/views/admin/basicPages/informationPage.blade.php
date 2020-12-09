@@ -14,7 +14,10 @@
 <div class="section">
 <div class="section__top">
     <h1 class="section__title">{{ $contentss->content_name }}</h1>
-    <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('basicPages')}}">Basic pages</a><a class="breadcrumbs__link" href="about.php">{{ $contentss->content_name }}</a><a class="breadcrumbs__link"></a></div>
+    <div class="breadcrumbs">
+        <a class="breadcrumbs__link" href="{{ route('basicPages')}}">Basic pages</a>
+        <a class="breadcrumbs__link">{{ $contentss->content_name }}</a>
+        <a class="breadcrumbs__link"></a></div>
 </div>
 <div class="section__container">
     <h2 class="section__heading">{{ $contentss->content_name }}</h2>
@@ -34,7 +37,7 @@
 <div class="section">
 <div class="section__top">
     <h1 class="section__title">{{ $contentss->content_name }}</h1>
-    <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('basicPages')}}">Basic Pages</a><a class="breadcrumbs__link" href="consent-form.php">{{ $contentss->content_name }}</a><a class="breadcrumbs__link"></a></div>
+    <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('basicPages')}}">Basic Pages</a><a class="breadcrumbs__link">{{ $contentss->content_name }}</a><a class="breadcrumbs__link"></a></div>
 </div>
 <div class="section__container">
     <h2 class="section__heading">{{ $contentss->content_name }}</h2>
