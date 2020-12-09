@@ -73,6 +73,7 @@ Route::group(['prefix' => 'provider', 'middleware' => 'auth'], static function (
     Route::get('/edit/{id}', 'Admin\ProviderManagementController@editPage')->name('editPage');
     Route::post('/update', 'Admin\ProviderManagementController@updateProvider')->name('updateProvider');
     Route::get('/delete/{id}', 'Admin\ProviderManagementController@deleteProvider')->name('deleteProvider');
+    Route::get('ratings/{id}', 'Admin\ProviderManagementController@ratingPerPatient')->name('provider.reviews');
 });
 
 //basic pages

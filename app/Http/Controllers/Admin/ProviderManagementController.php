@@ -22,10 +22,17 @@ class ProviderManagementController extends Controller
             ->where('clinics.email', '<>', 'null')
             ->where('clinics.is_approve', '<>', 0)
             ->get();
+        $ratings = DB::table('ratings')
+            ->join('ratings_details', 'ratings_details.rating_id', 'ratings.id')
+            ->orderBy('ratings.clinic_id')
+            ->avg('ratings_details.ratings');
 
-        return view('admin.providerManagement.index', ['clinics' => $users]);
+        $countStaff = DB::table('staffs')
+            ->join('clinics', 'clinics.id', 'staffs.id')
+            ->select('staffs.id')
+            ->count();
+        return view('admin.providerManagement.index', ['clinics' => $users, 'ratings' => $ratings, 'countStaff' => $countStaff]);
     }
-
     public function createFirstPage()
     {
         return view('admin.providerManagement.createProviderFirstPage');
@@ -136,7 +143,12 @@ class ProviderManagementController extends Controller
             ->where('clinic_gallery.clinic_id', $id)
             ->get();
 
-        return view('admin.providerManagement.editProviderInformation', ['provider' => $provider, 'modernMethod' => $modernMethod, 'permanentMethod' => $permanentMethod, 'naturalMethod' => $naturalMethod, 'staffs' => $staff, 'paidServices' => $paidServices, 'clinicHours' => $clinicHours, 'galleries' => $gallery, 'ratings' => $ratings ]);
+        $countPatientRatings = DB::table('ratings')
+            ->select('patient_id')
+            ->where('clinic_id', $id)
+            ->count();
+
+        return view('admin.providerManagement.editProviderInformation', ['provider' => $provider, 'modernMethod' => $modernMethod, 'permanentMethod' => $permanentMethod, 'naturalMethod' => $naturalMethod, 'staffs' => $staff, 'paidServices' => $paidServices, 'clinicHours' => $clinicHours, 'galleries' => $gallery, 'ratings' => $ratings, 'countPatient' => $countPatientRatings ]);
     }
 
     public function editPage($id)
@@ -369,5 +381,28 @@ class ProviderManagementController extends Controller
         Clinics::where('id', session('id'))->update(['is_approve' => 1]);
 
         return redirect('/provider/profile/'.session('id'));
+    }
+
+    public function ratingPerPatient($id)
+    {
+        $countPatientRatings = DB::table('ratings')
+            ->select('patient_id')
+            ->where('clinic_id', $id)
+            ->count();
+        $details = DB::table('ratings')
+            ->join('users', 'users.id', 'ratings.patient_id')
+            ->join('ratings_details', 'ratings_details.rating_id', 'ratings.id')
+            ->select('ratings_details.id', 'users.name', 'ratings_details.ratings', 'ratings.review')
+            ->where('ratings.clinic_id', $id)
+            ->get();
+
+        $clinic_name = DB::table('clinics')
+            ->join('ratings', 'ratings.clinic_id', 'clinics.id')
+            ->select('clinics.clinic_name', 'clinics.contact_number', 'clinics.email')
+            ->where('clinics.id', $id)
+            ->distinct('clinics.clinic_name')
+            ->get();
+
+        return view('admin.providerManagement.reviews', ['details' => $details, 'clinic_name' => $clinic_name, 'patientCount' => $countPatientRatings]);
     }
 }

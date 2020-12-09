@@ -25,7 +25,7 @@
                   <span class="form__text form__text--group">
                     <input type="hidden" id="rate" value="{{ $ratings }}">
                     <div id="rateYo"></div>
-                    <span class="form__text">(17)</span><a class="form__link form__link--gray" href="">View reviews?</a>
+                    <span class="form__text">({{$countPatient}})</span><a class="form__link form__link--gray" href="{{ route('provider.reviews', $providers->id)}}">View reviews?</a>
                   </span>
                   <span class="form__text">{{ $providers->email}}</span><span class="form__text">{{$providers->contact_number }}</span>
                 </div>

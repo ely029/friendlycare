@@ -34,8 +34,9 @@
                             @elseif($clinic->type == '3')
                             <td class="table__details">NGO</td>
                             @endif
-                <td class="table__details"></td>
-                <td class="table__details"></td>
+                <td class="table__details"><span class="rateYo"></span></td>
+                <input type="hidden" class="provider_rate" value="{{$ratings}}">
+                <td class="table__details">{{ $countStaff }}</td>
               </tr>
             </tbody>
             @endforeach
