@@ -24,11 +24,13 @@
 <script type="text/javascript">
 $(function(){
    $('.rateYo').rateYo({
-    normalFill: "#A0A0A0",
+    normalFill: "#F0F0F0",
+    ratedFill: "#B964C4",
     rating: $('.provider_rate').val()
    });
    $('#rateYo').rateYo({
-    normalFill: "#A0A0A0",
+    normalFill: "#F0F0F0",
+    ratedFill: "#B964C4",
     rating: $('#rate').val()
    });
    $("#dropzoneDragArea").dropzone({ url: "/file/post" });

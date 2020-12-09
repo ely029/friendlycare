@@ -53,7 +53,7 @@
             <label class="form__label form__label--visible" for="">Content</label>
         </div>
         <div class="form__button form__button--end">
-            <button class="button button--medium js-delete-section" type="button">Delete section</button><button class="button button--medium js-add-section" type="button">Add section</button>
+            <button class="button button--medium js-delete-section" type="button">Delete section</button>
         </div>
         </div>
     </div>
@@ -67,6 +67,7 @@
             <label class="form__label form__label--visible" for="">Content</label>
         </div>
         <div class="form__button form__button--end">
+        <a class="button button--medium js-delete-section" href="#" type="button">Delete section</a>
             <button class="button button--medium js-add-section" type="button">Add section</button>
         </div>
         </div>
