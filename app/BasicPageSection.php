@@ -14,5 +14,6 @@ class BasicPageSection extends Model
         'title',
         'content',
         'basic_page_id',
+        'section_title_1',
     ];
 }

@@ -30,7 +30,7 @@ class BasicPagesController extends Controller
     }
     public function editPage($id)
     {
-        $contents = DB::table('basic_page_section')->select('title', 'content', 'id')->where('basic_page_id', $id)->get();
+        $contents = DB::table('basic_page_section')->select('section_title_1 as title', 'content', 'id')->where('basic_page_id', $id)->get();
         $content = BasicPages::where('id', $id)->get();
         return view('admin.basicPages.editPage', ['content' => $content, 'contentss' => $contents]);
     }
@@ -68,7 +68,7 @@ class BasicPagesController extends Controller
     {
         BasicPageSection::where('id', $id)->delete();
 
-        return redirect('basicpages/list');
+        return redirect('basicpages/edit/3');
     }
     private function checkAndInsertofData($request)
     {

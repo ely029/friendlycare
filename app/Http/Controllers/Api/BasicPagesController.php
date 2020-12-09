@@ -8,6 +8,7 @@ use App\BasicPages;
 use App\BasicPageSection;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BasicPagesController extends Controller
 {
@@ -20,7 +21,10 @@ class BasicPagesController extends Controller
 
     public function consentFormSection()
     {
-        $content = BasicPageSection::where('basic_page_id', 3)->get();
+        $content = DB::table('basic_page_section')
+            ->select('id', 'basic_page_id', 'section_title_1 as title', 'content', 'created_at', 'updated_at')
+            ->where('basic_page_id', 3)
+            ->get();
 
         return response([
             'name' => 'consentFormSection',
