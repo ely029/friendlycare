@@ -24,8 +24,8 @@
             <div class="form__content"><span class="form__text"> {{ $detail->date}}</span><label class="form__label form__label--visible">Date</label></div>
             <div class="form__content"><span class="form__text">{{ $detail->time}}</span><label class="form__label form__label--visible">Time</label></div>
             <div class="form__content">
-              <span class="form__text">{{ $detail->title}}</span>
-              <label class="form__label form__label--visible">{{ $detail->message }}</label>
+              <span class="form__text">{{$detail->message}}</span>
+              <label class="form__label form__label--visible">Message</label>
             </div>
             <div class="form__button form__button--start"><a class="button" href="{{ route('notifications.edit', $detail->id)}}">Edit notification</a><a href="{{route('notifications.delete', $detail->id)}}" class="button button--transparent js-trigger">Delete notification</a></div>
           </form>
