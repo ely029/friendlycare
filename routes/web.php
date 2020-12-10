@@ -36,6 +36,7 @@ Route::group(['namespace' => 'Dashboard', 'prefix' => 'dashboard', 'middleware' 
 
 Route::group(['namespace' => 'Admin','prefix' => 'admin', 'middleware' => 'auth'], static function () {
     Route::get('/', 'AdminController@index');
+    Route::get('/accounts', 'AdminController@accounts');
 });
 
 //user management
