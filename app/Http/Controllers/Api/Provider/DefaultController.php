@@ -20,8 +20,9 @@ use Mail;
 
 class DefaultController extends Controller
 {
-    public function login()
+    public function login(Request $request)
     {
+        $obj = json_decode($request->getContent(), true);
         $validator = \Validator::make(request()->all(), [
             'email' => 'required',
             'password' => 'required|min:8',
@@ -33,7 +34,9 @@ class DefaultController extends Controller
 
         if (\Auth::attempt(['email' => request('email'), 'password' => request('password'), 'role_id' => 4])) {
             $user = \Auth::user();
-
+            User::where('id', $user['id'])->update([
+                'fcm_notification_key' => $obj['token'],
+            ]);
             return response([
                 'login_success' => 'Login Successful',
                 'id' => $user['id'],
