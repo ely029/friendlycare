@@ -26,7 +26,7 @@
           @csrf  
           <ul class="form__group">
               <li class="form__group-item">
-                <h2 class="secion__heading">Details</h2>
+                <h2 class="section__heading">Details</h2>
                 <div class="form__content">
                   <select class="form__input form__input--select" name="schedule" id="js-schedule" required>
                     <option disabled selected>---</option>
