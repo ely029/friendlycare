@@ -36,7 +36,8 @@ Route::group(['namespace' => 'Dashboard', 'prefix' => 'dashboard', 'middleware' 
 
 Route::group(['namespace' => 'Admin','prefix' => 'admin', 'middleware' => 'auth'], static function () {
     Route::get('/', 'AdminController@index');
-    Route::get('/accounts', 'AdminController@accounts');
+    Route::get('/accounts', 'AdminController@accounts')->name('admin.accounts');
+    Route::get('/logout', 'AdminController@logout')->name('admin.logout');
 });
 
 //user management
@@ -125,7 +126,7 @@ Route::group(['prefix' => 'notification'], static function () {
     Route::get('/edit/delete/{id}', 'Admin\NotificationsController@delete')->name('notifications.delete');
 });
 
-    Route::get('/', 'HomeController@index');
-    Route::get('/portal', 'Admin\AdminController@showLogin')->name('adminLogin');
+    Route::get('/', 'HomeController@index')->name('home');
+    // Route::get('/portal', '@')->name('adminLogin');
     Route::post('/authenticate', 'Admin\AdminController@authenticate')->name('authenticate');
     Route::post('/updateclinicgallery/{id}', 'Admin\ProviderManagementController@updateClinicGallery');

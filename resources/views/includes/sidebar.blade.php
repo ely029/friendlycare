@@ -107,7 +107,7 @@
               </li>
             </ul>
           </div>
-          <a class="sidebar__footer" href="my-account.php">
+          <a class="sidebar__footer" href="{{ route('admin.accounts')}}">
             <div class="sidebar__footer-content">
               <h2 class="sidebar__footer-heading">My Account</h2>
               <span class="sidebar__footer-span">Admin</span>

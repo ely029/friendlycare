@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -23,13 +24,19 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
-    public function showLogin()
-    {
-        return view('admin.login');
-    }
+    // public function showLogin()
+    // {
+    //     return view('admin.login');
+    // }
 
     public function accounts()
     {
         return view('admin.accounts');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/');
     }
 }
