@@ -153,7 +153,8 @@ Route::get('/municipality/{id}', 'Patients\DefaultController@municipality');
 Route::get('/consentform', 'BasicPagesController@consentForm');
 Route::get('/consentformsection', 'BasicPagesController@consentFormSection');
 Route::get('/aboutus', 'BasicPagesController@aboutUs');
-Route::get('/termsandcondition', 'BasicPagesController@termsOfService');
+Route::get('/termsandconditionpatient', 'BasicPagesController@termsOfServicePatient');
+Route::get('/termsandconditionprovider', 'BasicPagesController@termsOfServiceProvider');
 //TimeSlot
 
 Route::get('/booking/timeslot/{id}', 'Provider\DefaultController@getProviderTimeSlot');

@@ -39,9 +39,16 @@ class BasicPagesController extends Controller
         return response()->json($content, 200);
     }
 
-    public function termsOfService()
+    public function termsOfServicePatient()
     {
         $content = BasicPages::where('id', 2)->first();
+
+        return response()->json($content, 200);
+    }
+
+    public function termsOfServiceProvider()
+    {
+        $content = BasicPages::where('id', 5)->first();
 
         return response()->json($content, 200);
     }
