@@ -32,7 +32,7 @@ class DefaultController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        if (\Auth::attempt(['email' => request('email'), 'password' => request('password'), 'role_id' => 4])) {
+        if (\Auth::attempt(['email' => $obj['email'], 'password' => $obj['password'], 'role_id' => 4])) {
             $user = \Auth::user();
             User::where('id', $user['id'])->update([
                 'fcm_notification_key' => $obj['token'],
