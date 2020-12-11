@@ -14,7 +14,7 @@
     <div class="breadcrumbs"><a class="breadcrumbs__link">Survey</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
 </div>
 <div class="section__container">
-    <a class="button button--create" href="create-survey.html">Create survey<i class="fa fa-plus"></i></a>
+    <a class="button button--create" href="{{ route('survey.create')}}">Create survey<i class="fa fa-plus"></i></a>
     <table class="table" id="table">
     <thead>
         <tr>
@@ -24,11 +24,13 @@
         </tr>
     </thead>
     <tbody>
-        <tr class="table__row js-view" data-href="view-survey.html">
-        <td class="table__details">01/20/2021-01/25/2021</td>
-        <td class="table__details">Survey 10</td>
-        <td class="table__details">https://forms.gle/XbvNYLxPJUpgF...</td>
+        @foreach($details as $detail)
+        <tr class="table__row js-view" data-href="{{ route('survey.information', $detail->id)}}">
+        <td class="table__details">{{ $detail->date_from}}-{{$detail->date_to}}</td>
+        <td class="table__details">{{ $detail->title}}</td>
+        <td class="table__details">{{ $detail->link}}</td>
         </tr>
+        @endforeach
     </tbody>
     </table>
 </div>

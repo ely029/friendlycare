@@ -126,6 +126,16 @@ Route::group(['prefix' => 'notification'], static function () {
     Route::get('/edit/delete/{id}', 'Admin\NotificationsController@delete')->name('notifications.delete');
 });
 
+Route::group(['prefix' => 'survey'], static function () {
+    Route::get('/list', 'Admin\SurveyController@index')->name('survey.index');
+    Route::get('/create', 'Admin\SurveyController@create')->name('survey.create');
+    Route::post('/create', 'Admin\SurveyController@post')->name('survey.post');
+    Route::get('/information/{id}', 'Admin\SurveyController@information')->name('survey.information');
+    Route::get('/edit/{id}', 'Admin\SurveyController@edit')->name('survey.edit');
+    Route::post('/edit', 'Admin\SurveyController@postEdit')->name('survey.postEdit');
+    Route::post('/delete/{id}', 'Admin\SurveyController@delete')->name('survey.delete');
+});
+
     Route::get('/', 'HomeController@index')->name('home');
     // Route::get('/portal', '@')->name('adminLogin');
     Route::post('/authenticate', 'Admin\AdminController@authenticate')->name('authenticate');
