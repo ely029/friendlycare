@@ -33,11 +33,11 @@ class NotificationsController extends Controller
                 ->select('title', 'message', 'created_at', 'type')
                 ->where('id', $id)
                 ->get();
-        }
 
-        return response([
-            'name' => 'getProviderNotificationDetails',
-            'details' => $details,
-        ]);
+            return response([
+                'name' => 'getProviderNotificationDetails',
+                'details' => $details,
+            ]);
+        }
     }
 }
