@@ -180,3 +180,11 @@ Route::post('/rating/filter/provider/{id}', 'Provider\RatingController@filter');
 
 //push notification for patient
 Route::post('/pushnotification/patient', 'Patients\NotificationsController@pushNotification');
+
+Route::get('/chatbot/index', 'Patients\ChatBotManagementController@index');
+Route::get('/chatbot/index/choices', 'Patients\ChatBotManagementController@choices');
+Route::get('/chatbot/responses/{id}', 'Patients\ChatBotManagementController@responses');
+
+//provider notifications
+Route::get('/notifications/provider/{id}', 'Provider\NotificationsController@getNotifications');
+Route::get('/notifications/provider/details/{id}', 'Provider\NotificationsController@getDetails');
