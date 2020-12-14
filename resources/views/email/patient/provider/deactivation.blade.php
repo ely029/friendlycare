@@ -60,7 +60,7 @@
       <div class="email__content">
         <h2 class="email__title">Hi!</h2>
         <p class="email__text">
-          Your clinic had been deactivated by the admin.
+          The Clinic is deactivated by the Admin.
         </p>
         <a class="email__link" href="">Click link here</a>
       </div>
