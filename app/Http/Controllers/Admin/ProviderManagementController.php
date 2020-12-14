@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\PaidServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mail;
 
 class ProviderManagementController extends Controller
 {
@@ -263,6 +264,11 @@ class ProviderManagementController extends Controller
 
     public function deleteProvider($id)
     {
+        $email = Clinics::where('id', $id)->first();
+        Mail::send('email.provider.deactivation', function ($mail) use ($email) {
+            $mail->from('notifications@friendlycare.com');
+            $mail->to($email->email, 'Provider')->subject('Account Deactivated');
+        });
         Clinics::where('id', $id)->delete();
         ClinicHours::where('clinic_id', $id)->delete();
 

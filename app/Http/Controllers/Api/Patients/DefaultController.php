@@ -676,6 +676,7 @@ class DefaultController extends Controller
         $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
         $getTime = DB::table('booking')->select('time_slot')->where('id', $id)->pluck('time_slot');
         $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
+        $getClinicEmail = DB::table('clinics')->select('email')->where('id', $getClinicId[0])->pluck('email');
         $message = 'You had cancelled your appointment at '.$getClinicName[0].' dated '.$getTime[0].'';
 
         EventsNotification::create([
@@ -685,6 +686,10 @@ class DefaultController extends Controller
             'title' => 'Booking Cancelled',
             'status' => 3,
         ]);
+        Mail::send('email.patient.provider.cancellation-booking', [], function ($mail) use ($getClinicEmail) {
+            $mail->from('notifications@friendlycare.com');
+            $mail->to($getClinicEmail[0], 'Provider')->subject('Booking Completed');
+        });
 
         return response([
             'name' => 'PostPatientReshcedule',

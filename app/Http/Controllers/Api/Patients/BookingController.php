@@ -15,6 +15,7 @@ use App\Staffs;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mail;
 
 class BookingController extends Controller
 {
@@ -513,11 +514,15 @@ class BookingController extends Controller
         $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
         $getPatientId = DB::table('booking')->select('patient_id')->where('id', $id)->pluck('patient_id');
         $message = $getClinicName[0];
-
+        $getClinicEmail = DB::table('clinics')->select('email')->where('id', $getClinicId[0])->pluck('email');
+        Mail::send('email.patient.provider.provider-complete-booking', [], function ($mail) use ($getClinicEmail) {
+            $mail->from('notifications@friendlycare.com');
+            $mail->to($getClinicEmail[0], 'Provider')->subject('Booking Completed');
+        });
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
-            'message' => '',
-            'clinic_name_1' => $message,
+            'message' => $message,
+            'clinic_name_1' => 'ddd',
             'display_type' => 'Notifications',
             'title' => 'Booking Confirmed and Completed',
             'status' => 4,
@@ -553,6 +558,7 @@ class BookingController extends Controller
         curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
         $result = curl_exec($chh);
         curl_close($chh);
+
         return response([
             'name' => 'postConfirmService',
             'message' => 'service confirmed!',
