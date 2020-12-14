@@ -264,10 +264,10 @@ class ProviderManagementController extends Controller
 
     public function deleteProvider($id)
     {
-        $email = Clinics::where('id', $id)->first();
+        $email = DB::table('clinics')->select('email')->where('id', $id)->pluck('email');
         Mail::send('email.provider.deactivation', [], function ($mail) use ($email) {
             $mail->from('notifications@friendlycare.com');
-            $mail->to($email->email, 'Provider')->subject('Account Deactivated');
+            $mail->to($email[0], 'Provider')->subject('Account Deactivated');
         });
         Clinics::where('id', $id)->delete();
         ClinicHours::where('clinic_id', $id)->delete();
