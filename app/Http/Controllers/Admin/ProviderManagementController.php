@@ -10,6 +10,7 @@ use App\Clinics;
 use App\ClinicService;
 use App\Http\Controllers\Controller;
 use App\PaidServices;
+use App\ProviderNotifications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mail;
@@ -258,6 +259,15 @@ class ProviderManagementController extends Controller
             'type' => $request['type'],
             'paid_service' => $request['paid'],
             'philhealth_accredited_1' => $request['philhealth_accredited_1'],
+        ]);
+
+        ProviderNotifications::create([
+            'title' => 'Clinic Information are updated',
+            'message' => 'Your clinic had updated some of the information.',
+            'clinic_id' => $request['clinic_id'],
+            'type' => '',
+            'booking_id' => 0,
+            'status' => 0,
         ]);
         return redirect('/provider/list');
     }

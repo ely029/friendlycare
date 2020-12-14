@@ -188,3 +188,6 @@ Route::get('/chatbot/responses/{id}', 'Patients\ChatBotManagementController@resp
 //provider notifications
 Route::get('/notifications/provider/{id}', 'Provider\NotificationsController@getNotifications');
 Route::get('/notifications/provider/details/{id}', 'Provider\NotificationsController@getDetails');
+
+//survey push notification
+Route::get('/patient/survey/pushnotification/{id}', 'Patients\SurveyController@index');

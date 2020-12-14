@@ -12,6 +12,7 @@ use App\Mail\EmailVerification;
 use App\MedicalHistory;
 use App\MedicalHistoryAnswer;
 use App\Patients;
+use App\ProviderNotifications;
 use App\Spouses;
 use App\User;
 use Carbon\Carbon;
@@ -26,11 +27,9 @@ class DefaultController extends Controller
         $obj = json_decode($request->getContent(), true);
         if (\Auth::attempt(['email' => $obj['email'], 'password' => $obj['password'], 'role_id' => 3])) {
             $user = \Auth::user();
-
             User::where('id', $user['id'])->update([
                 'fcm_notification_key' => $obj['token'],
             ]);
-
             return response([
                 'login_success' => 'Login Successful',
                 'id' => $user['id'],
@@ -678,7 +677,7 @@ class DefaultController extends Controller
         $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
         $getClinicEmail = DB::table('clinics')->select('email')->where('id', $getClinicId[0])->pluck('email');
         $message = 'You had cancelled your appointment at '.$getClinicName[0].' dated '.$getTime[0].'';
-
+        $getPatientName = DB::table('users')->select('name')->where('id', $getPatientId[0])->pluck('name');
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
             'message' => $message,
@@ -688,8 +687,16 @@ class DefaultController extends Controller
         ]);
         Mail::send('email.patient.provider.cancellation-booking', [], function ($mail) use ($getClinicEmail) {
             $mail->from('notifications@friendlycare.com');
-            $mail->to($getClinicEmail[0], 'Provider')->subject('Booking Completed');
+            $mail->to($getClinicEmail[0], 'Provider')->subject('Reschedule Successfully');
         });
+        ProviderNotifications::create([
+            'title' => 'Patient Cancelled Appointment',
+            'message' => 'Your patient '.$getPatientName[0].' has been cancelled his appointment.',
+            'clinic_id' => $getClinicId[0],
+            'type' => 'Notifications',
+            'booking_id' => $id,
+            'status' => 3,
+        ]);
 
         return response([
             'name' => 'PostPatientReshcedule',
