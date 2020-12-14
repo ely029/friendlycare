@@ -13,40 +13,6 @@
 
 <body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0">
 
-<table class="head-wrap" style="overflow: hidden;">
-    <tr class="container">
-        <td class="container" >
-            <!-- content -->
-            <div class="content" style="padding: 35px 15px 15px">
-                <table>
-                    <tr style="font-size:15px;">
-                        <td width="10px"></td>
-                        <td align="center">
-                            <span style="padding:0 50px 10px; display: block; font-size: 25px; line-height: 1.8;">
-                            @foreach ($users as $user)
-                            Hi Sir/Ma'am ! <br>
-                                <br><br>
-                                This email is for your security for stealing your account. 
-                                <br/>
-                                <br/>
-                                If you are not logged in here, Please Click <a href=" {{ route('resetPassword.index',$user->id)}}">Here</a> to reset your password
-                            @endforeach
-                                
-                            </span>
-                            <br>
-                    
-                            <br>
-                        </td>
-                    </tr>
-                </table>
-            </div><!-- /content -->
-
-        </td>
-    </tr>
-</table>
-</body>
-</html>
-
 
 <!-- xandy -->
 <div class="email">
@@ -60,7 +26,7 @@
       <div class="email__content">
         <h2 class="email__title">Hi!</h2>
         <p class="email__text">
-          The Clinic is deactivated by the Admin.
+          Your clinic has been deactivated.
         </p>
         <a class="email__link" href="">Click link here</a>
       </div>
