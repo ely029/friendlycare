@@ -28,11 +28,13 @@ $(function(){
    $('.rateYo').rateYo({
     normalFill: "#F0F0F0",
     ratedFill: "#B964C4",
+    readOnly: true,
     rating: $('.provider_rate').val()
    });
    $('#rateYo').rateYo({
     normalFill: "#F0F0F0",
     ratedFill: "#B964C4",
+    readOnly: true,
     rating: $('#rate').val()
    });
    $("#dropzoneDragArea").dropzone({ url: "/file/post" });
