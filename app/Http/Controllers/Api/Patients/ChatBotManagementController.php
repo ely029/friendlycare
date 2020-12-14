@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\DB;
 
 class ChatBotManagementController extends Controller
 {
-    public function index()
+    public function index($id)
     {
         $details = DB::table('chat_bot')
             ->select('chat_bot.chatbot_input')
-            ->where('chat_bot.id', 1)
+            ->where('chat_bot.id', $id)
             ->get();
 
         return response([
@@ -23,11 +23,11 @@ class ChatBotManagementController extends Controller
         ]);
     }
 
-    public function choices()
+    public function choices($id)
     {
         $details = DB::table('chat_bot_response')
             ->select('response_prompt', 'response_id')
-            ->where('fieldset_id', 1)
+            ->where('fieldset_id', $id)
             ->get();
 
         return response([
