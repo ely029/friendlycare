@@ -265,7 +265,7 @@ class ProviderManagementController extends Controller
     public function deleteProvider($id)
     {
         $email = Clinics::where('id', $id)->first();
-        Mail::send('email.provider.deactivation', function ($mail) use ($email) {
+        Mail::send('email.provider.deactivation', [], function ($mail) use ($email) {
             $mail->from('notifications@friendlycare.com');
             $mail->to($email->email, 'Provider')->subject('Account Deactivated');
         });
