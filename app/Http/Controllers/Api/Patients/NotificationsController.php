@@ -24,11 +24,7 @@ class NotificationsController extends Controller
             ->where('patient_id', $id)
             ->where('display_type', 'Notifications');
 
-        $survey = DB::table('survey')
-            ->select('id', 'title', DB::raw('null as type'), 'is_read')
-            ->get();
-
-        $data = $events->union($notifications)->union($survey)->get();
+        $data = $events->union($notifications)->get();
 
         return response([
             'name' => 'notifications',
