@@ -43,7 +43,7 @@
             @if ($user->role_id == 2)
             @else
             <div class="form__inline">
-                <div class="form__content">
+                <div class="form__content"> 
                     <select placeholder="Clinic" name="clinic" class="form__input--select form__input">
                         <option value="">Choose a Clinic</option>
                         @foreach($clinic as $clinics)

@@ -59,20 +59,22 @@
                 </div>
                 <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Operating hours</label>
                 @foreach ($clinicHours as $hours)
-                    <div class="row bg-white">
-                      <div class="col-md-4">
-                      <span>{{ $hours->days}}</span>
-                      </div>
-                      <div class="col-md-8">
-                      <span>{{ $hours->froms}} - {{ $hours->tos }}</span>
-                      </div>
-                    </div>
+                  <ul class="form__group">
+                    <li class="form__group-item">
+                      <span class="form__text">{{ $hours->days}}</span>
+                    </li>
+
+                    <li class="form__group-item">
+                      <span class="form__text">{{ $hours->froms}} - {{ $hours->tos }}</span>
+                    </li>
+                  </ul>
+                    
                     @endforeach
               </div>
                 <div class="form__content form__content--reverse">
                   <label class="form__label form__label--visible">Assigned staff</label>
                   @foreach($staffs as $staff)
-                       <span class="form__text">{{ $staff->first_name}} {{ $staff->last_name}}</span><br/>
+                       <span class="form__text">{{ $staff->first_name}} {{ $staff->last_name}}</span>
                        @endforeach
                 </div>
               </li>

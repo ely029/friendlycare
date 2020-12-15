@@ -26,7 +26,7 @@
     <h2 class="section__heading">{{ $contents->content_name}}</h2>
     <div class="form">
     <textarea name="content" class="form__input form__input--message js-editor-content">{{ $contents->content }}</textarea>
-    <div class="form__button form__button--end"><input type="submit" value="Save changes" class="button"></div>
+    <div class="form__button form__button--end"><input type="submit" value="Save changes" class="button "></div>
     </div>
 </div>
 </div>
@@ -58,7 +58,7 @@
             <label class="form__label form__label--visible" for="">Content</label>
         </div>
         <div class="form__button form__button--end">
-            <a class="button button--medium js-delete-section" href="{{ route('basicPages.deleteBasicSection',$contentsss->id)}}"type="button">Delete section</a>
+            <a class="button button--medium js-delete-section js-trigger" href="{{ route('basicPages.deleteBasicSection',$contentsss->id)}}"type="button">Delete section</a>
         </div>
         </div>
     </div>
@@ -85,23 +85,15 @@
             <label class="form__label form__label--visible" for="">Content</label>
         </div>
         <div class="form__button form__button--end">
-        <a class="button button--medium js-delete-section" type="button">Delete section</a>
+        <a class="button button--medium js-delete-section js-trigger" type="button">Delete section</a>
             <button class="button button--medium js-add-section" type="button">Add section</button>
         </div>
         </div>
     </div>
-    <div class="form__button form__button--end"><input class="button" type="submit" value="Save Changes"></div>
+    <div class="form__button form__button--end"><input class="button js-trigger" type="submit" value="Save Changes"></div>
     </div>
-    <div class="modal js-modal">
-    <div class="modal__background js-modal-background"></div>
-    <div class="modal__container">
-        <div class="modal__box">
-        <h2 class="modal__title">Save changes?</h2>
-        <p class="modal__text">All changes will update the version of the app. Are you sure you want to Save?</p>
-        <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium" type="button">Save changes</button></div>
-        </div>
-    </div>
-    </div>
+
+    <!-- modal for js-consent-form1 -->
     <div class="modal js-modal">
     <div class="modal__background js-modal-background"></div>
     <div class="modal__container">
@@ -112,6 +104,30 @@
         </div>
     </div>
     </div>
+
+    <!-- modal for js-consent-form2 -->
+    <div class="modal js-modal">
+    <div class="modal__background js-modal-background"></div>
+    <div class="modal__container">
+        <div class="modal__box">
+        <h2 class="modal__title">Delete section?</h2>
+        <p class="modal__text">Are you sure you want to delete this section?</p>
+        <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium button--medium__delete" type="button">Delete section</button></div>
+        </div>
+    </div>
+    </div>
+
+    <div class="modal js-modal">
+    <div class="modal__background js-modal-background"></div>
+    <div class="modal__container">
+        <div class="modal__box">
+        <h2 class="modal__title">Save changes?</h2>
+        <p class="modal__text">All changes will update the version of the app. Are you sure you want to Save?</p>
+        <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium" type="button">Save changes</button></div>
+        </div>
+    </div>
+    </div>
+    
 </div>
 </form>
 </div>

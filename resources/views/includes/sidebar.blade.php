@@ -64,6 +64,15 @@
                   <span class="sidebar__text">Events &amp; push notifications</span>
                 </a>
               </li>
+              <li class="sidebar__item">
+                <a class="sidebar__link" href="{{route('')}}">
+                  <div class="sidebar__wrapper">
+                    <img class="sidebar__icon" src="{{URL::asset('img/icon-cm.png')}}" alt="Chatbot Management icon for e-plano" />
+                    <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-cm-white.png')}}" alt="Chatbot Management icon on hover for e-plano" />
+                  </div>
+                  <span class="sidebar__text">Chatbot Management</span>
+                </a>
+              </li>
             </ul>
             <h3 class="sidebar__title">Reports</h3>
             <ul class="sidebar__list">
