@@ -61,10 +61,10 @@ class EventsNotification extends Model
         select
         id,
         title,
-        null as type,
+        type,
         is_read
         from events_notification
-        WHERE display_type = NULL
+        WHERE type = 6
         ', [$id, $id]);
     }
 }
