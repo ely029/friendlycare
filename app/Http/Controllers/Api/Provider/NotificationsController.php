@@ -28,6 +28,9 @@ class NotificationsController extends Controller
 
     public function getDetails($id)
     {
+        ProviderNotifications::where('id', $id)->update([
+            'is_read' => 1
+        ]);
         $details = DB::table('provider_notifications')
             ->select('title', 'message', DB::raw('DATE_FORMAT(created_at, "%m/%d/%Y %h:%i %p") as created_at'), 'type')
             ->where('id', $id)
