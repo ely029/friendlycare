@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use App\EventsNotification;
 use App\Http\Controllers\Controller;
 use App\Survey;
 use Illuminate\Support\Facades\DB;
@@ -28,6 +29,12 @@ class SurveyController extends Controller
         $request['date_to_datestring'] = strtotime($request['date_to']);
         Survey::create($request);
         $id = DB::table('survey')->select('id')->orderBy('id', 'desc')->pluck('id');
+
+        EventsNotification::create([
+            'title' => $request['title'],
+            'message' => $request['message'],
+            'type' => 6,
+        ]);
 
         return redirect('/survey/information/'.$id[0]);
     }
