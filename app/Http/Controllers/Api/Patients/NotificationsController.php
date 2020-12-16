@@ -83,8 +83,8 @@ class NotificationsController extends Controller
 
     public function pushNotification($id)
     {
-        $user = DB::table('booking')->select('clinic_id')->where('patient_id', $id)->pluck('clinic_id');
-        $getStaffId = DB::table('staffs')->select('user_id')->where('clinic_id', $user[0])->pluck('user_id');
+        $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
+        $getStaffId = DB::table('staffs')->select('user_id')->where('clinic_id', $getClinicId[0])->pluck('user_id');
         $getFCMToken = DB::table('users')->select('fcm_notification_key')->where('id', $getStaffId[0])->pluck('fcm_notification_key');
         $fcmurl = 'https://fcm.googleapis.com/fcm/send';
         $token = $getFCMToken[0];
@@ -156,7 +156,7 @@ class NotificationsController extends Controller
             'status' => 3,
         ]);
 
-        $this->pushNotification($getPatientId[0]);
+        $this->pushNotification($id);
 
         return response([
             'name' => 'PostPatientReshcedule',
