@@ -76,6 +76,7 @@ Route::group(['prefix' => 'provider', 'middleware' => 'auth'], static function (
     Route::post('/update', 'Admin\ProviderManagementController@updateProvider')->name('updateProvider');
     Route::get('/delete/{id}', 'Admin\ProviderManagementController@deleteProvider')->name('deleteProvider');
     Route::get('/ratings/{id}', 'Admin\ProviderManagementController@ratingPerPatient')->name('provider.reviews');
+    Route::get('/enableaccount', 'Admin\ProviderManagementController@enableProvider')->name('provider.enableProvider');
     Route::get('/disableaccount', 'Admin\ProviderManagementController@disableProvider')->name('provider.disableProvider');
 });
 

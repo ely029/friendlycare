@@ -26,15 +26,22 @@ $(function(){
     $('#provider_information_checkbox').change(function(){
       if(this.checked) {
         $.ajax({
-            type: "POST",
-            url: "file",
-            data: { CSRF: getCSRFTokenValue()}
+            type: "GET",
+            url: "{{ route('provider.enableProvider')}}",
+            data: { id: $('#provider_id').val()}
         })
         .done(function( msg ) {
-            alert( "Data: " + msg );
+            console.log('deactivated')
         }); 
       } else {
-          alert('unchecked');
+        $.ajax({
+            type: "GET",
+            url: "{{ route('provider.disableProvider')}}",
+            data: { id: $('#provider_id').val()}
+        })
+        .done(function( msg ) {
+            console.log('deactivated')
+        }); 
       }
    });
     $('#js-consent-form').show();

@@ -33,7 +33,12 @@
               </li>
               <li class="form__group-item">
                 <div class="form__content form__content--reverse">
-                  <label class="form__label form__label--blue">Status</label><label class="form__switch" for=""> <input class="form__trigger form__trigger--switch" type="checkbox" checked id="provider_information_checkbox" /><span class="form__slider"></span></label>
+                  <label class="form__label form__label--blue">Status</label><label class="form__switch" for=""> @if ($providers->is_close == 1)
+                  <input class="form__trigger form__trigger--switch" type="checkbox" id="provider_information_checkbox" />
+                  @else
+                  <input class="form__trigger form__trigger--switch" type="checkbox" checked id="provider_information_checkbox" />
+                    @endif
+                  <span class="form__slider"></span></label>
                 </div>
               </li>
             </ul>

@@ -81,6 +81,7 @@ class ProviderManagementController extends Controller
                 'clinics.type',
                 'clinics.street_address',
                 'clinics.id',
+                'clinics.is_close',
                 'clinics.philhealth_accredited_1',
                 'clinics.photo_url',
            )
@@ -422,8 +423,37 @@ class ProviderManagementController extends Controller
         return view('admin.providerManagement.reviews', ['details' => $details, 'clinic_name' => $clinic_name, 'patientCount' => $countPatientRatings]);
     }
 
+    public function enableProvider()
+    {
+        $request = request()->all();
+        Clinics::where('id', $request['id'])->update([
+            'is_close' => 0,
+        ]);
+
+        ProviderNotifications::create([
+            'title' => 'Clinic is activated',
+            'message' => 'Your clinic is activated',
+            'clinic_id' => $request['id'],
+            'type' => 'Update',
+            'booking_id' => 0,
+            'status' => 1,
+        ]);
+    }
+
     public function disableProvider()
     {
-        return response('f');
+        $request = request()->all();
+        Clinics::where('id', $request['id'])->update([
+            'is_close' => 1,
+        ]);
+
+        ProviderNotifications::create([
+            'title' => 'Clinic is deactivated',
+            'message' => 'Your clinic is deactivated',
+            'clinic_id' => $request['id'],
+            'type' => 'Update',
+            'booking_id' => 0,
+            'status' => 1,
+        ]);
     }
 }
