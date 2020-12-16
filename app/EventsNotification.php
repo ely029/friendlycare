@@ -40,7 +40,6 @@ class EventsNotification extends Model
         display_type as type, 
         is_read
         from events_notification
-        where date_string >= '.strtotime(date('Y-m-d')).'
         AND patient_id = ?
         AND  display_type = "Events"
         
@@ -52,7 +51,6 @@ class EventsNotification extends Model
         display_type as type, 
         is_read
         from events_notification
-        where date_string >= '.strtotime(date('Y-m-d')).'
         AND patient_id = ?
         AND  display_type = "Announcements"
 
