@@ -22,7 +22,12 @@
               <h2 class="section__heading">Response options</h2>
               <div class="form__content"><input class="form__input" type="text" required /><label class="form__label">Response prompt*</label></div>
               <div class="form__content">
-                <select class="form__input form__input--select" required></select>
+                <select class="form__input form__input--select" required>
+                  <option value="">Select Field set</option>
+                  @foreach ($details as $detail)
+                  <option value="{{$detail->id}}">{{ $detail->field_set_title}}</option>
+                  @endforeach
+                </select>
                 <label class="form__label">Link to fieldset*</label>
               </div>
               <div class="form__button form__button--end">

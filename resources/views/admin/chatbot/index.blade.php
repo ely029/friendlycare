@@ -14,7 +14,7 @@
           <div class="breadcrumbs"><a class="breadcrumbs__link" href="provider-management.html">Chatbot Management</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
-          <a class="button button--create" href="create-fieldset.html">Create Fieldset<i class="fa fa-plus"></i></a>
+          <a class="button button--create" href="{{ route('chatbot.create')}}">Create Fieldset<i class="fa fa-plus"></i></a>
           <table class="table" id="table">
             <thead>
               <tr>
@@ -23,10 +23,12 @@
               </tr>
             </thead>
             <tbody>
+              @foreach($details as $detail)
               <tr class="table__row js-view" data-href="view-fieldset.html">
-                <td class="table__details">Opening</td>
-                <td class="table__details">Good day, what would you like to talk about?</td>
+                <td class="table__details">{{ $detail->field_set_title}}</td>
+                <td class="table__details">{{ $detail->chatbot_input}}</td>
               </tr>
+              @endforeach
             </tbody>
           </table>
         </div>

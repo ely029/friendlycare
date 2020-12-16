@@ -138,6 +138,10 @@ Route::group(['prefix' => 'survey'], static function () {
     Route::post('/delete/{id}', 'Admin\SurveyController@delete')->name('survey.delete');
 });
 
+Route::group(['prefix' => 'chatbot'], static function () {
+    Route::get('/list', 'Admin\ChatBotController@index')->name('chatbot.index');
+    Route::get('/create', 'Admin\ChatbotController@create')->name('chatbot.create');
+});
     Route::get('/', 'HomeController@index')->name('home');
     // Route::get('/portal', '@')->name('adminLogin');
     Route::post('/authenticate', 'Admin\AdminController@authenticate')->name('authenticate');

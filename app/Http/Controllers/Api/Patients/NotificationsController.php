@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Patients;
 
+use App\Booking;
 use App\EventsNotification;
 use App\Http\Controllers\Controller;
+use App\ProviderNotifications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mail;
 
 class NotificationsController extends Controller
 {
@@ -78,15 +81,16 @@ class NotificationsController extends Controller
         ]);
     }
 
-    public function pushNotification(Request $request)
+    public function pushNotification($id)
     {
-        $obj = json_decode($request->getContent(), true);
+        $user = DB::table('booking')->select('clinic_id')->where('patient_id', $id)->pluck('clinic_id');
+        $getStaffId = DB::table('staffs')->select('user_id')->where('clinic_id', $user[0])->pluck('user_id');
+        $getFCMToken = DB::table('users')->select('fcm_notification_key')->where('id', $getStaffId[0])->pluck('fcm_notification_key');
         $fcmurl = 'https://fcm.googleapis.com/fcm/send';
-        $token = $obj['token'][0];
-
+        $token = $getFCMToken[0];
         $notification = [
-            'title' => 'sample title',
-            'body' => 'sample body from laravel',
+            'title' => 'Booking Cancelled',
+            'body' => 'Your Booking is Cancelled',
             'icon' => 'myIcon',
             'sound' => 'defaultSound',
             'priority' => 'high',
@@ -105,7 +109,6 @@ class NotificationsController extends Controller
             'Authorization: key=AAAAhGKDgoo:APA91bGxHrVfvIgku3NIcP7P3EerjE1cE_zHRXp9dVOp8RYkhb3o1Cv5g26R5Lx8vXFZoBCM10-YsSCfyBkxy34ORiqK_hLJjrJcAxnIUOswhJrgxHoOtmTgUca0gXkb4kx_ZkyAEa84',
             'Content-Type: application/json',
         ];
-
         $chh = curl_init();
         curl_setopt($chh, CURLOPT_URL, $fcmurl);
         curl_setopt($chh, CURLOPT_POST, true);
@@ -116,8 +119,48 @@ class NotificationsController extends Controller
         $result = curl_exec($chh);
         curl_close($chh);
 
+        return $result;
+    }
+
+    public function postReschedule(Request $request, $id)
+    {
+        $obj = json_decode($request->getContent(), true);
+        Booking::where('id', $id)->update([
+            'status' => 3,
+            'cancellation_message_1' => $obj['cancellation_message'],
+        ]);
+        $getPatientId = DB::table('booking')->select('patient_id')->where('id', $id)->pluck('patient_id');
+        $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
+        $getTime = DB::table('booking')->select('time_slot')->where('id', $id)->pluck('time_slot');
+        $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
+        $getClinicEmail = DB::table('clinics')->select('email')->where('id', $getClinicId[0])->pluck('email');
+        $message = 'You had cancelled your appointment at '.$getClinicName[0].' dated '.$getTime[0].'';
+        $getPatientName = DB::table('users')->select('name')->where('id', $getPatientId[0])->pluck('name');
+        EventsNotification::create([
+            'patient_id' => $getPatientId[0],
+            'message' => $message,
+            'display_type' => 'Notifications',
+            'title' => 'Booking Cancelled',
+            'status' => 3,
+        ]);
+        Mail::send('email.patient.provider.cancellation-booking', [], function ($mail) use ($getClinicEmail) {
+            $mail->from('notifications@friendlycare.com');
+            $mail->to($getClinicEmail[0], 'Provider')->subject('Reschedule Successfully');
+        });
+        ProviderNotifications::create([
+            'title' => 'Patient Cancelled Appointment',
+            'message' => 'Your patient '.$getPatientName[0].' has been cancelled his appointment.',
+            'clinic_id' => $getClinicId[0],
+            'type' => 'Notifications',
+            'booking_id' => $id,
+            'status' => 3,
+        ]);
+
+        $this->pushNotification($getPatientId[0]);
+
         return response([
-            'response' => $result,
+            'name' => 'PostPatientReshcedule',
+            'message' => 'Booking has been cancelled',
         ]);
     }
 }

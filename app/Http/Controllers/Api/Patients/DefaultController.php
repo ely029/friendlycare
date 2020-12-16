@@ -664,46 +664,6 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function postReschedule(Request $request, $id)
-    {
-        $obj = json_decode($request->getContent(), true);
-        Booking::where('id', $id)->update([
-            'status' => 3,
-            'cancellation_message_1' => $obj['cancellation_message'],
-        ]);
-        $getPatientId = DB::table('booking')->select('patient_id')->where('id', $id)->pluck('patient_id');
-        $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
-        $getTime = DB::table('booking')->select('time_slot')->where('id', $id)->pluck('time_slot');
-        $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
-        $getClinicEmail = DB::table('clinics')->select('email')->where('id', $getClinicId[0])->pluck('email');
-        $message = 'You had cancelled your appointment at '.$getClinicName[0].' dated '.$getTime[0].'';
-        $getPatientName = DB::table('users')->select('name')->where('id', $getPatientId[0])->pluck('name');
-        EventsNotification::create([
-            'patient_id' => $getPatientId[0],
-            'message' => $message,
-            'display_type' => 'Notifications',
-            'title' => 'Booking Cancelled',
-            'status' => 3,
-        ]);
-        Mail::send('email.patient.provider.cancellation-booking', [], function ($mail) use ($getClinicEmail) {
-            $mail->from('notifications@friendlycare.com');
-            $mail->to($getClinicEmail[0], 'Provider')->subject('Reschedule Successfully');
-        });
-        ProviderNotifications::create([
-            'title' => 'Patient Cancelled Appointment',
-            'message' => 'Your patient '.$getPatientName[0].' has been cancelled his appointment.',
-            'clinic_id' => $getClinicId[0],
-            'type' => 'Notifications',
-            'booking_id' => $id,
-            'status' => 3,
-        ]);
-
-        return response([
-            'name' => 'PostPatientReshcedule',
-            'message' => 'Booking has been cancelled',
-        ]);
-    }
-
     public function postClinic(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);

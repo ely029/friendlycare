@@ -130,7 +130,7 @@ Route::post('/booking/reschedule/setupTime/{id}', 'Patients\BookingController@re
 Route::post('/booking/reschedule/createReschedule/{id}', 'Patients\BookingssController@createReschedule');
 
 //Patient Reschedule
-Route::post('/patient/cancellationbooking/{id}', 'Patients\DefaultController@postReschedule');
+Route::post('/patient/cancellationbooking/{id}', 'Patients\NotificationsController@postReschedule');
 
 //Provider Holiday Management
 Route::get('/holidaymanagement/{id}', 'Provider\DefaultController@getHolidayManagementDetails');
@@ -178,9 +178,7 @@ Route::get('/rating/provider/{id}', 'Provider\RatingController@getDetails');
 Route::get('/rating/provider/clinic/{id}', 'Provider\RatingController@getRatingAverage');
 Route::post('/rating/filter/provider/{id}', 'Provider\RatingController@filter');
 
-//push notification for patient
-Route::post('/pushnotification/patient', 'Patients\NotificationsController@pushNotification');
-
+//chatbot
 Route::get('/chatbot/index/{id}', 'Patients\ChatBotManagementController@index');
 Route::get('/chatbot/index/choices/{id}', 'Patients\ChatBotManagementController@choices');
 Route::get('/chatbot/responses/{id}', 'Patients\ChatBotManagementController@responses');

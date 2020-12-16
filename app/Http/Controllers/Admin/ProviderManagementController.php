@@ -270,7 +270,49 @@ class ProviderManagementController extends Controller
             'booking_id' => 0,
             'status' => 0,
         ]);
+
+        $this->pushNotification($request['clinic_id']);
         return redirect('/provider/list');
+    }
+
+    public function pushNotification($id)
+    {
+        $getStaffId = DB::table('staffs')->select('user_id')->where('clinic_id', $id)->pluck('user_id');
+        $getFCMToken = DB::table('users')->select('fcm_notification_key')->where('id', $getStaffId[0])->pluck('fcm_notification_key');
+        $fcmurl = 'https://fcm.googleapis.com/fcm/send';
+        $token = $getFCMToken[0];
+        $notification = [
+            'title' => 'Provider Information',
+            'body' => 'The Provider information are updated',
+            'icon' => 'myIcon',
+            'sound' => 'defaultSound',
+            'priority' => 'high',
+            'contentAvailable' => true,
+        ];
+
+        $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
+
+        $fcmNotification = [
+            'to' => $token,
+            'notification' => $notification,
+            'data' => $extraNotifications,
+        ];
+
+        $headers = [
+            'Authorization: key=AAAAhGKDgoo:APA91bGxHrVfvIgku3NIcP7P3EerjE1cE_zHRXp9dVOp8RYkhb3o1Cv5g26R5Lx8vXFZoBCM10-YsSCfyBkxy34ORiqK_hLJjrJcAxnIUOswhJrgxHoOtmTgUca0gXkb4kx_ZkyAEa84',
+            'Content-Type: application/json',
+        ];
+        $chh = curl_init();
+        curl_setopt($chh, CURLOPT_URL, $fcmurl);
+        curl_setopt($chh, CURLOPT_POST, true);
+        curl_setopt($chh, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($chh, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($chh, CURLOPT_SSL_VERIFYPEER, $headers);
+        curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
+        $result = curl_exec($chh);
+        curl_close($chh);
+
+        return $result;
     }
 
     public function deleteProvider($id)
