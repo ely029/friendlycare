@@ -23,6 +23,20 @@
 
 <script type="text/javascript">
 $(function(){
+    $('#provider_information_checkbox').change(function(){
+      if(this.checked) {
+        $.ajax({
+            type: "POST",
+            url: "file",
+            data: { CSRF: getCSRFTokenValue()}
+        })
+        .done(function( msg ) {
+            alert( "Data: " + msg );
+        }); 
+      } else {
+          alert('unchecked');
+      }
+   });
     $('#js-consent-form').show();
     $('#js-consent-form2').hide();
    $('.rateYo').rateYo({

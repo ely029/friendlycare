@@ -422,7 +422,7 @@ class ProviderManagementController extends Controller
         return view('admin.providerManagement.reviews', ['details' => $details, 'clinic_name' => $clinic_name, 'patientCount' => $countPatientRatings]);
     }
 
-    public function disabledProvider()
+    public function disableProvider()
     {
         return response('f');
     }
