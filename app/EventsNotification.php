@@ -41,18 +41,18 @@ class EventsNotification extends Model
         is_read
         from events_notification
         where date_string >= '.strtotime(date('Y-m-d')).'
-        && patient_id = ?
+        AND patient_id = ?
         
         UNION ALL
 
         select 
         id,
         title,
-        dispplay_type as type,
+        display_type as type,
         is_read 
         from events_notification
         where date_string <= '.strtotime(date('Y-m-d')).'
-        && where patient_id = ?
+        AND patient_id = ?
 
         UNION ALL
 
@@ -61,7 +61,7 @@ class EventsNotification extends Model
         title,
         null as type,
         is_open as is_read
-        from surveys
+        from survey
         ', [$id, $id]);
     }
 }
