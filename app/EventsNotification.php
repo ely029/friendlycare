@@ -62,7 +62,7 @@ class EventsNotification extends Model
         id,
         title,
         null as type,
-        is_open as is_read
+        is_read
         from events_notification
         WHERE display_type = NULL
         ', [$id, $id]);
