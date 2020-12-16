@@ -266,7 +266,7 @@ class ProviderManagementController extends Controller
             'title' => 'Clinic Information are updated',
             'message' => 'Your clinic had updated some of the information.',
             'clinic_id' => $request['clinic_id'],
-            'type' => '',
+            'type' => 'Update',
             'booking_id' => 0,
             'status' => 0,
         ]);
