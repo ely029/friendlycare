@@ -36,7 +36,7 @@ class SurveyController extends Controller
             'type' => 6,
         ]);
 
-        if ($request['date_from_datestring'] >= strtotime('Y-m-d')) {
+        if ($request['date_from_datestring'] >= strtotime(date('Y-m-d'))) {
             $this->pushNotification();
         }
 
