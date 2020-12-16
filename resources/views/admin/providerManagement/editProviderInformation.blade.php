@@ -10,6 +10,7 @@
 @foreach ($provider as $providers)
 <div class="section">
         <div class="section__top">
+          <input type="hidden" id="provider_id" value="{{ $providers->id}}">
           <h1 class="section__title">{{ $providers->clinic_name}}</h1>
           <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('providerManagement')}}">Provider management</a><a class="breadcrumbs__link">{{ $providers->clinic_name }}</a><a class="breadcrumbs__link"></a></div>
         </div>
@@ -32,7 +33,7 @@
               </li>
               <li class="form__group-item">
                 <div class="form__content form__content--reverse">
-                  <label class="form__label form__label--blue">Status</label><label class="form__switch" for=""> <input class="form__trigger form__trigger--switch" type="checkbox" checked /><span class="form__slider"></span></label>
+                  <label class="form__label form__label--blue">Status</label><label class="form__switch" for=""> <input class="form__trigger form__trigger--switch" type="checkbox" checked id="provider_information_checkbox" /><span class="form__slider"></span></label>
                 </div>
               </li>
             </ul>

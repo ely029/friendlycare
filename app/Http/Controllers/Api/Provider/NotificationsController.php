@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Provider;
 
+use Akaunting\Firewall\Provider;
 use App\Http\Controllers\Controller;
+use App\ProviderNotifications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,18 +28,32 @@ class NotificationsController extends Controller
 
     public function getDetails($id)
     {
-        $getStatus = DB::table('provider_notifications')->select('status')->where('id', $id)->first();
+        $details = DB::table('provider_notifications')
+            ->select('title', 'message', 'created_at', 'type')
+            ->where('id', $id)
+            ->get();
 
-        if ($getStatus[0] === 2) {
-            $details = DB::table('provider_notifications')
-                ->select('title', 'message', 'created_at', 'type')
-                ->where('id', $id)
-                ->get();
+        return response([
+            'name' => 'getProviderNotificationDetails',
+            'details' => $details,
+        ]);
+    }
 
-            return response([
-                'name' => 'getProviderNotificationDetails',
-                'details' => $details,
-            ]);
-        }
+    public function getUpcomingBookingDetails($id)
+    {
+        $details = DB::table('provider_notifications')
+            ->select('title', 'message', 'created_at', 'type')
+            ->where('id', $id)
+            ->get();
+
+        return response([
+            'name' => 'getProviderNotificationDetails',
+            'details' => $details,
+        ]);
+    }
+
+    public function getAllProviderNotification()
+    {
+        return ProviderNotifications::all();
     }
 }

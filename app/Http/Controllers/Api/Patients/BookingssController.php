@@ -33,7 +33,6 @@ class BookingssController extends Controller
         $getDate = DB::table('booking')->select('time_slot')->where('id', $id)->pluck('time_slot');
         $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
         $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
-        $getPatientName = DB::table('users')->select('name')->where('id', $getPatientId[0])->pluck('name');
         $message = $getClinicName[0];
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
@@ -43,15 +42,6 @@ class BookingssController extends Controller
             'title' => 'Booking Accepted',
             'appointement_date_1' => $getDate[0],
             'booking_id' => $id,
-        ]);
-
-        ProviderNotifications::create([
-            'title' => 'Rescheduled Successful',
-            'message' => 'Your patient '.$getPatientName[0].' has been successfully rescheduled to '.$getDate[0].'',
-            'clinic_id' => $getClinicId[0],
-            'type' => 'Notifications',
-            'booking_id' => $id,
-            'status' => 2,
         ]);
 
         $parameter = 1;
@@ -75,6 +65,7 @@ class BookingssController extends Controller
         $getPatientDate = DB::table('booking')->select('time_slot')->where('id', $id)->pluck('time_slot');
         $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
         $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
+        $getPatientName = DB::table('users')->select('name')->where('id', $getPatientId[0])->pluck('name');
         $message = $getClinicName[0];
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
@@ -84,6 +75,15 @@ class BookingssController extends Controller
             'display_type' => 'Notifications',
             'title' => 'Booking Cancelled',
             'status' => 3,
+        ]);
+
+        ProviderNotifications::create([
+            'title' => 'Patient cancelled',
+            'message' => 'Your patient '.$getPatientName[0].' has been cancelled',
+            'clinic_id' => $getClinicId[0],
+            'type' => 'Notifications',
+            'booking_id' => $id,
+            'status' => 2,
         ]);
         $parameter = 3;
         $this->pushNotification1($parameter, $getPatientId[0]);
@@ -120,6 +120,7 @@ class BookingssController extends Controller
         $getPatientId = DB::table('booking')->select('patient_id')->where('id', $id)->pluck('patient_id');
         $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
         $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
+        $getPatientName = DB::table('users')->select('name')->where('id', $getPatientId[0])->pluck('name');
         $message = $getClinicName[0];
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
@@ -128,6 +129,15 @@ class BookingssController extends Controller
             'display_type' => 'Notifications',
             'title' => 'Booking Rescheduled',
             'appointement_date_1' => $obj['date'][0],
+            'status' => 2,
+        ]);
+
+        ProviderNotifications::create([
+            'title' => 'Rescheduled Successful',
+            'message' => 'Your patient '.$getPatientName[0].' has been successfully rescheduled to '.$obj['date'][0].'',
+            'clinic_id' => $getClinicId[0],
+            'type' => 'Notifications',
+            'booking_id' => $id,
             'status' => 2,
         ]);
 

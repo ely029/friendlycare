@@ -163,7 +163,7 @@ Route::post('/booking/timeslot/{id}', 'Provider\DefaultController@postProviderTi
 Route::get('/checkdatetoday', 'Patients\BookingController@checkDateToday');
 
 //Notifications
-Route::get('/notifications/{id}', 'Patients\NotificationsController@getNotifications');
+Route::get('/patient/notifications/{id}', 'Patients\NotificationsController@getNotifications');
 Route::get('/notifications/patient/{id}', 'Patients\NotificationsController@notificationDetails');
 
 //Patient Rating
@@ -191,3 +191,5 @@ Route::get('/notifications/provider/details/{id}', 'Provider\NotificationsContro
 
 //survey push notification
 Route::get('/patient/survey/pushnotification/{id}', 'Patients\SurveyController@index');
+
+Route::get('/providerNotifications', 'Provider\NotificationsController@getAllProviderNotification');

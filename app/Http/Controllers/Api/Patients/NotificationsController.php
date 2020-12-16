@@ -13,18 +13,8 @@ class NotificationsController extends Controller
 {
     public function getNotifications($id)
     {
-        $events = DB::table('events_notification')
-            ->select('id', 'title', 'display_type as type', 'is_read')
-            ->where('date_string', '>=', strtotime(date('Y-m-d')))
-            ->where('display_type', 'Announcements')
-            ->orWhere('display_type', 'Events');
-
-        $notifications = DB::table('events_notification')
-            ->select('id', 'title', 'display_type as type', 'is_read')
-            ->where('patient_id', $id)
-            ->where('display_type', 'Notifications');
-
-        $data = $events->union($notifications)->get();
+        $events = new EventsNotification();
+        $data = $events->getPatientNotifications($id);
 
         return response([
             'name' => 'notifications',

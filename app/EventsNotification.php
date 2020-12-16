@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class EventsNotification extends Model
 {
@@ -30,4 +31,37 @@ class EventsNotification extends Model
         'booking_id',
         'scheduled',
     ];
+
+    public function getPatientNotifications($id)
+    {
+        return DB::raw('select 
+        id, 
+        title, 
+        display_type as type, 
+        is_read
+        from events_notification
+        where date_string >= '.strtotime(date('Y-m-d')).'
+        && patient_id = ?
+        
+        UNION ALL
+
+        select 
+        id,
+        title,
+        dispplay_type as type,
+        is_read 
+        from events_notification
+        where date_string <= '.strtotime(date('Y-m-d')).'
+        && where patient_id = ?
+
+        UNION ALL
+
+        select
+        id,
+        title,
+        null as type,
+        is_open as is_read
+        from surveys
+        ', [$id, $id]);
+    }
 }
