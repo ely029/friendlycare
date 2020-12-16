@@ -63,7 +63,8 @@ class EventsNotification extends Model
         title,
         null as type,
         is_open as is_read
-        from survey
+        from events_notification
+        WHERE display_type = NULL
         ', [$id, $id]);
     }
 }
