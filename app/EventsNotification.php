@@ -34,7 +34,7 @@ class EventsNotification extends Model
 
     public function getPatientNotifications($id)
     {
-        return DB::raw('select 
+        return DB::select('select 
         id, 
         title, 
         display_type as type, 
