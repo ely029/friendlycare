@@ -40,7 +40,7 @@ class EventsNotification extends Model
         display_type as type, 
         is_read
         from events_notification
-        AND patient_id = ?
+        WHERE  patient_id = ?
         AND  display_type = "Events"
         
         UNION ALL
@@ -51,7 +51,7 @@ class EventsNotification extends Model
         display_type as type, 
         is_read
         from events_notification
-        AND patient_id = ?
+        WHERE  patient_id = ?
         AND  display_type = "Announcements"
 
         UNION ALL
