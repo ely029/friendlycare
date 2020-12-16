@@ -53,8 +53,7 @@ class EventsNotification extends Model
         display_type as type,
         is_read 
         from events_notification
-        where date_string <= '.strtotime(date('Y-m-d')).'
-        AND patient_id = ?
+        WHERE patient_id = ?
         AND display_type = "Notifications"
 
         UNION ALL
