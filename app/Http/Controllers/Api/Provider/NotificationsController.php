@@ -29,7 +29,7 @@ class NotificationsController extends Controller
     public function getDetails($id)
     {
         $details = DB::table('provider_notifications')
-            ->select('title', 'message', 'created_at', 'type')
+            ->select('title', 'message', DB::raw('DATE_FORMAT(created_at, "%m/%d/%Y %h:%i %p") as created_at'), 'type')
             ->where('id', $id)
             ->get();
 
