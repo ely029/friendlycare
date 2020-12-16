@@ -16,7 +16,7 @@
         <div class="section__container">
           <h3 class="section__heading">{{ $user->name }}</h3>
           <form class="form" action="">
-            <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Email</label><span class="form__text">{{$user->name}}</span></div>
+            <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Email</label><span class="form__text">{{$user->email}}</span></div>
             @if ($user->role_id == 2)
             <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Role </label><span class="form__text">Admin</span></div>
             @elseif ($user->role_id == 4)

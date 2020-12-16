@@ -21,8 +21,8 @@
         <form class="form form--login" action="{{ route('password.readyPassword')}}" method="POST">
           @csrf
           <input type="hidden" name="id" value="{{ $id }}">
-            <div class="form__content"><input class="form__input" name="password" id="js-password" type="password" placeholder="Enter password" /><label class="form__label">Enter password</label><i class="fa fa-eye-slash" id="js-eye"></i></div>
-            <div class="form__content"><input class="form__input" name="password_confirmation" id="js-password" type="password" placeholder="Confirm password" /><label class="form__label">Confirm password</label><i class="fa fa-eye-slash" id="js-eye"></i></div>
+            <div class="form__content"><input class="form__input" name="password" id="js-password" type="password" placeholder="Enter password" /><label class="form__label">Enter password</label><i class="fa fa-eye-slash" id="js-eye-password"></i></div>
+            <div class="form__content"><input class="form__input" name="password_confirmation" id="js-confirm-password" type="password" placeholder="Confirm password" /><label class="form__label">Confirm password</label><i class="fa fa-eye-slash" id="js-eye-confirm-password"></i></div>
             <div class="form__button"><input class="button" type="submit" value="Create Account"/></div>
         </form>
         </div>
@@ -54,8 +54,8 @@
         <h2 class="section__heading">Password reset</h2>
         <p class="login__details">Enter your new password (Minimum of 8 characters).</p>
         <form class="form form--login" action="">
-        <div class="form__content"><input class="form__input" name="password" id="js-password" type="password" placeholder="Enter password" /><label class="form__label">Enter password</label><i class="fa fa-eye-slash" id="js-eye"></i></div>
-        <div class="form__content"><input class="form__input" name="password_confirmation" id="js-password" type="password" placeholder="Confirm password" /><label class="form__label">Confirm password</label><i class="fa fa-eye-slash" id="js-eye"></i></div>
+        <div class="form__content"><input class="form__input" name="password" id="js-password" type="password" placeholder="Enter password" /><label class="form__label">Enter password</label><i class="fa fa-eye-slash" id="js-eye-password"></i></div>
+        <div class="form__content"><input class="form__input" name="password_confirmation" id="js-confirm-password" type="password" placeholder="Confirm password" /><label class="form__label">Confirm password</label><i class="fa fa-eye-slash" id="js-eye-confirm-password"></i></div>
         <div class="form__button"><a class="button" href="">Create account</a></div>
         </form>
     </div>
