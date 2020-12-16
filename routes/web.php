@@ -140,7 +140,7 @@ Route::group(['prefix' => 'survey'], static function () {
 
 Route::group(['prefix' => 'chatbot'], static function () {
     Route::get('/list', 'Admin\ChatBotController@index')->name('chatbot.index');
-    Route::get('/create', 'Admin\ChatbotController@create')->name('chatbot.create');
+    Route::get('/create', 'Admin\ChatBotController@create')->name('chatbot.create');
 });
     Route::get('/', 'HomeController@index')->name('home');
     // Route::get('/portal', '@')->name('adminLogin');
