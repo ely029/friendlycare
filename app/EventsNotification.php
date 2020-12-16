@@ -42,7 +42,7 @@ class EventsNotification extends Model
         from events_notification
         where date_string >= '.strtotime(date('Y-m-d')).'
         AND patient_id = ?
-        AND display_type = "Announcements"
+        OR display_type = "Announcements"
         OR  display_type = "Events"
         
         UNION ALL
