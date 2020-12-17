@@ -71,4 +71,16 @@ class EventsNotification extends Model
         AND survey_date_to_string >= '.strtotime(date('Y-m-d')).' 
         ', [$id, $id]);
     }
+
+    public function checkUpComingBooking()
+    {
+        return DB::insert('INSERT IGNORE INTO events_notification(title, message, display_type, patient_id, status, booking_id) select 
+        "Upcoming Booking Tommorow" as title, 
+        NULL as message, 
+        "Notifications" as display_type, 
+        patient_id, 
+        7 as status, 
+        id as booking_id from booking
+        WHERE  DATEDIFF(time_slot, CURDATE()) = 1');
+    }
 }

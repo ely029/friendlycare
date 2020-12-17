@@ -17,6 +17,7 @@ class NotificationsController extends Controller
     public function getNotifications($id)
     {
         $events = new EventsNotification();
+        $events->checkUpComingBooking();
         $data = $events->getPatientNotifications($id);
 
         return response([

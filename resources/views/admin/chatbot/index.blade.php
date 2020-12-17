@@ -24,7 +24,7 @@
             </thead>
             <tbody>
               @foreach($details as $detail)
-              <tr class="table__row js-view" data-href="view-fieldset.html">
+              <tr class="table__row js-view" data-href="{{ route('chatbot.edit', $detail->id)}}">
                 <td class="table__details">{{ $detail->field_set_title}}</td>
                 <td class="table__details">{{ $detail->chatbot_input}}</td>
               </tr>

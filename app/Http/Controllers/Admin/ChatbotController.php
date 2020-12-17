@@ -45,4 +45,13 @@ class ChatbotController extends Controller
         }
         return redirect('chatbot/list');
     }
+
+    public function edit($id)
+    {
+        $chatbot = new ChatBot();
+        $details = $chatbot->getFieldSet();
+        $fieldset = ChatBot::where('id', $id)->get();
+        $response = ChatBotResponse::where('fieldset_id', $id)->get();
+        return view('admin.chatbot.edit', ['response' => $response, 'fieldset' => $fieldset, 'details' => $details]);
+    }
 }

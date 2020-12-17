@@ -142,6 +142,7 @@ Route::group(['prefix' => 'chatbot'], static function () {
     Route::get('/list', 'Admin\ChatbotController@index')->name('chatbot.index');
     Route::get('/create', 'Admin\ChatbotController@create')->name('chatbot.create');
     Route::post('/create', 'Admin\ChatbotController@post')->name('chatbot.post');
+    Route::get('/edit/{id}', 'Admin\ChatBotController@edit')->name('chatbot.edit');
 });
     Route::get('/', 'HomeController@index')->name('home');
     // Route::get('/portal', '@')->name('adminLogin');

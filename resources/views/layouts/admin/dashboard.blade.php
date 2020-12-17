@@ -24,9 +24,13 @@
 <script type="text/javascript">
 $(function(){
     $('.add-response-option').hide();
+    $('#add-response-option1').css('display', 'none');
 
    $('#add-response-chatbot').click(function(){
        $('.add-response-option').show();
+   });
+   $('.js-add-response').click(function(){
+    $('#add-response-option1').show();
    });
     $('#provider_information_checkbox').change(function(){
       if(this.checked) {

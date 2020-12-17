@@ -18,7 +18,7 @@ class ChatBot extends Model
     public function getIndexDetails()
     {
         return DB::table('chat_bot')
-            ->select('field_set_title', 'chatbot_input')
+            ->select('field_set_title', 'chatbot_input', 'id')
             ->get();
     }
 
