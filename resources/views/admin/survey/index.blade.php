@@ -26,7 +26,7 @@
     <tbody>
         @foreach($details as $detail)
         <tr class="table__row js-view" data-href="{{ route('survey.information', $detail->id)}}">
-        <td class="table__details">{{ $detail->date_from}}-{{$detail->date_to}}</td>
+        <td class="table__details">{{ \Carbon\Carbon::parse($detail->date_from)->format('Y/m/d') }}-{{ \Carbon\Carbon::parse($detail->date_to)->format('Y/m/d') }}</td>
         <td class="table__details">{{ $detail->title}}</td>
         <td class="table__details">{{ $detail->link}}</td>
         </tr>

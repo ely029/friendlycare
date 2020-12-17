@@ -35,6 +35,8 @@ class SurveyController extends Controller
             'message' => $request['message'],
             'type' => 6,
             'survey_link' => $request['link'],
+            'survey_date_from_string' => $request['date_from_datestring'],
+            'survey_date_to_string' => $request['date_to_datestring'],
         ]);
 
         if ($request['date_from_datestring'] >= strtotime(date('Y-m-d'))) {
@@ -48,7 +50,7 @@ class SurveyController extends Controller
     {
         $getFCMToken = DB::table('users')->select('fcm_notification_key')->where('fcm_notification_key', '<>', null)->pluck('fcm_notification_key');
         $fcmurl = 'https://fcm.googleapis.com/fcm/send';
-        $token = $getFCMToken[0];
+        $token = $getFCMToken[0] ?? 0;
         $notification = [
             'title' => 'Survey just posted',
             'body' => 'We just posted a survey. Answer if you have time.',

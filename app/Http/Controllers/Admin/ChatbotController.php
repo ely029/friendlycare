@@ -33,9 +33,9 @@ class ChatbotController extends Controller
             'chatbot_input' => $request['chatbot_input'],
         ]);
         $id = DB::table('chat_bot')->select('id')->orderBy('id', 'desc')->pluck('id');
-        $count = count($request['response_prompt']);
-        for ($eee = 1; $eee <= $count;$eee) {
-            if (isset($request['response_prompt'][$eee])) {
+        $count = count($request['response_id']);
+        for ($eee = 0; $eee <= $count; $eee++) {
+            if (isset($request['response_id'][$eee])) {
                 ChatBotResponse::create([
                     'response_prompt' => $request['response_prompt'][$eee],
                     'fieldset_id' => $id[0],
@@ -43,6 +43,6 @@ class ChatbotController extends Controller
                 ]);
             }
         }
-        return view('chatbot/list');
+        return redirect('chatbot/list');
     }
 }

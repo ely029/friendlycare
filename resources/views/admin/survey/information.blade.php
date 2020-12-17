@@ -27,7 +27,7 @@
                 <div class="form__content"><span class="form__text">{{ $detail->time }}</span><label class="form__label form__label--visible">Time</label></div>
               </li>
             </ul>
-            <div class="form__content"><a class="form__link" href="">{{ $detail->link }}</a><label class="form__label form__label--visible">Google form link</label></div>
+            <div class="form__content"><a class="form__link" href="{{ $detail->link }}">{{ $detail->link }}</a><label class="form__label form__label--visible">Google form link</label></div>
             <div class="form__content">
               <span class="form__text">{{ $detail->message}}</span>
               <label class="form__label form__label--visible">Message</label>
