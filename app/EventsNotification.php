@@ -68,8 +68,7 @@ class EventsNotification extends Model
         is_read
         from events_notification
         WHERE type = 6
-        AND survey_date_from_string >= '.strtotime(date('Y-m-d')).'
-        AND survey_date_to_string <= '.strtotime(date('Y-m-d')).' 
+        AND survey_date_to_string >= '.strtotime(date('Y-m-d')).' 
         ', [$id, $id]);
     }
 }
