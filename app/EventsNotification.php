@@ -81,6 +81,6 @@ class EventsNotification extends Model
         patient_id, 
         7 as status, 
         id as booking_id from booking
-        WHERE  DATEDIFF(time_slot, CURDATE()) = 1 AND status = 1');
+        WHERE  DATEDIFF(time_slot, CURDATE()) = 1');
     }
 }
