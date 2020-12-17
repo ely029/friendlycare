@@ -18,11 +18,11 @@
             @csrf
             <div class="form__container">
               <h2 class="section__heading">Chatbot Input</h2>
-              <div class="form__content"><input class="form__input" name="field_set_title" type="text" required /><label class="form__label">Fieldset title*</label></div>
-              <div class="form__content"><textarea class="form__input form__input--message" name="chatbot_input" rows="8" required></textarea><label class="form__label">Chatbot input*</label></div>
+              <div class="form__content form__content--full"><input class="form__input" name="field_set_title" type="text" required /><label class="form__label">Fieldset title*</label></div>
+              <div class="form__content form__content--full"><textarea class="form__input form__input--message" name="chatbot_input" rows="8" required></textarea><label class="form__label">Chatbot input*</label></div>
               <h2 class="section__heading">Response options</h2>
-              <div class="form__content"><input class="form__input" type="text" required name="response_prompt[]"/><label class="form__label">Response prompt*</label></div>
-              <div class="form__content">
+              <div class="form__content form__content--full"><input class="form__input" type="text" required name="response_prompt[]"/><label class="form__label">Response prompt*</label></div>
+              <div class="form__content form__content--full" form__content--full>
                 <select class="form__input form__input--select" name="response_id[]"required>
                   <option value="">Select Field set</option>
                   @foreach ($details as $detail)

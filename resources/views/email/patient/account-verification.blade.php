@@ -60,9 +60,10 @@
       <div class="email__content">
         <h2 class="email__title">Hi [First name]</h2>
         <p class="email__text">
-          You are receiving this message from FriendlyCare Foundation, Inc. to confirm the creation of your account. <br />
+        Your FriendlyCare account is used today during app login, [Current date here]. Was this you? If so, you can safely delete this email. 
+ <br />
           <br />
-          Please use the link below to set up the password for your account. If you did not request an account with FriendlyCare Foundation, Inc., you can safely delete this email.
+          If this wasn’t you, we advise resetting the password of your account using the link below.
         </p>
         <a class="email__link" href="">Click link here</a>
       </div>

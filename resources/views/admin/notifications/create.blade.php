@@ -50,7 +50,7 @@
                 <h2 class="section__heading">Content</h2>
                 <div class="form__content"><input class="form__input" type="text" placeholder="Title" required name="title"/><label class="form__label">Title*</label></div>
                 <div class="form__content">
-                  <textarea class="form__input form__input--message" contenteditable placeholder="Description (English)*" required name="message">{{ old('message') }}</textarea>
+                  <textarea class="form__input form__input--message form__input--message__notification" placeholder="Description (English)*" required name="message">{{ old('message') }}</textarea>
                   <label class="form__label">Message*</label>
                 </div>
               </li>

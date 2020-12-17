@@ -31,7 +31,7 @@
           <form class="form form--login" method="POST" action="{{route('authenticate')}}">
           @csrf  
           <div class="form__content"><input class="form__input" type="text" placeholder="Email" name="email" /><label class="form__label">Email</label></div>
-            <div class="form__content"><input class="form__input" id="js-password" type="password" name="password" placeholder="Password" /><label class="form__label">Password</label><i class="fa fa-eye-slash" id="js-eye"></i></div>
+            <div class="form__content"><input class="form__input" id="js-password" type="password" name="password" placeholder="Password" /><label class="form__label">Password</label><i class="fa fa-eye-slash" id="js-eye-password"></i></div>
             <div class="form__button"><input type="submit" class="button" value="Login"></div>
           </form>
         </div>

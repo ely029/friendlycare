@@ -19,13 +19,16 @@
     <h1 class="section__title">{{ $contents->content_name}}</h1>
     <div class="breadcrumbs">
         <a class="breadcrumbs__link" href="{{ route('basicPages')}}">Basic pages</a>
-        <a class="breadcrumbs__link" href="">{{ $contents->content_name}}</a>
+        <a class="breadcrumbs__link" href="{{ route('basicPages.informationPage',$contents->id) }}">{{ $contents->content_name}}</a>
         <a class="breadcrumbs__link">Edit</a></div>
     </div>
 <div class="section__container">
     <h2 class="section__heading">{{ $contents->content_name}}</h2>
     <div class="form">
-    <textarea name="content" class="form__input form__input--message js-editor-content">{{ $contents->content }}</textarea>
+        <div class="form__content form__content--full">
+            <textarea name="content" class="form__input form__input--message js-editor-content">{{ $contents->content }}</textarea>
+        </div>
+    
     <div class="form__button form__button--end"><input type="submit" value="Save changes" class="button "></div>
     </div>
 </div>

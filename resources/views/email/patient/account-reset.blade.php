@@ -13,10 +13,51 @@
 
 <body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0">
 
-<table class="head-wrap" style="overflow: hidden;">
+<div class="email">
+      <div class="email__header">
+        <div class="email__header-title">
+          <h2>e-Plano</h2>
+          <span class="email__header__span">Family Planning Informational &amp; Booking App</span>
+        </div>
+        <div class="email__header-wrapper"><img class="email__image" src="src/img/logo-outline.png" alt="logo of e-plano" /></div>
+      </div>
+      <div class="email__content">
+        <h2 class="email__title">Hi [First name]</h2>
+        <p class="email__text">
+          We have received a request to reset your password for your FriendlyCare account. <br />
+          <br />
+          Please use the link below to reset the password for your account. If you did not request to reset your password, you can safely delete this email.
+        </p>
+        <a class="email__link" href="">Click link here</a>
+      </div>
+      <div class="email__bottom">
+        <div class="email__bottom-container"></div>
+        <p class="email__bottom-text">
+          For more information, you can send an email to: <a class="email__bottom-link" href="mailto:info@friendlycare.org">info@friendlycare.org </a><span>or contact our office hotlines (+632) 722-2968 | (+632) 722-5205</span>
+        </p>
+      </div>
+      <div class="email__footer">
+        <div class="email__footer-top">
+          <div class="email__footer-wrapper"><img class="email__image" src="src/img/logo-white.png" alt="white logo of e-plano" /></div>
+          <h2 class="email__footer-text">e-Plano</h2>
+        </div>
+        <ul class="email__footer-links">
+          <li class="email__footer-item">
+            <a href=""><img class="email__image" src="src/img/icon-facebook.png" alt="facebook icon" /></a>
+          </li>
+          <li class="email__footer-item">
+            <a href=""><img class="email__image" src="src/img/icon-twitter.png" alt="twitter icon" /></a>
+          </li>
+          <li class="email__footer-item">
+            <a href=""><img class="email__image" src="src/img/icon-ig.png" alt="ig icon" /></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+<!-- <table class="head-wrap" style="overflow: hidden;">
     <tr class="container">
         <td class="container" >
-            <!-- content -->
             <div class="content" style="padding: 35px 15px 15px">
                 <table>
                     <tr style="font-size:15px;">
@@ -38,10 +79,10 @@
                         </td>
                     </tr>
                 </table>
-            </div><!-- /content -->
+            </div>
 
         </td>
     </tr>
-</table>
+</table> -->
 </body>
 </html>

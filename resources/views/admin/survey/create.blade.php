@@ -27,7 +27,7 @@
                 <h2 class="section__heading">Content</h2>
                 <div class="form__content"><input class="form__input" type="text" name="title" placeholder="Title*" required /><label class="form__label">Title*</label></div>
                 <div class="form__content"><input class="form__input" name="link" type="text" placeholder="Google form link*" required /><label class="form__label">Google form link*</label></div>
-                <div class="form__content"><textarea class="form__input form__input--message" name="message" placeholder="Message*" required></textarea><label class="form__label">Message*</label></div>
+                <div class="form__content"><textarea class="form__input form__input--message form__input--message__notification" name="message" placeholder="Message*" required></textarea><label class="form__label">Message*</label></div>
               </li>
             </ul>
             <div class="form__button form__button--end"><button class="button js-trigger" type="submit">Submit</button></div>

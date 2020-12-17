@@ -54,7 +54,7 @@
                 <h2 class="section__heading">Content</h2>
                 <div class="form__content"><input class="form__input" type="text" placeholder="Title" value="{{$detail->title}}" name="title" required /><label class="form__label">Title*</label></div>
                 <div class="form__content">
-                  <textarea class="form__input form__input--message" name="message" contenteditable placeholder="Description (English)*" required>{{ $detail->message }}</textarea>
+                  <textarea class="form__input form__input--message form__input--message__notification form__input--message__notification" name="message" placeholder="Description (English)*" required>{{ $detail->message }}</textarea>
                   <label class="form__label">Message*</label>
                 </div>
               </li>
