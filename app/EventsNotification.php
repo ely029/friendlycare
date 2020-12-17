@@ -31,6 +31,8 @@ class EventsNotification extends Model
         'booking_id',
         'scheduled',
         'survey_link',
+        'survey_date_from_string',
+        'survey_date_to_string',
     ];
 
     public function getPatientNotifications($id)
@@ -66,6 +68,7 @@ class EventsNotification extends Model
         is_read
         from events_notification
         WHERE type = 6
+        AND survey_date_to_string >= '.strtotime(date('Y-m-d')).' 
         ', [$id, $id]);
     }
 }
