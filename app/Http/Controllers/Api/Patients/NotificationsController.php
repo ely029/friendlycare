@@ -42,11 +42,12 @@ class NotificationsController extends Controller
                 ->select('booking.created_at', 'users.name', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'family_plan_type_subcategory.name as service_name', 'users.age', 'users.birth_date', 'users.contact_number_1 as contact_number', 'booking.referal')
                 ->where('booking.id', $getBookingId[0])
                 ->get();
+        } else {
+            $details = DB::table('events_notification')
+                ->select('events_notification.id as notification_id', 'events_notification.title', DB::raw('DATE_FORMAT(events_notification.created_at, "%m/%d/%Y %h:%i %p") as created_at'), 'events_notification.message', 'events_notification.clinic_name_1 as clinic_name', 'events_notification.appointement_date_1 as date_booked', 'events_notification.display_type', 'events_notification.status', 'events_notification.is_rated', 'events_notification.booking_id', 'events_notification.survey_link')
+                ->where('events_notification.id', $id)
+                ->get();
         }
-        $details = DB::table('events_notification')
-            ->select('events_notification.id as notification_id', 'events_notification.title', DB::raw('DATE_FORMAT(events_notification.created_at, "%m/%d/%Y %h:%i %p") as created_at'), 'events_notification.message', 'events_notification.clinic_name_1 as clinic_name', 'events_notification.appointement_date_1 as date_booked', 'events_notification.display_type', 'events_notification.status', 'events_notification.is_rated', 'events_notification.booking_id', 'events_notification.survey_link')
-            ->where('events_notification.id', $id)
-            ->get();
 
         return response([
             'name' => 'getNotificationDetails',
