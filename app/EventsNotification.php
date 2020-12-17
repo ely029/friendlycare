@@ -30,6 +30,7 @@ class EventsNotification extends Model
         'appointement_date_1',
         'booking_id',
         'scheduled',
+        'survey_link',
     ];
 
     public function getPatientNotifications($id)
