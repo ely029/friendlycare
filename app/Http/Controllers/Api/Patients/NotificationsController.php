@@ -40,7 +40,7 @@ class NotificationsController extends Controller
                 ->join('booking_time', 'booking_time.booking_id', 'booking.id')
                 ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
                 ->select('booking.created_at', 'users.name', 'booking.time_slot as date_booked', 'booking_time.time_slot', 'family_plan_type_subcategory.name as service_name', 'users.age', 'users.birth_date', 'users.contact_number_1 as contact_number', 'booking.referal')
-                ->where('id', $getBookingId[0])
+                ->where('booking.id', $getBookingId[0])
                 ->get();
         }
         $details = DB::table('events_notification')
