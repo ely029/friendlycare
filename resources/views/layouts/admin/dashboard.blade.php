@@ -23,6 +23,11 @@
 
 <script type="text/javascript">
 $(function(){
+    $('.add-response-option').hide();
+
+   $('#add-response-chatbot').click(function(){
+       $('.add-response-option').show();
+   });
     $('#provider_information_checkbox').change(function(){
       if(this.checked) {
         $.ajax({

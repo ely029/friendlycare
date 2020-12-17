@@ -14,15 +14,16 @@
           <div class="breadcrumbs"><a class="breadcrumbs__link" href="provider-management.html">Chatbot Management</a><a class="breadcrumbs__link">Create Fieldset</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
-          <form class="form" action="">
+          <form class="form" action="{{ route('chatbot.post')}}" method="POST">
+            @csrf
             <div class="form__container">
               <h2 class="section__heading">Chatbot Input</h2>
-              <div class="form__content"><input class="form__input" type="text" required /><label class="form__label">Fieldset title*</label></div>
-              <div class="form__content"><textarea class="form__input form__input--message" rows="8" required></textarea><label class="form__label">Chatbot input*</label></div>
+              <div class="form__content"><input class="form__input" name="field_set_title" type="text" required /><label class="form__label">Fieldset title*</label></div>
+              <div class="form__content"><textarea class="form__input form__input--message" name="chatbot_input" rows="8" required></textarea><label class="form__label">Chatbot input*</label></div>
               <h2 class="section__heading">Response options</h2>
-              <div class="form__content"><input class="form__input" type="text" required /><label class="form__label">Response prompt*</label></div>
+              <div class="form__content"><input class="form__input" type="text" required name="response_prompt[]"/><label class="form__label">Response prompt*</label></div>
               <div class="form__content">
-                <select class="form__input form__input--select" required>
+                <select class="form__input form__input--select" name="response_id[]"required>
                   <option value="">Select Field set</option>
                   @foreach ($details as $detail)
                   <option value="{{$detail->id}}">{{ $detail->field_set_title}}</option>
@@ -31,10 +32,26 @@
                 <label class="form__label">Link to fieldset*</label>
               </div>
               <div class="form__button form__button--end">
-                <button class="button button--medium js-delete-response js-trigger" type="button">Delete response</button><button class="button button--medium js-add-response" type="button">Add response</button>
+                <button class="button button--medium js-delete-response js-trigger" type="button">Delete response</button><button class="button button--medium js-add-response" id="add-response-chatbot" type="button">Add response</button>
               </div>
             </div>
-            <div class="form__button form__button--end"><button class="button js-trigger" type="button">Save changes</button></div>
+            <div class="add-response-option">
+            <h2 class="section__heading">Response options</h2>
+            <div class="form__content"><input class="form__input" type="text" required name="response_prompt[]" /><label class="form__label">Response prompt*</label></div>
+            <div class="form__content">
+                <select class="form__input form__input--select" name="response_id[]" required>
+                  <option value="">Select Field set</option>
+                  @foreach ($details as $detail)
+                  <option value="{{$detail->id}}">{{ $detail->field_set_title}}</option>
+                  @endforeach
+                </select>
+                <label class="form__label">Link to fieldset*</label>
+              </div>
+              <div class="form__button form__button--end">
+                <button class="button button--medium js-delete-response js-trigger" type="button">Delete response</button><button class="button button--medium js-add-response" id="add-response-chatbot" type="button">Add response</button>
+              </div>
+            </div>
+            <div class="form__button form__button--end"><button class="button js-trigger" type="submit">Save changes</button></div>
           </form>
           <div class="modal js-modal">
             <div class="modal__background js-modal-background"></div>

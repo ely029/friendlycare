@@ -34,6 +34,7 @@ class SurveyController extends Controller
             'title' => $request['title'],
             'message' => $request['message'],
             'type' => 6,
+            'survey_link' => $request['link'],
         ]);
 
         if ($request['date_from_datestring'] >= strtotime(date('Y-m-d'))) {
