@@ -54,4 +54,9 @@ class ChatbotController extends Controller
         $response = ChatBotResponse::where('fieldset_id', $id)->get();
         return view('admin.chatbot.edit', ['response' => $response, 'fieldset' => $fieldset, 'details' => $details]);
     }
+
+    public function update()
+    {
+        return redirect('chatbot/list');
+    }
 }

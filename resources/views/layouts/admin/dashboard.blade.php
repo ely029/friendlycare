@@ -23,14 +23,12 @@
 
 <script type="text/javascript">
 $(function(){
-    $('.add-response-option').hide();
-    $('#add-response-option1').css('display', 'none');
-
+    $('.add-response-option2').hide();
    $('#add-response-chatbot').click(function(){
        $('.add-response-option').show();
    });
-   $('.js-add-response').click(function(){
-    $('#add-response-option1').show();
+   $('.js-add-response1').click(function(){
+      $('#add-response-option').clone().appendTo($('#add-response-option1'));
    });
     $('#provider_information_checkbox').change(function(){
       if(this.checked) {
@@ -40,7 +38,7 @@ $(function(){
             data: { id: $('#provider_id').val()}
         })
         .done(function( msg ) {
-            console.log('deactivated')
+            console.log('activated')
         }); 
       } else {
         $.ajax({

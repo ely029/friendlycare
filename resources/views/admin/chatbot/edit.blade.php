@@ -11,20 +11,26 @@
 <div class="section">
         <div class="section__top">
           <h1 class="section__title">Chatbot Management</h1>
-          <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('chatbot.index')}}">Chatbot Management</a><a class="breadcrumbs__link">Create Fieldset</a><a class="breadcrumbs__link"></a></div>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="provider-management.html">Chatbot Management</a><a class="breadcrumbs__link">Create Fieldset</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
-          <form class="form" action="{{ route('chatbot.post')}}" method="POST">
+          <form class="form" action="{{ route('chatbot.update')}}" method="POST">
             @csrf
             <div class="form__container">
               <h2 class="section__heading">Chatbot Input</h2>
-              <div class="form__content form__content--full"><input class="form__input" name="field_set_title" type="text" /><label class="form__label">Fieldset title*</label></div>
-              <div class="form__content form__content--full"><textarea class="form__input form__input--message" name="chatbot_input" rows="8" required></textarea><label class="form__label">Chatbot input*</label></div>
+              @foreach($fieldset as $fieldsets)
+              <input type="hidden" name="fieldset_id" value="{{ $fieldsets->id }}">
+              <div class="form__content form__content--full"><input class="form__input" name="field_set_title" value="{{ $fieldsets->field_set_title }}" type="text" /><label class="form__label">Fieldset title*</label></div>
+              <div class="form__content form__content--full"><textarea class="form__input form__input--message" name="chatbot_input" rows="8">{{ $fieldsets->chatbot_input }}</textarea><label class="form__label">Chatbot input*</label></div>
+              @endforeach
               <h2 class="section__heading">Response options</h2>
+              @foreach($response as $responses)
               <div class="form__content form__content--full"><input class="form__input" type="text" name="response_prompt[]"/><label class="form__label">Response prompt*</label></div>
               <div class="form__content form__content--full">
+                <input type="hidden" name="responded_id[]" value="{{ $responses->id}}">
                 <select class="form__input form__input--select" name="response_id[]">
                   <option value="">Select Field set</option>
+                  <option value="{{ $responses->response_id}}" selected>{{ $responses->response_prompt }}</option>
                   @foreach ($details as $detail)
                   <option value="{{$detail->id}}">{{ $detail->field_set_title}}</option>
                   @endforeach
@@ -32,13 +38,16 @@
                 <label class="form__label">Link to fieldset*</label>
               </div>
               <div class="form__button form__button--end">
-                <button class="button button--medium js-delete-response js-trigger" type="button">Delete response</button><button class="button button--medium js-add-response" id="add-response-chatbot" type="button">Add response</button>
+                <button class="button button--medium js-delete-response js-trigger" type="button">Delete response</button>
               </div>
+              @endforeach
             </div>
-            <div class="add-response-option">
-            <h2 class="section__heading">Response options</h2>
-            <div class="form__content"><input class="form__input" type="text" name="response_prompt[]" /><label class="form__label">Response prompt*</label></div>
-            <div class="form__content">
+            <div id="add-response-option1">
+            </div>
+            <div id="add-response-option">
+              <div class="form__content form__content--full"><input class="form__input" type="text" name="response_prompt[]"/><label class="form__label">Response prompt*</label></div>
+              <div class="form__content form__content--full">
+              <input type="hidden" name="responded_id[]" value="0">
                 <select class="form__input form__input--select" name="response_id[]">
                   <option value="">Select Field set</option>
                   @foreach ($details as $detail)
@@ -48,7 +57,7 @@
                 <label class="form__label">Link to fieldset*</label>
               </div>
               <div class="form__button form__button--end">
-                <button class="button button--medium js-delete-response js-trigger" type="button">Delete response</button><button class="button button--medium js-add-response" id="add-response-chatbot" type="button">Add response</button>
+                <button class="button button--medium js-delete-response js-trigger" type="button">Delete response</button><button class="button button--medium js-add-response1" type="button">Add response</button>
               </div>
             </div>
             <div class="form__button form__button--end"><button class="button" type="submit">Save changes</button></div>

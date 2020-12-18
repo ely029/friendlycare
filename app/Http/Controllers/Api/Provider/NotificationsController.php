@@ -16,6 +16,7 @@ class NotificationsController extends Controller
     {
         $providerNotifications = new ProviderNotifications();
         $providerNotifications->checkUpcomingBooking();
+        $providerNotifications->isUpdated();
         $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
         $details = DB::table('provider_notifications')
             ->select('id', 'title', 'type', 'status', 'is_read')
