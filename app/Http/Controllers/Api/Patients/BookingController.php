@@ -676,12 +676,12 @@ class BookingController extends Controller
                 ]);
             }
         }
-        $getBookedDate = DB::table('booking')->select('time_slot')->where('id', $getDetails[0])->first();
-        $getBookedTime = DB::table('booking_time')->select('time_slot')->where('booking_id', $getDetails[0])->first();
-        $bookedTime = date('H:i:s', strtotime($getBookedTime->time_slot));
-        $starttime = strtotime($getBookedDate->time_slot.''.$bookedTime);
-        $endtime = date('Y-m-d H:i', strtotime('3 minutes', $starttime));
-        DB::update('update booking set new_request_end_time = ? where id = ?', [strtotime($endtime), $getDetails[0]]);
+        // $getBookedDate = DB::table('booking')->select('time_slot')->where('id', $getDetails[0])->first();
+        // $getBookedTime = DB::table('booking_time')->select('time_slot')->where('booking_id', $getDetails[0])->first();
+        // $bookedTime = date('H:i:s', strtotime($getBookedTime->time_slot));
+        // $starttime = strtotime($getBookedDate->time_slot.''.$bookedTime);
+        // $endtime = date('Y-m-d H:i', strtotime('3 minutes', $starttime));
+        // DB::update('update booking set new_request_end_time = ? where id = ?', [strtotime($endtime), $getDetails[0]]);
         return response([
             'response' => 'Booking Created Succesfully',
         ]);
