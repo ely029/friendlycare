@@ -94,7 +94,6 @@ class BookingController extends Controller
                 ->Where('philhealth_accredited_1', 1)
                 ->Where('paid_service', 0)
                 ->where('clinics.user_id', 0)
-                ->where('clinics.is_close', 0)
                 ->get();
         } elseif ($obj['philhealth_accredited'][0] === 1 && $obj['paid_service'][0] === 0) {
             $details = DB::table('clinics')
@@ -106,7 +105,6 @@ class BookingController extends Controller
                 ->Where('paid_service', 1)
                 ->Where('paid_service', 0)
                 ->where('clinics.user_id', 0)
-                ->where('clinics.is_close', 0)
                 ->get();
         } elseif ($obj['philhealth_accredited'][0] === 0 && $obj['paid_service'][0] === 1) {
             $details = DB::table('clinics')
@@ -118,7 +116,6 @@ class BookingController extends Controller
                 ->Where('philhealth_accredited_1', 0)
                 ->Where('paid_service', 0)
                 ->where('clinics.user_id', 0)
-                ->where('clinics.is_close', 0)
                 ->get();
         } else {
             $details = DB::table('clinics')
@@ -129,7 +126,6 @@ class BookingController extends Controller
                 ->Where('philhealth_accredited_1', 'like', '%' . $obj['philhealth_accredited'][0] . '%')
                 ->Where('paid_service', 'like', '%' . $obj['paid_service'][0] . '%')
                 ->where('clinics.user_id', 0)
-                ->where('clinics.is_close', 0)
                 ->get();
         }
 
@@ -160,7 +156,6 @@ class BookingController extends Controller
                 ->Where('clinics.paid_service', 0)
                 ->where('clinics.philhealth_accredited_1', 1)
                 ->where('clinics.user_id', 0)
-                ->where('clinics.is_close', 0)
                 ->get();
         } elseif ($obj['philhealth_accredited'][0] === 0 && $obj['free_consultation'][0] === 1) {
             $clinic = DB::table('clinics')
@@ -173,7 +168,6 @@ class BookingController extends Controller
                 ->where('clinics.philhealth_accredited_1', 0)
                 ->where('clinics.paid_service', 0)
                 ->where('clinics.user_id', 0)
-                ->where('clinics.is_close', 0)
                 ->get();
         } elseif ($obj['philhealth_accredited'][0] === 1 && $obj['free_consultation'][0] === 0) {
             $clinic = DB::table('clinic_service')
@@ -187,7 +181,6 @@ class BookingController extends Controller
                 ->where('clinics.philhealth_accredited_1', 1)
                 ->orWhere('clinics.paid_service', 1)
                 ->where('clinics.user_id', 0)
-                ->where('clinics.is_close', 0)
                 ->get();
         } else {
             $clinic = DB::table('clinic_service')
@@ -203,7 +196,6 @@ class BookingController extends Controller
                 ->orWhere('clinics.philhealth_accredited_1', 1)
                 ->orWhere('clinics.paid_service', 0)
                 ->orWhere('clinics.paid_service', 1)
-                ->where('clinics.is_close', 0)
                 ->get();
         }
 
