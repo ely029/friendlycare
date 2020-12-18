@@ -25,7 +25,7 @@
               @endforeach
               <h2 class="section__heading">Response options</h2>
               @foreach($response as $responses)
-              <div class="form__content form__content--full"><input class="form__input" type="text" name="response_prompt[]"/><label class="form__label">Response prompt*</label></div>
+              <div class="form__content form__content--full"><input class="form__input" type="text" value="{{ $responses->response_prompt}}" name="response_prompt[]"/><label class="form__label">Response prompt*</label></div>
               <div class="form__content form__content--full">
                 <input type="hidden" name="responded_id[]" value="{{ $responses->id}}">
                 <select class="form__input form__input--select" name="response_id[]">

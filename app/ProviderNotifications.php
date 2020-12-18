@@ -38,6 +38,6 @@ class ProviderNotifications extends Model
 
     public function isUpdated()
     {
-        return DB::statement('update booking set is_updated = 1 WHERE  DATEDIFF(time_slot, CURDATE()) = 1');
+        return DB::statement('update booking set is_updated = 1 WHERE  TIMESTAMPDIFF(DAY, time_slot, CURDATE())');
     }
 }

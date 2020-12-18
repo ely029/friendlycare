@@ -57,6 +57,12 @@ class ChatbotController extends Controller
 
     public function update()
     {
+        $request = request()->all();
+        
+        Chatbot::where('id', $request['fieldset_id'])->update([
+            'field_set_title' => $request['field_set_title'],
+            'chatbot_input' => $request['chatbot_input'],
+        ]);
         return redirect('chatbot/list');
     }
 }
