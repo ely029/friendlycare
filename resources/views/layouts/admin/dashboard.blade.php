@@ -24,8 +24,8 @@
 <script type="text/javascript">
 $(function(){
     $('.add-response-option2').hide();
-   $('#add-response-chatbot').click(function(){
-       $('.add-response-option').show();
+   $('.add-response-chatbot').click(function(){
+       $('#add-response-option-create').clone().appendTo($('#add-response-option-create1'));
    });
    $('.js-add-response1').click(function(){
       $('#add-response-option').clone().appendTo($('#add-response-option1'));

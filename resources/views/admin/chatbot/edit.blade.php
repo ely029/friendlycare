@@ -30,7 +30,7 @@
                 <input type="hidden" name="responded_id[]" value="{{ $responses->id}}">
                 <select class="form__input form__input--select" name="response_id[]">
                   <option value="">Select Field set</option>
-                  <option value="{{ $responses->response_id}}" selected>{{ $responses->response_prompt }}</option>
+                  <option value="{{ $fieldsets->id}}" selected>{{ $fieldsets->field_set_title }}</option>
                   @foreach ($details as $detail)
                   <option value="{{$detail->id}}">{{ $detail->field_set_title}}</option>
                   @endforeach
@@ -38,7 +38,7 @@
                 <label class="form__label">Link to fieldset*</label>
               </div>
               <div class="form__button form__button--end">
-                <button class="button button--medium js-delete-response js-trigger" type="button">Delete response</button>
+                <a href="{{ route('chatbot.delete', $responses->id)}}" class="button button--medium js-delete-response js-trigger">Delete response</a>
               </div>
               @endforeach
             </div>

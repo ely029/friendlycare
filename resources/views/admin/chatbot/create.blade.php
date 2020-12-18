@@ -32,10 +32,12 @@
                 <label class="form__label">Link to fieldset*</label>
               </div>
               <div class="form__button form__button--end">
-                <button class="button button--medium js-delete-response js-trigger" type="button">Delete response</button><button class="button button--medium js-add-response" id="add-response-chatbot" type="button">Add response</button>
+                <button class="button button--medium js-delete-response js-trigger" type="button">Delete response</button><button class="button button--medium js-add-response add-response-chatbot" type="button">Add response</button>
               </div>
             </div>
-            <div class="add-response-option">
+            <div id="add-response-option-create1">
+            </div>
+            <div id="add-response-option-create">
             <h2 class="section__heading">Response options</h2>
             <div class="form__content"><input class="form__input" type="text" name="response_prompt[]" /><label class="form__label">Response prompt*</label></div>
             <div class="form__content">
@@ -48,7 +50,7 @@
                 <label class="form__label">Link to fieldset*</label>
               </div>
               <div class="form__button form__button--end">
-                <button class="button button--medium js-delete-response js-trigger" type="button">Delete response</button><button class="button button--medium js-add-response" id="add-response-chatbot" type="button">Add response</button>
+                <button class="button button--medium js-delete-response js-trigger" type="button">Delete response</button><button class="button button--medium js-add-response add-response-chatbot" type="button">Add response</button>
               </div>
             </div>
             <div class="form__button form__button--end"><button class="button" type="submit">Save changes</button></div>
