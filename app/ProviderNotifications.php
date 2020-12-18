@@ -40,4 +40,14 @@ class ProviderNotifications extends Model
     {
         return DB::statement('update booking set is_updated = 1 WHERE  TIMESTAMPDIFF(DAY, time_slot, CURDATE())');
     }
+
+    public function badge($id)
+    {
+        $details = DB::table('provider_notifications')->select('id')->where('is_read', 0)->where('clinic_id', $id)->count();
+
+        if ($details < 1) {
+            return false;
+        }
+        return true;
+    }
 }

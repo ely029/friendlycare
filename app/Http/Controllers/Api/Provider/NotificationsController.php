@@ -14,14 +14,14 @@ class NotificationsController extends Controller
 {
     public function getNotifications($id)
     {
-        $providerNotifications = new ProviderNotifications();
-        $providerNotifications->checkUpcomingBooking();
         $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
-        $details = DB::table('provider_notifications')
+        $notifications = DB::table('provider_notifications')
             ->select('id', 'title', 'type', 'status', 'is_read')
-            ->where('clinic_id', $getClinicId[0])
-            ->get();
-
+            ->where('clinic_id', $getClinicId[0]);
+        $upcoming = DB::table('provider_notifications')
+            ->select('id', 'title', 'type', 'status', 'is_read')
+            ->whereRaw(DB::raw('DATEDIFF(date_booked, CURDATE()) = 1'));
+        $details = $notifications->union($upcoming)->get();
         return response([
             'name' => 'ProviderNotifications',
             'details' => $details,
@@ -73,5 +73,17 @@ class NotificationsController extends Controller
     public function getAllProviderNotification()
     {
         return ProviderNotifications::all();
+    }
+
+    public function badge($id)
+    {
+        $providerNotifications = new ProviderNotifications();
+        $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
+        $details = $providerNotifications->badge($getClinicId[0]);
+
+        return response([
+            'name' => 'badge',
+            'details' => $details,
+        ]);
     }
 }

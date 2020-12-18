@@ -44,6 +44,17 @@ class BookingssController extends Controller
             'booking_id' => $id,
         ]);
 
+        ProviderNotifications::create([
+            'patient_id' => $getPatientId[0],
+            'title' => 'Upcoming Booking Tommorow',
+            'type' => 'Notifications',
+            'message' => null,
+            'status' => 7,
+            'booking_id' => $id,
+            'clinic_id' => $getClinicId[0],
+            'date_booked' => $getBookedDate[0],
+        ]);
+
         $parameter = 1;
         $this->pushNotification($parameter, $getPatientId[0]);
 

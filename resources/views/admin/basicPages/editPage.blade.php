@@ -13,7 +13,7 @@
 <form class="form--full" method="POST" action="{{ route('basicPages.storeEdit')}}">
     @csrf
     <input type="hidden" name="id" value="{{ $contents->id }}">
-    <input type="hidden" name="content_name[]" value="{{ $contents->content_name }}">
+    <input type="hidden" name="content_name" value="{{ $contents->content_name }}">
 <div class="section">
 <div class="section__top">
     <h1 class="section__title">{{ $contents->content_name}}</h1>

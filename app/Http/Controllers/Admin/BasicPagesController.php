@@ -40,7 +40,7 @@ class BasicPagesController extends Controller
         if ($request['id'] === '3') {
             $this->checkAndInsertofData($request);
         } else {
-            BasicPages::find($request['id'])->update([
+            BasicPages::where('id', $request['id'])->update([
                 'content_name' => $request['content_name'],
                 'content' => $request['content'],
             ]);
