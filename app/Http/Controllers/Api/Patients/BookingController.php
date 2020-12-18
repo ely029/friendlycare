@@ -288,7 +288,6 @@ class BookingController extends Controller
     public function postTime(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
-
         $getDetails = DB::table('booking')
             ->select('clinic_id', 'service_id', 'id')
             ->where('patient_id', $id)
@@ -298,7 +297,7 @@ class BookingController extends Controller
 
         $startTime = date('Y-m-d H:i');
         $endtime = date('Y-m-d H:i', strtotime('3 minutes', strtotime($startTime)));
-        DB::update('update booking set is_approved = ?, status = ?, time_slot = ?, time_from = ?, time_to = ?, new_request_end_time = ?, referal = ? where patient_id = ? order by id desc limit 1', [1, 6, $obj['date'][0], $startTime, $endtime, strtotime($endtime), $obj['referal'][0], $id]);
+        DB::update('update booking set is_approved = ?, status = ?, time_slot = ?, time_from = ?, time_to = ?, new_request_end_time = ?, referal = ? where patient_id = ? order by id desc limit 1', [1, 6, $obj['date'][0].' 00:00:00', $startTime, $endtime, strtotime($endtime), $obj['referal'][0], $id]);
 
         return $this->checkPatientCount($id, $getDetails, $obj);
     }
