@@ -142,9 +142,9 @@ Route::group(['prefix' => 'chatbot'], static function () {
     Route::get('/list', 'Admin\ChatbotController@index')->name('chatbot.index');
     Route::get('/create', 'Admin\ChatbotController@create')->name('chatbot.create');
     Route::post('/create', 'Admin\ChatbotController@post')->name('chatbot.post');
-    Route::get('/edit/{id}', 'Admin\ChatBotController@edit')->name('chatbot.edit');
-    Route::post('/edit', 'Admin\ChatBotController@update')->name('chatbot.update');
-    Route::get('/delete/{id}', 'Admin\ChatBotController@delete')->name('chatbot.delete');
+    Route::get('/edit/{id}', 'Admin\ChatbotController@edit')->name('chatbot.edit');
+    Route::post('/edit', 'Admin\ChatbotController@update')->name('chatbot.update');
+    Route::get('/delete/{id}', 'Admin\ChatbotController@delete')->name('chatbot.delete');
 });
     Route::get('/', 'HomeController@index')->name('home');
     // Route::get('/portal', '@')->name('adminLogin');
