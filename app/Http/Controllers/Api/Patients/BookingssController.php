@@ -52,7 +52,7 @@ class BookingssController extends Controller
             'status' => 7,
             'booking_id' => $id,
             'clinic_id' => $getClinicId[0],
-            'date_booked' => $getBookedDate[0],
+            'date_booked' => $getBookedDate->time_slot,
         ]);
 
         $parameter = 1;
