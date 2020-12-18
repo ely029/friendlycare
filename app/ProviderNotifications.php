@@ -19,6 +19,7 @@ class ProviderNotifications extends Model
         'status',
         'display_type',
         'patient_id',
+        'date_booked',
     ];
 
     public function checkUpComingBooking()
