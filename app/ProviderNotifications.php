@@ -33,7 +33,7 @@ class ProviderNotifications extends Model
         clinic_id,
         "Notifications" 
         from booking
-        WHERE  DATEDIFF(time_slot, CURDATE()) = 1 and is_updated = 0');
+        WHERE  DATEDIFF(time_slot, CURDATE()) = 1');
     }
 
     public function isUpdated()

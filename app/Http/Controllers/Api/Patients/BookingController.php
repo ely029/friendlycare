@@ -288,6 +288,7 @@ class BookingController extends Controller
     public function postTime(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
+
         $getDetails = DB::table('booking')
             ->select('clinic_id', 'service_id', 'id')
             ->where('patient_id', $id)
@@ -297,7 +298,7 @@ class BookingController extends Controller
 
         $startTime = date('Y-m-d H:i');
         $endtime = date('Y-m-d H:i', strtotime('3 minutes', strtotime($startTime)));
-        DB::update('update booking set is_approved = ?, status = ?, time_slot = ?, time_from = ?, time_to = ?, new_request_end_time = ?, referal = ? where patient_id = ? order by id desc limit 1', [1, 6, $obj['date'][0].' 00:00:00', $startTime, $endtime, strtotime($endtime), $obj['referal'][0], $id]);
+        DB::update('update booking set is_approved = ?, status = ?, time_slot = ?, time_from = ?, time_to = ?, new_request_end_time = ?, referal = ? where patient_id = ? order by id desc limit 1', [1, 6, $obj['date'][0], $startTime, $endtime, strtotime($endtime), $obj['referal'][0], $id]);
 
         return $this->checkPatientCount($id, $getDetails, $obj);
     }
@@ -676,12 +677,12 @@ class BookingController extends Controller
                 ]);
             }
         }
-        // $getBookedDate = DB::table('booking')->select('time_slot')->where('id', $getDetails[0])->first();
-        // $getBookedTime = DB::table('booking_time')->select('time_slot')->where('booking_id', $getDetails[0])->first();
-        // $bookedTime = date('H:i:s', strtotime($getBookedTime->time_slot));
-        // $starttime = strtotime($getBookedDate->time_slot.''.$bookedTime);
-        // $endtime = date('Y-m-d H:i', strtotime('3 minutes', $starttime));
-        // DB::update('update booking set new_request_end_time = ? where id = ?', [strtotime($endtime), $getDetails[0]]);
+        $getBookedDate = DB::table('booking')->select('time_slot')->where('id', $getDetails[0])->first();
+        $getBookedTime = DB::table('booking_time')->select('time_slot')->where('booking_id', $getDetails[0])->first();
+        $bookedTime = date('H:i:s', strtotime($getBookedTime->time_slot));
+        $starttime = strtotime($getBookedDate->time_slot.''.$bookedTime);
+        $endtime = date('Y-m-d H:i', strtotime('3 minutes', $starttime));
+        DB::update('update booking set new_request_end_time = ? where id = ?', [strtotime($endtime), $getDetails[0]]);
         return response([
             'response' => 'Booking Created Succesfully',
         ]);
