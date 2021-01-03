@@ -1,6 +1,6 @@
 @extends('layouts.admin.dashboard')
 
-@section('title', 'Family Planning Method')
+@section('title', 'Family Planning Methods')
 @section('description', 'Dashboard')
 
 @section('content')

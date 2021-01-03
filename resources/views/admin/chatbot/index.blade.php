@@ -1,6 +1,6 @@
 @extends('layouts.admin.dashboard')
 
-@section('title', 'Basic Pages')
+@section('title', 'Chatbot Management')
 @section('description', 'Dashboard')
 
 @section('content')
