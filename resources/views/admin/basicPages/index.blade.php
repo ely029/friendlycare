@@ -25,7 +25,9 @@
     @foreach ($content as $contents)
     <tr class="table__row js-view" data-href="{{ route('basicPages.informationPage',$contents->id) }}">
         <td class="table__details table__details--basic">{{ $contents->content_name }}</td>
-        <td class="table__details">{{ $contents->content }}</td>
+        <td class="table__details">
+            <div class="table__content">{{ $contents->content }}</div>
+        </td>
         </tr>
     @endforeach
     </tbody>
