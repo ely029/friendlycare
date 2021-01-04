@@ -142,9 +142,9 @@ class NotificationsController extends Controller
             'title' => 'Booking Cancelled',
             'status' => 3,
         ]);
-        Mail::send('email.patient.cancellation-booking', [], function ($mail) use ($getClinicEmail) {
+        Mail::send('email.patient.cancellation-booking', ['name' => $getPatientName[0], 'date' => $getTime[0]], function ($mail) use ($getClinicEmail) {
             $mail->from('notifications@friendlycare.com');
-            $mail->to($getClinicEmail[0], 'Provider')->subject('Reschedule Successfully');
+            $mail->to($getClinicEmail[0], 'Provider')->subject('Cancelled Appointment');
         });
         ProviderNotifications::create([
             'title' => 'Patient Cancelled Appointment',

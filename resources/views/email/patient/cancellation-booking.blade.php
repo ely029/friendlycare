@@ -25,9 +25,9 @@
         <div class="email__header-wrapper"><img class="email__image" src="{{URL::asset('img/logo-outline.png')}}" alt="logo of e-plano" /></div>
       </div>
       <div class="email__content">
-        <h2 class="email__title">Hi [clinic name]</h2>
+        <h2 class="email__title">Hi </h2>
         <p class="email__text">
-          Patient [Patient name] made a cancellation request on his/her consultation appointment with your clinic dated [Scheduled date and time slot]. <br><br>
+          Patient {{ $name }} made a cancellation request on his/her consultation appointment with your clinic dated {{ $date }}. <br><br>
           You can also check on your FriendlyCare provider app for the details of the cancelled booking request. Thank you.
 
         </p>
