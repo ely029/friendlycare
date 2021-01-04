@@ -21,7 +21,7 @@
         <div class="email__header-wrapper"><img class="email__image" src="{{URL::asset('img/logo-outline.png')}}" alt="logo of e-plano" /></div>
       </div>
       <div class="email__content">
-        <h2 class="email__title">Hi [First name]</h2>
+        <h2 class="email__title">Hi</h2>
         <p class="email__text">
         You are receiving this message from FriendlyCare Foundation, Inc. to confirm the creation of your account. <br />
           <br />

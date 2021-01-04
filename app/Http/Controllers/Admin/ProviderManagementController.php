@@ -475,6 +475,12 @@ class ProviderManagementController extends Controller
     public function enableProvider()
     {
         $request = request()->all();
+        $email = DB::table('clinics')->select('email')->where('id', $request['id'])->pluck('email');
+        Mail::send('email.patient.provider.enabled', [], function ($mail) use ($email) {
+            $mail->from('notifications@friendlycare.com');
+            $mail->to($email[0], 'Provider')->subject('Account Enabled');
+        });
+        $request = request()->all();
         Clinics::where('id', $request['id'])->update([
             'is_close' => 0,
         ]);
@@ -491,6 +497,12 @@ class ProviderManagementController extends Controller
 
     public function disableProvider()
     {
+        $request = request()->all();
+        $email = DB::table('clinics')->select('email')->where('id', $request['id'])->pluck('email');
+        Mail::send('email.patient.provider.disabled', [], function ($mail) use ($email) {
+            $mail->from('notifications@friendlycare.com');
+            $mail->to($email[0], 'Provider')->subject('Account Disabled');
+        });
         $request = request()->all();
         Clinics::where('id', $request['id'])->update([
             'is_close' => 1,
