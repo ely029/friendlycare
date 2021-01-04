@@ -28,7 +28,7 @@
           <br />
           Please use the link below to reset the password for your account. If you did not request to reset your password, you can safely delete this email.
         </p>
-        <a class="email__link" href="">Click link here</a>
+        <a class="email__link" href="{{ route('resetPassword.index',$user->id)}}">Click link here</a>
       </div>
       <div class="email__bottom">
         <div class="email__bottom-container"></div>
