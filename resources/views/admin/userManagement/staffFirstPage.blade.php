@@ -50,7 +50,7 @@
               <div class="form__content"><input class="form__input" type="text" placeholder="Training (optional)" name="trainings" value="{{ old('trainings')}}"/><label class="form__label">Training (optional)</label></div>
             </div>
             <div class="form__content"><input class="form__input" type="text" placeholder="Email Address*" name="email" value="{{ old('email')}}"/><label class="form__label">Email Address*</label></div>
-            <div class="form__button form__button--end"><input type="submit" class="button js-trigger" value="Create Account"></div>
+            <div class="form__button form__button--end"><input class="button js-trigger" value="Create Account"></div>
             
             <div class="modal js-modal" tabindex="-1" role="dialog" aria-hidden="true">
               <div class="modal__background js-modal-background"></div>
@@ -58,7 +58,7 @@
                 <div class="modal__box">
                   <h2 class="modal__title">Account created</h2>
                   <p class="modal__text">You are about to create a staff. Proceed?</p>
-                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><input type="submit" class="button button--medium button--medium" type="button" value="Create account"></div>
+                  <div class="modal__button"><button class="button button--transparent js-modal-close">Cancel</button><input type="submit" class="button button--medium button--medium" value="Create account"></div>
                 </div>
               </div>
             </div>

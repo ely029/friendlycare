@@ -31,7 +31,7 @@
                 <div class="form__content"><textarea class="form__input form__input--message" name="message" placeholder="Message*" required>{{ $detail->message }}</textarea><label class="form__label">Message*</label></div>
               </li>
             </ul>
-            <div class="form__button form__button--end"><button class="button js-trigger" type="submit">Submit</button></div>
+            <div class="form__button form__button--end"><button class="button js-trigger">Submit</button></div>
           </form>
           <div class="modal js-modal">
             <div class="modal__background js-modal-background"></div>
@@ -39,7 +39,7 @@
               <div class="modal__box">
                 <h2 class="modal__title">Success!</h2>
                 <p class="modal__text">Your message will be sent on (start-date), (time).</p>
-                <div class="modal__button modal__button--center"><button class="button button--medium" type="button">Confirm</button></div>
+                <div class="modal__button modal__button--center"><button class="button button--medium" type="submit">Confirm</button></div>
               </div>
             </div>
           </div>

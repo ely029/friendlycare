@@ -223,7 +223,7 @@
                 </ul>
               </div>
             </div>
-            <div class="form__button form__button--end"><button class="button js-trigger" type="submit">Save changes</button></div>
+            <div class="form__button form__button--end"><button class="button js-trigger">Save changes</button></div>
           </form>
 
           <div class="modal js-modal">
@@ -232,7 +232,7 @@
               <div class="modal__box">
                 <h2 class="modal__title">Save changes!</h2>
                 <p class="modal__text">All changes will update the version of the app. Are you sure you want to Save?</p>
-                <div class="modal__button modal__button--center"><button class="button button--medium" type="button">Confirm</button></div>
+                <div class="modal__button modal__button--center"><button class="button button--medium" type="submit">Confirm</button></div>
               </div>
             </div>
           </div>

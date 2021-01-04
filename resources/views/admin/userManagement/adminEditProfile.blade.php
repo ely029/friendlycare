@@ -68,7 +68,7 @@
                 <div class="modal__box">
                   <h2 class="modal__title">Save changes?</h2>
                   <p class="modal__text">You are about to save the changes. Proceed?</p>
-                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><input type="submit" class="button button--medium" type="button" value="Save changes"></div>
+                  <div class="modal__button"><button class="button button--transparent js-modal-close">Cancel</button><input type="submit" class="button button--medium" type="submit" value="Save changes"></div>
                 </div>
               </div>
             </div>

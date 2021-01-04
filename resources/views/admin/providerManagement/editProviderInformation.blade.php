@@ -125,7 +125,7 @@
                 <div class="modal__box">
                   <h2 class="modal__title">Delete provider?</h2>
                   <p class="modal__text">You are about to delete this provider. Proceed?</p>
-                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><a href="{{ route('deleteProvider',$providers->id )}}" class="button button--medium button--medium__delete" role="button">Delete provider</a></div>
+                  <div class="modal__button"><button class="button button--transparent js-modal-close">Cancel</button><a href="{{ route('deleteProvider',$providers->id )}}" class="button button--medium button--medium__delete" role="button">Delete provider</a></div>
                 </div>
               </div>
             </div>

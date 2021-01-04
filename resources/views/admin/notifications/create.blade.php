@@ -55,7 +55,7 @@
                 </div>
               </li>
             </ul>
-            <div class="form__button form__button--end"><button class="button" type="submit">Submit</button></div>
+            <div class="form__button form__button--end"><button class="button">Submit</button></div>
           </form>
           <div class="modal js-modal">
             <div class="modal__background js-modal-background"></div>
@@ -63,7 +63,7 @@
               <div class="modal__box">
                 <h2 class="modal__title">Success!</h2>
                 <p class="modal__text">Your message has been sent.</p>
-                <div class="modal__button modal__button--center"><button class="button button--medium" type="button">Confirm</button></div>
+                <div class="modal__button modal__button--center"><button class="button button--medium" type="submit">Confirm</button></div>
               </div>
             </div>
           </div>
@@ -73,7 +73,7 @@
               <div class="modal__box">
                 <h2 class="modal__title">Success!</h2>
                 <p class="modal__text">Your message has been saved.</p>
-                <div class="modal__button modal__button--center"><button class="button button--medium" type="button">Confirm</button></div>
+                <div class="modal__button modal__button--center"><button class="button button--medium" type="submit">Confirm</button></div>
               </div>
             </div>
           </div>

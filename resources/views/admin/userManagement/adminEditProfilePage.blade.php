@@ -35,7 +35,7 @@
                 <div class="modal__box">
                   <h2 class="modal__title">Delete account?</h2>
                   <p class="modal__text">You are about to delete the user. Proceed?</p>
-                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><a href="{{ route('deleteUser', $user->id)}}" class="button button--medium button--medium__delete">Delete account</a></div>
+                  <div class="modal__button"><button class="button button--transparent js-modal-close">Cancel</button><a href="{{ route('deleteUser', $user->id)}}" class="button button--medium button--medium__delete">Delete account</a></div>
                 </div>
               </div>
             </div>

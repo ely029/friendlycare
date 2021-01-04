@@ -39,7 +39,7 @@
               <div class="modal__box">
                 <h2 class="modal__title">Delete survey?</h2>
                 <p class="modal__text">Surveys that have been sent will not be unsent, but the link will be deactivated. Are you sure you want to delete?</p>
-                <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><button class="button button--medium button--medium__delete" type="submit">Delete survey</button></div>
+                <div class="modal__button"><button class="button button--transparent js-modal-close">Cancel</button><button class="button button--medium button--medium__delete">Delete survey</button></div>
               </div>
             </div>
           </div>
