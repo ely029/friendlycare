@@ -13,10 +13,10 @@
 
 <body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0">
 
-<table class="head-wrap" style="overflow: hidden;">
+<!-- <table class="head-wrap" style="overflow: hidden;">
     <tr class="container">
         <td class="container" >
-            <!-- content -->
+            content
             <div class="content" style="padding: 35px 15px 15px">
                 <table>
                     <tr style="font-size:15px;">
@@ -39,13 +39,13 @@
                         </td>
                     </tr>
                 </table>
-            </div><!-- /content -->
+            </div>/content
 
         </td>
     </tr>
 </table>
 </body>
-</html>
+</html> -->
 
 
 <!-- xandy -->
@@ -65,7 +65,7 @@
           <br />
           If this wasn’t you, we advise resetting the password of your account using the link below.
         </p>
-        <a class="email__link" href="">Click link here</a>
+        <a class="email__link" href="{{ route('resetPassword.index',$user->id)}}">Click link here</a>
       </div>
       <div class="email__bottom">
         <div class="email__bottom-container"></div>
