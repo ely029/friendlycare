@@ -65,7 +65,7 @@
           <br />
           If this wasn’t you, we advise resetting the password of your account using the link below.
         </p>
-        <a class="email__link" href="{{ route('resetPassword.index',$user->id)}}">Click link here</a>
+        <a class="email__link" href="{{ route('resetPassword.index',$users->id)}}">Click link here</a>
       </div>
       <div class="email__bottom">
         <div class="email__bottom-container"></div>
