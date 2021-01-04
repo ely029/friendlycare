@@ -12,6 +12,9 @@
 </head>
 
 <body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0">
+
+
+<!-- xandy -->
 <div class="email">
       <div class="email__header">
         <div class="email__header-title">
@@ -21,11 +24,9 @@
         <div class="email__header-wrapper"><img class="email__image" src="src/img/logo-outline.png" alt="logo of e-plano" /></div>
       </div>
       <div class="email__content">
-        <h2 class="email__title">Hi</h2>
+        <h2 class="email__title">Hi!</h2>
         <p class="email__text">
-        You are receiving this message from FriendlyCare Foundation, Inc. to confirm the creation of your account. <br />
-          <br />
-          Please use the link below to reset the password for your account. If you did not request an account, you can safely delete this email.
+          Your clinic are now enabled.
         </p>
         <a class="email__link" href="">Click link here</a>
       </div>
@@ -53,36 +54,3 @@
         </ul>
       </div>
     </div>
-
-<!-- <table class="head-wrap" style="overflow: hidden;">
-    <tr class="container">
-        <td class="container" >
-            content
-            <div class="content" style="padding: 35px 15px 15px">
-                <table>
-                    <tr style="font-size:15px;">
-                        <td width="10px"></td>
-                        <td align="center">
-                            <span style="padding:0 50px 10px; display: block; font-size: 25px; line-height: 1.8;">
-                            @foreach ($users as $user)
-                            Hi Sir/Ma'am ! <br>
-                                <br><br>
-                              Please click <a href=" {{ route('password.index',$user->id)}}">here</a> to setup your password  
-                                <br/>
-                                <br/>
-                            @endforeach
-                                
-                            </span>
-                            <br>
-                    
-                            <br>
-                        </td>
-                    </tr>
-                </table>
-            </div>/content
-
-        </td>
-    </tr>
-</table> -->
-</body>
-</html>
