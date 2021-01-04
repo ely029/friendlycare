@@ -84,43 +84,91 @@ $(function(){
    });
 });
 </script>
-
 <script type="text/javascript">
-            
-            var my_handlers = {
-
-                fill_provinces:  function(){
-
-                    var region_code = $(this).val();
-                    $('#province').ph_locations('fetch_list', [{"region_code": region_code}]);
-                    
-                },
-
-                fill_cities: function(){
-
-                    var province_code = $(this).val();
-                    $('#city').ph_locations( 'fetch_list', [{"province_code": province_code}]);
-                },
-
-
-                fill_barangays: function(){
-
-                    var city_code = $(this).val();
-                    $('#barangay').ph_locations('fetch_list', [{"city_code": city_code}]);
-                }
-            };
-
-            $(function(){
-                $('#region').on('change', my_handlers.fill_provinces);
-                $('#province').on('change', my_handlers.fill_cities);
-                $('#city').on('change', my_handlers.fill_barangays);
-
-                $('#region').ph_locations({'location_type': 'regions'});
-                $('#province').ph_locations({'location_type': 'provinces'});
-                $('#city').ph_locations({'location_type': 'cities'});
-                $('#barangay').ph_locations({'location_type': 'barangays'});
-
-                $('#region').ph_locations('fetch_list');
+$('document').ready(function(){
+   //load the provinces upon page loading
+   $.ajax({
+            type: "GET",
+            url: "{{ route('provider.province')}}",
+            data: { region: $('#region').val()}
+        })
+        .done(function( data ) {
+            $("#province").empty();
+            jQuery.each(data, function(index, item) {
+               $('#province').append('<option value='+item.id+'>'+item.name+'</option>');
             });
-        </script>
+        });
+
+
+        $('#region').on('change', function(){
+    $.ajax({
+            type: "GET",
+            url: "{{ route('provider.province')}}",
+            data: { region: $('#region').val()}
+        })
+        .done(function( data ) {
+            if ($('#region').val() == '13') {
+                $('#barangay').hide();
+                $('#province').hide();
+                $('.province-label').hide();
+                $('.barangay-label').hide();
+                $("#city").empty();
+            jQuery.each(data, function(index, item) {
+               $('#city').append('<option value='+item.name+'>'+item.name+'</option>');
+            });
+            }  else {
+                $("#province").empty();
+                $("#city").empty();
+                $("#barangay").empty();
+                $('#barangay').show();
+                $('#province').show();
+                $('.province-label').show();
+                $('.barangay-label').show();
+            jQuery.each(data, function(index, item) {
+               $('#province').append('<option value='+item.id+'>'+item.name+'</option>');
+            });
+            }
+        });      
+   });
+
+   $('#province').on('change', function(){
+    $.ajax({
+            type: "GET",
+            url: "{{ route('provider.city')}}",
+            data: { province: $('#province').val()}
+        })
+        .done(function( data ) {
+            $("#city").empty();
+            jQuery.each(data, function(index, item) {
+               $('#city').append('<option value='+item.id+'>'+item.name+'</option>');
+            });
+                    $.ajax({
+                    type: "GET",
+                    url: "{{ route('provider.barangay')}}",
+                    data: { barangay: $('#city').val()}
+                })
+                .done(function( data ) {
+                    $("#barangay").empty();
+                    jQuery.each(data, function(index, item) {
+                    $('#barangay').append('<option value='+item.id+'>'+item.name+'</option>');
+                    });
+                }); 
+        });      
+   });
+
+   $('#city').on('change', function(){
+    $.ajax({
+            type: "GET",
+            url: "{{ route('provider.barangay')}}",
+            data: { barangay: $('#city').val()}
+        })
+        .done(function( data ) {
+            $("#barangay").empty();
+            jQuery.each(data, function(index, item) {
+               $('#barangay').append('<option value='+item.code+'>'+item.name+'</option>');
+            });
+        });      
+   });
+});
+</script>
 @endpush

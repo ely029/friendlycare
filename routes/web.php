@@ -60,6 +60,11 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], static function () {
 });
 
 //provider management
+//lookup location
+Route::get('/province', 'Admin\ProviderManagementController@province')->name('provider.province');
+Route::get('/city', 'Admin\ProviderManagementController@city')->name('provider.city');
+Route::get('/barangay', 'Admin\ProviderManagementController@barangay')->name('provider.barangay');
+
 Route::group(['prefix' => 'provider', 'middleware' => 'auth'], static function () {
     //index page
     Route::get('/list', 'Admin\ProviderManagementController@index')->name('providerManagement');

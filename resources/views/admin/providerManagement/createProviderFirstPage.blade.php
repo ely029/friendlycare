@@ -1,6 +1,6 @@
 @extends('layouts.admin.dashboard')
 
-@section('title', 'Provider Management')
+@section('title', 'Admin Dashboard')
 @section('description', 'Dashboard')
 
 @section('content')
@@ -35,20 +35,26 @@
         <div class="form__inline">
         <div class="form__content"><input class="form__input" name="clinic_name" value="{{ old('clinic_name')}}" type="text" placeholder="Provider name*" /><label class="form__label">Provider name* </label></div>
         <div class="form__content">
-            <select class="form__input form__input--select" name="city" id="region"></select>
+            <select class="form__input form__input--select" name="region" id="region">
+            @for ($e = 0; $e < 15; $e++)
+            <option value="{{ $region[$e]['id'] }}">{{ $region[$e]['name'] }}</option> 
+            @endfor
+            </select>
             <label class="form__label">Region*</label>
         </div>
         </div>
         <div class="form__inline">
-        <div class="form__content"><select class="form__input form__input--select" type="text" placeholder="Category*" name="type" required>
+        <div class="form__content"><select class="form__input form__input--select" type="text" placeholder="Category*" name="type" >
                             <option value="">Choose Category</option>
                             <option value="1">Private</option>
                             <option value="2">Government</option>
                             <option value="3">NGO</option>
         </select><label class="form__label">Category*</label></div>
         <div class="form__content">
-            <select class="form__input form__input--select" id="province"></select>
-            <label class="form__label">Province*</label>
+            <select class="form__input form__input--select" id="province" name="province">
+
+            </select>
+            <label class="form__label province-label">Province*</label>
         </div>
         </div>
         <div class="form__inline">
@@ -62,7 +68,7 @@
         <div class="form__content"><input class="form__input" type="email" name="email" placeholder="Email Address*" value="{{ old('email')}}" /><label class="form__label">Email Address*</label></div>
         <div class="form__content">
             <select class="form__input form__input--select" id="barangay"></select>
-            <label class="form__label">Barangay*</label>
+            <label class="form__label barangay-label">Barangay*</label>
         </div>
         </div>
         <div class="form__content form__content--full"><input class="form__input" type="text" name="street_address" value="{{ old('street_address')}}" placeholder="Street address*" /><label class="form__label">Street address*</label></div>

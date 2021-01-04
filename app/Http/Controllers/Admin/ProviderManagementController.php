@@ -37,7 +37,8 @@ class ProviderManagementController extends Controller
     }
     public function createFirstPage()
     {
-        return view('admin.providerManagement.createProviderFirstPage');
+        $data = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/regions'), true);
+        return view('admin.providerManagement.createProviderFirstPage', ['region' => $data['data']]);
     }
 
     public function createSecondPage()
@@ -194,7 +195,9 @@ class ProviderManagementController extends Controller
             ->where('family_plan_type_subcategory.family_plan_type_id', 3)
             ->get();
 
-        return view('admin.providerManagement.editPage', ['provider' => $provider, 'galleries' => $gallery, 'modernMethod' => $modernMethod, 'naturalMethod' => $naturalMethod, 'permanentMethod' => $permanentMethod]);
+        $data = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/regions'), true);
+
+        return view('admin.providerManagement.editPage', ['data' => $data, 'provider' => $provider, 'galleries' => $gallery, 'modernMethod' => $modernMethod, 'naturalMethod' => $naturalMethod, 'permanentMethod' => $permanentMethod]);
     }
 
     public function updateProvider(Request $requests)
@@ -353,6 +356,10 @@ class ProviderManagementController extends Controller
         $icon->move($destination, $icon->getClientOriginalName());
         $request['photo_url'] = $icon_url;
 
+        $city = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/cities/'.$request['city']), true);
+        $province = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/provinces/'.$request['province']), true);
+        $request['city'] = $city['name'];
+        $request['province'] = $province['name'];
         Clinics::create($request);
         $user = DB::table('clinics')->where('clinic_name', $request['clinic_name'])->pluck('id');
         session(['id' => $user[0]]);
@@ -497,5 +504,51 @@ class ProviderManagementController extends Controller
             'booking_id' => 0,
             'status' => 1,
         ]);
+    }
+
+    public function province()
+    {
+        $newdata = [];
+        $eee = [];
+        $request = request()->all();
+        $data = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/provinces'), true);
+        foreach ($data['data'] as $datas) {
+            if (in_array($request['region'], $datas)) {
+                $eee = ['id' => $datas['id'], 'name' => $datas['name']];
+                array_push($newdata, $eee);
+            }
+        }
+        return $newdata;
+    }
+
+    public function city()
+    {
+        $newdata = [];
+        $request = request()->all();
+        $data = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/cities'), true);
+        foreach ($data['data'] as $datas) {
+            if (in_array($request['province'], $datas)) {
+                $eee = ['id' => $datas['id'], 'name' => $datas['name']];
+                array_push($newdata, $eee);
+            }
+        }
+        return $newdata;
+    }
+
+    public function barangay()
+    {
+        $newdata = [];
+        $request = request()->all();
+        $data = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/barangays'), true);
+        foreach ($data['data'] as $datas) {
+            if (in_array($request['barangay'], $datas)) {
+                $eee = [
+                    'id' => $datas['id'],
+                    'name' => $datas['name'],
+                ];
+                array_push($newdata, $eee);
+            }
+        }
+        return $newdata;
     }
 }
