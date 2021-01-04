@@ -28,7 +28,6 @@
         <p class="email__text">
           Your clinic are now enabled.
         </p>
-        <a class="email__link" href="">Click link here</a>
       </div>
       <div class="email__bottom">
         <div class="email__bottom-container"></div>
