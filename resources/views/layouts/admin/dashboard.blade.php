@@ -100,7 +100,6 @@ $(function(){
 
 <script type="text/javascript">
 $('document').ready(function(){
-//load the provinces upon page loading
 $.ajax({
             type: "GET",
             url: "{{ route('provider.province')}}",
