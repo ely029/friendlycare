@@ -82,10 +82,7 @@ $(function(){
    $('.js-add-section1').click(function(){
        $('#js-consent-form2').show();
    });
-});
-</script>
-<script type="text/javascript">
-$('document').ready(function(){
+
    //load the provinces upon page loading
    $.ajax({
             type: "GET",
