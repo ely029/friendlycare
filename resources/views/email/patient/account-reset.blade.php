@@ -19,7 +19,7 @@
           <h2>e-Plano</h2>
           <span class="email__header__span">Family Planning Informational &amp; Booking App</span>
         </div>
-        <div class="email__header-wrapper"><img class="email__image" src="src/img/logo-outline.png" alt="logo of e-plano" /></div>
+        <div class="email__header-wrapper"><img class="email__image" src="{{URL::asset('img/logo-outline.png')}}" alt="logo of e-plano" /></div>
       </div>
       <div class="email__content">
         <h2 class="email__title">Hi [First name]</h2>
@@ -38,18 +38,18 @@
       </div>
       <div class="email__footer">
         <div class="email__footer-top">
-          <div class="email__footer-wrapper"><img class="email__image" src="src/img/logo-white.png" alt="white logo of e-plano" /></div>
+          <div class="email__footer-wrapper"><img class="email__image" src="{{URL::asset('img/logo-white.png')}}" alt="white logo of e-plano" /></div>
           <h2 class="email__footer-text">e-Plano</h2>
         </div>
         <ul class="email__footer-links">
           <li class="email__footer-item">
-            <a href=""><img class="email__image" src="src/img/icon-facebook.png" alt="facebook icon" /></a>
+            <a href=""><img class="email__image" src="{{URL::asset('img/icon-facebook.png')}}" alt="facebook icon" /></a>
           </li>
           <li class="email__footer-item">
-            <a href=""><img class="email__image" src="src/img/icon-twitter.png" alt="twitter icon" /></a>
+            <a href=""><img class="email__image" src="{{URL::asset('img/icon-twitter.png')}}" alt="twitter icon" /></a>
           </li>
           <li class="email__footer-item">
-            <a href=""><img class="email__image" src="src/img/icon-ig.png" alt="ig icon" /></a>
+            <a href=""><img class="email__image" src="{{URL::asset('img/icon-ig.png')}}" alt="ig icon" /></a>
           </li>
         </ul>
       </div>
