@@ -196,6 +196,22 @@ Beta:
   only:
     - beta
 
+Production:
+  extends: .SiteGround deploy
+  after_script:
+    - echo "export APP_DOMAIN='`echo $APP_DOMAIN`'" > variables
+  environment:
+    name: $CI_JOB_NAME
+    url: https://$APP_DOMAIN
+  artifacts:
+    when: always
+    paths:
+      - variables
+    expire_in: 1 day
+  interruptible: false
+  only:
+    - production
+
 .external test:
   stage: External Test
   before_script:
