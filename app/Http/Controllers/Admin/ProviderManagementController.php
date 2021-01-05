@@ -355,11 +355,12 @@ class ProviderManagementController extends Controller
         $icon_url = url('assets/app/img/'.$icon->getClientOriginalName());
         $icon->move($destination, $icon->getClientOriginalName());
         $request['photo_url'] = $icon_url;
-
-        $city = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/cities/'.$request['city']), true);
-        $province = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/provinces/'.$request['province']), true);
-        $request['city'] = $city['name'];
-        $request['province'] = $province['name'];
+        if (isset($request['city'])) {
+            $city = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/cities/'.$request['city']), true);
+            $province = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/provinces/'.$request['province']), true);
+            $request['city'] = $city['name'];
+            $request['province'] = $province['name'];
+        }
         Clinics::create($request);
         $user = DB::table('clinics')->where('clinic_name', $request['clinic_name'])->pluck('id');
         session(['id' => $user[0]]);
