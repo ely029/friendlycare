@@ -45,9 +45,9 @@ class DefaultController extends Controller
     public function verification()
     {
         $request = request()->all();
-        $users = User::where('email', $request['email'])->get();
-
-        Mail::send('email.patient.account-verification', ['users' => $users], function ($mail) use ($request) {
+        $id = DB::table('users')->select('id')->where('email', $request['email'])->pluck('id');
+        $name = DB::table('users')->select('name')->where('email', $request['email'])->pluck('name');
+        Mail::send('email.patient.account-verification', ['id' => $id[0], 'name' => $name[0]], function ($mail) use ($request) {
             $mail->from('security@friendlycare.com');
             $mail->to($request['email'], 'Patient')->subject('Account Verification!');
         });
