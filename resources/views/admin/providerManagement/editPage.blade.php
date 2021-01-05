@@ -223,7 +223,7 @@
                 </ul>
               </div>
             </div>
-            <div class="form__button form__button--end"><button class="button js-trigger">Save changes</button></div>
+            <div class="form__button form__button--end"><input type="submit" value="Save changes" class="button js-trigger"></div>
           </form>
 
           <div class="modal js-modal">

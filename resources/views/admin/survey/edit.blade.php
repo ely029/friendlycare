@@ -31,7 +31,7 @@
                 <div class="form__content"><textarea class="form__input form__input--message" name="message" placeholder="Message*" required>{{ $detail->message }}</textarea><label class="form__label">Message*</label></div>
               </li>
             </ul>
-            <div class="form__button form__button--end"><button class="button js-trigger">Submit</button></div>
+            <div class="form__button form__button--end"><input type="submit" value="Submit" class="button js-trigger"></div>
           </form>
           <div class="modal js-modal">
             <div class="modal__background js-modal-background"></div>
