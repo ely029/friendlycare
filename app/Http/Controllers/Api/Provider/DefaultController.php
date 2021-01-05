@@ -526,7 +526,7 @@ class DefaultController extends Controller
             ->get();
 
         $description = DB::table('family_plan_type_subcategory')
-            ->select('description_filipino', 'how_it_works_filipino', 'side_effect_filipino', 'additional_note_filipino')
+            ->select('description_filipino', 'description_english', 'how_it_works_english', 'side_effect_english', 'additional_note_english', 'how_it_works_filipino', 'side_effect_filipino', 'additional_note_filipino')
             ->where('id', $id)
             ->get();
 
