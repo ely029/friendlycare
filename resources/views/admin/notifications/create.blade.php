@@ -35,8 +35,8 @@
                   </select>
                   <label class="form__label">Schedule* </label>
                 </div>
-                <div class="form__content js-scheduled-content"><input class="form__input" type="time" name="time" placeholder="Time"/><label class="form__label">Time*</label></div>
-                <div class="form__content js-scheduled-content"><input class="form__input" type="date" name="date" placeholder="Date"/><label class="form__label">Date*</label></div>
+                <div class="form__content js-scheduled-content"><input class="form__input" type="time" name="time" placeholder="Time" required/><label class="form__label">Time*</label></div>
+                <div class="form__content js-scheduled-content"><input class="form__input" type="date" name="date" placeholder="Date" required/><label class="form__label">Date*</label></div>
                 <div class="form__content">
                   <select name="type" class="form__input form__input--select" required>
                     <option disabled selected>---</option>
@@ -55,9 +55,9 @@
                 </div>
               </li>
             </ul>
-            <div class="form__button form__button--end"><input type="submit" value="Save changes" class="button js-trigger"></div>
+            <div class="form__button form__button--end"><input type="button" value="Save changes" class="button js-trigger"></div>
           </form>
-          <div class="modal js-modal">
+          <div class="modal js-modal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal__background js-modal-background"></div>
             <div class="modal__container">
               <div class="modal__box">

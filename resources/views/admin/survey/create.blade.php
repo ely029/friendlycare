@@ -30,9 +30,9 @@
                 <div class="form__content"><textarea class="form__input form__input--message form__input--message__notification" name="message" placeholder="Message*" required></textarea><label class="form__label">Message*</label></div>
               </li>
             </ul>
-            <div class="form__button form__button--end"><input type="submit" value="Submit" class="button js-trigger"></div>
+            <div class="form__button form__button--end"><input type="button" value="Submit" class="button js-trigger"></div>
           </form>
-          <div class="modal js-modal">
+          <div class="modal js-modal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal__background js-modal-background"></div>
             <div class="modal__container">
               <div class="modal__box">
