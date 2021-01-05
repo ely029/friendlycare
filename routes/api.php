@@ -192,3 +192,9 @@ Route::get('/notifications/provider/badge/{id}', 'Provider\NotificationsControll
 Route::get('/patient/survey/pushnotification/{id}', 'Patients\SurveyController@index');
 
 Route::get('/providerNotifications', 'Provider\NotificationsController@getAllProviderNotification');
+
+//provider report
+Route::post('/provider/reports/header/{id}', 'Provider\ReportsController@header');
+Route::post('/provider/reports/availableservice/{id}', 'Provider\ReportsController@availableServices');
+Route::post('/provider/reports/status/{id}', 'Provider\ReportsController@status');
+Route::post('/provider/reports/details/{id}', 'Provider\ReportsController@details');
