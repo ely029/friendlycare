@@ -26,7 +26,7 @@
                 </a>
               </li>
               <li class="sidebar__item">
-                <a class="sidebar__link" href="patient-management.php">
+                <a class="sidebar__link" href="{{ route('patientManagement.index')}}">
                   <div class="sidebar__wrapper">
                     <img class="sidebar__icon" src="{{URL::asset('img/icon-patient-management.png')}}" alt="Patient Management icon for e-plano" />
                     <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-patient-management-white.png')}}" alt="Patient Management icon on hover for e-plano" />

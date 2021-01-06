@@ -151,6 +151,10 @@ Route::group(['prefix' => 'chatbot'], static function () {
     Route::post('/edit', 'Admin\ChatbotController@update')->name('chatbot.update');
     Route::get('/delete/{id}', 'Admin\ChatbotController@delete')->name('chatbot.delete');
 });
+
+Route::group(['prefix' => 'patient'], static function () {
+    Route::get('/list', 'Admin\PatientManagementController@index')->name('patientManagement.index');
+});
     Route::get('/', 'HomeController@index')->name('home');
     // Route::get('/portal', '@')->name('adminLogin');
     Route::post('/authenticate', 'Admin\AdminController@authenticate')->name('authenticate');

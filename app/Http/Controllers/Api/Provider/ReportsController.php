@@ -71,9 +71,10 @@ class ReportsController extends Controller
             ->leftJoin('family_plan_type_subcategory', 'booking.service_id', 'family_plan_type_subcategory.id')
             ->leftJoin('booking_time', 'booking.id', 'booking_time.booking_id')
             ->leftJoin('users', 'users.id', 'booking.patient_id')
-            ->select('users.name', DB::raw('DATE_FORMAT(booking.time_slot, "%M %d") as date_booked'), 'booking_time.time_slot', 'family_plan_type_subcategory.name as service_name', 'booking.referal', 'booking.status')
+            ->select('users.name', DB::raw('DATE_FORMAT(booking.time_slot, "%b %d") as date_booked'), 'booking_time.time_slot', 'family_plan_type_subcategory.name as service_name', 'booking.referal', 'booking.status')
             ->whereBetween('booking.time_slot', [$obj['date_from'][0], $obj['date_to'][0]])
             ->where('booking.clinic_id', $getClinicId[0])
+            ->where('booking.status', '<>', 6)
             ->get();
 
         return response([
