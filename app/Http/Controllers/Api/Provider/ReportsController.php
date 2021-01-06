@@ -16,6 +16,7 @@ class ReportsController extends Controller
         $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
         $number_of_patients = DB::table('booking')->select('id')->where('clinic_id', $getClinicId[0])
             ->whereBetween('booking.time_slot', [$obj['date_from'][0], $obj['date_to'][0]])
+            ->where('booking.status', '<>', 6)
             ->count();
         return response([
             'name' => 'header',
@@ -34,6 +35,7 @@ class ReportsController extends Controller
                     DB::raw(' count(booking.id) as services_count'))
             ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
             ->where('booking.clinic_id', $getClinicId[0])
+            ->where('booking.status', '<>', 6)
             ->whereBetween('booking.time_slot', [$obj['date_from'][0], $obj['date_to'][0]])
             ->groupBy(['family_plan_type_subcategory.name'])
             ->get();
