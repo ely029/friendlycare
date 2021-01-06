@@ -43,7 +43,7 @@
             </div>
             <button class="button button--filter button--filter__patient">Export patient list</button>
           </div>
-          <table class="table" id="patient">
+          <table class="table" id="noSearch">
             <thead>
               <tr>
                 <th class="table__head">ID No.</th>
