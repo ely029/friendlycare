@@ -29,7 +29,7 @@
                         <div class="form__content"><input class="form__input form__input--border" type="date" placeholder="Date to" /></div>
                         <div class="form__content">
                           <select class="form__input form__input--select form__input--border form__input--border__age">
-                            <option value="">Select age range</option>
+                            <option disabled selected>Select age range</option>
                             <option value="19 years old and below">19 years old and below</option>
                             <option value="20 years old and above">20 years old and above</option>
                           </select>
