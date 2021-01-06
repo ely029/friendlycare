@@ -39,7 +39,7 @@
               <div class="modal__box">
                 <h2 class="modal__title">Success!</h2>
                 <p class="modal__text">Your message will be sent on (start-date), (time).</p>
-                <div class="modal__button modal__button--center"><button class="button button--medium" type="submit">Confirm</button></div>
+                <div class="modal__button modal__button--center"><input class="button button--medium" type="submit" value="Confirm"></div>
               </div>
             </div>
           </div>
