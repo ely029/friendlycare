@@ -10,7 +10,7 @@
 <div class="section">
         <div class="section__top">
           <h1 class="section__title">Patient management</h1>
-          <div class="breadcrumbs"><a class="breadcrumbs__link" href="patient-management.html">Patient management</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" >Patient management</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
           <div class="patient">
