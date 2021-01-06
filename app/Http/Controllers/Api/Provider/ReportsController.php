@@ -53,8 +53,6 @@ class ReportsController extends Controller
         $cancelled = DB::table('booking')->select('id')->where('clinic_id', $getClinicId[0])->where('status', 3)->whereBetween('booking.time_slot', [$obj['date_from'][0], $obj['date_to'][0]])->count();
         $complete = DB::table('booking')->select('id')->where('clinic_id', $getClinicId[0])->where('status', 4)->whereBetween('booking.time_slot', [$obj['date_from'][0], $obj['date_to'][0]])->count();
         $noShow = DB::table('booking')->select('id')->where('clinic_id', $getClinicId[0])->where('status', 5)->whereBetween('booking.time_slot', [$obj['date_from'][0], $obj['date_to'][0]])->count();
-        $pending = DB::table('booking')->select('id')->where('clinic_id', $getClinicId[0])->where('status', 6)->whereBetween('booking.time_slot', [$obj['date_from'][0], $obj['date_to'][0]])->count();
-
         return response([
             'name' => 'status',
             'confirmed' => $confirmed,
