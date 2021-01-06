@@ -62,7 +62,6 @@ class ReportsController extends Controller
             'cancelled' => $cancelled,
             'complete' => $complete,
             'noShow' => $noShow,
-            'pending' => $pending,
         ]);
     }
 
