@@ -14,7 +14,7 @@ class FPMController extends Controller
 {
     public function pages($pageid, $id)
     {
-        if ($pageid === 1) {
+        if ($pageid === '1') {
             $data = DB::table('patients')->select('fpm_user_type')->where('user_id', $id)->pluck('fpm_user_type');
 
             if ($data[0] === null) {
@@ -47,7 +47,7 @@ class FPMController extends Controller
             ]);
         }
 
-        if ($pageid === 2) {
+        if ($pageid === '2') {
             $data = DB::table('patients')->select('family_plan_reasons')->where('user_id', $id)->pluck('family_plan_reasons');
 
             return response([
@@ -56,7 +56,7 @@ class FPMController extends Controller
             ]);
         }
 
-        if ($pageid === 3) {
+        if ($pageid === '3') {
             $modernMethodWithAnswer = DB::table('fpm_type_service')
                 ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', 'fpm_type_service.id')
@@ -104,7 +104,7 @@ class FPMController extends Controller
     {
         $obj = json_decode($request->getContent(), true);
 
-        if ($pageid === 1) {
+        if ($pageid === '1') {
             Patients::where('user_id', $id)->update([
                 'fpm_user_type' => $obj['fpm_user_type'][0],
             ]);
@@ -115,7 +115,7 @@ class FPMController extends Controller
             ]);
         }
 
-        if ($pageid === 2) {
+        if ($pageid === '2') {
             Patients::where('user_id', $id)->update([
                 'family_plan_reason' => $obj['family_plan_reason'][0],
             ]);
@@ -126,7 +126,7 @@ class FPMController extends Controller
             ]);
         }
 
-        if ($pageid === 3) {
+        if ($pageid === '3') {
             $number = count($obj['methods']) - 1;
             FpmTypeService::where('patient_id', $id)->delete();
             for ($eee = 0; $eee <= $number;$eee++) {
