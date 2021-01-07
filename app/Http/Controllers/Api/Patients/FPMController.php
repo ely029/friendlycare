@@ -117,7 +117,7 @@ class FPMController extends Controller
 
         if ($pageid === '2') {
             Patients::where('user_id', $id)->update([
-                'family_plan_reason' => $obj['family_plan_reason'][0],
+                'family_plan_reasons' => $obj['family_plan_reason'][0],
             ]);
 
             return response([

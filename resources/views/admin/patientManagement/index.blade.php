@@ -54,13 +54,15 @@
               </tr>
             </thead>
             <tbody>
+              @foreach($details as $detail)
               <tr class="table__row js-view" data-href="view-patient.html">
-                <td class="table__details">1</td>
-                <td class="table__details">John Smith</td>
-                <td class="table__details">johnsmith@gmail.com</td>
-                <td class="table__details">24</td>
-                <td class="table__details">Laguna</td>
+                <td class="table__details">{{ $detail->id }}</td>
+                <td class="table__details">{{ $detail->name }}</td>
+                <td class="table__details">{{ $detail->email}}</td>
+                <td class="table__details">{{ $detail->age }}</td>
+                <td class="table__details">{{ $detail->province }}</td>
               </tr>
+              @endforeach
             </tbody>
           </table>
         </div>
