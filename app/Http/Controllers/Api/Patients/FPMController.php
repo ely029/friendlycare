@@ -23,14 +23,13 @@ class FPMController extends Controller
                     'answer' => false,
                 ]);
             }
-            $array = '';
             $services = DB::table('fpm_type_service')->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name')
                 ->where('fpm_type_service.patient_id', $id)
                 ->get();
             $reasons = [
-                ['id' => 1, 'name' => 'Spacing'],
-                ['id' => 2, 'name' => 'Limiting'],
+                ['id' => 1, 'name' => 'Limiting'],
+                ['id' => 2, 'name' => 'Spacing'],
                 ['id' => 3, 'name' => 'Others'],
             ];
             $fpms = [
@@ -43,15 +42,12 @@ class FPMController extends Controller
             $answer1 = $fpm[0] - 1;
             $reason = DB::table('patients')->select('family_plan_reasons')->where('user_id', $id)->pluck('family_plan_reasons');
             $answer = $reason[0] - 1;
-            if (in_array($answer, $reasons[$answer])) {
-                $array = $reasons[$answer]['name'];
-            }
             return response([
                 'name' => 'fpmUserType',
                 'answer' => true,
                 'use_FPM' => 'Yes',
                 'services' => $services,
-                'reasons' => $array,
+                'reasons' => $reasons[$answer]['name'],
                 'fpm_type' => $fpms[$answer1]['name1'],
             ]);
         }
