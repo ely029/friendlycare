@@ -198,3 +198,7 @@ Route::post('/provider/reports/header/{id}', 'Provider\ReportsController@header'
 Route::post('/provider/reports/availableservice/{id}', 'Provider\ReportsController@availableServices');
 Route::post('/provider/reports/status/{id}', 'Provider\ReportsController@status');
 Route::post('/provider/reports/details/{id}', 'Provider\ReportsController@details');
+
+//patient family planning page
+Route::get('/patient/fpm/{pageid}/{id}', 'Patients\FPMController@pages');
+Route::post('/patient/fpm/{pageid}/{id}', 'Patients\FPMController@post');
