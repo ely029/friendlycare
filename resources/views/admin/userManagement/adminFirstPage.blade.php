@@ -31,13 +31,6 @@
                 </select>
                 <label class="form__label">Role*</label>
               </div>
-              <div class="form__content js-provider-clinic">
-                <select class="form__input form__input--search">
-                  <option value="Shaw Clinic">Shaw Clinic</option>
-                  <option value="Cubao Clinic">Cubao Clinic</option>
-                </select>
-                <label class="form__label">Provider clinic</label>
-              </div>
             </div>
             <div class="form__inline">
               <div class="form__content"><input class="form__input" type="text" placeholder="First name*" name="first_name" value="{{ old('first_name')}}" /><label class="form__label">First name* </label></div>

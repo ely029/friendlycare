@@ -27,7 +27,7 @@
           <br />
           Please use the link below to reset the password for your account. If you did not request an account, you can safely delete this email.
         </p>
-        <a class="email__link" href="{{ route('resetPassword.index',$users->id)}}">Click link here</a>
+        <a class="email__link" href="{{ route('resetPassword.index',$id)}}">Click link here</a>
       </div>
       <div class="email__bottom">
         <div class="email__bottom-container"></div>
@@ -53,36 +53,5 @@
         </ul>
       </div>
     </div>
-
-<!-- <table class="head-wrap" style="overflow: hidden;">
-    <tr class="container">
-        <td class="container" >
-            content
-            <div class="content" style="padding: 35px 15px 15px">
-                <table>
-                    <tr style="font-size:15px;">
-                        <td width="10px"></td>
-                        <td align="center">
-                            <span style="padding:0 50px 10px; display: block; font-size: 25px; line-height: 1.8;">
-                            @foreach ($users as $user)
-                            Hi Sir/Ma'am ! <br>
-                                <br><br>
-                              Please click <a href=" {{ route('password.index',$user->id)}}">here</a> to setup your password  
-                                <br/>
-                                <br/>
-                            @endforeach
-                                
-                            </span>
-                            <br>
-                    
-                            <br>
-                        </td>
-                    </tr>
-                </table>
-            </div>/content
-
-        </td>
-    </tr>
-</table> -->
 </body>
 </html>

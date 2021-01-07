@@ -66,9 +66,8 @@ class UserManagementController extends Controller
         $request['name'] = $request['first_name'] . ' ' . $request['last_name'];
 
         $user = User::create($request);
-        $users = User::where('id', $user->id)->get();
-
-        Mail::send('email.patient.account-set-password', ['users' => $users], function ($mail) use ($request) {
+        $id = DB::table('users')->select('id')->where('id', $user->id)->pluck('id');
+        Mail::send('email.patient.account-set-password', ['id' => $id[0]], function ($mail) use ($request) {
             $mail->from('no-reply@friendlycare.com');
             $mail->to([$request['email'], 'superadmin@fc.com'])->subject('Password Setup');
         });
@@ -111,9 +110,9 @@ class UserManagementController extends Controller
         $request['user_id'] = $user->id;
         Staffs::create($request);
 
-        $users = User::where('id', $user->id)->get();
+        $id = DB::table('users')->select('id')->where('id', $user->id)->pluck('id');
 
-        Mail::send('email.patient.account-set-password', ['users' => $users], function ($mail) use ($request) {
+        Mail::send('email.patient.account-set-password', ['id' => $id], function ($mail) use ($request) {
             $mail->from('no-reply@friendlycare.com');
             $mail->to([$request['email'], 'superadmin@fc.com'])->subject('Password Setup');
         });
