@@ -63,7 +63,7 @@ class FPMController extends Controller
 
         if ($pageid === '3') {
             $modernMethodWithAnswer = DB::table('fpm_type_service')
-                ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
+                ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', 'fpm_type_service.id')
                 ->where('fpm_type_service.patient_id', $id)
                 ->where('family_plan_type_subcategory.family_plan_type_id', 1);
@@ -73,7 +73,7 @@ class FPMController extends Controller
                 ->where('family_plan_type_subcategory.family_plan_type_id', 1);
 
             $permanentMethodWithAnswer = DB::table('fpm_type_service')
-                ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
+                ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', 'fpm_type_service.id')
                 ->where('fpm_type_service.patient_id', $id)
                 ->where('family_plan_type_subcategory.family_plan_type_id', 2);
@@ -83,7 +83,7 @@ class FPMController extends Controller
                 ->where('family_plan_type_subcategory.family_plan_type_id', 2);
 
             $naturalMethodWithAnswer = DB::table('fpm_type_service')
-                ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
+                ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', 'fpm_type_service.id')
                 ->where('fpm_type_service.patient_id', $id)
                 ->where('family_plan_type_subcategory.family_plan_type_id', 2);
