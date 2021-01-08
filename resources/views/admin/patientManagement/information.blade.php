@@ -103,7 +103,11 @@
                 </li>
               </ul>
             </div>
-            <div class="form__button form__button--start"><button class="button button--transparent button--noMargin">Delete account</button></div>
+              @if(Auth::user()->role_id = 1)
+              @foreach($details as $detail)
+            <div class="form__button form__button--start"><a href="{{ route('patientManagement.delete', $detail->id)}}"class="button button--transparent button--noMargin">Delete account</a></div>
+              @endforeach
+            @endif
           </form>
         </div>
 @endforeach

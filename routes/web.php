@@ -155,6 +155,7 @@ Route::group(['prefix' => 'chatbot'], static function () {
 Route::group(['prefix' => 'patient'], static function () {
     Route::get('/list', 'Admin\PatientManagementController@index')->name('patientManagement.index');
     Route::get('/information/{id}', 'Admin\PatientManagementController@information')->name('patientManagement.information');
+    Route::get('/delete/{id}', 'Admin\PatientManagementController@delete')->name('patientManagement.delete');
 });
     Route::get('/', 'HomeController@index')->name('home');
     // Route::get('/portal', '@')->name('adminLogin');

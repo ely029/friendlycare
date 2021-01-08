@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Support\Facades\DB;
 
 class PatientManagementController extends Controller
@@ -26,7 +27,7 @@ class PatientManagementController extends Controller
             ['id' => 6, 'question' => 'May miyembro ba ng iyong pamilya na nagkaron ng sumusunod na kapansanan:'],
             ['id' => 7, 'question' => 'Sumailalim o sasailalim ka ba sa isang major surgery?'],
         ];
-        $details = DB::table('users')->select('users.name', 'users.age', 'users.birth_date', 'users.gender', 'users.email')->where('id', $id)->get();
+        $details = DB::table('users')->select('users.id', 'users.name', 'users.age', 'users.birth_date', 'users.gender', 'users.email')->where('id', $id)->get();
         $fpm = DB::table('fpm_type_service')->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
             ->select('family_plan_type_subcategory.name')
             ->where('fpm_type_service.patient_id', $id)
@@ -35,5 +36,12 @@ class PatientManagementController extends Controller
         $personal_history = DB::table('patients')->select('civil_status', 'street_address', 'religion', 'occupation', 'city', 'province', 'monthly_income_1', 'city', 'province', 'barangay', 'no_of_living_children', 'do_you_have_plan_children')->where('user_id', $id)->get();
         $spouse = DB::table('spouses')->select('spouse_first_name', 'spouse_last_name', 'spouse_birth_date', 'spouse_occupation')->where('patient_id', $id)->get();
         return view('admin.patientManagement.information', ['details' => $details, 'fpm' => $fpm, 'question' => $questions, 'medical_history' => $medical_history, 'personal_history' => $personal_history, 'spouse' => $spouse]);
+    }
+
+    public function delete($id)
+    {
+        User::where('id', $id)->delete();
+
+        return redirect('patient/list');
     }
 }
