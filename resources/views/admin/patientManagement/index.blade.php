@@ -55,7 +55,7 @@
             </thead>
             <tbody>
               @foreach($details as $detail)
-              <tr class="table__row js-view" data-href="view-patient.html">
+              <tr class="table__row js-view" data-href="{{ route('patientManagement.information', $detail->id )}}">
                 <td class="table__details">{{ $detail->id }}</td>
                 <td class="table__details">{{ $detail->name }}</td>
                 <td class="table__details">{{ $detail->email}}</td>
