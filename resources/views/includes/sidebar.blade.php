@@ -77,7 +77,7 @@
             <h3 class="sidebar__title">Reports</h3>
             <ul class="sidebar__list">
               <li class="sidebar__item">
-                <a class="sidebar__link" href="bookings.php">
+                <a class="sidebar__link" href="{{ route('booking.index') }}">
                   <div class="sidebar__wrapper">
                     <img class="sidebar__icon" src="{{URL::asset('img/icon-bookings.png')}}" alt="Bookings icon for e-plano" />
                     <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-bookings-white.png')}}" alt="Bookings icon on hover for e-plano" />
