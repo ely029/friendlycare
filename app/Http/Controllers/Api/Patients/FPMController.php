@@ -38,6 +38,8 @@ class FPMController extends Controller
                 ['id' => 3, 'name1' => 'Current User'],
                 ['id' => 4, 'name1' => 'Restart'],
             ];
+            $fpm = DB::table('patients')->select('fpm_user_type')->where('user_id', $id)->pluck('fpm_user_type');
+            $answer1 = $fpm[0] - 1;
             $reason = DB::table('patients')->select('family_plan_reasons')->where('user_id', $id)->pluck('family_plan_reasons');
             $answer = $reason[0] - 1;
             return response([
