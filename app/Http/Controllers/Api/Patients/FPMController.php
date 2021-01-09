@@ -73,8 +73,7 @@ class FPMController extends Controller
             $modernMethod = DB::table('family_plan_type_subcategory')
                 ->leftJoin('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', 'fpm_type_service.id')
-                ->where('family_plan_type_subcategory.family_plan_type_id', 1)
-                ->where('fpm_type_service.service_id', null);
+                ->where('family_plan_type_subcategory.family_plan_type_id', 1);
 
             $permanentMethodWithAnswer = DB::table('family_plan_type_subcategory')
                 ->join('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
@@ -86,8 +85,7 @@ class FPMController extends Controller
             $permanentMethod = DB::table('family_plan_type_subcategory')
                 ->leftJoin('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', 'fpm_type_service.id')
-                ->where('family_plan_type_subcategory.family_plan_type_id', 2)
-                ->where('fpm_type_service.service_id', null);
+                ->where('family_plan_type_subcategory.family_plan_type_id', 2);
 
             $naturalMethodWithAnswer = DB::table('family_plan_type_subcategory')
                 ->join('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
@@ -99,8 +97,7 @@ class FPMController extends Controller
             $naturalMethod = DB::table('family_plan_type_subcategory')
                 ->leftJoin('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', 'fpm_type_service.id')
-                ->where('family_plan_type_subcategory.family_plan_type_id', 3)
-                ->where('fpm_type_service.service_id', null);
+                ->where('family_plan_type_subcategory.family_plan_type_id', 3);
 
             $joinModern = $modernMethod->union($modernMethodWithAnswer)->get();
             $joinPermanent = $permanentMethod->union($permanentMethodWithAnswer)->get();
