@@ -38,8 +38,6 @@ class FPMController extends Controller
                 ['id' => 3, 'name1' => 'Current User'],
                 ['id' => 4, 'name1' => 'Restart'],
             ];
-            $fpm = DB::table('patients')->select('fpm_user_type')->where('user_id', $id)->pluck('fpm_user_type');
-            $answer1 = $fpm[0] - 1;
             $reason = DB::table('patients')->select('family_plan_reasons')->where('user_id', $id)->pluck('family_plan_reasons');
             $answer = $reason[0] - 1;
             return response([
@@ -62,39 +60,46 @@ class FPMController extends Controller
         }
 
         if ($pageid === '3') {
-            $modernMethodWithAnswer = DB::table('fpm_type_service')
-                ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
+            $modernMethodWithAnswer = DB::table('family_plan_type_subcategory')
+                ->distinct('family_plan_type_subcategory.name')
+                ->join('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', 'fpm_type_service.id')
                 ->where('fpm_type_service.patient_id', $id)
                 ->where('family_plan_type_subcategory.family_plan_type_id', 1);
 
             $modernMethod = DB::table('family_plan_type_subcategory')
+                ->leftJoin('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', DB::raw('null'))
-                ->where('family_plan_type_subcategory.family_plan_type_id', 1);
+                ->where('family_plan_type_subcategory.family_plan_type_id', 1)
+                ->where('fpm_type_service.service_id', null);
 
-            $permanentMethodWithAnswer = DB::table('fpm_type_service')
-                ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
+            $permanentMethodWithAnswer = DB::table('family_plan_type_subcategory')
+                ->join('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', 'fpm_type_service.id')
                 ->where('fpm_type_service.patient_id', $id)
                 ->where('family_plan_type_subcategory.family_plan_type_id', 2);
 
             $permanentMethod = DB::table('family_plan_type_subcategory')
+                ->leftJoin('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', DB::raw('null'))
-                ->where('family_plan_type_subcategory.family_plan_type_id', 2);
+                ->where('family_plan_type_subcategory.family_plan_type_id', 2)
+                ->where('fpm_type_service.service_id', null);
 
-            $naturalMethodWithAnswer = DB::table('fpm_type_service')
-                ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
+            $naturalMethodWithAnswer = DB::table('family_plan_type_subcategory')
+                ->join('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', 'fpm_type_service.id')
                 ->where('fpm_type_service.patient_id', $id)
                 ->where('family_plan_type_subcategory.family_plan_type_id', 3);
 
             $naturalMethod = DB::table('family_plan_type_subcategory')
+                ->leftJoin('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', DB::raw('null'))
-                ->where('family_plan_type_subcategory.family_plan_type_id', 3);
+                ->where('family_plan_type_subcategory.family_plan_type_id', 3)
+                ->where('fpm_type_service.service_id', null);
 
-            $joinModern = $modernMethodWithAnswer->union($modernMethod)->distinct('family_plan_type_subcategory.name')->get();
-            $joinPermanent = $permanentMethodWithAnswer->union($permanentMethod)->distinct('family_plan_type_subcategory.name')->get();
-            $joinNatural = $naturalMethodWithAnswer->union($naturalMethod)->distinct('family_plan_type_subcategory.name')->get();
+            $joinModern = $modernMethodWithAnswer->union($modernMethod)->get();
+            $joinPermanent = $permanentMethodWithAnswer->union($permanentMethod)->get();
+            $joinNatural = $naturalMethodWithAnswer->union($naturalMethod)->get();
 
             return response([
                 'name' => 'fpmUserType',
