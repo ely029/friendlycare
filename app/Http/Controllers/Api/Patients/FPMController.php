@@ -67,6 +67,7 @@ class FPMController extends Controller
                 ->join('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', 'fpm_type_service.id')
                 ->where('fpm_type_service.patient_id', $id)
+                ->where('fpm_type_service.id', '<>', null)
                 ->where('family_plan_type_subcategory.family_plan_type_id', 1);
 
             $modernMethod = DB::table('family_plan_type_subcategory')
@@ -79,6 +80,7 @@ class FPMController extends Controller
                 ->join('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', 'fpm_type_service.id')
                 ->where('fpm_type_service.patient_id', $id)
+                ->where('fpm_type_service.id', '<>', null)
                 ->where('family_plan_type_subcategory.family_plan_type_id', 2);
 
             $permanentMethod = DB::table('family_plan_type_subcategory')
@@ -91,6 +93,7 @@ class FPMController extends Controller
                 ->join('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', 'fpm_type_service.id')
                 ->where('fpm_type_service.patient_id', $id)
+                ->where('fpm_type_service.id', '<>', null)
                 ->where('family_plan_type_subcategory.family_plan_type_id', 3);
 
             $naturalMethod = DB::table('family_plan_type_subcategory')
