@@ -89,7 +89,7 @@ class FPMController extends Controller
                 ->where('family_plan_type_subcategory.is_approve', 1)
                 ->where('family_plan_type_subcategory.family_plan_type_id', 3);
             $naturalMethod = DB::table('family_plan_type_subcategory')
-            ->leftJoin('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
+                ->leftJoin('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', DB::raw('null as id'))
                 ->where('family_plan_type_subcategory.family_plan_type_id', 3)
                 ->where('family_plan_type_subcategory.is_approve', 1)
