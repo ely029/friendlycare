@@ -62,8 +62,8 @@ class FPMController extends Controller
                 ->join('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
                 ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', 'fpm_type_service.id as id')
                 ->where('fpm_type_service.patient_id', $id)
-                ->where('family_plan_type_subcategory.is_approve', 1)
                 ->where('fpm_type_service.id', '<>', null)
+                ->where('family_plan_type_subcategory.is_approve', 1)
                 ->where('family_plan_type_subcategory.family_plan_type_id', 1);
             $modernMethod = DB::table('family_plan_type_subcategory')
                 ->leftJoin('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
@@ -97,9 +97,9 @@ class FPMController extends Controller
                 ->where('family_plan_type_subcategory.family_plan_type_id', 3)
                 ->where('family_plan_type_subcategory.is_approve', 1)
                 ->where('fpm_type_service.service_id', null);
-            $joinModern = $modernMethod->union($modernMethodWithAnswer)->get();
-            $joinPermanent = $permanentMethod->union($permanentMethodWithAnswer)->get();
-            $joinNatural = $naturalMethod->union($naturalMethodWithAnswer)->get();
+            $joinModern = $modernMethodWithAnswer->union($modernMethod)->get();
+            $joinPermanent = $permanentMethodWithAnswer->union($permanentMethod)->get();
+            $joinNatural = $naturalMethodWithAnswer->union($naturalMethod)->get();
             return response([
                 'name' => 'fpmUserType',
                 'modernMethod' => $joinModern,
