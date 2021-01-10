@@ -134,7 +134,7 @@ class FPMController extends Controller
 
         if ($pageid === '3') {
             $number = count($obj['methods']) - 1;
-            // FpmTypeService::where('patient_id', $id)->delete();
+            FpmTypeService::where('patient_id', $id)->delete();
             for ($eee = 0; $eee <= $number;$eee++) {
                 FpmTypeService::create([
                     'service_id' => $obj['methods'][$eee],
