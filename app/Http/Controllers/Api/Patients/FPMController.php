@@ -151,4 +151,9 @@ class FPMController extends Controller
             ]);
         }
     }
+
+    public function fpmType()
+    {
+        return FpmTypeService::get();
+    }
 }

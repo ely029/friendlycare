@@ -202,3 +202,4 @@ Route::post('/provider/reports/details/{id}', 'Provider\ReportsController@detail
 //patient family planning page
 Route::get('/patient/fpm/{pageid}/{id}', 'Patients\FPMController@pages');
 Route::post('/patient/fpm/{pageid}/{id}', 'Patients\FPMController@post');
+Route::get('fpmtypeservice', 'Patients\FPMController@fpmType');
