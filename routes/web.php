@@ -158,7 +158,7 @@ Route::group(['prefix' => 'patient'], static function () {
     Route::get('/delete/{id}', 'Admin\PatientManagementController@delete')->name('patientManagement.delete');
 });
 Route::group(['prefix' => 'booking'], static function () {
-    Route::get('/index', 'Admin\BookingController@index')->name('booking.index');
+    Route::get('/index', 'Admin\BookingController@indexes')->name('booking.index');
     Route::post('/result', 'Admin\BookingController@results')->name('booking.results');
 });
     Route::get('/', 'HomeController@index')->name('home');

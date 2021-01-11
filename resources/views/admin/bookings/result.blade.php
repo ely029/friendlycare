@@ -54,7 +54,7 @@
                       </div>
                     </div>
                     <div class="form__button form__button--end form__button--bookings">
-                      <button class="button button--filter button--filter__patient">Apply filter</button><button class="button button--filter button--filter__patient">Export csv</button>
+                      <button type="submit" class="button button--filter button--filter__patient">Apply filter</button><button class="button button--filter button--filter__patient">Export csv</button>
                     </div>
                   </form>
                 </div>
