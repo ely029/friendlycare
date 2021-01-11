@@ -115,17 +115,17 @@ class FPMController extends Controller
         $check = DB::table('fpm_type_service')->select('id')->where('patient_id', $id)->count();
         if ($check < 1) {
             $modernMethod = DB::table('family_plan_type_subcategory')
-                ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', 'fpm_type_service.is_checked')
+                ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', DB::raw('null as is_checked'))
                 ->where('family_plan_type_subcategory.family_plan_type_id', 1)
                 ->where('family_plan_type_subcategory.is_approve', 1)
                 ->get();
             $permanentMethod = DB::table('family_plan_type_subcategory')
-                ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', 'fpm_type_service.is_checked')
+                ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', DB::raw('null as is_checked'))
                 ->where('family_plan_type_subcategory.family_plan_type_id', 2)
                 ->where('family_plan_type_subcategory.is_approve', 1)
                 ->get();
             $naturalMethod = DB::table('family_plan_type_subcategory')
-                ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', 'fpm_type_service.is_checked')
+                ->select('family_plan_type_subcategory.id as fpm_id', 'family_plan_type_subcategory.name', DB::raw('null as is_checked'))
                 ->where('family_plan_type_subcategory.family_plan_type_id', 3)
                 ->where('family_plan_type_subcategory.is_approve', 1)
                 ->get();
