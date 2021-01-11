@@ -120,7 +120,6 @@ class FPMController extends Controller
                 ->where('family_plan_type_subcategory.family_plan_type_id', 1)
                 ->where('family_plan_type_subcategory.is_approve', 1)
                 ->where('fpm_type_service.is_checked', null)
-                ->where('fpm_type_service.patient_id', null)
                 ->get();
             $permanentMethod = DB::table('family_plan_type_subcategory')
                 ->leftJoin('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
@@ -128,7 +127,6 @@ class FPMController extends Controller
                 ->where('family_plan_type_subcategory.family_plan_type_id', 2)
                 ->where('family_plan_type_subcategory.is_approve', 1)
                 ->where('fpm_type_service.is_checked', null)
-                ->where('fpm_type_service.patient_id', null)
                 ->get();
             $naturalMethod = DB::table('family_plan_type_subcategory')
                 ->leftJoin('fpm_type_service', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
@@ -136,7 +134,6 @@ class FPMController extends Controller
                 ->where('family_plan_type_subcategory.family_plan_type_id', 3)
                 ->where('family_plan_type_subcategory.is_approve', 1)
                 ->where('fpm_type_service.is_checked', null)
-                ->where('fpm_type_service.patient_id', null)
                 ->get();
             $joinModern = $modernMethod;
             $joinPermanent = $permanentMethod;
