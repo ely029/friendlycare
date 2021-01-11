@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
-use App\Clinics;
 use App\FamilyPlanTypeSubcategories;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +13,11 @@ class BookingController extends Controller
     public function index()
     {
         $services = FamilyPlanTypeSubcategories::where('is_approve', 1)->get();
-        $clinics = Clinics::where('is_approve', 1)->get();
+        $clinics = DB::table('clinics')
+            ->select('clinics.id', 'clinics.clinic_name')
+            ->where('clinics.email', '<>', 'null')
+            ->where('clinics.is_approve', '<>', 0)
+            ->get();
         return view('admin.bookings.index', ['services' => $services, 'clinics' => $clinics]);
     }
 
