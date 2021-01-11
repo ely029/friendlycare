@@ -3,9 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\FpmTypeService;
 
-class DeleteFpmTypeService extends Migration
+class DeleteFpmTypeService2 extends Migration
 {
     /**
      * Run the migrations.
