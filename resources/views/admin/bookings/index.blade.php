@@ -35,7 +35,7 @@
                         </select>
                       </div>
                       <div class="form__content">
-                        <select class="form__input form__input--select form__input--border form__input--border__age">
+                        <select name="service_id" class="form__input form__input--select form__input--border form__input--border__age">
                           <option disabled selected>Availed Services</option>
                           @foreach($services as $service)
                           <option value="{{ $service->id}}">{{ $service->name}} </option>
