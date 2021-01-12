@@ -32,14 +32,14 @@
                 </li>
                 <li class="form__group-item">
                   <h2 class="section__heading">Effectiveness (in percent)</h2>
-                  <div class="form__content form__content--full"><input class="form__input" type="text" name="percent_effective" value="{{ old('percent_effective') }}" placeholder="Sa tamang paggamit*" required /><label class="form__label">Sa tamang paggamit* </label></div>
-                  <div class="form__content form__content--full"><input class="form__input" type="text" name="typical_validity" value="{{ old('typical_validity') }}"placeholder="Tipikal na bisa*" required /><label class="form__label">Tipikal na bisa* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" name="percent_effective" value="{{ old('percent_effective') }}" placeholder="Sa tamang paggamit*" /><label class="form__label">Sa tamang paggamit* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" name="typical_validity" value="{{ old('typical_validity') }}"placeholder="Tipikal na bisa*" /><label class="form__label">Tipikal na bisa* </label></div>
                 </li>
               </ul>
               <ul class="form__group">
                 <li class="form__group-item">
-                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Method name*" name="name" value="{{ old('name') }}" required /><label class="form__label">Method name* </label></div>
-                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Short name*" short_name" value="{{ old('short_name') }}" required /><label class="form__label">Short name* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Method name*" name="name" value="{{ old('name') }}"  /><label class="form__label">Method name* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Short name*" short_name" value="{{ old('short_name') }}"  /><label class="form__label">Short name* </label></div>
                   <div class="form__content form__content--full">
                     <select name="family_plan_type_id" class="form__input form__input--select">
                          <option value="">Select Method...</option>
