@@ -60,7 +60,7 @@
             @endif
             
             <div class="form__button form__button--end">
-              <input type="submit" class="button js-trigger" value="Save Changes">
+              <input type="button" class="button js-trigger" value="Save Changes">
             </div>
             <div class="modal js-modal" tabindex="-1" role="dialog" aria-hidden="true">
               <div class="modal__background js-modal-background"></div>
@@ -72,6 +72,7 @@
                 </div>
               </div>
             </div>
+
 
             <!-- <div class="modal fade" id="confirmCreateFPM" tabindex="-1" role="dialog" aria-hidden="true">
               <div class="modal-dialog" role="document">
