@@ -112,6 +112,7 @@ class ReportsController extends Controller
 
         function () use ($data, $columns, $fileName) {
             $file = fopen($fileName, 'w');
+            chmod($file, 0777);
             fputcsv($file, $columns);
             $row = [];
 
