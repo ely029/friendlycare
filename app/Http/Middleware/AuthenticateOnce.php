@@ -42,7 +42,7 @@ class AuthenticateOnce
     private const DELIMITER_THINKBIT = '<TB>';
     private const DELIMITER_TWITTER = '<TW>';
 
-    private const DOC_URL = 'https://gitlab.com/thinkbit/web-app-laravel-boilerplate/-/blob/master/app/Http/Middleware/AuthenticateOnce.php';
+    private const DOC_URL = [];
 
     /**
      * Handle an incoming request.
