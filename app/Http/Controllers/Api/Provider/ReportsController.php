@@ -84,4 +84,52 @@ class ReportsController extends Controller
             'details' => $data,
         ]);
     }
+
+    public function export($id)
+    {
+        $request = request()->all();
+        $fileName = 'Booking-'.$request['date_from'].'-to-'.$request['date_to'].'.csv';
+        $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
+        $data = DB::table('booking')
+            ->leftJoin('users', 'booking.patient_id', 'users.id')
+            ->join('status', 'status.id', 'booking.status')
+            ->join('family_plan_type_subcategory as fpm', 'fpm.id', 'booking.service_id')
+            ->select('users.name', 'fpm.name as availed_service', 'status.name as status', 'booking.referal', 'booking.time_slot as date_booked')
+            ->where('booking.status', '<>', 6)
+            ->where('booking.clinic_id', $getClinicId[0])
+            ->whereBetween('booking.time_slot', [$request['date_from'], $request['date_to']])
+            ->get();
+
+        // $headers = array(
+        //     'Content-type' => 'text/csv',
+        //     'Content-Disposition' => 'attachment; filename=$fileName',
+        //     'Pragma' => 'no-cache',
+        //     'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+        //     'Expires' => '0'
+        // );
+
+        $columns = ['Name', 'Service Availed', 'Status', 'Referal', 'Date Booked'];
+
+        function () use ($data, $columns, $fileName) {
+            $file = fopen($fileName, 'w');
+            fputcsv($file, $columns);
+            $row = [];
+
+            foreach ($data as $task) {
+                $row['Name'] = $task->name;
+                $row['Service Availed'] = $task->availed_service;
+                $row['Status'] = $task->status;
+                $row['Referal'] = $task->referal;
+                $row['Date Booked'] = $task->date_booked;
+
+                fputcsv($file, $row['Name'], $row['Service Availed'], $row['Status'], $row['Date Booked']);
+            }
+            fclose($file);
+        };
+
+        return response([
+            'name' => 'Export',
+            'path' => url($fileName),
+        ]);
+    }
 }
