@@ -32,17 +32,19 @@
               </li>
             </ul>
             <div class="form__button form__button--end"><input type="button" value="Submit" class="button js-trigger"></div>
-          </form>
-          <div class="modal js-modal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal__background js-modal-background"></div>
-            <div class="modal__container">
-              <div class="modal__box">
-                <h2 class="modal__title">Success!</h2>
-                <p class="modal__text">Your message will be sent on (start-date), (time).</p>
-                <div class="modal__button modal__button--center"><input class="button button--medium" type="submit" value="Confirm"></div>
+
+            <div class="modal js-modal" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal__background js-modal-background"></div>
+              <div class="modal__container">
+                <div class="modal__box">
+                  <h2 class="modal__title">Success!</h2>
+                  <p class="modal__text">Your message will be sent on (start-date), (time).</p>
+                  <div class="modal__button modal__button--center"><input class="button button--medium" type="submit" value="Confirm"></div>
+                </div>
               </div>
             </div>
-          </div>
+          </form>
+          
         </div>
       </div>
 @endforeach
