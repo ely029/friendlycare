@@ -151,8 +151,6 @@ class UserManagementController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required',
-            'professions' => 'required',
-            'trainings' => 'required',
         ]);
 
         if ($validator->fails()) {
