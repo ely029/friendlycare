@@ -23,8 +23,8 @@
 
 <script type="text/javascript">
 $(function(){
-    $('#export_booking').click(function(e){
-        e.preventDefault();
+    $('#export_booking').click(function(eee){
+        eee.preventDefault();
         var e = window.confirm('The reports are already generated');
     if (e) {
          window.location.href = "{{ route('booking.export')}}?date_from="+$('#date-from').val()+"&date_to="+$("#date-to").val()+"&clinic="+$("#clinic_id").val()+"&status="+$("#status").val()+"";
