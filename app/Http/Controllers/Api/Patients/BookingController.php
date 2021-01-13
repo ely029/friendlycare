@@ -510,6 +510,7 @@ class BookingController extends Controller
     public function postConfirmService(Request $request, $id)
     {
         print_r(env('BP_FIREBASE_SERVER_KEY'));
+        exit;
         $obj = json_decode($request->getContent(), true);
         DB::update('update booking set service_id = ?, status = ? where id = ?', [$obj['service'][0], 4, $id]);
         $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
