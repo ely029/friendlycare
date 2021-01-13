@@ -23,13 +23,6 @@
 
 <script type="text/javascript">
 $(function(){
-    $('#export_booking').on("click", function(eee){
-        eee.preventDefault();
-        var ely = confirm('The reports are already generated');
-    if (ely == true) {
-         window.location.href = "{{ route('booking.export')}}?date_from="+$('#date-from').val()+"&date_to="+$("#date-to").val()+"&clinic="+$("#clinic_id").val()+"&status="+$("#status").val()+"";
-       }
-   });
     $('.add-response-option2').hide();
    $('.add-response-chatbot').click(function(){
        $('#add-response-option-create').clone().appendTo($('#add-response-option-create1'));
@@ -188,6 +181,14 @@ $.ajax({
                $('#barangay').append('<option value='+item.code+'>'+item.name+'</option>');
             });
         });      
+   });
+
+   $('#export_booking').on('click', function(eee){
+        eee.preventDefault();
+        var ely = confirm('The reports are already generated');
+    if (ely == true) {
+         window.location.href = "{{ route('booking.export')}}?date_from="+$('#date-from').val()+"&date_to="+$("#date-to").val()+"&clinic="+$("#clinic_id").val()+"&status="+$("#status").val()+"";
+       }
    });
 });
 </script>
