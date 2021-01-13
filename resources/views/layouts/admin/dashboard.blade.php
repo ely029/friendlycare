@@ -84,17 +84,17 @@ $(function(){
    });
 
    //load the provinces upon page loading
-   $.ajax({
-            type: "GET",
-            url: "{{ route('provider.province')}}",
-            data: { region: $('#region').val()}
-        })
-        .done(function( data ) {
-            $("#province").empty();
-            jQuery.each(data, function(index, item) {
-               $('#province').append('<option value='+item.id+'>'+item.name+'</option>');
-            });
-        });
+//    $.ajax({
+//             type: "GET",
+//             url: "{{ route('provider.province')}}",
+//             data: { region: $('#region').val()}
+//         })
+//         .done(function( data ) {
+//             $("#province").empty();
+//             jQuery.each(data, function(index, item) {
+//                $('#province').append('<option value='+item.id+'>'+item.name+'</option>');
+//             });
+//         });
 });
 </script>
 
