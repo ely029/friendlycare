@@ -509,6 +509,7 @@ class BookingController extends Controller
 
     public function postConfirmService(Request $request, $id)
     {
+        dd(env('BP_FIREBASE_SERVER_KEY'));
         $obj = json_decode($request->getContent(), true);
         DB::update('update booking set service_id = ?, status = ? where id = ?', [$obj['service'][0], 4, $id]);
         $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
@@ -530,6 +531,10 @@ class BookingController extends Controller
             'status' => 4,
             'booking_id' => $id,
         ]);
+        FpmTypeService::create([
+            'service_id' => $getServiceId[0],
+            'patient_id' => $getPatientId[0],
+        ]);
         $user = DB::table('users')->select('fcm_notification_key')->where('id', $getPatientId[0])->pluck('fcm_notification_key');
         $fcmurl = 'https://fcm.googleapis.com/fcm/send';
         $token = $user[0];
@@ -541,10 +546,6 @@ class BookingController extends Controller
             'priority' => 'high',
             'contentAvailable' => true,
         ];
-        FpmTypeService::create([
-            'service_id' => $getServiceId[0],
-            'patient_id' => $getPatientId[0],
-        ]);
         $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
         $fcmNotification = [
             'to' => $token,
