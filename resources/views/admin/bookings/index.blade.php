@@ -55,7 +55,7 @@
                     </div>
                     <div class="form__button form__button--end form__button--bookings">
                       <button type="submit" class="button button--filter button--filter__patient">Apply filter</button>            
-                      <input type="button" class="button button--filter button--filter__patient" id="export_booking" value="Export CSV"/>
+                      <button class="button button--filter button--filter__patient" id="export_booking">Export CSV</button>
                     </div>
                   </form>
                 </div>
