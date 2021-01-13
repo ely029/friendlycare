@@ -35,7 +35,7 @@
                         </select>
                       </div>
                       <div class="form__content">
-                        <select name="service_id" id="service_id" class="form__input form__input--select form__input--border form__input--border__age">
+                        <select name="service_id" id="service" class="form__input form__input--select form__input--border form__input--border__age">
                           <option disabled selected>Availed Services</option>
                           @foreach($services as $service)
                           <option value="{{ $service->id}}">{{ $service->name}} </option>
@@ -55,7 +55,7 @@
                     </div>
                     <div class="form__button form__button--end form__button--bookings">
                       <button type="submit" class="button button--filter button--filter__patient">Apply filter</button>            
-                      <a  href="#" type="button" class="button button--filter button--filter__patient" id="export_booking">Export CSV</a>
+                      <a  href="#" type="button" class="button button--filter button--filter__patient export_booking">Export CSV</a>
                     </div>
                   </form>
                 </div>

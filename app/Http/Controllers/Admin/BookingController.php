@@ -85,6 +85,6 @@ class BookingController extends Controller
     {
         $request = request()->all();
         $fileName = 'Admin-Booking-Report-'.$request['date_from'].'-to-'.$request['date_to'].'.csv';
-        return Excel::download(new AdminBookingExport($request['date_from'] ?? '0000-00-00', $request['date_to'] ?? '0000-00-00', $request['clinic'] ?? '0', $request['status'] ?? '0'), $fileName);
+        return Excel::download(new AdminBookingExport($request['date_from'] ?? '0000-00-00', $request['date_to'] ?? '0000-00-00', $request['clinic'] ?? '0', $request['status'] ?? '0', $request['service'] ?? '0'), $fileName);
     }
 }

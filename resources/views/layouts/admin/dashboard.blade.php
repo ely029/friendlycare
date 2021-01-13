@@ -187,11 +187,11 @@ $.ajax({
 @else
 <script type="text/javascript">
 $(function(){
-    $('#export_booking').on('click', function(eee){
+    $('.export_booking').on('click', function(eee){
         eee.preventDefault();
         var ely = confirm('The reports are already generated');
     if (ely == true) {
-         window.location.href = "{{ route('booking.export')}}?date_from="+$('#date-from').val()+"&date_to="+$("#date-to").val()+"&clinic="+$("#clinic_id").val()+"&status="+$("#status").val()+"";
+         window.location.href = "{{ route('booking.export')}}?date_from="+$('#date-from').val()+"&date_to="+$("#date-to").val()+"&clinic="+$("#clinic_id").val()+"&status="+$("#status").val()+"&service="+$('#service').val()+"";
        }
    });
     $('.add-response-option2').hide();

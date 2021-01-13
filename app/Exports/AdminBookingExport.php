@@ -22,12 +22,13 @@ class AdminBookingExport implements FromCollection, WithHeadings
     private $clinicId;
     private $status;
 
-    public function __construct(string $dateFrom, string $dateTo, string $clinicId, string $status)
+    public function __construct(string $dateFrom, string $dateTo, string $clinicId, string $status, string $service)
     {
         $this->dateFrom = $dateFrom;
         $this->dateTo = $dateTo;
         $this->clinicId = $clinicId;
         $this->status = $status;
+        $this->service = $service;
     }
 
     public function headings(): array
@@ -44,6 +45,7 @@ class AdminBookingExport implements FromCollection, WithHeadings
             ->select('users.name', 'fpm.name as availed_service', 'status.name as status', 'booking.referal', 'booking.time_slot as date_booked')
             ->where('booking.status', $this->status)
             ->where('booking.clinic_id', $this->clinicId)
+            ->where('booking.service_id', $this->service)
             ->whereBetween('booking.time_slot', [$this->dateFrom, $this->dateTo])
             ->get();
     }
