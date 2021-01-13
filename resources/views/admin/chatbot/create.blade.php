@@ -50,31 +50,32 @@
                 <label class="form__label">Link to fieldset*</label>
               </div>
               <div class="form__button form__button--end">
-                <button class="button button--medium js-delete-response js-trigger" type="button">Delete response</button><button class="button button--medium js-add-response add-response-chatbot" type="button">Add response</button>
+                <input class="button button--medium js-delete-response" type="button" data-toggle="modal" data-target="#js-delete-response-modal" value="Delete response"><button class="button button--medium js-add-response add-response-chatbot" type="button">Add response</button>
               </div>
             </div>
-            <div class="form__button form__button--end"><button class="button" type="submit">Save changes</button></div>
+            <div class="form__button form__button--end"><input class="button js-trigger" type="button" value="Submit"></div>
+            <div class="modal js-modal" id="js-delete-response-modal">
+              <div class="modal__background js-modal-background"></div>
+              <div class="modal__container">
+                <div class="modal__box">
+                  <h2 class="modal__title">Delete response?</h2>
+                  <p class="modal__text">Are you sure you want to delete this response?</p>
+                  <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium button--medium__delete" type="button">Delete response</button></div>
+                </div>
+              </div>
+            </div>
+            <div class="modal js-modal">
+              <div class="modal__background js-modal-background"></div>
+              <div class="modal__container">
+                <div class="modal__box">
+                  <h2 class="modal__title">Save changes?</h2>
+                  <p class="modal__text">All changes will update the version of the app. Are you sure you want to Save?</p>
+                  <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium" type="button">Save changes</button></div>
+                </div>
+              </div>
+            </div>
           </form>
-          <div class="modal js-modal">
-            <div class="modal__background js-modal-background"></div>
-            <div class="modal__container">
-              <div class="modal__box">
-                <h2 class="modal__title">Delete response?</h2>
-                <p class="modal__text">Are you sure you want to delete this response?</p>
-                <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium button--medium__delete" type="button">Delete response</button></div>
-              </div>
-            </div>
-          </div>
-          <div class="modal js-modal">
-            <div class="modal__background js-modal-background"></div>
-            <div class="modal__container">
-              <div class="modal__box">
-                <h2 class="modal__title">Save changes?</h2>
-                <p class="modal__text">All changes will update the version of the app. Are you sure you want to Save?</p>
-                <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium" type="button">Save changes</button></div>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
 
