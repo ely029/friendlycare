@@ -23,7 +23,7 @@
 
 <script type="text/javascript">
 $(function(){
-    $('#export_booking').click(function(eee){
+    $('#export_booking').on("click", function(eee){
         eee.preventDefault();
         var e = window.confirm('The reports are already generated');
     if (e) {
