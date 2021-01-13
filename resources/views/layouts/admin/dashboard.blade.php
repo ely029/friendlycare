@@ -25,10 +25,10 @@
 $(function(){
     $('#export_booking').on("click", function(eee){
         eee.preventDefault();
-        var e = window.confirm('The reports are already generated');
-    if (e) {
+        var ely = confirm('The reports are already generated');
+    if (ely == true) {
          window.location.href = "{{ route('booking.export')}}?date_from="+$('#date-from').val()+"&date_to="+$("#date-to").val()+"&clinic="+$("#clinic_id").val()+"&status="+$("#status").val()+"";
-       }  
+       }
    });
     $('.add-response-option2').hide();
    $('.add-response-chatbot').click(function(){
