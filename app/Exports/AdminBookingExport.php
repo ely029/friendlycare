@@ -21,6 +21,7 @@ class AdminBookingExport implements FromCollection, WithHeadings
     private $dateTo;
     private $clinicId;
     private $status;
+    private $service;
 
     public function __construct(string $dateFrom, string $dateTo, string $clinicId, string $status, string $service)
     {
