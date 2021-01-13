@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\AdminBookingExport;
 use App\FamilyPlanTypeSubcategories;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BookingController extends Controller
 {
@@ -77,5 +79,12 @@ class BookingController extends Controller
             'service' => $service,
             'details' => $details,
         ]);
+    }
+
+    public function export()
+    {
+        $request = request()->all();
+        $fileName = 'Admin-Booking-Report-'.$request['date_from'].'-to-'.$request['date_to'].'.csv';
+        return Excel::download(new AdminBookingExport($request['date_from'], $request['date_to'], $request['clinic'], $request['status']), $fileName);
     }
 }

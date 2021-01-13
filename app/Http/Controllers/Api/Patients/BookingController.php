@@ -8,6 +8,7 @@ use App\Booking;
 use App\BookingTime;
 use App\ClinicService;
 use App\EventsNotification;
+use App\FpmTypeService;
 use App\Http\Controllers\Controller;
 use App\Patients;
 use App\PatientTimeSlot;
@@ -513,6 +514,7 @@ class BookingController extends Controller
         $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
         $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
         $getPatientId = DB::table('booking')->select('patient_id')->where('id', $id)->pluck('patient_id');
+        $getServiceId = DB::table('booking')->select('service_id')->where('id', $id)->pluck('service_id');
         $message = $getClinicName[0];
         $getClinicEmail = DB::table('clinics')->select('email')->where('id', $getClinicId[0])->pluck('email');
         Mail::send('email.patient.provider.provider-complete-booking', [], function ($mail) use ($getClinicEmail) {
@@ -539,6 +541,10 @@ class BookingController extends Controller
             'priority' => 'high',
             'contentAvailable' => true,
         ];
+        FpmTypeService::create([
+            'service_id' => $getServiceId[0],
+            'patient_id' => $getPatientId[0],
+        ]);
         $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
         $fcmNotification = [
             'to' => $token,

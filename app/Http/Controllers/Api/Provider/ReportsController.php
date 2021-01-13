@@ -91,7 +91,7 @@ class ReportsController extends Controller
     public function export($id)
     {
         $request = request()->all();
-        $fileName = 'Booking-'.$request['date_from'].'-to-'.$request['date_to'].'.csv';
+        $fileName = 'Booking-Report'.$request['date_from'].'-to-'.$request['date_to'].'.csv';
         $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
 
         return Excel::download(new BookingProviderExport($request['date_from'], $request['date_to'], $getClinicId[0]), $fileName);
