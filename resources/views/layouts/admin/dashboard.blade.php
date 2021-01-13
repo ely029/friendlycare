@@ -21,6 +21,7 @@
 <!-- <script src="https://cdn.tiny.cloud/1/yjtil7vjw9cus6nrlnbphyor2ey71lojenzvv4yqmy0luh43/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
 <script src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations-v1.0.0.js"></script>
 
+@if(Route::currentRouteName() == 'providerCreateFirstPage')
 <script type="text/javascript">
 $(function(){
     $('.add-response-option2').hide();
@@ -84,20 +85,19 @@ $(function(){
    });
 
    //load the provinces upon page loading
-//    $.ajax({
-//             type: "GET",
-//             url: "{{ route('provider.province')}}",
-//             data: { region: $('#region').val()}
-//         })
-//         .done(function( data ) {
-//             $("#province").empty();
-//             jQuery.each(data, function(index, item) {
-//                $('#province').append('<option value='+item.id+'>'+item.name+'</option>');
-//             });
-//         });
+   $.ajax({
+            type: "GET",
+            url: "{{ route('provider.province')}}",
+            data: { region: $('#region').val()}
+        })
+        .done(function( data ) {
+            $("#province").empty();
+            jQuery.each(data, function(index, item) {
+               $('#province').append('<option value='+item.id+'>'+item.name+'</option>');
+            });
+        });
 });
 </script>
-
 <script type="text/javascript">
 $('document').ready(function(){
 $.ajax({
@@ -182,14 +182,78 @@ $.ajax({
             });
         });      
    });
-
-   $('#export_booking').on('click', function(eee){
+});
+</script>
+@else
+<script type="text/javascript">
+$(function(){
+    $('#export_booking').on('click', function(eee){
         eee.preventDefault();
         var ely = confirm('The reports are already generated');
     if (ely == true) {
          window.location.href = "{{ route('booking.export')}}?date_from="+$('#date-from').val()+"&date_to="+$("#date-to").val()+"&clinic="+$("#clinic_id").val()+"&status="+$("#status").val()+"";
        }
    });
+    $('.add-response-option2').hide();
+   $('.add-response-chatbot').click(function(){
+       $('#add-response-option-create').clone().appendTo($('#add-response-option-create1'));
+   });
+   $('.js-add-response1').click(function(){
+      $('#add-response-option').clone().appendTo($('#add-response-option1'));
+   });
+    $('#provider_information_checkbox').change(function(){
+      if(this.checked) {
+        $.ajax({
+            type: "GET",
+            url: "{{ route('provider.enableProvider')}}",
+            data: { id: $('#provider_id').val()}
+        })
+        .done(function( msg ) {
+            console.log('activated')
+        }); 
+      } else {
+        $.ajax({
+            type: "GET",
+            url: "{{ route('provider.disableProvider')}}",
+            data: { id: $('#provider_id').val()}
+        })
+        .done(function( msg ) {
+            console.log('deactivated')
+        }); 
+      }
+   });
+    $('#js-consent-form').show();
+    $('#js-consent-form2').hide();
+   $('.rateYo').rateYo({
+    normalFill: "#F0F0F0",
+    ratedFill: "#B964C4",
+    readOnly: true,
+    rating: $('.provider_rate').val()
+   });
+   $('#rateYo').rateYo({
+    normalFill: "#F0F0F0",
+    ratedFill: "#B964C4",
+    readOnly: true,
+    rating: $('#rate').val()
+   });
+   $("#dropzoneDragArea").dropzone({ url: "/file/post" });
+   if($('#js-schedule-1').val() == 'Post Now') {
+       $('.js-scheduled-content-1').hide();
+   } else {
+       $('.js-scheduled-content-1').show();
+   }
+
+   $('#js-schedule-1').change(function(){
+       if($('#js-schedule-1').val() == 'Scheduled') {
+        $('.js-scheduled-content-1').show();
+       } else {
+        $('.js-scheduled-content-1').hide();
+       }
+   });   
+   $('.js-add-section1').click(function(){
+       $('#js-consent-form2').show();
+   });
 });
 </script>
+@endif
 @endpush
