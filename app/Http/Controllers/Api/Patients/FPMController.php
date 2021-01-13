@@ -41,6 +41,7 @@ class FPMController extends Controller
             $answer1 = $fpm[0] - 1;
             $reason = DB::table('patients')->select('family_plan_reasons')->where('user_id', $id)->pluck('family_plan_reasons');
             $answer = $reason[0] - 1;
+            $date_time = DB::table('fpm_type_service')->select('updated_at')->where('patient_id', $id)->pluck('updated_at');
             return response([
                 'name' => 'fpmUserType',
                 'answer' => true,
@@ -48,6 +49,7 @@ class FPMController extends Controller
                 'services' => $services,
                 'reasons' => $reasons[$answer]['name'],
                 'fpm_type' => $fpms[$answer1]['name1'],
+                'date_time' => $date_time[0] ?? '',
             ]);
         }
         if ($pageid === '2') {
