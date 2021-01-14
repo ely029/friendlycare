@@ -89,6 +89,15 @@
                  </select>
                  <label class="form__label">Category*</label>
                  </div>
+                 @else
+                 <div class="form__content"> 
+                 <select name="type" class="form__input form__input--select">
+                 <option value="1">Private</option>
+                 <option value="2">Government</option>
+                 <option value="3">NGO</option>
+                 </select>
+                 <label class="form__label">Category*</label>
+                 </div>
                  @endif
                 <div class="form__content">
                   <select class="form__input form__input--select" id="province"></select>

@@ -216,6 +216,7 @@ class ProviderManagementController extends Controller
                 ]);
             }
         }
+        $this->pushNotification($request['clinic_id']);
         if ($requests->file('gallery') !== null) {
             ClinicGallery::where('clinic_id', $request['clinic_id'])->delete();
 
@@ -264,7 +265,6 @@ class ProviderManagementController extends Controller
             'paid_service' => $request['paid'],
             'philhealth_accredited_1' => $request['philhealth_accredited_1'],
         ]);
-        $this->pushNotification($request['clinic_id']);
         ProviderNotifications::create([
             'title' => 'Clinic Information are updated',
             'message' => 'Your clinic had updated some of the information.',
