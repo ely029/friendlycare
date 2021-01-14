@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="" tests="3" assertions="4" errors="0" warnings="0" failures="0" skipped="0" time="6.794973">
+    <testsuite name="Feature" tests="3" assertions="4" errors="0" warnings="0" failures="0" skipped="0" time="6.794973">
+      <testsuite name="Tests\Feature\Api\CronJobControllerTest" file="/home/vagrant/thinkbit/web-app-laravel-boilerplate/tests/Feature/Api/CronJobControllerTest.php" tests="3" assertions="4" errors="0" warnings="0" failures="0" skipped="0" time="6.794973">
+        <testcase name="testCronJobOnlyAvailableOnGCPAppEngine" class="Tests\Feature\Api\CronJobControllerTest" classname="Tests.Feature.Api.CronJobControllerTest" file="/home/vagrant/thinkbit/web-app-laravel-boilerplate/tests/Feature/Api/CronJobControllerTest.php" line="9" assertions="1" time="1.473595"/>
+        <testcase name="testCronJobOnlyAvailableOnGCPForwarder" class="Tests\Feature\Api\CronJobControllerTest" classname="Tests.Feature.Api.CronJobControllerTest" file="/home/vagrant/thinkbit/web-app-laravel-boilerplate/tests/Feature/Api/CronJobControllerTest.php" line="16" assertions="1" time="0.088170"/>
+        <testcase name="testCronJobTriggersScheduleRun" class="Tests\Feature\Api\CronJobControllerTest" classname="Tests.Feature.Api.CronJobControllerTest" file="/home/vagrant/thinkbit/web-app-laravel-boilerplate/tests/Feature/Api/CronJobControllerTest.php" line="23" assertions="2" time="5.233208"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>
