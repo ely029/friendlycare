@@ -112,7 +112,7 @@ class UserManagementController extends Controller
 
         $id = DB::table('users')->select('id')->where('id', $user->id)->pluck('id');
 
-        Mail::send('email.patient.account-set-password', ['id' => $id], function ($mail) use ($request) {
+        Mail::send('email.patient.account-set-password', ['id' => $id[0]], function ($mail) use ($request) {
             $mail->from('no-reply@friendlycare.com');
             $mail->to([$request['email'], 'superadmin@fc.com'])->subject('Password Setup');
         });

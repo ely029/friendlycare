@@ -512,11 +512,11 @@ class BookingController extends Controller
         $obj = json_decode($request->getContent(), true);
         DB::update('update booking set service_id = ?, status = ? where id = ?', [$obj['service'][0], 4, $id]);
         $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
-        $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
+        $getClinicName = 'dd';
         $getPatientId = DB::table('booking')->select('patient_id')->where('id', $id)->pluck('patient_id');
         $getServiceId = DB::table('booking')->select('service_id')->where('id', $id)->pluck('service_id');
         $message = $getClinicName[0];
-        $getClinicEmail = DB::table('clinics')->select('email')->where('id', $getClinicId[0])->pluck('email');
+        $getClinicEmail = 'e@gmail.com';
         Mail::send('email.patient.provider.provider-complete-booking', [], function ($mail) use ($getClinicEmail) {
             $mail->from('notifications@friendlycare.com');
             $mail->to($getClinicEmail[0], 'Provider')->subject('Booking Completed');
@@ -555,6 +555,7 @@ class BookingController extends Controller
             'Authorization: key='.env('BP_FIREBASE_SERVER_KEY').'',
             'Content-Type: application/json',
         ];
+        dd($headers);
         $chh = curl_init();
         curl_setopt($chh, CURLOPT_URL, $fcmurl);
         curl_setopt($chh, CURLOPT_POST, true);
