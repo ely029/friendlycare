@@ -109,16 +109,7 @@
                 <td class="table__details">{{ $detail->name}}</td>
                 <td class="table__details">{{ $detail->service_name }}</td>
                 <td class="table__details">{{ $detail->clinic_name }}</td>
-                @if ($detail->status = '1')
-                <td class="table__details">Confirmed</td>
-                @elseif ($detail->status = '2')
-                <td class="table__details">Reschedule</td>
-                @elseif ($detail->status = '3')
-                <td class="table__details">Cancelled</td>
-                @elseif ($detail->status = '4')
-                <td class="table__details">Complete</td>
-                @elseif ($detail->status = '5')
-                <td class="table__details">No Show</td>
+                <td class="table__details">{{ $detail->status }}</td>
                 @endif
               </tr>
               @endforeach
