@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\ProviderNotifications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mail;
 
 class BookingssController extends Controller
 {
@@ -131,6 +132,7 @@ class BookingssController extends Controller
         $getPatientId = DB::table('booking')->select('patient_id')->where('id', $id)->pluck('patient_id');
         $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
         $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
+        $getClinicEmail = DB::table('clinics')->select('email')->where('id', $getClinicId[0])->pluck('email');
         $getPatientName = DB::table('users')->select('name')->where('id', $getPatientId[0])->pluck('name');
         $message = $getClinicName[0];
         EventsNotification::create([
@@ -151,6 +153,11 @@ class BookingssController extends Controller
             'booking_id' => $id,
             'status' => 2,
         ]);
+
+        Mail::send('email.patient.provider.provider-reschedule', ['time' => $obj['date'][0], 'name' => $getPatientName[0]], function ($mail) use ($getClinicEmail) {
+            $mail->from('notifications@friendlycare.com');
+            $mail->to($getClinicEmail[0], 'Patient')->subject('Provider Reschedule');
+        });
 
         $parameter = 2;
         $this->pushNotification($parameter, $getPatientId[0]);

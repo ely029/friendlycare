@@ -200,6 +200,9 @@ Route::post('/provider/reports/status/{id}', 'Provider\ReportsController@status'
 Route::post('/provider/reports/details/{id}', 'Provider\ReportsController@details');
 Route::get('/provider/export/{id}', 'Provider\ReportsController@export');
 
+//Provider upcoming booking email notification
+Route::get('/provider/upcomingbooking/{id}', 'Provider\NotificationsController@upcomingBookingEmailNotif');
+
 //patient family planning page
 Route::get('/patient/fpm/{pageid}/{id}', 'Patients\FPMController@pages');
 Route::post('/patient/fpm/{pageid}/{id}', 'Patients\FPMController@post');

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\ProviderNotifications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mail;
 
 class NotificationsController extends Controller
 {
@@ -84,6 +85,30 @@ class NotificationsController extends Controller
         return response([
             'name' => 'badge',
             'details' => $details,
+        ]);
+    }
+
+    public function upcomingBookingEmailNotif($id)
+    {
+        $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
+        $getClinicEmail = DB::table('clinics')->select('email')->where('id', $getClinicId[0])->pluck('email');
+        $upcoming = DB::table('booking')
+            ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->leftJoin('users', 'users.id', 'booking.patient_id')
+            ->select('booking.id', 'family_plan_type_subcategory.name as service_name', 'users.name as patient_name', 'booking.time_slot as date_booked')
+            ->where('booking.status', '<>', 6)
+            ->where('booking.status', '<>', 3)
+            ->where('booking.status', '<>', 5)
+            ->whereRaw('DATEDIFF(booking.time_slot, CURDATE()) = 1')
+            ->get();
+        Mail::send('email.patient.provider.upcoming-booking', ['details' => $upcoming], function ($mail) use ($getClinicEmail) {
+            $mail->from('notifications@friendlycare.com');
+            $mail->to($getClinicEmail[0], 'Patient')->subject('Upcoming Booking');
+        });
+
+        return response([
+            'name' => 'UpcomingBookingProvider',
+            'details' => 'message sent',
         ]);
     }
 }
