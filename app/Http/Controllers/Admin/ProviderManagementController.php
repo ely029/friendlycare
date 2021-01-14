@@ -264,7 +264,7 @@ class ProviderManagementController extends Controller
             'paid_service' => $request['paid'],
             'philhealth_accredited_1' => $request['philhealth_accredited_1'],
         ]);
-
+        $this->pushNotification($request['clinic_id']);
         ProviderNotifications::create([
             'title' => 'Clinic Information are updated',
             'message' => 'Your clinic had updated some of the information.',
@@ -273,8 +273,6 @@ class ProviderManagementController extends Controller
             'booking_id' => 0,
             'status' => 0,
         ]);
-
-        $this->pushNotification($request['clinic_id']);
         return redirect('/provider/list');
     }
 
