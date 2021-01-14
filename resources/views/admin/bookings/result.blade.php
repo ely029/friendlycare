@@ -29,6 +29,9 @@
                       <div class="form__content"><input id="date-to" name="date-to" value= "{{ $inputs['date-to']}}" class="form__input form__input--border" type="date" placeholder="Date to" /></div>
                       <div class="form__content">
                         <select name="clinic_id" id="clinic_id" class="form__input form__input--select form__input--border form__input--border__age">
+                          @foreach($selected_clinic as $clinic)
+                          <option selected value="{{ $clinic->id}}">{{ $clinic->clinic_name}}</option>
+                          @endforeach
                           @foreach ($providers as $provider)
                           <option value="{{ $provider->id}}">{{ $provider->clinic_name }}</option>
                           @endforeach
@@ -36,15 +39,19 @@
                       </div>
                       <div class="form__content">
                         <select name="service_id" id="service" class="form__input form__input--select form__input--border form__input--border__age">
-                          <option disabled selected>Availed Services</option>
+                          @foreach($selected_service as $eee)
+                          <option selected value="{{ $eee->id }}">{{ $eee->name }}</option>
+                          @endforeach
                           @foreach($service as $services)
                           <option value="{{ $services->id}}">{{ $services->name}}</option>
                           @endforeach
                         </select>
                       </div>
                       <div class="form__content">
-                        <select id="status" class="form__input form__input--select form__input--border form__input--border__age">
-                          <option disabled selected>Status</option>
+                        <select name="status" id="status" class="form__input form__input--select form__input--border form__input--border__age">
+                          @foreach ($selected_status as $status)
+                          <option selected value="{{ $status->id }}">{{ $status->name }}</option>
+                          @endforeach
                           <option value="1">Upcoming/Confirmed</option>
                           <option value="2">Reschedule</option>
                           <option value="3">Cancelled</option>

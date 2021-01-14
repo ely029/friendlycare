@@ -34,6 +34,9 @@ class BookingController extends Controller
             ->where('booking.service_id', $request['service_id'] ?? null)
             ->where('booking.status', '<>', 6)
             ->count();
+        $selected_service = DB::table('family_plan_type_subcategory')->select('id', 'name')->where('id', $request['service_id'])->get();
+        $selected_clinic = DB::table('clinics')->select('id', 'clinic_name')->where('id', $request['clinic_id'])->get();
+        $selected_status = DB::table('status')->select('id', 'name')->where('id', $request['status'])->get();
         $availed_service = DB::table('booking')
             ->select('family_plan_type_subcategory.name as service',
                     DB::raw(' count(booking.id) as services_count'))
@@ -78,6 +81,9 @@ class BookingController extends Controller
             'providers' => $provider,
             'service' => $service,
             'details' => $details,
+            'selected_service' => $selected_service,
+            'selected_clinic' => $selected_clinic,
+            'selected_status' => $selected_status,
         ]);
     }
 
