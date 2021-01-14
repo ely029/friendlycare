@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title></title>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
-
+    <link href="{{ asset('assets/app/css/main.css') }}" rel="stylesheet">
 </head>
 
 <body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0">
