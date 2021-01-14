@@ -555,7 +555,6 @@ class BookingController extends Controller
             'Authorization: key='.env('BP_FIREBASE_SERVER_KEY').'',
             'Content-Type: application/json',
         ];
-        dd($headers);
         $chh = curl_init();
         curl_setopt($chh, CURLOPT_URL, $fcmurl);
         curl_setopt($chh, CURLOPT_POST, true);
