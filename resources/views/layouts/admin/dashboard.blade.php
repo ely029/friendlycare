@@ -20,7 +20,42 @@
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
 <!-- <script src="https://cdn.tiny.cloud/1/yjtil7vjw9cus6nrlnbphyor2ey71lojenzvv4yqmy0luh43/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
 <script src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations-v1.0.0.js"></script>
-
+@if(Route::currentRouteName() == 'storeFirstPage')
+<script type="text/javascript">
+$(function(){
+    $("#dropzoneDragArea1").dropzone({
+        url: "{{ route('provider.galleryUpload')}}",
+        data: {id: $("#id").val(), },
+        headers: {
+                  'x-csrf-token': "{{ csrf_token() }}",
+        },
+        init: function() {
+                this.on("sending", function(file, xhr, formData){
+                        formData.append("clinic", $("#id").val());
+                });
+            }
+        });
+});
+</script>
+@endif
+@if(Route::currentRouteName() == 'editPage')
+<script type="text/javascript">
+$(function(){
+    $("#dropzoneDragArea").dropzone({
+        url: "{{ route('provider.galleryUpload')}}",
+        data: {id: $("#clinic_id").val(), },
+        headers: {
+                  'x-csrf-token': "{{ csrf_token() }}",
+        },
+        init: function() {
+                this.on("sending", function(file, xhr, formData){
+                        formData.append("clinic", $("#clinic_id").val());
+                });
+            }
+        });
+});
+</script>
+@endif
 @if(Route::currentRouteName() == 'providerCreateFirstPage')
 <script type="text/javascript">
 $(function(){
@@ -236,7 +271,6 @@ $(function(){
     readOnly: true,
     rating: $('#rate').val()
    });
-   $("#dropzoneDragArea").dropzone({ url: "/file/post" });
    if($('#js-schedule-1').val() == 'Post Now') {
        $('.js-scheduled-content-1').hide();
    } else {

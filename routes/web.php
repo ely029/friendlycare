@@ -78,11 +78,14 @@ Route::group(['prefix' => 'provider', 'middleware' => 'auth'], static function (
     //provider information page
     Route::get('/profile/{id}', 'Admin\ProviderManagementController@editProviderInformation')->name('editProviderProfile');
     Route::get('/edit/{id}', 'Admin\ProviderManagementController@editPage')->name('editPage');
+    Route::post('/uploadpic', 'Admin\ProviderManagementController@uploadProfilePic')->name('provider.profilePic');
     Route::post('/update', 'Admin\ProviderManagementController@updateProvider')->name('updateProvider');
+    Route::post('/galleryUpload', 'Admin\ProviderManagementController@galleryUpload')->name('provider.galleryUpload');
     Route::get('/delete/{id}', 'Admin\ProviderManagementController@deleteProvider')->name('deleteProvider');
     Route::get('/ratings/{id}', 'Admin\ProviderManagementController@ratingPerPatient')->name('provider.reviews');
     Route::get('/enableaccount', 'Admin\ProviderManagementController@enableProvider')->name('provider.enableProvider');
     Route::get('/disableaccount', 'Admin\ProviderManagementController@disableProvider')->name('provider.disableProvider');
+    Route::get('/deletegallery/{id}/{clinicId}', 'Admin\ProviderManagementController@deleteGallery')->name('provider.deleteGallery');
 });
 
 //basic pages

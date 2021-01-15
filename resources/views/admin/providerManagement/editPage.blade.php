@@ -22,7 +22,7 @@
           @endif
           <form method="POST" class="form" id="js-provider-form" action="{{ route('updateProvider') }}" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="clinic_id" value="{{ $providers->id}}">
+            <input type="hidden" id="clinic_id" name="clinic_id" value="{{ $providers->id}}">
           <div class="tabs">
               <ul class="tabs__list">
                 <li class="tabs__item tabs__item--current">
@@ -50,7 +50,7 @@
                 </li>
                 <li class="form__group-item">
                   <div class="form__content">
-                    <input class="button button--upload" id="js-upload" type="file" accept="image/*" name="js-upload" /><label class="form__label form__label--upload" for="js-upload">Upload a logo or a clinic photo</label>
+                    <input class="button button--upload profile-pic-upload" id="js-upload" name="profile-pic-upload" type="file" accept="image/*" /><label class="form__label form__label--upload" for="js-upload">Upload a logo or a clinic photo</label>
                   </div>
                 </li>
               </ul>
@@ -137,7 +137,14 @@
               <ul class="form__group">
                 <li class="form__group-item"><h2 class="section__heading">Clinic gallery</h2>
                 <div class="dz-default dz-message dropzoneDragArea" id="dropzoneDragArea"><span>Click to Upload File</span></div>
+                <ul>
+                @foreach($galleries as $gallery)
+                <li style="float: left;"><img height="100" width="100" src="{{ $gallery->file_url}}">
+                 <a href="{{ route('provider.deleteGallery',['id' => $gallery->id, 'clinicId' => $gallery->clinic_id]  )}}" class="button" style="width: 35px;font-size: 10px;height: 35px;margin-top: -95px;">X</a>
               </li>
+                @endforeach
+              </ul>
+                </li>
                 <li class="form__group-item">
                   <h2 class="section__heading">Clinic hours</h2>
                   <ul class="form__group form__group--schedule">

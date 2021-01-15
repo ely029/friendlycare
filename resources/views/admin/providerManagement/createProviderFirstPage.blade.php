@@ -67,7 +67,7 @@
         <div class="form__inline">
         <div class="form__content"><input class="form__input" type="email" name="email" placeholder="Email Address*" value="{{ old('email')}}" /><label class="form__label">Email Address*</label></div>
         <div class="form__content">
-            <select class="form__input form__input--select" id="barangay"></select>
+            <select class="form__input form__input--select" id="barangay" name="barangay"></select>
             <label class="form__label barangay-label">Barangay*</label>
         </div>
         </div>

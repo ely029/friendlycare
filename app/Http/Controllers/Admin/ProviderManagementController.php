@@ -177,7 +177,7 @@ class ProviderManagementController extends Controller
 
         $gallery = DB::table('clinic_gallery')
             ->join('clinics', 'clinics.id', 'clinic_gallery.clinic_id')
-            ->select('clinic_gallery.file_name')
+            ->select('clinic_gallery.file_name', 'clinics.id as clinic_id', 'clinic_gallery.file_url', 'clinic_gallery.id')
             ->where('clinic_gallery.clinic_id', $id)
             ->get();
         $modernMethod = DB::table('family_plan_type_subcategory')
@@ -561,5 +561,24 @@ class ProviderManagementController extends Controller
             }
         }
         return $newdata;
+    }
+
+    public function galleryUpload(Request $request)
+    {
+        $icon = $request->file('file');
+        $destination = public_path('/uploads');
+        $icon->move($destination, $icon->getClientOriginalName());
+        $icon_url = url('uploads/'.$icon->getClientOriginalName());
+        ClinicGallery::create([
+            'file_name' => $icon->getClientOriginalName(),
+            'clinic_id' => $request['clinic'],
+            'file_url' => $icon_url,
+        ]);
+    }
+
+    public function deleteGallery($id, $clinicId)
+    {
+        ClinicGallery::where('id', $id)->delete();
+        return redirect('/provider/edit/'.$clinicId);
     }
 }
