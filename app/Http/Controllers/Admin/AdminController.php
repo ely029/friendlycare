@@ -14,7 +14,7 @@ class AdminController extends Controller
         if (\Auth::attempt(['email' => request('email'), 'password' => request('password'), 'role_id' => [1,2]])) {
             return redirect('admin');
         }
-        return redirect('portal')
+        return redirect('/')
             ->withErrors('Email and password are invalid!')
             ->withInput();
     }
