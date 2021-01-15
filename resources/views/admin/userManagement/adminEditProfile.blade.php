@@ -45,7 +45,7 @@
             <div class="form__inline">
                 <div class="form__content"> 
                     <select placeholder="Clinic" name="clinic" class="form__input--select form__input">
-                        <option value="">Choose a Clinic</option>
+                        <option value="{{ $selected_clinic_id }}">{{ $selected_clinic_name}}</option>
                         @foreach($clinic as $clinics)
                         <option value="{{ $clinics->id}}">{{$clinics->clinic_name}}</option>
                         @endforeach
