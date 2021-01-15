@@ -145,7 +145,7 @@ class UserManagementController extends Controller
         $selected_clinic_name = DB::table('staffs')->join('clinics', 'clinics.id', 'staffs.clinic_id')->select('clinics.clinic_name')->where('staffs.user_id', $id)->pluck('clinic_name');
         $selected_clinic_id = DB::table('staffs')->join('clinics', 'clinics.id', 'staffs.clinic_id')->select('clinics.id')->where('staffs.user_id', $id)->pluck('id');
 
-        return view('admin.userManagement.adminEditProfile', ['users' => $user, 'clinic' => $clinic, 'selected_clinic_name' => $selected_clinic_name[0], 'selected_clinic_id' => $selected_clinic_id[0]]);
+        return view('admin.userManagement.adminEditProfile', ['users' => $user, 'clinic' => $clinic, 'selected_clinic_name' => $selected_clinic_name[0] ?? null, 'selected_clinic_id' => $selected_clinic_id[0] ?? null]);
     }
     public function updateUser()
     {
