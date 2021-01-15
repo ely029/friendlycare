@@ -99,7 +99,7 @@ class SurveyController extends Controller
 
     public function delete($id)
     {
-        DB::statement('DELETE FROM survey where id =?', [$id]);
+        DB::delete('DELETE FROM survey where id =?', [$id]);
         return redirect('survey/list');
     }
     public function postEdit()
