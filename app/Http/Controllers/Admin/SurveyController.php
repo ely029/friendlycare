@@ -27,7 +27,7 @@ class SurveyController extends Controller
         $request = request()->all();
         $request['date_from_datestring'] = strtotime($request['date_from']);
         $request['date_to_datestring'] = strtotime($request['date_to']);
-        $survey = Survey::create($request);
+        Survey::create($request);
         $id = DB::table('survey')->select('id')->orderBy('id', 'desc')->pluck('id');
 
         EventsNotification::create([
