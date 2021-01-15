@@ -99,7 +99,8 @@ class SurveyController extends Controller
 
     public function delete($id)
     {
-        Survey::where('id', $id)->delete();
+        $survey = Survey::find($id);
+        $survey->delete();
         return redirect('survey/list');
     }
     public function postEdit()
