@@ -110,7 +110,6 @@
                 <td class="table__details">{{ $detail->service_name }}</td>
                 <td class="table__details">{{ $detail->clinic_name }}</td>
                 <td class="table__details">{{ $detail->status }}</td>
-                @endif
               </tr>
               @endforeach
             </tbody>
