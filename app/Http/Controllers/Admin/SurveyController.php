@@ -27,7 +27,7 @@ class SurveyController extends Controller
         $request = request()->all();
         $request['date_from_datestring'] = strtotime($request['date_from']);
         $request['date_to_datestring'] = strtotime($request['date_to']);
-        Survey::create($request);
+        $survey = Survey::create($request);
         $id = DB::table('survey')->select('id')->orderBy('id', 'desc')->pluck('id');
 
         EventsNotification::create([
@@ -37,6 +37,7 @@ class SurveyController extends Controller
             'survey_link' => $request['link'],
             'survey_date_from_string' => $request['date_from_datestring'],
             'survey_date_to_string' => $request['date_to_datestring'],
+            'survey_id' => $survey->id,
         ]);
 
         if ($request['date_from_datestring'] >= strtotime(date('Y-m-d'))) {
@@ -100,6 +101,7 @@ class SurveyController extends Controller
     public function delete($id)
     {
         DB::delete('DELETE FROM survey where id =?', [$id]);
+        DB::delete('DELETE FROM events_notification where survey_id =?', [$id]);
         return redirect('survey/list');
     }
     public function postEdit()
