@@ -27,7 +27,7 @@ class NotificationsController extends Controller
 
     public function notifications()
     {
-        EventsNotification::get();
+        return EventsNotification::get();
     }
 
     public function notificationDetails($id)
