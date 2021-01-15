@@ -46,6 +46,21 @@
               <div class="form__content"><input class="form__input" type="text" name="trainings" placeholder="Training (optional)" value="{{ $user->trainings }}"/><label class="form__label">Training (optional)</label></div>
             </div>
             @if ($user->role_id == 2)
+            <div class="form__inline">
+                <div class="form__content"> 
+                    <select disabled placeholder="Clinic" name="clinic" class="form__input--select form__input">
+                        <option value="{{ $selected_clinic_id }}">{{ $selected_clinic_name}}</option>
+                        @foreach($clinic as $clinics)
+                        <option value="{{ $clinics->id}}">{{$clinics->clinic_name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form__content">
+                  <input class="form__input" type="text" placeholder="Email Address" value="{{ $user->email }}" name="email"/>
+                  <label class="form__label">Email Address</label>
+                </div>
+
+            </div>
             @else
             <div class="form__inline">
                 <div class="form__content"> 
