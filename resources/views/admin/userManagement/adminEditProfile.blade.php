@@ -25,8 +25,13 @@
             @csrf
             <div class="form__content">
               <select class="form__input form__input--select">
-                <option value="Admin">Admin</option>
-                <option value="Staff">Staff</option>
+              @if ($user->role_id == 2)
+                <option value="2" selected>Admin</option>
+                <option value="4">Staff</option>
+                @else
+                <option value="4" selected>Staff</option>
+                <option value="2">Admin</option>
+                @endif
               </select>
               <label class="form__label">Role</label>
             </div>
