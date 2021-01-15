@@ -25,6 +25,11 @@ class NotificationsController extends Controller
         ]);
     }
 
+    public function notifications()
+    {
+        EventsNotification::get();
+    }
+
     public function notificationDetails($id)
     {
         EventsNotification::where('id', $id)->update([

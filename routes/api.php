@@ -165,6 +165,7 @@ Route::get('/checkdatetoday', 'Patients\BookingController@checkDateToday');
 //Notifications
 Route::get('/patient/notifications/{id}', 'Patients\NotificationsController@getNotifications');
 Route::get('/notifications/patient/{id}', 'Patients\NotificationsController@notificationDetails');
+Route::get('/notifications/patient', 'Patients\NotificationsController@notifications');
 
 //Patient Rating
 Route::get('/rating/{id}', 'Patients\RatingController@getRatingDetails');
