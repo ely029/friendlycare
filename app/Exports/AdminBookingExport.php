@@ -41,8 +41,8 @@ class AdminBookingExport implements FromCollection, WithHeadings
     {
         return DB::table('booking')
             ->leftJoin('users', 'booking.patient_id', 'users.id')
-            ->join('status', 'status.id', 'booking.status')
-            ->join('family_plan_type_subcategory as fpm', 'fpm.id', 'booking.service_id')
+            ->leftJoin('status', 'status.id', 'booking.status')
+            ->leftJoin('family_plan_type_subcategory as fpm', 'fpm.id', 'booking.service_id')
             ->select('users.name', 'fpm.name as availed_service', 'status.name as status', 'booking.referal', 'booking.time_slot as date_booked')
             ->where('booking.status', $this->status)
             ->where('booking.clinic_id', $this->clinicId)
