@@ -67,7 +67,7 @@ class BookingController extends Controller
             ->select('users.name', 'family_plan_type_subcategory.name as service_name', 'clinics.clinic_name', 'status.name as status', 'booking.time_slot as booked_date')
             ->where('booking.clinic_id', $request['clinic_id'])
             ->where('booking.service_id', $request['service_id'] ?? null)
-            ->where('booking.status', '<>', 6)
+            ->where('booking.status', $request['status'])
             ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
             ->get();
         return view('admin.bookings.result', [
