@@ -203,19 +203,8 @@ class ProviderManagementController extends Controller
     public function updateProvider(Request $requests)
     {
         $request = request()->all();
-        for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {
-            ClinicHours::where('clinic_id', $request['clinic_id'])->delete();
-            if (isset($request['days'][$clinic_hours])) {
-                ClinicHours::create([
-                    'clinic_id' => $request['clinic_id'],
-                    'id_value' => $clinic_hours,
-                    'days' => $request['days'][$clinic_hours],
-                    'froms' => $request['from'][$clinic_hours],
-                    'tos' => $request['to'][$clinic_hours],
-                    'is_checked' => 1,
-                ]);
-            }
-        }
+        ClinicHours::where('clinic_id', $request['clinic_id'])->delete();
+        $this->validateClinicHours($request);
         //$this->pushNotification($request['clinic_id']);
         if ($requests->file('gallery') !== null) {
             ClinicGallery::where('clinic_id', $request['clinic_id'])->delete();
@@ -580,5 +569,37 @@ class ProviderManagementController extends Controller
     {
         ClinicGallery::where('id', $id)->delete();
         return redirect('/provider/edit/'.$clinicId);
+    }
+
+    private function validateClinicHours($request)
+    {
+        for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {
+            if (isset($request['days'][$clinic_hours])) {
+                $this->validateClinicHours1($clinic_hours, $request);
+            }
+        }
+    }
+
+    private function validateClinicHours1($clinic_hours, $request)
+    {
+        if ($request['from'][$clinic_hours] !== null && $request['to'][$clinic_hours] !== null) {
+            ClinicHours::create([
+                'clinic_id' => $request['clinic_id'],
+                'id_value' => $clinic_hours,
+                'days' => $request['days'][$clinic_hours],
+                'froms' => $request['from'][$clinic_hours],
+                'tos' => $request['to'][$clinic_hours],
+                'is_checked' => 1,
+            ]);
+        } else {
+            ClinicHours::create([
+                'clinic_id' => $request['clinic_id'],
+                'id_value' => $clinic_hours,
+                'days' => $request['days'][$clinic_hours],
+                'froms' => null,
+                'tos' => null,
+                'is_checked' => 1,
+            ]);
+        }
     }
 }
