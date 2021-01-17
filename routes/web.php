@@ -159,6 +159,7 @@ Route::group(['prefix' => 'patient'], static function () {
     Route::get('/list', 'Admin\PatientManagementController@index')->name('patientManagement.index');
     Route::get('/information/{id}', 'Admin\PatientManagementController@information')->name('patientManagement.information');
     Route::get('/delete/{id}', 'Admin\PatientManagementController@delete')->name('patientManagement.delete');
+    Route::get('/export', 'Admin\PatientManagementController@export')->name('patientManagement.export');
 });
 Route::group(['prefix' => 'booking'], static function () {
     Route::get('/index', 'Admin\BookingController@indexes')->name('booking.index');

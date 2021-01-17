@@ -20,6 +20,19 @@
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
 <!-- <script src="https://cdn.tiny.cloud/1/yjtil7vjw9cus6nrlnbphyor2ey71lojenzvv4yqmy0luh43/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
 <script src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations-v1.0.0.js"></script>
+@if(Route::currentRouteName() == 'patientManagement.index')
+<script type="text/javascript">
+$('document').ready(function(){
+    $('.export_patient_list').on('click', function(eee){
+        eee.preventDefault();
+        var ely = confirm('The reports are already generated');
+    if (ely == true) {
+         window.location.href = "{{ route('patientManagement.export')}}";
+       }
+   });
+});
+</script>
+@endif
 @if(Route::currentRouteName() == 'storeFirstPage')
 <script type="text/javascript">
 $(function(){

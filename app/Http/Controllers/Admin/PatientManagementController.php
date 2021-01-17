@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\PatientListExport;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PatientManagementController extends Controller
 {
@@ -43,5 +45,11 @@ class PatientManagementController extends Controller
         User::where('id', $id)->delete();
 
         return redirect('patient/list');
+    }
+
+    public function export()
+    {
+        $fileName = 'Patients-List.csv';
+        return Excel::download(new PatientListExport(), $fileName);
     }
 }

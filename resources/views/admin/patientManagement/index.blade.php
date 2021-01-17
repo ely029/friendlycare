@@ -41,7 +41,7 @@
                 </li>
               </ul>
             </div>
-            <button class="button button--filter button--filter__patient">Export patient list</button>
+            <a class="button button--filter button--filter__patient export_patient_list">Export patient list</a>
           </div>
           <table class="table" id="noSearch">
             <thead>
