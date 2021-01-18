@@ -60,7 +60,7 @@
                 <div class="modal__box">
                   <h2 class="modal__title">Delete response?</h2>
                   <p class="modal__text">Are you sure you want to delete this response?</p>
-                  <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium button--medium__delete" type="button">Delete response</button></div>
+                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><button class="button button--medium button--medium__delete" type="button">Delete response</button></div>
                 </div>
               </div>
             </div>
@@ -70,7 +70,7 @@
                 <div class="modal__box">
                   <h2 class="modal__title">Save changes?</h2>
                   <p class="modal__text">All changes will update the version of the app. Are you sure you want to Save?</p>
-                  <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium" type="button">Save changes</button></div>
+                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><input class="button button--medium" type="submit" value="Save changes"></div>
                 </div>
               </div>
             </div>
