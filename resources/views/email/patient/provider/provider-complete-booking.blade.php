@@ -9,6 +9,125 @@
     <title></title>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
     <link href="{{ asset('assets/app/css/main.css') }}" rel="stylesheet">
+    <style>
+      .email * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+      .email__header {
+        background-color: #911aa2;
+        width: 100%;
+        text-align: center;
+        color: #fff;
+        font-family: "VAGRounded BT";
+        padding: 80px 290px;
+      }
+      .email__header-title {
+        width: 230px;
+        margin: 0 auto 25px;
+      }
+      .email__header-span {
+        margin-top: 10px;
+      }
+      .email__header-wrapper {
+        width: 219px;
+        height: 190px;
+        margin: 0 auto;
+      }
+      .email__footer {
+        background-color: #b964c4;
+        padding: 80px 290px;
+        font-family: "VAGRounded BT";
+        color: #fff;
+      }
+      .email__footer-links {
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .email__footer-item {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+      }
+      .email__footer-item:not(:last-of-type) {
+        margin-right: 20px;
+      }
+      .email__footer-wrapper {
+        width: 86px;
+        height: 74px;
+        display: inline-block;
+      }
+      .email__footer-top {
+        margin: 0 auto 40px;
+        width: 255px;
+        position: relative;
+      }
+      .email__footer-text {
+        position: absolute;
+        width: -webkit-fit-content;
+        width: -moz-fit-content;
+        width: fit-content;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        font-size: 38px;
+        display: inline-block;
+        margin-left: 3vh;
+      }
+      .email__bottom {
+        background-color: #f2f2f2;
+        padding: 70px 130px;
+        font-family: "Open Sans", sans-serif;
+      }
+      .email__bottom-text {
+        color: #00375e;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      .email__bottom-link {
+        color: #b964c4;
+        -webkit-transition: 0.4s;
+        -o-transition: 0.4s;
+        transition: 0.4s;
+      }
+      .email__bottom-link:hover {
+        color: #6e1a7b;
+      }
+      .email__content {
+        padding: 100px 130px;
+        font-family: "Open Sans", sans-serif;
+      }
+      .email__title {
+        color: #911aa2;
+        font-size: 24px;
+      }
+      .email__text {
+        color: #000;
+        font-size: 20px;
+        margin-top: 30px;
+      }
+      .email__image {
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+      }
+      .email__link {
+        width: 100%;
+        text-align: center;
+        color: #b964c4;
+        -webkit-transition: 0.4s;
+        -o-transition: 0.4s;
+        transition: 0.4s;
+        display: block;
+        margin: 70px auto 0;
+      }
+      .email__link:hover {
+        color: #6e1a7b;
+      }
+    </style>
 </head>
 
 <body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0">
