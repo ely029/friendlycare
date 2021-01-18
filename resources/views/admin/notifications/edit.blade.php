@@ -22,7 +22,7 @@
               <li class="form__group-item">
                 <h2 class="section__heading">Details</h2>
                 <div class="form__content">
-                  <select class="form__input form__input--select" name="schedule" id="js-schedule-1" required>
+                  <select class="form__input form__input--select" name="schedule" id="js-schedule-1">
                     <option disabled selected>---</option>
                     @if($detail->scheduled == 'Scheduled')
                     <option value="Post Now">Post Now</option>

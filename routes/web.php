@@ -75,6 +75,9 @@ Route::group(['prefix' => 'provider', 'middleware' => 'auth'], static function (
     Route::post('/store/firstpage', 'Admin\ProviderManagementController@storeFirstPage')->name('storeFirstPage');
     Route::post('/store/secondpage', 'Admin\ProviderManagementController@storeSecondPage')->name('storeSecondPage');
     Route::post('/store/thirdpage', 'Admin\ProviderManagementController@storeThirdPage')->name('storeThirdPage');
+
+    //profile p[icture upload
+    Route::post('/profile-upload', 'Admin\ProviderManagementController@profPicUpload')->name('provider.profPicUpload');
     //provider information page
     Route::get('/profile/{id}', 'Admin\ProviderManagementController@editProviderInformation')->name('editProviderProfile');
     Route::get('/edit/{id}', 'Admin\ProviderManagementController@editPage')->name('editPage');
@@ -160,6 +163,7 @@ Route::group(['prefix' => 'patient'], static function () {
     Route::get('/information/{id}', 'Admin\PatientManagementController@information')->name('patientManagement.information');
     Route::get('/delete/{id}', 'Admin\PatientManagementController@delete')->name('patientManagement.delete');
     Route::get('/export', 'Admin\PatientManagementController@export')->name('patientManagement.export');
+    Route::post('/filter', 'Admin\PatientManagementController@filter')->name('patientManagement.filter');
 });
 Route::group(['prefix' => 'booking'], static function () {
     Route::get('/index', 'Admin\BookingController@indexes')->name('booking.index');
