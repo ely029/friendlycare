@@ -27,7 +27,7 @@ $('document').ready(function(){
     });
 });
 </script>
-@if(Route::currentRouteName() == 'patientManagement.index')
+@if(Route::currentRouteName() == 'patientManagement.index' || Route::currentRouteName() == 'patientManagement.filter' )
 <script type="text/javascript">
 $('document').ready(function(){
     $('.export_patient_list').on('click', function(eee){
