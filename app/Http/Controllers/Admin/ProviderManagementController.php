@@ -576,6 +576,16 @@ class ProviderManagementController extends Controller
         for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {
             if (isset($request['days'][$clinic_hours])) {
                 $this->validateClinicHours1($clinic_hours, $request);
+            } else {
+                $days = ['days' => [0 => 'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'Thursday', 5 => 'Friday', 6 => 'Saturday']];
+                ClinicHours::create([
+                    'clinic_id' => $request['clinic_id'],
+                    'id_value' => $clinic_hours,
+                    'days' => $days['days'][$clinic_hours],
+                    'froms' => null,
+                    'tos' => null,
+                    'is_checked' => 1,
+                ]);
             }
         }
     }
