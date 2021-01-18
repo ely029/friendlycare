@@ -42,7 +42,6 @@ class FamilyPlanningMethodController extends Controller
         $request = request()->all();
         $validator = \Validator::make(request()->all(), [
             'name' => 'required|string|max:255|unique:family_plan_type_subcategory',
-            'family_plan_type_id' => 'required',
             'percent_effective' => 'required|numeric|between:0,99.99',
             'typical_validity' => 'required|numeric|between:0,99.99',
         ]);
@@ -51,15 +50,17 @@ class FamilyPlanningMethodController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        if ($requests->file('icon') !== null) {
-            $icon = $requests->file('icon');
-            $destination = public_path('assets/app/img/');
-            $icon_url = url('assets/app/img/'.$icon->getClientOriginalName());
-
-            $icon->move($destination, $icon->getClientOriginalName());
-            $request['icon_url'] = $icon_url;
-            $request['icon'] = $icon->getClientOriginalName();
+        if ($requests['pic_url'] === null) {
+            return redirect('fpm/create/1')
+                ->withErrors('Icon is Required')
+                ->withInput();
         }
+        if ($request['family_plan_type_id'] === null) {
+            return redirect('fpm/create/1')
+                ->withErrors('Family Plan Type Category is required')
+                ->withInput();
+        }
+        $request['icon_url'] = $request['pic_url'];
         FamilyPlanTypeSubcategories::create($request);
 
         $name = DB::table('family_plan_type_subcategory')->where('name', $request['name'])->pluck('id');
@@ -137,8 +138,31 @@ class FamilyPlanningMethodController extends Controller
 
     public function information($id)
     {
-        $details = FamilyPlanTypeSubcategories::where('id', $id)->with('serviceGalleries')->get();
-        return view('admin.familyPlanningMethod.information', ['details' => $details]);
+        $details = DB::table('family_plan_type_subcategory as fpm')
+            ->select('fpm.name',
+                            'fpm.id',
+                            'fpm.icon',
+                            'fpm.short_name',
+                            'fpm.percent_effective',
+                            'fpm.typical_validity',
+                            'fpm.description_english',
+                            'fpm.description_filipino',
+                            'fpm.how_it_works_english',
+                            'fpm.how_it_works_filipino',
+                            'fpm.side_effect_english',
+                            'fpm.side_effect_filipino',
+                            'fpm.additional_note_english',
+                            'fpm.additional_note_filipino',
+                            'fpm.video_link',
+                            'fpm.icon_url')
+            ->where('fpm.id', $id)
+            ->get();
+
+        $serviceGallery = DB::table('service_gallery')
+            ->select('service_id', 'file_name', 'file_url')
+            ->where('service_id', $id)
+            ->get();
+        return view('admin.familyPlanningMethod.information', ['details' => $details, 'serviceGalleries' => $serviceGallery]);
     }
 
     public function edit($id)
@@ -216,5 +240,29 @@ class FamilyPlanningMethodController extends Controller
     {
         FamilyPlanTypeSubcategories::where('id', $id)->delete();
         return redirect('/fpm');
+    }
+
+    public function iconUpload(Request $request)
+    {
+        $request = request()->all();
+        $icon = $request['icon'];
+        $destination = public_path('assets/app/img/');
+        $icon_url = url('assets/app/img/'.$icon->getClientOriginalName());
+        $icon->move($destination, $icon->getClientOriginalName());
+
+        return response()->json($icon_url);
+    }
+
+    public function galleryUpload(Request $request)
+    {
+        $icon = $request->file('file');
+        $destination = public_path('/uploads/fpm');
+        $icon->move($destination, $icon->getClientOriginalName());
+        $icon_url = url('uploads/fpm/'.$icon->getClientOriginalName());
+        ServiceGallery::create([
+            'file_name' => $icon->getClientOriginalName(),
+            'service_id' => session('id'),
+            'file_url' => $icon_url,
+        ]);
     }
 }

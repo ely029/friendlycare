@@ -27,6 +27,46 @@ $('document').ready(function(){
     });
 });
 </script>
+@if(Route::currentRouteName() == 'familyPlanningMethod.thirdPage')
+<script type="text/javascript">
+$(function(){
+    alert($('#id').val());
+    $("#dropzoneDragArea").dropzone({
+        url: "{{ route('familyPlanningMethod.galleryUpload')}}",
+        data: {id: $("#id").val(), },
+        headers: {
+                  'x-csrf-token': "{{ csrf_token() }}",
+        },
+        init: function() {
+                this.on("sending", function(file, xhr, formData){
+                        formData.append("fpm", $("#id").val());
+                });
+            }
+        });
+});
+</script>
+@endif
+@if(Route::currentRouteName() == 'familyPlanningMethod.firstPage')
+<script type="text/javascript">
+$('document').ready(function(){
+    $("#js-provider-form").on("change", function(){
+      var formData = new FormData(this);
+      $.ajax({
+         url  : "{{ route('familyPlanningMethod.iconUpload') }}",
+         type : "POST",
+         cache: false,
+         contentType : false, // you can also use multipart/form-data replace of false
+         processData: false,
+         data: formData,
+         success:function(response){
+              $('.form__image--method').attr('src', response);
+              $('#pic_url').attr('value', response);
+         }
+      });
+   });
+});
+</script>
+@endif
 @if(Route::currentRouteName() == 'patientManagement.index' || Route::currentRouteName() == 'patientManagement.filter' )
 <script type="text/javascript">
 $('document').ready(function(){

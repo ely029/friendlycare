@@ -126,6 +126,8 @@ Route::group(['prefix' => 'fpm'], static function () {
     Route::get('/information/{id}', 'Admin\FamilyPlanningMethodController@information')->name('familyPlanningMethod.information');
     Route::get('/edit/{id}', 'Admin\FamilyPlanningMethodController@edit')->name('familyPlanningMethod.edit');
     Route::post('update/', 'Admin\FamilyPlanningMethodController@update')->name('familyPlanningMethod.update');
+    Route::post('/icon-upload', 'Admin\FamilyPlanningMethodController@iconUpload')->name('familyPlanningMethod.iconUpload');
+    Route::post('/gallery/upload', 'Admin\FamilyPlanningMethodController@galleryUpload')->name('familyPlanningMethod.galleryUpload');
 });
 
 ///events and notifications

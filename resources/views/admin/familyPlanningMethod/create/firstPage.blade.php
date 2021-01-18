@@ -15,6 +15,12 @@
         <div class="section__container">
           <form class="form form--method" id="js-provider-form" method="POST" action="{{ route('familyPlanningMethod.createOne')}}" enctype="multipart/form-data">
            @csrf
+           @if ($errors->any())
+
+@foreach ($errors->all() as $error)
+<div class="alert alert-danger">{{ $error }}</div>
+@endforeach
+@endif
             <div class="form__tab">
               <ul class="form__group form__group--editMethod">
                 <li class="form__group-item">
@@ -22,10 +28,11 @@
                   <ul class="form__group form__group--upload form__group--editUpload">
                     <li class="form__group-item">
                       <div class="form__wrapper"><img class="form__image form__image--method" src="{{URL::asset('img/placeholder.jpg')}}" alt="Image placeholder" /></div>
+                      <input type="hidden" name="pic_url" id="pic_url"/>
                     </li>
                     <li class="form__group-item">
                       <div class="form__content">
-                        <input name="icon" class="button button--upload button--upload__method" id="js-upload" type="file" accept="image/*" name="js-upload" /><label class="form__label form__label--upload" for="js-upload">Upload a service icon </label>
+                        <input name="icon" class="button button--upload button--upload__method upload-icon" id="js-upload" type="file" accept="image/*" name="js-upload" /><label class="form__label form__label--upload" for="js-upload">Upload a service icon </label>
                       </div>
                     </li>
                   </ul>
