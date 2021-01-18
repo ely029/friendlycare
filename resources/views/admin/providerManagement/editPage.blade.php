@@ -239,10 +239,8 @@
                 </ul>
               </div>
             </div>
-            <div class="form__button form__button--end"><input type="submit" value="Save changes" class="button js-trigger"></div>
-          </form>
-
-          <div class="modal js-modal">
+            <div class="form__button form__button--end"><input value="Save changes" class="button js-trigger"></div>
+            <div class="modal js-modal">
             <div class="modal__background js-modal-background"></div>
             <div class="modal__container">
               <div class="modal__box">
@@ -252,6 +250,7 @@
               </div>
             </div>
           </div>
+          </form>
         </div>
       </div>
 
