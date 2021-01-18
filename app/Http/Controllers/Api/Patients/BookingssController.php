@@ -174,6 +174,7 @@ class BookingssController extends Controller
             $user = DB::table('users')->select('fcm_notification_key')->where('id', $id)->pluck('fcm_notification_key');
             $fcmurl = 'https://fcm.googleapis.com/fcm/send';
             $token = $user[0];
+            $key = env('BP_FIREBASE_SERVER_KEY');
             $notification = [
                 'title' => 'Booking Confirmed',
                 'body' => 'Your Booking is confirmed',
@@ -192,7 +193,7 @@ class BookingssController extends Controller
             ];
 
             $headers = [
-                'Authorization: key='.env('BP_FIREBASE_SERVER_KEY').'',
+                'Authorization: key='.$key.'',
                 'Content-Type: application/json',
             ];
             $chh = curl_init();
@@ -211,6 +212,7 @@ class BookingssController extends Controller
             $user = DB::table('users')->select('fcm_notification_key')->where('id', $id)->pluck('fcm_notification_key');
             $fcmurl = 'https://fcm.googleapis.com/fcm/send';
             $token = $user[0];
+            $key = env('BP_FIREBASE_SERVER_KEY');
             $notification = [
                 'title' => 'Booking Rescheduled',
                 'body' => 'Your Booking is Rescheduled',
@@ -229,7 +231,7 @@ class BookingssController extends Controller
             ];
 
             $headers = [
-                'Authorization: key='.env('BP_FIREBASE_SERVER_KEY').'',
+                'Authorization: key='.$key.'',
                 'Content-Type: application/json',
             ];
             $chh = curl_init();
@@ -253,6 +255,7 @@ class BookingssController extends Controller
             $user = DB::table('users')->select('fcm_notification_key')->where('id', $id)->pluck('fcm_notification_key');
             $fcmurl = 'https://fcm.googleapis.com/fcm/send';
             $token = $user[0];
+            $key = env('BP_FIREBASE_SERVER_KEY');
             $notification = [
                 'title' => 'Booking Cancelled',
                 'body' => 'Your Booking is Cancelled',
@@ -271,7 +274,7 @@ class BookingssController extends Controller
             ];
 
             $headers = [
-                'Authorization: key='.env('BP_FIREBASE_SERVER_KEY').'',
+                'Authorization: key='.$key.'',
                 'Content-Type: application/json',
             ];
             $chh = curl_init();

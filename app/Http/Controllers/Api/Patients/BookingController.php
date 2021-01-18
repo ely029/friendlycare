@@ -538,6 +538,7 @@ class BookingController extends Controller
         $user = DB::table('users')->select('fcm_notification_key')->where('id', $getPatientId[0])->pluck('fcm_notification_key');
         $fcmurl = 'https://fcm.googleapis.com/fcm/send';
         $token = $user[0];
+        $key = env('BP_FIREBASE_SERVER_KEY');
         $notification = [
             'title' => 'Booking Completed',
             'body' => 'Your Booking is now Completed',
@@ -553,7 +554,7 @@ class BookingController extends Controller
             'data' => $extraNotifications,
         ];
         $headers = [
-            'Authorization: key='.env('BP_FIREBASE_SERVER_KEY').'',
+            'Authorization: key='.$key.'',
             'Content-Type: application/json',
         ];
         $chh = curl_init();

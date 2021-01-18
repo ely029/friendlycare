@@ -14,7 +14,8 @@
           <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{route('notifications.index')}}">Events &amp; Push Notifications</a><a class="breadcrumbs__link" >View</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
-          <form class="form" id="js-provider-form">
+          <form class="form" id="js-provider-form" method="POST" action="{{route('notifications.delete', $detail->id)}}">
+            @csrf
             <h2 class="section__heading">{{ $detail->title}}</h2>
             @if ($detail->type == '2')
             <div class="form__content"><span class="form__text">Announcements</span><label class="form__label form__label--visible">Type</label></div>
@@ -29,19 +30,19 @@
               <span class="form__text">{{$detail->message}}</span>
               <label class="form__label form__label--visible">Message</label>
             </div>
-            <div class="form__button form__button--start"><a class="button" href="{{ route('notifications.edit', $detail->id)}}">Edit notification</a><a href="{{route('notifications.delete', $detail->id)}}" class="button button--transparent js-trigger">Delete notification</a></div>
-          </form>
-          <div class="modal js-modal">
+            <div class="form__button form__button--start"><a class="button" href="{{ route('notifications.edit', $detail->id)}}">Edit notification</a><input type="button" class="button button--transparent js-trigger" value="Delete notification"/></div>
+            <div class="modal js-modal">
             <div class="modal__background js-modal-background"></div>
             <div class="modal__container">
               <div class="modal__box">
                 <h2 class="modal__title">Delete notification?</h2>
                 <p class="modal__text">Are you sure you want to delete this notification?</p>
                 <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button>
-                <button class="button button--medium button--medium__delete" type="button">Delete notification</button></div>
+                <button class="button button--medium button--medium__delete" type="submit">Delete notification</button></div>
               </div>
             </div>
           </div>
+          </form>
         </div>
       </div>
 @endforeach

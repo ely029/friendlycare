@@ -136,7 +136,7 @@ Route::group(['prefix' => 'notification'], static function () {
     Route::get('/information/{id}', 'Admin\NotificationsController@information')->name('notifications.information');
     Route::get('/edit/{id}', 'Admin\NotificationsController@edit')->name('notifications.edit');
     Route::post('/edit', 'Admin\NotificationsController@postEdit')->name('notifications.postEdit');
-    Route::get('/edit/delete/{id}', 'Admin\NotificationsController@delete')->name('notifications.delete');
+    Route::post('/edit/delete/{id}', 'Admin\NotificationsController@delete')->name('notifications.delete');
 });
 
 Route::group(['prefix' => 'survey'], static function () {
