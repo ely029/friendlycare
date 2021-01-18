@@ -39,8 +39,8 @@
             </div>
             <div id="add-response-option-create">
             <h2 class="section__heading">Response options</h2>
-            <div class="form__content"><input class="form__input" type="text" name="response_prompt[]" /><label class="form__label">Response prompt*</label></div>
-            <div class="form__content">
+            <div class="form__content form__content--full"><input class="form__input" type="text" name="response_prompt[]" /><label class="form__label">Response prompt*</label></div>
+            <div class="form__content form__content--full">
                 <select class="form__input form__input--select" name="response_id[]">
                   <option value="">Select Field set</option>
                   @foreach ($details as $detail)
