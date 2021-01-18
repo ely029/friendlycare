@@ -11,7 +11,7 @@
 <div class="section">
         <div class="section__top">
           <h1 class="section__title">Chatbot Management</h1>
-          <div class="breadcrumbs"><a class="breadcrumbs__link" href="provider-management.html">Chatbot Management</a><a class="breadcrumbs__link">Create Fieldset</a><a class="breadcrumbs__link"></a></div>
+          <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('chatbot.index')}}">Chatbot Management</a><a class="breadcrumbs__link">Create Fieldset</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
           <form class="form" action="{{ route('chatbot.update')}}" method="POST">
