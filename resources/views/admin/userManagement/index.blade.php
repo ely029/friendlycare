@@ -15,11 +15,11 @@
         <div class="section__container">
           <a class="button button--create" href="{{ route('userRole') }}">Create Account<i class="fa fa-plus"></i></a>
           <div class="section__content">
-            <select class="form__input form__input--filter">
+            <select id="user-filter" class="form__input form__input--filter">
               <option value="">Filters</option>
-              <option value="All">All</option>
-              <option value="Admin">Admin</option>
-              <option value="Staff">Staff</option>
+              <option value="{{ route('userManagement.search')}}?search=All">All</option>
+              <option value="{{ route('userManagement.search')}}?search=Admin">Admin</option>
+              <option value="{{ route('userManagement.search')}}?search=Staff">Staff</option>
             </select>
 
             <table class="table" id="table">

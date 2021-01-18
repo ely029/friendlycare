@@ -530,7 +530,7 @@ class BookingController extends Controller
             'status' => 4,
             'booking_id' => $id,
         ]);
-        FPMTypeService::where('patient_id', $getPatientId[0])->delete();
+        DB::delete('DELETE FROM fpm_type_service where patient_id =?', [$getPatientId[0]]);
         FpmTypeService::create([
             'service_id' => $getServiceId[0],
             'patient_id' => $getPatientId[0],

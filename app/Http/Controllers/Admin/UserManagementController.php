@@ -230,24 +230,16 @@ class UserManagementController extends Controller
     public function search()
     {
         $request = request()->all();
-        if ($request['search_by'] === 'id') {
-            $user = User::where('id', $request['search'])->get();
-
+        if ($request['search'] === 'Staff') {
+            $user = User::where('role_id', 4)->get();
             return view('admin.userManagement.index', ['admin' => $user]);
         }
-        if ($request['search_by'] === 'role') {
-            if ($request['search'] === 'Staff') {
-                $user = User::where('role_id', 4)->get();
-                return view('admin.userManagement.index', ['admin' => $user]);
-            }
-            if ($request['search'] === 'Admin') {
-                $user = User::where('role_id', 2)->get();
-                return view('admin.userManagement.index', ['admin' => $user]);
-            }
+        if ($request['search'] === 'Admin') {
+            $user = User::where('role_id', 2)->get();
+            return view('admin.userManagement.index', ['admin' => $user]);
         }
-        if ($request['search_by'] === 'name') {
-            $user = User::where('name', $request['search'])->get();
-
+        if ($request['search'] === 'All') {
+            $user = User::get();
             return view('admin.userManagement.index', ['admin' => $user]);
         }
     }
