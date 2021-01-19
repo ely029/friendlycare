@@ -23,8 +23,8 @@
                 <th class="table__head">Category</th>
               </tr>
             </thead>
-            @foreach($details as $detail)
             <tbody>
+            @foreach($details as $detail)
               <tr class="table__row js-view" data-href="{{ route('familyPlanningMethod.information',$detail->id)}}">
               <td>{{ $detail->id }}</td>
                             <td>{{ $detail->name }}</td>
@@ -37,8 +37,8 @@
                             <td>Natural Method</td>
                             @endif
               </tr>
-            </tbody>
               @endforeach
+              </tbody>
           </table>
         </div>
       </div>

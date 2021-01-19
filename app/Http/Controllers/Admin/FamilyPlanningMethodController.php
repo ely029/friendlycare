@@ -167,72 +167,55 @@ class FamilyPlanningMethodController extends Controller
 
     public function edit($id)
     {
-        $details = FamilyPlanTypeSubcategories::where('id', $id)->with('serviceGalleries')->get();
-        return view('admin.familyPlanningMethod.editPage', ['details' => $details]);
+        $details = DB::table('family_plan_type_subcategory as fpm')
+            ->select('fpm.name',
+                            'fpm.id',
+                            'fpm.icon',
+                            'fpm.short_name',
+                            'fpm.percent_effective',
+                            'fpm.typical_validity',
+                            'fpm.description_english',
+                            'fpm.description_filipino',
+                            'fpm.how_it_works_english',
+                            'fpm.how_it_works_filipino',
+                            'fpm.side_effect_english',
+                            'fpm.side_effect_filipino',
+                            'fpm.additional_note_english',
+                            'fpm.additional_note_filipino',
+                            'fpm.video_link',
+                            'fpm.family_plan_type_id',
+                            'fpm.icon_url')
+            ->where('fpm.id', $id)
+            ->get();
+
+        $serviceGallery = DB::table('service_gallery')
+            ->select('service_id', 'file_name', 'file_url', 'id')
+            ->where('service_id', $id)
+            ->get();
+        return view('admin.familyPlanningMethod.editPage', ['details' => $details, 'serviceGallery' => $serviceGallery]);
     }
 
     public function update(Request $request)
     {
         $requests = request()->all();
-        if ($request->file('gallery') !== null) {
-            ServiceGallery::where('service_id', $requests['id'])->delete();
-
-            for ($files = 0;$files <= 4;$files++) {
-                $icon = $request->file('gallery')[$files];
-                $destination = public_path('/uploads');
-                $icon->move($destination, $icon->getClientOriginalName());
-                $icon_url = url('uploads/'.$icon->getClientOriginalName());
-                ServiceGallery::create([
-                    'file_name' => $icon->getClientOriginalName(),
-                    'service_id' => session('id'),
-                    'file_url' => $icon_url,
-                    'value_id' => $files,
-                ]);
-            }
-        }
-        if ($request->file('icon') !== null) {
-            $icon = $request->file('icon');
-            $destination = public_path('assets/app/img/');
-            $icon_url = url('assets/app/img/'.$icon->getClientOriginalName());
-
-            $icon->move($destination, $icon->getClientOriginalName());
-            $request['icon_url'] = $icon_url;
-            $request['icon_1'] = $icon->getClientOriginalName();
-            FamilyPlanTypeSubcategories::where('id', $requests['id'])->update([
-                'name' => $requests['name'],
-                'short_name' => $requests['short_name'],
-                'typical_validity' => $requests['typical_validity'],
-                'percent_effective' => $requests['percent_effective'],
-                'description_english' => $requests['description_english'],
-                'description_filipino' => $requests['description_tagalog'],
-                'how_it_works_english' => $requests['how_it_works_english'],
-                'how_it_works_filipino' => $requests['how_it_works_tagalog'],
-                'side_effect_filipino' => $requests['side_effect_tagalog'],
-                'side_effect_english' => $requests['side_effect_english'],
-                'additional_note_english' => $requests['additional_note_english'],
-                'additional_note_filipino' => $requests['additional_note_tagalog'],
-                'video_link' => $requests['video_link'],
-                'icon' => $request['icon_1'],
-                'icon_url' => $request['icon_url'],
-            ]);
-        } else {
-            FamilyPlanTypeSubcategories::where('id', $requests['id'])->update([
-                'name' => $requests['name'],
-                'short_name' => $requests['short_name'],
-                'typical_validity' => $requests['typical_validity'],
-                'percent_effective' => $requests['percent_effective'],
-                'description_english' => $requests['description_english'],
-                'description_filipino' => $requests['description_tagalog'],
-                'how_it_works_english' => $requests['how_it_works_english'],
-                'how_it_works_filipino' => $requests['how_it_works_tagalog'],
-                'side_effect_filipino' => $requests['side_effect_tagalog'],
-                'side_effect_english' => $requests['side_effect_english'],
-                'additional_note_english' => $requests['additional_note_english'],
-                'additional_note_filipino' => $requests['additional_note_tagalog'],
-                'video_link' => $requests['video_link'],
-            ]);
-        }
-
+        FamilyPlanTypeSubcategories::where('id', $requests['id'])->update([
+            'name' => $requests['name'],
+            'family_plan_type_id' => $requests['family_plan_type_id'],
+            'short_name' => $requests['short_name'],
+            'typical_validity' => $requests['typical_validity'],
+            'percent_effective' => $requests['percent_effective'],
+            'description_english' => $requests['description_english'],
+            'description_filipino' => $requests['description_tagalog'],
+            'how_it_works_english' => $requests['how_it_works_english'],
+            'how_it_works_filipino' => $requests['how_it_works_tagalog'],
+            'side_effect_filipino' => $requests['side_effect_tagalog'],
+            'side_effect_english' => $requests['side_effect_english'],
+            'additional_note_english' => $requests['additional_note_english'],
+            'additional_note_filipino' => $requests['additional_note_tagalog'],
+            'video_link' => $requests['video_link'],
+            'icon' => $request['icon_1'],
+            'icon_url' => $request['icon_url'],
+        ]);
         return redirect('fpm');
     }
 
@@ -264,5 +247,25 @@ class FamilyPlanningMethodController extends Controller
             'service_id' => session('id'),
             'file_url' => $icon_url,
         ]);
+    }
+
+    public function updateGalleryUpload(Request $request)
+    {
+        $icon = $request->file('file');
+        $requests = request()->all();
+        $destination = public_path('/uploads/fpm');
+        $icon->move($destination, $icon->getClientOriginalName());
+        $icon_url = url('uploads/fpm/'.$icon->getClientOriginalName());
+        ServiceGallery::create([
+            'file_name' => $icon->getClientOriginalName(),
+            'service_id' => $requests['fpm'],
+            'file_url' => $icon_url,
+        ]);
+    }
+
+    public function deleteServiceGallery($id, $serviceId)
+    {
+        ServiceGallery::where('id', $id)->delete();
+        return redirect('/fpm/edit/'.$serviceId);
     }
 }

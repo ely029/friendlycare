@@ -128,6 +128,8 @@ Route::group(['prefix' => 'fpm'], static function () {
     Route::post('update/', 'Admin\FamilyPlanningMethodController@update')->name('familyPlanningMethod.update');
     Route::post('/icon-upload', 'Admin\FamilyPlanningMethodController@iconUpload')->name('familyPlanningMethod.iconUpload');
     Route::post('/gallery/upload', 'Admin\FamilyPlanningMethodController@galleryUpload')->name('familyPlanningMethod.galleryUpload');
+    Route::post('/update/gallery/upload', 'Admin\FamilyPlanningMethodController@updateGalleryUpload')->name('familyPlanningMethod.updateGalleryUpload');
+    Route::get('/gallery/delete/{id}/{serviceId}', 'Admin\FamilyPlanningMethodController@deleteServiceGallery')->name('familyPlanningMethod.deleteGallery');
 });
 
 ///events and notifications

@@ -27,26 +27,7 @@ $('document').ready(function(){
     });
 });
 </script>
-@if(Route::currentRouteName() == 'familyPlanningMethod.thirdPage')
-<script type="text/javascript">
-$(function(){
-    alert($('#id').val());
-    $("#dropzoneDragArea").dropzone({
-        url: "{{ route('familyPlanningMethod.galleryUpload')}}",
-        data: {id: $("#id").val(), },
-        headers: {
-                  'x-csrf-token': "{{ csrf_token() }}",
-        },
-        init: function() {
-                this.on("sending", function(file, xhr, formData){
-                        formData.append("fpm", $("#id").val());
-                });
-            }
-        });
-});
-</script>
-@endif
-@if(Route::currentRouteName() == 'familyPlanningMethod.firstPage')
+@if(Route::currentRouteName() == 'familyPlanningMethod.firstPage' || Route::currentRouteName() == 'familyPlanningMethod.edit')
 <script type="text/javascript">
 $('document').ready(function(){
     $("#js-provider-form").on("change", function(){
@@ -64,6 +45,20 @@ $('document').ready(function(){
          }
       });
    });
+
+   $("#dropzoneDragArea").dropzone({
+        url: "{{ route('familyPlanningMethod.updateGalleryUpload')}}",
+        data: {id: $("#id").val(), },
+        headers: {
+                  'x-csrf-token': "{{ csrf_token() }}",
+        },
+        init: function() {
+                this.on("sending", function(file, xhr, formData){
+                        formData.append("fpm", $("#id").val());
+                });
+            }
+        });
+
 });
 </script>
 @endif

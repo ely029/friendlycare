@@ -16,7 +16,7 @@
         <div class="section__container">
           <form class="form form--method" id="js-provider-form" method="POST" action="{{ route('familyPlanningMethod.update')}}" enctype="multipart/form-data">
           @csrf  
-          <input type="hidden" name="id" value="{{ $user->id }}"/>
+          <input type="hidden" name="id" id="id" value="{{ $user->id }}"/>
           <div class="tabs">
               <ul class="tabs__list">
                 <li class="tabs__item tabs__item--method tabs__item--current">
@@ -39,11 +39,11 @@
                   <h2 class="section__heading">Details</h2>
                   <ul class="form__group form__group--upload form__group--uploadEditMethod">
                     <li class="form__group-item">
-                      <div class="form__wrapper"><img class="form__image form__image--method" src="{{URL::asset('img/placeholder.jpg')}}" alt="Image placeholder" /></div>
+                      <div class="form__wrapper"><img class="form__image form__image--method" src="{{ $user->icon_url}}" alt="Image placeholder" /></div>
                     </li>
                     <li class="form__group-item">
                       <div class="form__content">
-                        <input class="button button--upload button--upload__method" id="js-upload" type="file" accept="image/*" name="js-upload" /><label class="form__label form__label--upload" for="js-upload">Upload a service icon </label>
+                        <input class="button button--upload button--upload__method" id="js-upload" type="file" accept="image/*" name="icon" /><label class="form__label form__label--upload" for="js-upload">Upload a service icon </label>
                       </div>
                     </li>
                   </ul>
@@ -59,7 +59,23 @@
                   <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Method name*" required name="name" value="{{$user->name}}" /><label class="form__label">Method name* </label></div>
                   <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Short name*" name="short_name" value="{{$user->short_name}}" /><label class="form__label">Short name* </label></div>
                   <div class="form__content form__content--full">
-                    <select class="form__input form__input--select"></select>
+                    <select name="family_plan_type_id" class="form__input form__input--select">
+                      @if ($user->family_plan_type_id == 1)
+                      <option value="1" selected>Modern Method</option>
+                      <option value="2">Permanent Method</option>
+                      <option value="3">Natural Method</option>
+                      @endif
+                      @if ($user->family_plan_type_id == 2)
+                      <option value="2" selected>Permanent Method</option>
+                      <option value="1">Modern Method</option>
+                      <option value="3">Natural Method</option>
+                      @endif
+                      @if ($user->family_plan_type_id == 3)
+                      <option value="3" selected>Natural Method</option>
+                      <option value="1">Modern Method</option>
+                      <option value="2">Permanent Method</option>
+                      @endif
+                    </select>
                     <label class="form__label">Category* </label>
                   </div>
                 </li>
@@ -143,157 +159,33 @@
                 <li class="form__group-item">
                   <h2 class="section__heading">Clinic gallery</h2>
                   <div class="dz-default dz-message dropzoneDragArea" id="dropzoneDragArea"><span>Upload File</span></div>
+                  @foreach($serviceGallery as $serviceGalleries)
+                  <li style="float: left;"><img height="100" width="100" src="{{ $serviceGalleries->file_url}}">
+                     <a href="{{ route('familyPlanningMethod.deleteGallery', ['id' => $serviceGalleries->id, 'serviceId' => $serviceGalleries->service_id])}}" class="button" style="width: 35px;font-size: 10px;height: 35px;margin-top: -  95px;">X</a>
+                 </li>
+                  @endforeach
                   <div class="dropzone-previews"></div>
                 </li>
                 <li class="form__group-item">
                   <h2 class="section__heading">Video</h2>
                   <div class="form__content form__content--full"><input class="form__input form__input--search" name="video_link" value="{{$user->video_link}}" type="text" placeholder="Youtube link*" required /><label class="form__label">Youtube link*</label></div>
-                  <iframe class="form__video form__video--edit" src="https://www.youtube.com/embed/c6DC2FEzVjM" frameborder="0" allowfullscreen></iframe>
+                  <iframe class="form__video form__video--edit" src="{{ $user->video_link }}" frameborder="0" allowfullscreen></iframe>
                 </li>
               </ul>
             </div>
-            <div class="form__button form__button--end"><button class="button js-trigger" type="submit">Save changes</button></div>
-          </form>
-
-          <div class="modal js-modal">
+            <div class="form__button form__button--end"><button class="button js-trigger" type="button">Save changes</button></div>
+            <div class="modal js-modal">
             <div class="modal__background js-modal-background"></div>
             <div class="modal__container">
               <div class="modal__box">
                 <h2 class="modal__title">Save changes!</h2>
                 <p class="modal__text">All changes will update the version of the app. Are you sure you want to Save?</p>
-                <div class="modal__button modal__button--center"><button class="button button--medium" type="button">Confirm</button></div>
+                <div class="modal__button modal__button--center"><button class="button button--medium" type="submit">Confirm</button></div>
               </div>
             </div>
           </div>
+          </form>
         </div>
       </div>
 @endforeach
-<!-- <div class="container-fluid">
-    <div class="row">
-        <aside class="col-2 px-0 fixed-top" id="left">
-        <div class="list-group w-100">
-                <span>Management</span>
-                <a href="{{ route('userManagement') }}" class="list-group-item">User Management</a>
-                <a href="{{ route('providerManagement')}}" class="list-group-item">Provider Management</a>
-                <span>Content</span>
-                <a href="{{ route('basicPages')}}" class="list-group-item">Basic Pages</a>
-                <a href="{{ route('familyPlanningMethod.index')}}" class="list-group-item active">Family Planning Method</a>
-            </div>
-
-        </aside>
-        <main class="col-10 invisible">
-            hidden spacer
-        </main>
-    
-        @foreach ($details as $user)
-        <main class="col offset-2 h-100">
-            <form method="POST" action="{{ route('familyPlanningMethod.update')}}" enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" name="id" value="{{ $user->id }}"/>
-            <div class="row bg-white">
-                <div class="col-md-12">
-                    <span>Method Name</span>
-                    <input type="text" class="form-control" name="name" value="{{ $user->name }}"/>
-                </div>
-            </div>
-            <div class="row bg-white">
-                <div class="col-md-12">
-                    <span>Short Name</span>
-                    <input type="text" class="form-control" name="short_name" value="{{ $user->short_name }}"/>
-                </div>
-            </div>
-            <div class="row bg-white">
-                <div class="col-md-12">
-                    <span>Typikal na bisa</span>
-                    <input type="text" class="form-control" name="typical_validity" value="{{ $user->typical_validity }}"/>
-                </div>
-            </div>
-            <div class="row bg-white">
-                <div class="col-md-12">
-                    <span>Percent Effective</span>
-                    <input type="text" class="form-control" name="percent_effective" value="{{ $user->percent_effective }}"/>
-                </div>
-            </div>
-            <div class="row bg-white">
-                <div class="col-md-12">
-                    <span>Video Link</span>
-                    <input type="text" name="video_link" value="{{ $user->video_link}}"/>
-                </div>
-            </div>
-            <div class="row bg-white">
-                <div class="col-md-12">
-                    <span>Description (English) </span>
-                    <textarea name="description_english">{{ $user->description_english }}</textarea>
-                </div>
-            </div>
-            <div class="row bg-white">
-                <div class="col-md-12">
-                    <span>Description (Filipino) </span>
-                    <textarea name="description_tagalog">{{ $user->description_filipino }}</textarea>
-                </div>
-            </div>
-            <div class="row bg-white">
-                <div class="col-md-12">
-                    <span>How it Works (English) </span>
-                    <textarea name="how_it_works_english">{{ $user->how_it_works_english }}</textarea>
-                </div>
-            </div>
-            <div class="row bg-white">
-                <div class="col-md-12">
-                    <span>How it Works (Tagalog) </span>
-                    <textarea name="how_it_works_tagalog">{{ $user->how_it_works_filipino }}</textarea>
-                </div>
-            </div>
-            <div class="row bg-white">
-                <div class="col-md-12">
-                    <span>Possible Side Effect (English) </span>
-                    <textarea name="side_effect_english">{{ $user->side_effect_english }}</textarea>
-                </div>
-            </div>
-            <div class="row bg-white">
-                <div class="col-md-12">
-                    <span>Possible Side Effect (Tagalog) </span>
-                    <textarea name="side_effect_tagalog">{{ $user->side_effect_filipino }}</textarea>
-                </div>
-            </div>
-            <div class="row bg-white">
-                <div class="col-md-12">
-                    <span>Additional Note (English) </span>
-                    <textarea name="additional_note_english">{{ $user->additional_note_english }}</textarea>
-                </div>
-            </div>
-            <div class="row bg-white">
-                <div class="col-md-12">
-                    <span>Additional Note (Filipino) </span>
-                    <textarea name="additional_note_tagalog">{{ $user->additional_note_filipino }}</textarea>
-                </div>
-            </div>
-            <div class="row bg-white">
-            <div class="col-md-6">
-                <span>Gallery</span><br/>
-            @foreach($user->serviceGalleries as $gallery)
-                <img height="50" width="50" src="{{ url(('uploads/'.$gallery->file_name)) }}">
-                    @endforeach
-                    <input type="file" name="gallery[]" multiple>
-                    </div>
-            </div>
-            <div class="row bg-white">
-                <span>Profile Icon</span><br/><br/>
-                <div class="col-md-6">
-                <img src="{{ $user->icon_url }}" height="50" width="50"/>
-                </div>
-                <div class="col-md-6">
-                    <input type="file" name="icon" value="{{ $user->icon }}"/>
-                </div>
-            </div>
-            <div class="row bg-white">
-                <div class="col-md-4">
-                    <input type="submit" class="btn btn-success" value="Edit Method"/>
-                </div>
-            </div>
-            </form>
-        </main>
-        @endforeach
-    </div>
-</div> -->
 @endsection
