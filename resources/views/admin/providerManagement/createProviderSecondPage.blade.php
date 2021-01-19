@@ -73,11 +73,11 @@
     </div>
 
     <div class="form__button form__button--steps">
-    <a class="button" href="{{ url()->previous() }}">Back</a>
+        <button class="button" >Back</button>
         <div class="steps">
         <ul class="steps__list">
-            <li class="steps__item"></li>
             <li class="steps__item active"></li>
+            <li class="steps__item"></li>
             <li class="steps__item"></li>
         </ul>
         </div>
