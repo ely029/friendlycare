@@ -43,10 +43,41 @@
             @endforeach
         </li>
         </ul>
-    </div>
+        <div class="form__content">
+                <div class="form__content form__content--row">
+                  <label class="form__sublabel">Yes<input class="form__trigger" id="js-yes-paid" type="radio" name="paid" checked="checked" value="1"/><span class="form__radio"></span></label>
+                  <label class="form__sublabel">No<input class="form__trigger" id="js-no-paid" type="radio" name="paid" value="0" /><span class="form__radio"></span></label>
+                </div>
+                <label class="form__label form__label--blue" for="paid-services">Do you have paid services?</label>
+              </div>
+              <div class="js-services-content">
+                <h2 class="section__heading section__heading--margin">Which of your services are paid?</h2>
+                <ul class="form__group form__group--createProviderServices">
+                  <li class="form__group-item">
+                    <h3 class="section__heading section__heading--sub">Modern method</h3>
+                    @foreach($modernMethod as $method)
+                  <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" name="services[]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                  @endforeach
+                  </li>
+                  <li class="form__group-item">
+                    <h3 class="section__heading section__heading--sub">Permanent method</h3>
+                    @foreach($permanentMethod as $method)
+                  <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" name="services[]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                  @endforeach
 
+                  </li>
+                  <li class="form__group-item">
+                    <h3 class="section__heading section__heading--sub">Natural method</h3>
+                    @foreach($naturalMethod as $method)
+                  <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" name="services[]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                  @endforeach
+
+                  </li>
+                </ul>
+              </div>
+    </div>
     <div class="form__button form__button--steps">
-        <a class="button" href="">Back</a>
+    <a class="button" href="{{ url()->previous() }}">Back</a>
         <div class="steps">
         <ul class="steps__list">
             <li class="steps__item"></li>

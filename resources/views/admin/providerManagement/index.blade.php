@@ -23,8 +23,8 @@
                 <th class="table__head">Assigned Staff</th>
               </tr>
             </thead>
-            @foreach ($clinics as $clinic)
             <tbody>
+            @foreach ($clinics as $clinic)
               <tr class="table__row js-view" data-href="{{ route('editProviderProfile',$clinic->id)}}">
                 <td class="table__details">{{$clinic->clinic_name}}</td>
                 @if ($clinic->type == '1')
@@ -38,8 +38,8 @@
                 <input type="hidden" class="provider_rate" value="{{$ratings}}">
                 <td class="table__details">{{ $countStaff }}</td>
               </tr>
-            </tbody>
             @endforeach
+            </tbody>
           </table>
         </div>
       </div>

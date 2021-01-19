@@ -227,7 +227,6 @@
                     @foreach($permanentMethod as $method)
                   <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" name="services[]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
                   @endforeach
-
                   </li>
                   <li class="form__group-item">
                     <h3 class="section__heading section__heading--sub">Natural method</h3>
