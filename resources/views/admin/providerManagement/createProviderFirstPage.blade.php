@@ -29,6 +29,7 @@
         <li class="form__group-item">
             <div class="form__content">
             <input class="button button--upload" id="js-upload" type="file" name="pic" /><label class="form__label form__label--upload" for="js-upload">Upload a logo or a clinic photo</label>
+            <input type="hidden" id="pic_url" name="pic_url"/>
             </div>
         </li>
         </ul>
@@ -90,7 +91,7 @@
             <li class="steps__item"></li>
         </ul>
         </div>
-        <a class="button" href="">Next</a>
+        <button class="button" type="submit">Next</button>
     </div>
     </form>
 </div>

@@ -32,6 +32,8 @@ class ProviderManagementController extends Controller
         $countStaff = DB::table('staffs')
             ->join('clinics', 'clinics.id', 'staffs.id')
             ->select('staffs.id')
+            ->orderBy('clinics.id')
+            ->groupBy('clinics.id')
             ->count();
         return view('admin.providerManagement.index', ['clinics' => $users, 'ratings' => $ratings, 'countStaff' => $countStaff]);
     }
@@ -171,6 +173,7 @@ class ProviderManagementController extends Controller
                 'clinics.id',
                 'clinics.paid_service',
                 'clinics.philhealth_accredited_1',
+                'clinics.photo_url',
                )
             ->where('clinics.id', $id)
             ->get();
@@ -200,28 +203,12 @@ class ProviderManagementController extends Controller
         return view('admin.providerManagement.editPage', ['data' => $data, 'provider' => $provider, 'galleries' => $gallery, 'modernMethod' => $modernMethod, 'naturalMethod' => $naturalMethod, 'permanentMethod' => $permanentMethod]);
     }
 
-    public function updateProvider(Request $requests)
+    public function updateProvider()
     {
         $request = request()->all();
         ClinicHours::where('clinic_id', $request['clinic_id'])->delete();
         $this->validateClinicHours($request);
         //$this->pushNotification($request['clinic_id']);
-        if ($requests->file('gallery') !== null) {
-            ClinicGallery::where('clinic_id', $request['clinic_id'])->delete();
-
-            for ($files = 0;$files <= 4;$files++) {
-                $icon = $requests->file('gallery')[$files];
-                $destination = public_path('/uploads');
-                $icon->move($destination, $icon->getClientOriginalName());
-                $icon_url = url('uploads/'.$icon->getClientOriginalName());
-                ClinicGallery::create([
-                    'file_name' => $icon->getClientOriginalName(),
-                    'clinic_id' => $request['clinic_id'],
-                    'file_url' => $icon_url,
-                    'value_id' => $files,
-                ]);
-            }
-        }
         for ($eee = 0;$eee <= 10000;$eee++) {
             if (isset($request['services'][$eee])) {
                 PaidServices::where('clinic_id', $request['clinic_id'])->delete();
@@ -318,7 +305,7 @@ class ProviderManagementController extends Controller
         return redirect('provider/list');
     }
 
-    public function storeFirstPage(Request $requests)
+    public function storeFirstPage()
     {
         $validator = \Validator::make(request()->all(), [
             'pic' => 'required|mimes:png,jpeg,jpg|max:5000',
@@ -336,11 +323,7 @@ class ProviderManagementController extends Controller
         $request = request()->all();
         $request['profession'] = 'N/A';
         $request['training'] = 'N/A';
-
-        $icon = $requests->file('pic');
-        $destination = public_path('assets/app/img/');
-        $icon_url = url('assets/app/img/'.$icon->getClientOriginalName());
-        $icon->move($destination, $icon->getClientOriginalName());
+        $icon_url = $request['pic_url'];
         $request['photo_url'] = $icon_url;
         if (isset($request['city'])) {
             $city = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/cities/'.$request['city']), true);
@@ -570,7 +553,15 @@ class ProviderManagementController extends Controller
         ClinicGallery::where('id', $id)->delete();
         return redirect('/provider/edit/'.$clinicId);
     }
-
+    public function profPicUpload(Request $request)
+    {
+        $request = request()->all();
+        $icon = $request['pic'];
+        $destination = public_path('assets/app/img/');
+        $icon_url = url('assets/app/img/'.$icon->getClientOriginalName());
+        $icon->move($destination, $icon->getClientOriginalName());
+        return response()->json($icon_url);
+    }
     private function validateClinicHours($request)
     {
         for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {

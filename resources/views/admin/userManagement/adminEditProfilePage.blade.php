@@ -22,6 +22,11 @@
             @elseif ($user->role_id == 4)
             <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Role </label><span class="form__text">Staff</span></div>
             @endif
+            @if ($user->role_id == 4)
+              @foreach($staff as $staffs)
+              <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Clinic Name</label><span class="form__text">{{ $staffs->clinic_name }}</span></div>
+              @endforeach
+            @endif
             <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Profession </label><span class="form__text">{{ $user->professions }}</span></div>
             <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Training </label><span class="form__text">{{ $user->trainings }}</span></div>
             <div class="form__button form__button--start"><a class="button" href="{{ route('editUserProfile',$user->id)}}">Edit profile</a>

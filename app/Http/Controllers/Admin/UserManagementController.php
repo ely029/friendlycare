@@ -129,7 +129,13 @@ class UserManagementController extends Controller
             ->where('staffs.user_id', $id)
             ->get();
 
-        return view('admin.userManagement.adminEditProfilePage', ['users' => $user, 'clinic' => $clinic]);
+        $staff = DB::table('staffs')
+            ->leftJoin('clinics', 'clinics.id', 'staffs.clinic_id')
+            ->select('clinics.clinic_name')
+            ->where('staffs.user_id', $id)
+            ->get();
+
+        return view('admin.userManagement.adminEditProfilePage', ['users' => $user, 'clinic' => $clinic, 'staff' => $staff]);
     }
     public function editUserProfile($id)
     {

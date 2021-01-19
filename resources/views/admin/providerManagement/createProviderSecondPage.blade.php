@@ -81,7 +81,7 @@
             <li class="steps__item"></li>
         </ul>
         </div>
-        <a class="button" href="">Next</a>
+        <button class="button" type="submit">Next</button>
     </div>
     </form>
 </div>

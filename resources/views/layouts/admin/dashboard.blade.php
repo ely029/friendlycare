@@ -27,6 +27,27 @@ $('document').ready(function(){
     });
 });
 </script>
+@if(Route::currentRouteName() == 'providerCreateFirstPage' || Route::currentRouteName() == 'editPage')
+<script type="text/javascript">
+$('document').ready(function(){
+    $("#js-provider-form").on("change", function(){
+      var formData = new FormData(this);
+      $.ajax({
+         url  : "{{ route('provider.profPicUpload') }}",
+         type : "POST",
+         cache: false,
+         contentType : false, 
+         processData: false,
+         data: formData,
+         success:function(response){
+              $('.form__image').attr('src', response);
+              $('#pic_url').attr('value', response);
+         }
+      });
+   });
+});
+</script>
+@endif
 @if(Route::currentRouteName() == 'familyPlanningMethod.firstPage' || Route::currentRouteName() == 'familyPlanningMethod.edit')
 <script type="text/javascript">
 $('document').ready(function(){
@@ -36,7 +57,7 @@ $('document').ready(function(){
          url  : "{{ route('familyPlanningMethod.iconUpload') }}",
          type : "POST",
          cache: false,
-         contentType : false, // you can also use multipart/form-data replace of false
+         contentType : false, 
          processData: false,
          data: formData,
          success:function(response){
@@ -59,6 +80,24 @@ $('document').ready(function(){
             }
         });
 
+});
+</script>
+@endif
+@if(Route::currentRouteName() == 'familyPlanningMethod.thirdPage')
+<script type="text/javascript">
+$('document').ready(function(){
+    $("#dropzoneDragArea").dropzone({
+        url: "{{ route('familyPlanningMethod.galleryUpload')}}",
+        data: {id: $("#id").val(), },
+        headers: {
+                  'x-csrf-token': "{{ csrf_token() }}",
+        },
+        init: function() {
+                this.on("sending", function(file, xhr, formData){
+                        formData.append("fpm", $("#id").val());
+                });
+            }
+        });
 });
 </script>
 @endif

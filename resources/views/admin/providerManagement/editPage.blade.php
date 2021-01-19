@@ -46,11 +46,12 @@
             <div class="tabs__details tabs__details--active">
               <ul class="form__group form__group--upload">
                 <li class="form__group-item">
-                  <div class="form__wrapper"><img class="form__image" src="{{URL::asset('img/placeholder.jpg')}}" alt="Image placeholder" /></div>
+                  <div class="form__wrapper"><img class="form__image" src="{{ $providers->photo_url}}" alt="Image placeholder" /></div>
                 </li>
                 <li class="form__group-item">
                   <div class="form__content">
-                    <input class="button button--upload profile-pic-upload" id="js-upload" name="profile-pic-upload" type="file" accept="image/*" /><label class="form__label form__label--upload" for="js-upload">Upload a logo or a clinic photo</label>
+                    <input class="button button--upload profile-pic-upload" id="js-upload" name="pic" type="file" accept="image/*" /><label class="form__label form__label--upload" for="js-upload">Upload a logo or a clinic photo</label>
+                    <input type="hidden" name="pic_url" id="pic_url"/>
                   </div>
                 </li>
               </ul>
@@ -208,8 +209,13 @@
             <div class="tabs__details">
               <div class="form__content">
                 <div class="form__content form__content--row">
+                  @if ($providers->paid_service == 1)
                   <label class="form__sublabel">Yes<input class="form__trigger" id="js-yes-paid" type="radio" name="paid" checked="checked" value="1"/><span class="form__radio"></span></label>
                   <label class="form__sublabel">No<input class="form__trigger" id="js-no-paid" type="radio" name="paid" value="0" /><span class="form__radio"></span></label>
+                  @else
+                  <label class="form__sublabel">Yes<input class="form__trigger" id="js-yes-paid" type="radio" name="paid" value="1"/><span class="form__radio"></span></label>
+                  <label class="form__sublabel">No<input class="form__trigger" id="js-no-paid" type="radio" name="paid" checked="checked" value="0" /><span class="form__radio"></span></label>
+                  @endif
                 </div>
                 <label class="form__label form__label--blue" for="paid-services">Do you have paid services?</label>
               </div>
