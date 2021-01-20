@@ -149,34 +149,20 @@
                 <li class="form__group-item">
                   <h2 class="section__heading">Clinic hours</h2>
                   <ul class="form__group form__group--schedule">
+                    @foreach($clinic_hours as $clinic_hour)
+                    @if ($clinic_hour->froms == NULL && $clinic_hour->tos == NULL)
                     <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="days[0]" value="Sunday" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" name="from[]"/><input class="form__input" type="time" name="to[]" placeholder="closing time" />
+                      <label class="form__sublabel form__sublabel--day">@if($clinic_hour->days == 'Thursday') {{ ucfirst(substr($clinic_hour->days, 0, 2)) }} @else {{ ucfirst(substr($clinic_hour->days, 0, 1)) }} @endif<input class="form__trigger" type="checkbox" name="days[{{ $clinic_hour->id_value}}]" value="{{ $clinic_hour->days }}"/><span class="form__checkmark"></span></label>
+                      <input class="form__input" type="time" placeholder="opening time" name="from[]" value=""/><input class="form__input" type="time" name="to[]" value="" placeholder="closing time" />
                     </li>
+                    @else
                     <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">M<input class="form__trigger" type="checkbox" name="days[1]" value="Monday" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" name="from[]"/><input class="form__input" type="time" name="to[]" placeholder="closing time" />
+                      <label class="form__sublabel form__sublabel--day">@if($clinic_hour->days == 'thursday'){{ ucfirst(substr($clinic_hour->days, 0, 2)) }} @else {{ ucfirst(substr($clinic_hour->days, 0, 1)) }} @endif <input class="form__trigger" type="checkbox" name="days[{{ $clinic_hour->id_value}}]" value="{{ $clinic_hour->days }}" checked/><span class="form__checkmark"></span></label>
+                      <input class="form__input" type="time" placeholder="opening time" name="from[]" value="{{ $clinic_hour->froms }}"/><input class="form__input" type="time" name="to[]" value="{{ $clinic_hour->tos }}" placeholder="closing time" />
                     </li>
-                    <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" type="checkbox" name="days[2]" value="Tuesday" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" name="from[]"/><input class="form__input" type="time" name="to[]" placeholder="closing time" />
-                    </li>
-                    <li class="form__group-item">
-                    <label class="form__sublabel form__sublabel--day">W<input class="form__trigger" type="checkbox" name="days[3]" value="Wednesday" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" name="from[]"/><input class="form__input" type="time" name="to[]" placeholder="closing time" />
-                    </li>
-                    <li class="form__group-item">
-                    <label class="form__sublabel form__sublabel--day">Th<input class="form__trigger" type="checkbox" name="days[4]" value="Thursday" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" name="from[]"/><input class="form__input" type="time" name="to[]" placeholder="closing time" />
-                    </li>
-                    <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">F<input class="form__trigger" type="checkbox" name="days[5]" value="Friday" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" name="from[]"/><input class="form__input" type="time" name="to[]" placeholder="closing time" />
-                    </li>
-                    <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="days[6]" value="Saturday" /><span class="form__checkmark"></span></label>
-                      <input class="form__input" type="time" placeholder="opening time" name="from[]"/><input class="form__input" type="time" name="to[]" placeholder="closing time" />
-                    </li>
+                    @endif
+                    @endforeach
+                    
                   </ul>
                 </li>
               </ul>

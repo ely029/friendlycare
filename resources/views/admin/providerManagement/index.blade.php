@@ -29,9 +29,11 @@
                 <td class="table__details">{{$clinic->clinic_name}}</td>
                 @if ($clinic->type == '1')
                             <td class="table__details">Private</td>
-                            @elseif($clinic->type == '2')
+                @endif
+                            @if($clinic->type == '2')
                             <td class="table__details">Government</td>
-                            @elseif($clinic->type == '3')
+                            @endif
+                            @if($clinic->type == '3')
                             <td class="table__details">NGO</td>
                             @endif
                 <td class="table__details"><span class="rateYo"></span></td>

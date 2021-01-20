@@ -33,37 +33,37 @@
             <h2 class="section__heading">Clinic hours</h2>
             <ul class="form__group form__group--schedule">
             <li class="form__group-item">
-                <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="days[]" value="sunday" /><span class="form__checkmark"></span></label>
+                <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="days[0]" value="sunday" /><span class="form__checkmark"></span></label>
                 <input class="form__input" name="from[]" type="time" placeholder="opening time" />
                 <input class="form__input" name="to[]" type="time" placeholder="closing time" />
             </li>
             <li class="form__group-item">
-                <label class="form__sublabel form__sublabel--day">M<input class="form__trigger" type="checkbox" name="days[]" value="monday" /><span class="form__checkmark"></span></label>
+                <label class="form__sublabel form__sublabel--day">M<input class="form__trigger" type="checkbox" name="days[1]" value="monday" /><span class="form__checkmark"></span></label>
                 <input class="form__input" name="from[]" type="time" placeholder="opening time" />
                 <input class="form__input" name="to[]" type="time" placeholder="closing time" />
             </li>
             <li class="form__group-item">
-                <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" type="checkbox" name="days[]" value="tuesday" /><span class="form__checkmark"></span></label>
+                <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" type="checkbox" name="days[2]" value="tuesday" /><span class="form__checkmark"></span></label>
                 <input class="form__input" name="from[]" type="time" placeholder="opening time" />
                 <input class="form__input" name="to[]" type="time" placeholder="closing time" />
             </li>
             <li class="form__group-item">
-                <label class="form__sublabel form__sublabel--day">W<input class="form__trigger" type="checkbox" name="days[]" value="wednesday" /><span class="form__checkmark"></span></label>
+                <label class="form__sublabel form__sublabel--day">W<input class="form__trigger" type="checkbox" name="days[3]" value="wednesday" /><span class="form__checkmark"></span></label>
                 <input class="form__input" name="from[]" type="time" placeholder="opening time" />
                 <input class="form__input" name="to[]" type="time" placeholder="closing time" />
             </li>
             <li class="form__group-item">
-                <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" type="checkbox" name="days[]" value="thursday" /><span class="form__checkmark"></span></label>
+                <label class="form__sublabel form__sublabel--day">T<input class="form__trigger" type="checkbox" name="days[4]" value="thursday" /><span class="form__checkmark"></span></label>
                 <input class="form__input" name="from[]" type="time" placeholder="opening time" />
                 <input class="form__input" name="to[]" type="time" placeholder="closing time" />
             </li>
             <li class="form__group-item">
-                <label class="form__sublabel form__sublabel--day">F<input class="form__trigger" type="checkbox" name="days[]" value="friday" /><span class="form__checkmark"></span></label>
+                <label class="form__sublabel form__sublabel--day">F<input class="form__trigger" type="checkbox" name="days[5]" value="friday" /><span class="form__checkmark"></span></label>
                 <input class="form__input" name="from[]" type="time" placeholder="opening time" />
                 <input class="form__input" name="to[]" type="time" placeholder="closing time" />
             </li>
             <li class="form__group-item">
-                <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="days[]" value="saturday" /><span class="form__checkmark"></span></label>
+                <label class="form__sublabel form__sublabel--day">S<input class="form__trigger" type="checkbox" name="days[6]" value="saturday" /><span class="form__checkmark"></span></label>
                 <input class="form__input" name="from[]" type="time" placeholder="opening time" />
                 <input class="form__input" name="to[]" type="time" placeholder="closing time" />
             </li>

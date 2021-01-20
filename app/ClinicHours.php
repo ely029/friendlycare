@@ -17,5 +17,6 @@ class ClinicHours extends Model
         'days',
         'froms',
         'tos',
+        'id_value',
     ];
 }

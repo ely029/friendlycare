@@ -67,7 +67,7 @@
                 @foreach ($clinicHours as $hours)
                   <ul class="form__group">
                     <li class="form__group-item">
-                      <span class="form__text">{{ $hours->days}}</span>
+                      <span class="form__text">{{ ucfirst($hours->days) }}</span>
                     </li>
 
                     <li class="form__group-item">

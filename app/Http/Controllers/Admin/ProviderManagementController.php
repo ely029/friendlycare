@@ -23,6 +23,7 @@ class ProviderManagementController extends Controller
             ->select('clinics.email', 'clinics.type', 'clinics.id', 'clinics.clinic_name')
             ->where('clinics.email', '<>', 'null')
             ->where('clinics.is_approve', '<>', 0)
+            ->orderBy('clinics.created_at', 'desc')
             ->get();
         $ratings = DB::table('ratings')
             ->join('ratings_details', 'ratings_details.rating_id', 'ratings.id')
@@ -31,9 +32,8 @@ class ProviderManagementController extends Controller
 
         $countStaff = DB::table('staffs')
             ->join('clinics', 'clinics.id', 'staffs.id')
-            ->select('staffs.id')
+            ->select('staffs.clinic_id')
             ->orderBy('clinics.id')
-            ->groupBy('clinics.id')
             ->count();
         return view('admin.providerManagement.index', ['clinics' => $users, 'ratings' => $ratings, 'countStaff' => $countStaff]);
     }
@@ -197,10 +197,34 @@ class ProviderManagementController extends Controller
             ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'family_plan_type_subcategory.short_name')
             ->where('family_plan_type_subcategory.family_plan_type_id', 3)
             ->get();
+        $clinicHours = DB::table('clinic_hours')
+            ->select('is_checked', 'days', 'froms', 'tos', 'id_value')
+            ->where('clinic_id', $id)
+            ->get();
+
+        $service_modern = DB::table('family_plan_type_subcategory as fpm')
+            ->leftJoin('clinic_service', 'clinic_service.service_id', 'fpm.id')
+            ->select('fpm.id', 'fpm.name', 'clinic_service.is_checked')
+            ->where('clinic_service.clinic_id', $id)
+            ->where('fpm.family_plan_type_id', 1)
+            ->get();
+        $service_permanent = DB::table('family_plan_type_subcategory as fpm')
+            ->leftJoin('clinic_service', 'clinic_service.service_id', 'fpm.id')
+            ->select('fpm.id', 'fpm.name', 'clinic_service.is_checked')
+            ->where('clinic_service.clinic_id', $id)
+            ->where('fpm.family_plan_type_id', 2)
+            ->get();
+
+        $service_natural = DB::table('family_plan_type_subcategory as fpm')
+            ->leftJoin('clinic_service', 'clinic_service.service_id', 'fpm.id')
+            ->select('fpm.id', 'fpm.name', 'clinic_service.is_checked')
+            ->where('clinic_service.clinic_id', $id)
+            ->where('fpm.family_plan_type_id', 3)
+            ->get();
 
         $data = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/regions'), true);
 
-        return view('admin.providerManagement.editPage', ['data' => $data, 'provider' => $provider, 'galleries' => $gallery, 'modernMethod' => $modernMethod, 'naturalMethod' => $naturalMethod, 'permanentMethod' => $permanentMethod]);
+        return view('admin.providerManagement.editPage', ['data' => $data, 'service_natural' => $service_natural, 'service_permanent' => $service_permanent, 'service_modern' => $service_modern, 'provider' => $provider, 'galleries' => $gallery, 'modernMethod' => $modernMethod, 'naturalMethod' => $naturalMethod, 'permanentMethod' => $permanentMethod, 'clinic_hours' => $clinicHours]);
     }
 
     public function updateProvider()
@@ -337,33 +361,21 @@ class ProviderManagementController extends Controller
         return view('admin.providerManagement.createProviderSecondPage');
     }
 
-    public function storeSecondPage(Request $requests)
+    public function storeSecondPage()
     {
         $request = request()->all();
-        for ($files = 0;$files <= 4;$files++) {
-            if (isset($requests->file('files')[$files])) {
-                $icon = $requests->file('files')[$files];
-                $destination = public_path('/uploads');
-                $icon->move($destination, $icon->getClientOriginalName());
-                $icon_url = url('uploads/'.$icon->getClientOriginalName());
-                ClinicGallery::create([
-                    'file_name' => $icon->getClientOriginalName(),
-                    'clinic_id' => session('id'),
-                    'file_url' => $icon_url,
-                    'is_checked' => 1,
-                    'value_id' => $files,
-                ]);
-            }
-        }
         for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {
             if (isset($request['days'][$clinic_hours])) {
+                $this->validateClinicHours2($clinic_hours, $request);
+            } else {
+                $days = ['days' => [0 => 'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'Thursday', 5 => 'Friday', 6 => 'Saturday']];
                 ClinicHours::create([
                     'clinic_id' => session('id'),
                     'id_value' => $clinic_hours,
-                    'days' => $request['days'][$clinic_hours],
-                    'froms' => $request['from'][$clinic_hours],
-                    'tos' => $request['to'][$clinic_hours],
-                    'is_checked' => 1,
+                    'days' => $days['days'][$clinic_hours],
+                    'froms' => null,
+                    'tos' => null,
+                    'is_checked' => 0,
                 ]);
             }
         }
@@ -427,14 +439,14 @@ class ProviderManagementController extends Controller
             ->where('clinic_id', $id)
             ->count();
         $details = DB::table('ratings')
-            ->join('users', 'users.id', 'ratings.patient_id')
-            ->join('ratings_details', 'ratings_details.rating_id', 'ratings.id')
+            ->leftJoin('users', 'users.id', 'ratings.patient_id')
+            ->leftJoin('ratings_details', 'ratings_details.rating_id', 'ratings.id')
             ->select('ratings_details.id', 'users.name', 'ratings_details.ratings', 'ratings.review')
             ->where('ratings.clinic_id', $id)
             ->get();
 
         $clinic_name = DB::table('clinics')
-            ->join('ratings', 'ratings.clinic_id', 'clinics.id')
+            ->leftJoin('ratings', 'ratings.clinic_id', 'clinics.id')
             ->select('clinics.clinic_name', 'clinics.contact_number', 'clinics.email')
             ->where('clinics.id', $id)
             ->distinct('clinics.clinic_name')
@@ -575,7 +587,7 @@ class ProviderManagementController extends Controller
                     'days' => $days['days'][$clinic_hours],
                     'froms' => null,
                     'tos' => null,
-                    'is_checked' => 1,
+                    'is_checked' => 0,
                 ]);
             }
         }
@@ -599,7 +611,30 @@ class ProviderManagementController extends Controller
                 'days' => $request['days'][$clinic_hours],
                 'froms' => null,
                 'tos' => null,
+                'is_checked' => 0,
+            ]);
+        }
+    }
+
+    private function validateClinicHours2($clinic_hours, $request)
+    {
+        if ($request['from'][$clinic_hours] !== null && $request['to'][$clinic_hours] !== null) {
+            ClinicHours::create([
+                'clinic_id' => session('id'),
+                'id_value' => $clinic_hours,
+                'days' => $request['days'][$clinic_hours],
+                'froms' => $request['from'][$clinic_hours],
+                'tos' => $request['to'][$clinic_hours],
                 'is_checked' => 1,
+            ]);
+        } else {
+            ClinicHours::create([
+                'clinic_id' => session('id'),
+                'id_value' => $clinic_hours,
+                'days' => $request['days'][$clinic_hours],
+                'froms' => null,
+                'tos' => null,
+                'is_checked' => 0,
             ]);
         }
     }
