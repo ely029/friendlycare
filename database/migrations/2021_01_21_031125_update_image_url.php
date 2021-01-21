@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateAdLink extends Migration
+class UpdateImageUrl extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class UpdateAdLink extends Migration
      */
     public function up()
     {
-        DB::statement('update ads_management set ad_link = "https://i.picsum.photos/id/363/200/300.jpg?hmac=LvonEMeE2QnwxULuBZW5xHtdjkz844GnAPpEhDwGvMY"');
+        DB::statement('update ads_management set image_url = "i.picsum.photos/id/508/200/300.jpg?hmac=h7es7XtWndmLEtkzgE3VR1IHXLsLzKplxL_77_YNTGo", ad_link="https://facebook.com"');
     }
 
     /**
