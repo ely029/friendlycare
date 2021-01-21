@@ -147,6 +147,97 @@ $(function(){
                 });
             }
         });
+
+        $.ajax({
+            type: "GET",
+            url: "{{ route('provider.province')}}",
+            data: { region: $('#region_string').val()}
+        })
+        .done(function( data ) {
+            $("#province").empty();
+            jQuery.each(data, function(index, item) {
+               $('#province').append('<option value='+item.id+'>'+item.name+'</option>');
+            });
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "{{ route('provider.city')}}",
+            data: { province: $('#province_string').val()}
+        })
+        .done(function( data ) {
+            $("#city").empty();
+            jQuery.each(data, function(index, item) {
+               $('#city').append('<option value='+item.id+'>'+item.name+'</option>');
+            });
+                    $.ajax({
+                    type: "GET",
+                    url: "{{ route('provider.barangay')}}",
+                    data: { barangay: $('#city_string').val()}
+                })
+                .done(function( data ) {
+                    $("#barangay").empty();
+                    jQuery.each(data, function(index, item) {
+                    $('#barangay').append('<option value='+item.id+'>'+item.name+'</option>');
+                    });
+                }); 
+        });
+
+        $('#region').on('change', function(){
+    $.ajax({
+            type: "GET",
+            url: "{{ route('provider.province')}}",
+            data: { region: $('#region').val()}
+        })
+        .done(function( data ) {
+            if ($('#region').val() == '13') {
+                $('#barangay').hide();
+                $('#province').hide();
+                $('.province-label').hide();
+                $('.barangay-label').hide();
+                $("#city").empty();
+            jQuery.each(data, function(index, item) {
+               $('#city').append('<option value='+item.name+'>'+item.name+'</option>');
+            });
+            }  else {
+                $("#province").empty();
+                $("#city").empty();
+                $("#barangay").empty();
+                $('#barangay').show();
+                $('#province').show();
+                $('.province-label').show();
+                $('.barangay-label').show();
+            jQuery.each(data, function(index, item) {
+               $('#province').append('<option value='+item.id+'>'+item.name+'</option>');
+            });
+            }
+        });      
+   });
+
+   $('#province').on('change', function(){
+    $.ajax({
+            type: "GET",
+            url: "{{ route('provider.city')}}",
+            data: { province: $('#province').val()}
+        })
+        .done(function( data ) {
+            $("#city").empty();
+            jQuery.each(data, function(index, item) {
+               $('#city').append('<option value='+item.id+'>'+item.name+'</option>');
+            });
+                    $.ajax({
+                    type: "GET",
+                    url: "{{ route('provider.barangay')}}",
+                    data: { barangay: $('#city').val()}
+                })
+                .done(function( data ) {
+                    $("#barangay").empty();
+                    jQuery.each(data, function(index, item) {
+                    $('#barangay').append('<option value='+item.id+'>'+item.name+'</option>');
+                    });
+                }); 
+        });      
+   });
 });
 </script>
 @endif

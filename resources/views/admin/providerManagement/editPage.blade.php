@@ -58,7 +58,15 @@
               <div class="form__inline">
                 <div class="form__content"><input class="form__input" type="text" placeholder="Provider name*" name="clinic_name" value="{{$providers->clinic_name}}" required /><label class="form__label">Provider name* </label></div>
                 <div class="form__content">
-                  <select class="form__input form__input--select" id="region"></select>
+                  <input type="hidden" id="region_string" value="{{ $providers->region_id_string }}">
+                  <input type="hidden" id="province_string" value="{{ $providers->province_id_string }}">
+                  <input type="hidden" id="city_string" value="{{ $providers->city_id_string }}">
+                  <select name="region" class="form__input form__input--select" id="region">
+                    <option value="{{ $providers->region_id_string }}" selected>{{ $providers->region }}</option>
+                    @for ($e = 0; $e < 15; $e++)
+            <option value="{{ $data[$e]['id'] }}">{{ $data[$e]['name'] }}</option>
+            @endfor
+                  </select>
                   <label class="form__label">Region*</label>
                 </div>
               </div>
@@ -101,21 +109,27 @@
                  </div>
                  @endif
                 <div class="form__content">
-                  <select class="form__input form__input--select" id="province"></select>
+                  <select class="form__input form__input--select" name="province" id="province">
+                    <option value="" selected>{{ $providers->province }}</option>
+                  </select>
                   <label class="form__label">Province*</label>
                 </div>
               </div>
               <div class="form__inline">
                 <div class="form__content"><input class="form__input" type="number" placeholder="Contact number*" name="contact_number" value="{{ $providers->contact_number}}"/><label class="form__label">Contact number*</label></div>
                 <div class="form__content">
-                  <select class="form__input form__input--select" id="city" name="city"></select>
+                  <select class="form__input form__input--select" id="city" name="city">
+                    <option value="" selected>{{ $providers->city }}</option>
+                  </select>
                   <label class="form__label">City*</label>
                 </div>
               </div>
               <div class="form__inline">
                 <div class="form__content"><input name="email" class="form__input" type="email" value="{{$providers->email}}" placeholder="Email Address*" required /><label class="form__label">Email Address*</label></div>
                 <div class="form__content">
-                  <select class="form__input form__input--select" id="barangay"></select>
+                  <select class="form__input form__input--select" id="barangay" name="barangay">
+                    <option value="{{$providers->barangay_id_string }}" selected>{{ $providers->barangay }}</option>
+                  </select>
                   <label class="form__label">Barangay*</label>
                 </div>
               </div>

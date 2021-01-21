@@ -38,7 +38,7 @@
         <div class="form__content">
             <select class="form__input form__input--select" name="region" id="region">
             @for ($e = 0; $e < 15; $e++)
-            <option value="{{ $region[$e]['id'] }}">{{ $region[$e]['name'] }}</option> 
+            <option value="{{ $region[$e]['id'] }}">{{ $region[$e]['name'] }}</option>
             @endfor
             </select>
             <label class="form__label">Region*</label>

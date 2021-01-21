@@ -174,6 +174,14 @@ class ProviderManagementController extends Controller
                 'clinics.paid_service',
                 'clinics.philhealth_accredited_1',
                 'clinics.photo_url',
+                'clinics.region',
+                'clinics.region_id_string',
+                'clinics.province_id_string',
+                'clinics.barangay_id_string',
+                'clinics.city_id_string',
+                'clinics.province',
+                'clinics.city',
+                'clinics.barangay',
                )
             ->where('clinics.id', $id)
             ->get();
@@ -224,7 +232,7 @@ class ProviderManagementController extends Controller
 
         $data = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/regions'), true);
 
-        return view('admin.providerManagement.editPage', ['data' => $data, 'service_natural' => $service_natural, 'service_permanent' => $service_permanent, 'service_modern' => $service_modern, 'provider' => $provider, 'galleries' => $gallery, 'modernMethod' => $modernMethod, 'naturalMethod' => $naturalMethod, 'permanentMethod' => $permanentMethod, 'clinic_hours' => $clinicHours]);
+        return view('admin.providerManagement.editPage', ['data' => $data['data'], 'service_natural' => $service_natural, 'service_permanent' => $service_permanent, 'service_modern' => $service_modern, 'provider' => $provider, 'galleries' => $gallery, 'modernMethod' => $modernMethod, 'naturalMethod' => $naturalMethod, 'permanentMethod' => $permanentMethod, 'clinic_hours' => $clinicHours]);
     }
 
     public function updateProvider()
@@ -253,6 +261,47 @@ class ProviderManagementController extends Controller
                 ]);
             }
         }
+        if (isset($request['barangay'])) {
+            $region = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/regions/'.$request['region']), true);
+            $province = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/provinces/'.$request['province']), true);
+            $city = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/cities/'.$request['city']), true);
+            $barangay = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/barangays/'.$request['barangay']), true);
+            $request['region'] = $region['name'];
+            $request['province'] = $province['name'];
+            $request['city'] = $city['name'];
+            $request['barangay'] = $barangay['name'];
+            $request['region_id_string'] = $region['id'];
+            $request['province_id_string'] = $province['id'];
+            $request['city_id_string'] = $city['id'];
+            $request['barangay_id_string'] = $barangay['id'];
+            Clinics::where('id', $request['clinic_id'])->update([
+                'clinic_name' => $request['clinic_name'],
+                'street_address' => $request['street_address'],
+                'description' => $request['description'],
+                'contact_number' => $request['contact_number'],
+                'city' => $request['city'] ?? '',
+                'province' => $request['province'] ?? '',
+                'email' => $request['email'],
+                'region' => $request['region'] ?? '',
+                'type' => $request['type'],
+                'paid_service' => $request['paid'],
+                'barangay' => $request['barangay'] ?? '',
+                'barangay_id_string' => $request['barangay_id_string'] ?? '',
+                'region_id_string' => $request['region_id_string'] ?? '',
+                'province_id_string' => $request['province_id_string'] ?? '',
+                'city_id_string' => $request['city_id_string'] ?? '',
+                'philhealth_accredited_1' => $request['philhealth_accredited_1'],
+            ]);
+        }
+        $region = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/regions/'.$request['region']), true);
+        $province = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/provinces/'.$request['province']), true);
+        $city = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/cities/'.$request['city']), true);
+        $request['region'] = $region['name'];
+        $request['province'] = $province['name'];
+        $request['city'] = $city['name'];
+        $request['region_id_string'] = $region['id'];
+        $request['province_id_string'] = $province['id'];
+        $request['city_id_string'] = $city['id'];
         Clinics::where('id', $request['clinic_id'])->update([
             'clinic_name' => $request['clinic_name'],
             'street_address' => $request['street_address'],
@@ -261,8 +310,14 @@ class ProviderManagementController extends Controller
             'city' => $request['city'] ?? '',
             'province' => $request['province'] ?? '',
             'email' => $request['email'],
+            'region' => $request['region'] ?? '',
             'type' => $request['type'],
             'paid_service' => $request['paid'],
+            'barangay' => '',
+            'barangay_id_string' => '',
+            'region_id_string' => $request['region_id_string'] ?? '',
+            'province_id_string' => $request['province_id_string'] ?? '',
+            'city_id_string' => $request['city_id_string'] ?? '',
             'philhealth_accredited_1' => $request['philhealth_accredited_1'],
         ]);
         ProviderNotifications::create([
@@ -349,12 +404,20 @@ class ProviderManagementController extends Controller
         $request['training'] = 'N/A';
         $icon_url = $request['pic_url'];
         $request['photo_url'] = $icon_url;
+        $request['region_id_string'] = $request['region'];
+        $request['city_id_string'] = $request['city'];
+        $request['province_id_string'] = $request['province'];
+        $request['barangay_id_string'] = $request['barangay'];
         if (isset($request['city'])) {
             $city = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/cities/'.$request['city']), true);
             $province = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/provinces/'.$request['province']), true);
             $request['city'] = $city['name'];
             $request['province'] = $province['name'];
         }
+        $region = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/regions/'.$request['region']), true);
+        $barangay = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/barangays/'.$request['barangay']), true);
+        $request['barangay'] = $barangay['name'];
+        $request['region'] = $region['name'];
         Clinics::create($request);
         $user = DB::table('clinics')->where('clinic_name', $request['clinic_name'])->pluck('id');
         session(['id' => $user[0]]);

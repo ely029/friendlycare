@@ -28,6 +28,12 @@ class Clinics extends Model
         'email',
         'photo_url',
         'philhealth_accredited_1',
+        'region',
+        'barangay',
+        'province_id_string',
+        'city_id_string',
+        'region_id_string',
+        'barangay_id_string',
     ];
 
     public function user()
