@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "90fe6c533cd492f4a22280c61b0ecff6",
+    "content-hash": "d76ba1ce8d7ae52ad377512aae39ef36",
     "packages": [
         {
             "name": "akaunting/firewall",
@@ -7248,6 +7248,61 @@
                 "source": "https://github.com/ventoviro/windwalker-structure/tree/3.5.22"
             },
             "time": "2020-07-04T09:50:33+00:00"
+        },
+        {
+            "name": "woenel/prpcmblmts",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/woenel/prpcmblmts.git",
+                "reference": "5146f8c1539da29a320f61d20779d448e45c9bf0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/woenel/prpcmblmts/zipball/5146f8c1539da29a320f61d20779d448e45c9bf0",
+                "reference": "5146f8c1539da29a320f61d20779d448e45c9bf0",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Woenel\\Prpcmblmts\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Woenel\\Prpcmblmts\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ronnel Martinez",
+                    "email": "misc.woe@outlook.ph"
+                }
+            ],
+            "description": "Philippines region, province, cities/municipalities and barangays Laravel migration and table seeder.",
+            "keywords": [
+                "barangay",
+                "city",
+                "laravel",
+                "migration",
+                "municipality",
+                "philippines",
+                "province",
+                "region",
+                "seeder"
+            ],
+            "support": {
+                "issues": "https://github.com/woenel/prpcmblmts/issues",
+                "source": "https://github.com/woenel/prpcmblmts/tree/v1.0.0"
+            },
+            "time": "2020-04-09T19:33:31+00:00"
         }
     ],
     "packages-dev": [
