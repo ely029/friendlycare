@@ -63,9 +63,9 @@
                   <input type="hidden" id="city_string" value="{{ $providers->city_id_string }}">
                   <select name="region" class="form__input form__input--select" id="region">
                     <option value="{{ $providers->region_id_string }}" selected>{{ $providers->region }}</option>
-                    @for ($e = 0; $e < 15; $e++)
-            <option value="{{ $data[$e]['id'] }}">{{ $data[$e]['name'] }}</option>
-            @endfor
+                  @foreach($data as $datas)
+                  <option value="{{ $datas->region_code }}">{{ $datas->region_description }}</option>
+                  @endforeach
                   </select>
                   <label class="form__label">Region*</label>
                 </div>

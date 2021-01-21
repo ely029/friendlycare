@@ -148,6 +148,20 @@ $(function(){
             }
         });
 
+        $('#city').on('change', function(){
+    $.ajax({
+            type: "GET",
+            url: "{{ route('provider.barangay')}}",
+            data: { barangay: $('#city').val()}
+        })
+        .done(function( data ) {
+            $("#barangay").empty();
+            jQuery.each(data, function(index, item) {
+               $('#barangay').append('<option value='+item.barangay_code+'>'+item.barangay_description+'</option>');
+            });
+        });      
+   });
+
         $.ajax({
             type: "GET",
             url: "{{ route('provider.province')}}",
@@ -156,7 +170,7 @@ $(function(){
         .done(function( data ) {
             $("#province").empty();
             jQuery.each(data, function(index, item) {
-               $('#province').append('<option value='+item.id+'>'+item.name+'</option>');
+               $('#province').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
             });
         });
 
@@ -168,7 +182,7 @@ $(function(){
         .done(function( data ) {
             $("#city").empty();
             jQuery.each(data, function(index, item) {
-               $('#city').append('<option value='+item.id+'>'+item.name+'</option>');
+               $('#city').append('<option value='+item.city_municipality_code+'>'+item.city_municipality_description+'</option>');
             });
                     $.ajax({
                     type: "GET",
@@ -197,7 +211,7 @@ $(function(){
                 $('.barangay-label').hide();
                 $("#city").empty();
             jQuery.each(data, function(index, item) {
-               $('#city').append('<option value='+item.name+'>'+item.name+'</option>');
+               $('#city').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
             });
             }  else {
                 $("#province").empty();
@@ -208,7 +222,7 @@ $(function(){
                 $('.province-label').show();
                 $('.barangay-label').show();
             jQuery.each(data, function(index, item) {
-               $('#province').append('<option value='+item.id+'>'+item.name+'</option>');
+               $('#province').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
             });
             }
         });      
@@ -223,7 +237,7 @@ $(function(){
         .done(function( data ) {
             $("#city").empty();
             jQuery.each(data, function(index, item) {
-               $('#city').append('<option value='+item.id+'>'+item.name+'</option>');
+               $('#city').append('<option value='+item.city_municipality_code+'>'+item.city_municipality_description+'</option>');
             });
                     $.ajax({
                     type: "GET",
