@@ -37,9 +37,9 @@
         <div class="form__content"><input class="form__input" name="clinic_name" value="{{ old('clinic_name')}}" type="text" placeholder="Provider name*" /><label class="form__label">Provider name* </label></div>
         <div class="form__content">
             <select class="form__input form__input--select" name="region" id="region">
-            @for ($e = 0; $e < 15; $e++)
-            <option value="{{ $region[$e]['id'] }}">{{ $region[$e]['name'] }}</option>
-            @endfor
+            @foreach($region as $regions)
+            <option value="{{ $regions->region_code }}">{{ $regions->region_description }}</option>
+            @endforeach
             </select>
             <label class="form__label">Region*</label>
         </div>

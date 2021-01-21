@@ -178,7 +178,7 @@ $(function(){
                 .done(function( data ) {
                     $("#barangay").empty();
                     jQuery.each(data, function(index, item) {
-                    $('#barangay').append('<option value='+item.id+'>'+item.name+'</option>');
+                    $('#barangay').append('<option value='+item.barangay_code+'>'+item.barangay_description+'</option>');
                     });
                 }); 
         });
@@ -233,7 +233,7 @@ $(function(){
                 .done(function( data ) {
                     $("#barangay").empty();
                     jQuery.each(data, function(index, item) {
-                    $('#barangay').append('<option value='+item.id+'>'+item.name+'</option>');
+                    $('#barangay').append('<option value='+item.barangay_code+'>'+item.barangay_description+'</option>');
                     });
                 }); 
         });      
@@ -313,24 +313,13 @@ $(function(){
         .done(function( data ) {
             $("#province").empty();
             jQuery.each(data, function(index, item) {
-               $('#province').append('<option value='+item.id+'>'+item.name+'</option>');
+               $('#province').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
             });
         });
 });
 </script>
 <script type="text/javascript">
 $('document').ready(function(){
-$.ajax({
-            type: "GET",
-            url: "{{ route('provider.province')}}",
-            data: { region: $('#region').val()}
-        })
-        .done(function( data ) {
-            $("#province").empty();
-            jQuery.each(data, function(index, item) {
-               $('#province').append('<option value='+item.id+'>'+item.name+'</option>');
-            });
-        });
 
 
         $('#region').on('change', function(){
@@ -347,7 +336,7 @@ $.ajax({
                 $('.barangay-label').hide();
                 $("#city").empty();
             jQuery.each(data, function(index, item) {
-               $('#city').append('<option value='+item.name+'>'+item.name+'</option>');
+               $('#city').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
             });
             }  else {
                 $("#province").empty();
@@ -358,7 +347,7 @@ $.ajax({
                 $('.province-label').show();
                 $('.barangay-label').show();
             jQuery.each(data, function(index, item) {
-               $('#province').append('<option value='+item.id+'>'+item.name+'</option>');
+               $('#province').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
             });
             }
         });      
@@ -373,7 +362,7 @@ $.ajax({
         .done(function( data ) {
             $("#city").empty();
             jQuery.each(data, function(index, item) {
-               $('#city').append('<option value='+item.id+'>'+item.name+'</option>');
+               $('#city').append('<option value='+item.city_municipality_code+'>'+item.city_municipality_description+'</option>');
             });
                     $.ajax({
                     type: "GET",
@@ -383,7 +372,7 @@ $.ajax({
                 .done(function( data ) {
                     $("#barangay").empty();
                     jQuery.each(data, function(index, item) {
-                    $('#barangay').append('<option value='+item.id+'>'+item.name+'</option>');
+                    $('#barangay').append('<option value='+item.barangay_code+'>'+item.barangay_description+'</option>');
                     });
                 }); 
         });      
@@ -398,7 +387,7 @@ $.ajax({
         .done(function( data ) {
             $("#barangay").empty();
             jQuery.each(data, function(index, item) {
-               $('#barangay').append('<option value='+item.code+'>'+item.name+'</option>');
+               $('#barangay').append('<option value='+item.barangay_code+'>'+item.barangay_description+'</option>');
             });
         });      
    });

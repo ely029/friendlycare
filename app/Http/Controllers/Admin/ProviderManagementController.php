@@ -39,8 +39,8 @@ class ProviderManagementController extends Controller
     }
     public function createFirstPage()
     {
-        $data = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/regions'), true);
-        return view('admin.providerManagement.createProviderFirstPage', ['region' => $data['data']]);
+        $data = DB::table('philippine_regions')->select('region_code', 'region_description')->get();
+        return view('admin.providerManagement.createProviderFirstPage', ['region' => $data]);
     }
 
     public function createSecondPage()
@@ -408,16 +408,14 @@ class ProviderManagementController extends Controller
         $request['city_id_string'] = $request['city'];
         $request['province_id_string'] = $request['province'];
         $request['barangay_id_string'] = $request['barangay'];
-        if (isset($request['city'])) {
-            $city = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/cities/'.$request['city']), true);
-            $province = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/provinces/'.$request['province']), true);
-            $request['city'] = $city['name'];
-            $request['province'] = $province['name'];
-        }
-        $region = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/regions/'.$request['region']), true);
-        $barangay = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/barangays/'.$request['barangay']), true);
-        $request['barangay'] = $barangay['name'];
-        $request['region'] = $region['name'];
+        $region = DB::table('philippine_regions')->select('region_description')->where('region_code', $request['region'])->pluck('region_description');
+        $province = DB::table('philippine_provinces')->select('province_description')->where('province_code', $request['province'] ?? '')->pluck('province_description');
+        $city = DB::table('philippine_cities')->select('city_municipality_description')->where('city_municipality_code', $request['city'] ?? '')->pluck('city_municipality_description');
+        $barangay = DB::table('philippine_barangays')->select('barangay_description')->where('barangay_code', $request['barangay'] ?? '')->pluck('barangay_description');
+        $request['region'] = $region[0];
+        $request['province'] = $province[0];
+        $request['city'] = $city[0];
+        $request['barangay'] = $barangay[0];
         Clinics::create($request);
         $user = DB::table('clinics')->where('clinic_name', $request['clinic_name'])->pluck('id');
         session(['id' => $user[0]]);
@@ -566,48 +564,19 @@ class ProviderManagementController extends Controller
 
     public function province()
     {
-        $newdata = [];
-        $eee = [];
         $request = request()->all();
-        $data = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/provinces'), true);
-        foreach ($data['data'] as $datas) {
-            if (in_array($request['region'], $datas)) {
-                $eee = ['id' => $datas['id'], 'name' => $datas['name']];
-                array_push($newdata, $eee);
-            }
-        }
-        return $newdata;
+        return DB::table('philippine_provinces')->select('province_description', 'province_code')->where('region_code', $request['region'])->get();
     }
 
     public function city()
     {
-        $newdata = [];
         $request = request()->all();
-        $data = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/cities'), true);
-        foreach ($data['data'] as $datas) {
-            if (in_array($request['province'], $datas)) {
-                $eee = ['id' => $datas['id'], 'name' => $datas['name']];
-                array_push($newdata, $eee);
-            }
-        }
-        return $newdata;
+        return DB::table('philippine_cities')->select('city_municipality_description', 'city_municipality_code')->where('province_code', $request['province'])->get();
     }
-
     public function barangay()
     {
-        $newdata = [];
         $request = request()->all();
-        $data = json_decode(file_get_contents('https://ph-locations-api.buonzz.com/v1/barangays'), true);
-        foreach ($data['data'] as $datas) {
-            if (in_array($request['barangay'], $datas)) {
-                $eee = [
-                    'id' => $datas['id'],
-                    'name' => $datas['name'],
-                ];
-                array_push($newdata, $eee);
-            }
-        }
-        return $newdata;
+        return DB::table('philippine_barangays')->select('barangay_code', 'barangay_description')->where('city_municipality_code', $request['barangay'])->get();
     }
 
     public function galleryUpload(Request $request)
