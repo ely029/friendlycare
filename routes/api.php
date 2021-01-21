@@ -208,3 +208,6 @@ Route::get('/provider/upcomingbooking/{id}', 'Provider\NotificationsController@u
 Route::get('/patient/fpm/{pageid}/{id}', 'Patients\FPMController@pages');
 Route::post('/patient/fpm/{pageid}/{id}', 'Patients\FPMController@post');
 Route::get('fpmtypeservice', 'Patients\FPMController@fpmType');
+
+//patient Ads Management
+Route::get('/ads/patient', 'Patients\AdsManagementController@display');
