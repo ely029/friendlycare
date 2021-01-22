@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class FamilyPlanTypeSubcategories extends Model
 {
@@ -22,5 +23,12 @@ class FamilyPlanTypeSubcategories extends Model
     public function serviceGalleries()
     {
         return $this->hasMany('App\ServiceGallery', 'service_id');
+    }
+
+    public function getUncheckedServices($id)
+    {
+        return DB::table('family_plan_type_subcategory')->select('id')->whereNotIn('id', function ($query) use ($id) {
+            $query->select('service_id')->from('clinic_service')->where('clinic_id', $id);
+        })->get();
     }
 }

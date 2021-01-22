@@ -284,8 +284,8 @@ class ProviderManagementController extends Controller
             'region' => $request['region'] ?? '',
             'type' => $request['type'],
             'paid_service' => $request['paid'],
-            'barangay' => '',
-            'barangay_id_string' => '',
+            'barangay' => $request['barangay'],
+            'barangay_id_string' => $request['barangay_id_string'],
             'region_id_string' => $request['region_id_string'] ?? '',
             'province_id_string' => $request['province_id_string'] ?? '',
             'city_id_string' => $request['city_id_string'] ?? '',
@@ -455,10 +455,8 @@ class ProviderManagementController extends Controller
                 ]);
             }
         }
-        // Clinics::where('id', session('id'))->update([
-        //     'paid_service' => $request['paid'],
-        // ]);
-
+        //$methods =new FamilyPlanTypeSubcategories();
+        //$data = $methods->getUncheckedServices(session('id'));
         Clinics::where('id', session('id'))->update(['is_approve' => 1]);
 
         return redirect('/provider/profile/'.session('id'));

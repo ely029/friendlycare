@@ -151,6 +151,10 @@ PHPUnit:
     # Migrate
     - ssh -T $USERNAME@$IP_ADDRESS -p$SSH_PORT "$SERVER_PHP $APP_PATH/laravel/artisan migrate --force"
 
+    # setup tables for location
+    - php artisan vendor:publish --provider="Woenel\Prpcmblmts\ServiceProvider"
+    - php artisan migrate --path="database/migrations/prpcmblmts"
+
     # Populate the cache
     - ssh -T $USERNAME@$IP_ADDRESS -p$SSH_PORT "$SERVER_PHP $APP_PATH/laravel/artisan optimize"
 
