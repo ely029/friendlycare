@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateAdsManagement4 extends Migration
+class UpdateAdsManagement5 extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class UpdateAdsManagement4 extends Migration
      */
     public function up()
     {
-        DB::statement('update ads_management set image_url = "https://bit.ly/362Nett" where id = 2');
+        DB::statement('update ads_management set image_url = "https://res.cloudinary.com/demo/image/upload/sample.jpg" where id = 2');
     }
 
     /**

@@ -97,7 +97,7 @@
             <h3 class="sidebar__title">Others</h3>
             <ul class="sidebar__list">
               <li class="sidebar__item">
-                <a class="sidebar__link" href="ad-management.php">
+                <a class="sidebar__link" href="{{ route('ads.index')}}">
                   <div class="sidebar__wrapper">
                     <img class="sidebar__icon" src="{{URL::asset('img/icon-ad-management.png')}}" alt="Ad management icon for e-plano" />
                     <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-ad-management-white.png')}}" alt="Ad management icon on hover for e-plano" />

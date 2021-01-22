@@ -174,6 +174,10 @@ Route::group(['prefix' => 'booking'], static function () {
     Route::post('/result', 'Admin\BookingController@results')->name('booking.results');
     Route::get('/export', 'Admin\BookingController@export')->name('booking.export');
 });
+
+Route::group(['prefix' => 'ads'], static function () {
+    Route::get('/', 'Admin\AdsManagementController@index')->name('ads.index');
+});
     Route::get('/', 'HomeController@index')->name('home');
     // Route::get('/portal', '@')->name('adminLogin');
     Route::post('/authenticate', 'Admin\AdminController@authenticate')->name('authenticate');
