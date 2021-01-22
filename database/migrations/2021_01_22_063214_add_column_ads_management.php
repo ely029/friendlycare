@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateAdsManagement5 extends Migration
+class AddColumnAdsManagement extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,12 @@ class UpdateAdsManagement5 extends Migration
      */
     public function up()
     {
-        DB::statement('update ads_management set image_url = "https://res.cloudinary.com/demo/image/upload/sample.jpg" where id = 2');
+        Schema::table('ads_management', function (Blueprint $table) {
+            $table->string('view')->nullable();
+            $table->string('clicks')->nullable();
+            $table->string('end_date_string')->nullable();
+            $table->string('start_date_string')->nullable();
+        });
     }
 
     /**

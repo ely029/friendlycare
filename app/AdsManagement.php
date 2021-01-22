@@ -17,5 +17,9 @@ class AdsManagement extends Model
         'image_url',
         'start_date',
         'end_date',
+        'clicks',
+        'view',
+        'end_date_string',
+        'start_date_string',
     ];
 }
