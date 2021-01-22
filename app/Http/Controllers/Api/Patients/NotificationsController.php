@@ -8,7 +8,7 @@ use App\Booking;
 use App\EventsNotification;
 use App\Http\Controllers\Controller;
 use App\ProviderNotifications;
-use App\viewAds;
+use App\ViewAds;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mail;
