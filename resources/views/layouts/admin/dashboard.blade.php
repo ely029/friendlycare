@@ -27,6 +27,22 @@ $('document').ready(function(){
     });
 });
 </script>
+@if(Route::currentRouteName() == 'ads.create')
+<script type="text/javascript">
+$('document').ready(function(){
+    $("#dropzoneDragArea").dropzone({
+        url: "{{ route('ads.uploadImage')}}",
+        maxFiles: 1,
+        headers: {
+                  'x-csrf-token': "{{ csrf_token() }}",
+        },
+        success: function(file, response) {
+                $('#ads-image-location').attr('value', response);
+            }
+        });
+});
+</script>
+@endif
 @if(Route::currentRouteName() == 'providerCreateFirstPage' || Route::currentRouteName() == 'editPage')
 <script type="text/javascript">
 $('document').ready(function(){
@@ -300,7 +316,6 @@ $(function(){
     readOnly: true,
     rating: $('#rate').val()
    });
-   $("#dropzoneDragArea").dropzone({ url: "/file/post" });
    if($('#js-schedule-1').val() == 'Post Now') {
        $('.js-scheduled-content-1').hide();
    } else {

@@ -14,7 +14,7 @@
     <div class="breadcrumbs"><a class="breadcrumbs__link">Ad Management</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
   </div>
   <div class="section__container">
-    <a class="button button--create" href="create-ads.html">Create Ads<i class="fa fa-plus"></i></a>
+    <a class="button button--create" href="{{ route('ads.create') }}">Create Ads<i class="fa fa-plus"></i></a>
     <div class="accordion accordion--ads">
       <ul class="accordion__list">
         <li class="accordion__item">
@@ -24,10 +24,11 @@
             <div class="accordion__arrow"></div>
           </label>
           <div class="accordion__content">
-            <form class="form form--patient" action="">
+            <form class="form form--patient" action="{{ route('ads.filter') }}" method="POST">
+              @csrf
               <div class="form__inline">
-                <div class="form__content"><input class="form__input form__input--border" type="date" placeholder="Date from" /></div>
-                <div class="form__content"><input class="form__input form__input--border" type="date" placeholder="Date to" /></div>
+                <div class="form__content"><input name="start_date" class="form__input form__input--border" type="date" placeholder="Date from" /></div>
+                <div class="form__content"><input name="end_date" class="form__input form__input--border" type="date" placeholder="Date to" /></div>
                 <button class="button button--filter button--filter__patient">Apply filter</button><button class="button button--filter button--filter__patient">Export csv</button>
               </div>
             </form>
@@ -47,14 +48,16 @@
         </tr>
       </thead>
       <tbody>
+        @foreach ($data as $datas)
         <tr class="table__row">
-          <td class="table__details">10/12/2020</td>
-          <td class="table__details">John Smith</td>
-          <td class="table__details">LAM</td>
+          <td class="table__details"><a href="{{ route('ads.viewInformation', $datas->id) }}">{{ $datas->start_date }}</a></td>
+          <td class="table__details">{{ $datas->company_name }}</td>
+          <td class="table__details">{{ $datas->title }}</td>
           <td class="table__details">12</td>
           <td class="table__details">12</td>
-          <td class="table__details"><a class="table__link" href="https://forms.gle/XbvNYLxPJUpgF">https://forms.gle/XbvNYLxPJUpgF</a></td>
+          <td class="table__details"><a class="table__link" href="{{ $datas->ad_link}}">{{ $datas->ad_link }}</a></td>
         </tr>
+        @endforeach
       </tbody>
     </table>
   </div>

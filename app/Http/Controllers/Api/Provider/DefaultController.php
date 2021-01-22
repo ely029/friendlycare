@@ -58,9 +58,9 @@ class DefaultController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-        $users = User::where('email', $request['email'])->get();
+        $users = DB::table('users')->select('id')->where('email', $request['email'])->pluck('id');
 
-        Mail::send('email.patient.account-reset', ['users' => $users], function ($mail) use ($request) {
+        Mail::send('email.patient.account-reset', ['users' => $users[0]], function ($mail) use ($request) {
             $mail->from('no-reply@friendlycare.com');
             $mail->to($request['email'], 'Staff')->subject('Reset Password');
         });

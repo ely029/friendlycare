@@ -177,8 +177,13 @@ Route::group(['prefix' => 'booking'], static function () {
 
 Route::group(['prefix' => 'ads'], static function () {
     Route::get('/', 'Admin\AdsManagementController@index')->name('ads.index');
+    Route::get('/create', 'Admin\AdsManagementController@create')->name('ads.create');
+    Route::post('/upload-image', 'Admin\AdsManagementController@uploadImage')->name('ads.uploadImage');
+    Route::post('/create', 'Admin\AdsManagementController@post')->name('ads.post');
+    Route::post('/filter', 'Admin\AdsManagementController@filter')->name('ads.filter');
+    Route::get('/information/{id}', 'Admin\AdsManagementController@viewInformation')->name('ads.viewInformation');
+    Route::get('/delete/{id}', 'Admin\AdsManagementController@delete')->name('ads.delete');
 });
     Route::get('/', 'HomeController@index')->name('home');
-    // Route::get('/portal', '@')->name('adminLogin');
     Route::post('/authenticate', 'Admin\AdminController@authenticate')->name('authenticate');
     Route::post('/updateclinicgallery/{id}', 'Admin\ProviderManagementController@updateClinicGallery');
