@@ -60,7 +60,7 @@
                 <input class="button button--medium js-delete-response" type="button" data-toggle="modal" data-target="#js-delete-response-modal" value="Delete response"><button class="button button--medium js-add-response1" type="button">Add response</button>
               </div>
             </div>
-            <div class="form__button form__button--end"><input class="button js-trigger" type="submit" value="Save changes"></div>
+            <div class="form__button form__button--end"><input class="button js-trigger" type="button" value="Save changes"></div>
 
             <div class="modal js-modal" id="js-delete-response-modal">
               <div class="modal__background js-modal-background"></div>
