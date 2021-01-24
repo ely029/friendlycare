@@ -186,21 +186,33 @@
               <ul class="form__group form__group--createProviderServices">
                 <li class="form__group-item">
                   <h3 class="section__heading section__heading--sub">Modern method</h3>
-                  @foreach($modernMethod as $method)
-                  <label class="form__sublabel form__sublabel--services">{{ $method->name}}<input class="form__trigger" type="checkbox" name="avail_services[]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                  @foreach($service_modern as $method)
+                  @if($method->is_checked == 1)
+                  <label class="form__sublabel form__sublabel--services">{{ $method->name}}<input class="form__trigger" type="checkbox" name="avail_services[{{ $method->id }}]" value="{{$method->id}}" checked/><span class="form__checkmark"></span></label>
+                  @else
+                  <label class="form__sublabel form__sublabel--services">{{ $method->name}}<input class="form__trigger" type="checkbox" name="avail_services[{{ $method->id }}]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                  @endif
                   @endforeach
                 </li>
                 <li class="form__group-item">
                   <h3 class="section__heading section__heading--sub">Permanent method</h3>
-                  @foreach($permanentMethod as $method)
-                  <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" value="{{$method->id}}" name="avail_services[]" /><span class="form__checkmark"></span></label>
+                  @foreach($service_permanent as $method)
+                  @if($method->is_checked == 1)
+                  <label class="form__sublabel form__sublabel--services">{{ $method->name}}<input class="form__trigger" type="checkbox" name="avail_services[{{ $method->id }}]" value="{{$method->id}}" checked/><span class="form__checkmark"></span></label>
+                  @else
+                  <label class="form__sublabel form__sublabel--services">{{ $method->name}}<input class="form__trigger" type="checkbox" name="avail_services[{{ $method->id }}]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                  @endif
                   @endforeach
                 </li>
                 </li>
                 <li class="form__group-item">
                   <h3 class="section__heading section__heading--sub">Natural method</h3>
-                  @foreach($naturalMethod as $method)
-                  <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" value="{{$method->id}}" name="avail_services[]" /><span class="form__checkmark"></span></label>
+                  @foreach($service_natural as $method)
+                  @if($method->is_checked == 1)
+                  <label class="form__sublabel form__sublabel--services">{{ $method->name}}<input class="form__trigger" type="checkbox" name="avail_services[{{ $method->id }}]" value="{{$method->id}}" checked/><span class="form__checkmark"></span></label>
+                  @else
+                  <label class="form__sublabel form__sublabel--services">{{ $method->name}}<input class="form__trigger" type="checkbox" name="avail_services[{{ $method->id }}]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                  @endif
                   @endforeach
                 </li>
                 </li>
@@ -209,7 +221,7 @@
             <div class="tabs__details">
               <div class="form__content">
                 <div class="form__content form__content--row">
-                  @if ($providers->paid_service == 1)
+                  @if ($providers->paid_service == '1')
                   <label class="form__sublabel">Yes<input class="form__trigger" id="js-yes-paid" type="radio" name="paid" checked="checked" value="1"/><span class="form__radio"></span></label>
                   <label class="form__sublabel">No<input class="form__trigger" id="js-no-paid" type="radio" name="paid" value="0" /><span class="form__radio"></span></label>
                   @else
@@ -225,19 +237,31 @@
                   <li class="form__group-item">
                     <h3 class="section__heading section__heading--sub">Modern method</h3>
                     @foreach($modernMethod as $method)
-                  <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" name="services[]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                    @if($method->is_checked == '1')
+                    <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" checked name="services[]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                    @else
+                    <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" name="services[]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                    @endif
                   @endforeach
                   </li>
                   <li class="form__group-item">
                     <h3 class="section__heading section__heading--sub">Permanent method</h3>
                     @foreach($permanentMethod as $method)
-                  <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" name="services[]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                    @if($method->is_checked == '1')
+                    <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" checked name="services[]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                    @else
+                    <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" name="services[]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                    @endif
                   @endforeach
                   </li>
                   <li class="form__group-item">
                     <h3 class="section__heading section__heading--sub">Natural method</h3>
                     @foreach($naturalMethod as $method)
-                  <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" name="services[]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                    @if($method->is_checked == '1')
+                    <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" checked name="services[]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                    @else
+                    <label class="form__sublabel form__sublabel--services">{{ $method->name}} / {{ $method->short_name }}<input class="form__trigger" type="checkbox" name="services[]" value="{{$method->id}}" /><span class="form__checkmark"></span></label>
+                    @endif
                   @endforeach
 
                   </li>

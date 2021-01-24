@@ -31,4 +31,11 @@ class FamilyPlanTypeSubcategories extends Model
             $query->select('service_id')->from('clinic_service')->where('clinic_id', $id);
         })->get();
     }
+
+    public function getUncheckedPaidServices($id)
+    {
+        return DB::table('family_plan_type_subcategory')->select('id')->whereNotIn('id', function ($query) use ($id) {
+            $query->select('service_id')->from('paid_services')->where('clinic_id', $id);
+        })->get();
+    }
 }

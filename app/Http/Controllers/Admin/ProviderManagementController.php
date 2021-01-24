@@ -8,6 +8,7 @@ use App\ClinicGallery;
 use App\ClinicHours;
 use App\Clinics;
 use App\ClinicService;
+use App\FamilyPlanTypeSubcategories;
 use App\Http\Controllers\Controller;
 use App\PaidServices;
 use App\ProviderNotifications;
@@ -31,15 +32,17 @@ class ProviderManagementController extends Controller
             ->avg('ratings_details.ratings');
 
         $countStaff = DB::table('staffs')
-            ->join('clinics', 'clinics.id', 'staffs.id')
-            ->select('staffs.clinic_id')
-            ->orderBy('clinics.id')
+            ->join('clinics', 'staffs.clinic_id', 'clinics.id')
+            ->select('staffs.id')
+            ->where('clinics.email', '<>', 'null')
+            ->where('clinics.is_approve', '<>', 0)
+            ->orderBy('clinics.id', 'desc')
             ->count();
         return view('admin.providerManagement.index', ['clinics' => $users, 'ratings' => $ratings, 'countStaff' => $countStaff]);
     }
     public function createFirstPage()
     {
-        $data = DB::table('philippine_regions')->select('region_code', 'region_description')->get();
+        $data = DB::table('refregion')->select('regCode as region_code', 'regDesc as region_description')->get();
         return view('admin.providerManagement.createProviderFirstPage', ['region' => $data]);
     }
 
@@ -94,12 +97,10 @@ class ProviderManagementController extends Controller
 
         $modernMethod = DB::table('family_plan_type_subcategory')
             ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
             ->select('family_plan_type_subcategory.name')
             ->where('clinic_service.clinic_id', $id)
             ->where('family_plan_type_subcategory.family_plan_type_id', 1)
-            ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
-            ->whereNotNull('clinics.clinic_name')
+            ->where('clinic_service.is_checked', 1)
             ->get();
 
         $ratings = DB::table('ratings')
@@ -109,20 +110,18 @@ class ProviderManagementController extends Controller
 
         $permanentMethod = DB::table('family_plan_type_subcategory')
             ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
             ->select('family_plan_type_subcategory.name')
             ->where('clinic_service.clinic_id', $id)
             ->where('family_plan_type_subcategory.family_plan_type_id', 2)
-            ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
+            ->where('clinic_service.is_checked', 1)
             ->get();
 
         $naturalMethod = DB::table('family_plan_type_subcategory')
             ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
             ->select('family_plan_type_subcategory.name')
             ->where('clinic_service.clinic_id', $id)
             ->where('family_plan_type_subcategory.family_plan_type_id', 3)
-            ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
+            ->where('clinic_service.is_checked', 1)
             ->get();
 
         $paidServices = DB::table('paid_services')
@@ -191,18 +190,21 @@ class ProviderManagementController extends Controller
             ->select('clinic_gallery.file_name', 'clinics.id as clinic_id', 'clinic_gallery.file_url', 'clinic_gallery.id')
             ->where('clinic_gallery.clinic_id', $id)
             ->get();
-        $modernMethod = DB::table('family_plan_type_subcategory')
-            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'family_plan_type_subcategory.short_name')
+        $paid_modernMethod = DB::table('family_plan_type_subcategory')
+            ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'family_plan_type_subcategory.short_name', 'paid_services.is_checked')
             ->where('family_plan_type_subcategory.family_plan_type_id', 1)
             ->get();
 
-        $permanentMethod = DB::table('family_plan_type_subcategory')
-            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'family_plan_type_subcategory.short_name')
+        $paid_permanentMethod = DB::table('family_plan_type_subcategory')
+            ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'family_plan_type_subcategory.short_name', 'paid_services.is_checked')
             ->where('family_plan_type_subcategory.family_plan_type_id', 2)
             ->get();
 
-        $naturalMethod = DB::table('family_plan_type_subcategory')
-            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'family_plan_type_subcategory.short_name')
+        $paid_naturalMethod = DB::table('family_plan_type_subcategory')
+            ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'family_plan_type_subcategory.short_name', 'paid_services.is_checked')
             ->where('family_plan_type_subcategory.family_plan_type_id', 3)
             ->get();
         $clinicHours = DB::table('clinic_hours')
@@ -230,20 +232,21 @@ class ProviderManagementController extends Controller
             ->where('fpm.family_plan_type_id', 3)
             ->get();
 
-        $data = DB::table('philippine_regions')->select('region_code', 'region_description')->get();
+        $data = DB::table('refregion')->select('regCode as region_code', 'regDesc as region_description')->get();
 
-        return view('admin.providerManagement.editPage', ['data' => $data, 'service_natural' => $service_natural, 'service_permanent' => $service_permanent, 'service_modern' => $service_modern, 'provider' => $provider, 'galleries' => $gallery, 'modernMethod' => $modernMethod, 'naturalMethod' => $naturalMethod, 'permanentMethod' => $permanentMethod, 'clinic_hours' => $clinicHours]);
+        return view('admin.providerManagement.editPage', ['data' => $data, 'service_natural' => $service_natural, 'service_permanent' => $service_permanent, 'service_modern' => $service_modern, 'provider' => $provider, 'galleries' => $gallery, 'modernMethod' => $paid_modernMethod, 'naturalMethod' => $paid_naturalMethod, 'permanentMethod' => $paid_permanentMethod, 'clinic_hours' => $clinicHours]);
     }
 
     public function updateProvider()
     {
         $request = request()->all();
         ClinicHours::where('clinic_id', $request['clinic_id'])->delete();
+        ClinicService::where('clinic_id', $request['clinic_id'])->delete();
+        PaidServices::where('clinic_id', $request['clinic_id'])->delete();
         $this->validateClinicHours($request);
         //$this->pushNotification($request['clinic_id']);
         for ($eee = 0;$eee <= 10000;$eee++) {
             if (isset($request['services'][$eee])) {
-                PaidServices::where('clinic_id', $request['clinic_id'])->delete();
                 PaidServices::create([
                     'service_id' => $request['services'][$eee],
                     'clinic_id' => $request['clinic_id'],
@@ -253,7 +256,6 @@ class ProviderManagementController extends Controller
         }
         for ($eee = 0;$eee <= 10000;$eee++) {
             if (isset($request['avail_services'][$eee])) {
-                ClinicService::where('clinic_id', $request['clinic_id'])->delete();
                 ClinicService::create([
                     'service_id' => $request['avail_services'][$eee],
                     'clinic_id' => $request['clinic_id'],
@@ -261,14 +263,32 @@ class ProviderManagementController extends Controller
                 ]);
             }
         }
+        $methods = new FamilyPlanTypeSubcategories();
+        $data = $methods->getUncheckedServices($request['clinic_id']);
+        foreach ($data as $datas) {
+            ClinicService::create([
+                'service_id' => $datas->id,
+                'clinic_id' => $request['clinic_id'],
+                'is_checked' => 0,
+            ]);
+        }
+
+        $datas = $methods->getUncheckedPaidServices($request['clinic_id']);
+        foreach ($datas as $datas) {
+            PaidServices::create([
+                'service_id' => $datas->id,
+                'clinic_id' => $request['clinic_id'],
+                'is_checked' => 0,
+            ]);
+        }
         $request['region_id_string'] = $request['region'];
         $request['city_id_string'] = $request['city'];
         $request['province_id_string'] = $request['province'];
         $request['barangay_id_string'] = $request['barangay'];
-        $region = DB::table('philippine_regions')->select('region_description')->where('region_code', $request['region'])->pluck('region_description');
-        $province = DB::table('philippine_provinces')->select('province_description')->where('province_code', $request['province'] ?? '')->pluck('province_description');
-        $city = DB::table('philippine_cities')->select('city_municipality_description')->where('city_municipality_code', $request['city'] ?? '')->pluck('city_municipality_description');
-        $barangay = DB::table('philippine_barangays')->select('barangay_description')->where('barangay_code', $request['barangay'] ?? '')->pluck('barangay_description');
+        $region = DB::table('refregion')->select('regDesc')->where('regCode', $request['region'])->pluck('regDesc');
+        $province = DB::table('refprovince')->select('provDesc')->where('provCode', $request['province'] ?? '')->pluck('provDesc');
+        $city = DB::table('refcitymun')->select('citymundesc')->where('citymunCode', $request['city'] ?? '')->pluck('citymundesc');
+        $barangay = DB::table('refbrgy')->select('brgyDesc')->where('brgyCode', $request['barangay'] ?? '')->pluck('brgyDesc');
         $request['region'] = $region[0];
         $request['province'] = $province[0];
         $request['city'] = $city[0];
@@ -363,6 +383,7 @@ class ProviderManagementController extends Controller
             'contact_number' => 'required',
             'email' => 'required',
             'street_address' => 'required',
+            'type' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect('provider/create/1')
@@ -379,10 +400,10 @@ class ProviderManagementController extends Controller
         $request['city_id_string'] = $request['city'];
         $request['province_id_string'] = $request['province'];
         $request['barangay_id_string'] = $request['barangay'];
-        $region = DB::table('philippine_regions')->select('region_description')->where('region_code', $request['region'])->pluck('region_description');
-        $province = DB::table('philippine_provinces')->select('province_description')->where('province_code', $request['province'] ?? '')->pluck('province_description');
-        $city = DB::table('philippine_cities')->select('city_municipality_description')->where('city_municipality_code', $request['city'] ?? '')->pluck('city_municipality_description');
-        $barangay = DB::table('philippine_barangays')->select('barangay_description')->where('barangay_code', $request['barangay'] ?? '')->pluck('barangay_description');
+        $region = DB::table('refregion')->select('regDesc')->where('regCode', $request['region'])->pluck('regDesc');
+        $province = DB::table('refprovince')->select('provDesc')->where('provCode', $request['province'] ?? '')->pluck('provDesc');
+        $city = DB::table('refcitymun')->select('citymundesc')->where('citymunCode', $request['city'] ?? '')->pluck('citymundesc');
+        $barangay = DB::table('refbrgy')->select('brgyDesc')->where('brgyCode', $request['barangay'] ?? '')->pluck('brgyDesc');
         $request['region'] = $region[0];
         $request['province'] = $province[0];
         $request['city'] = $city[0];
@@ -417,14 +438,33 @@ class ProviderManagementController extends Controller
     public function storeThirdPage()
     {
         $request = request()->all();
+        $methods = new FamilyPlanTypeSubcategories();
+        $validator = \Validator::make(request()->all(), [
+            'services' => 'required',
+            'modern' => 'required',
+        ]);
+        $request['role_id'] = 2;
+        if ($validator->fails()) {
+            return redirect('provider/create/3')
+                ->withErrors($validator)
+                ->withInput();
+        }
         for ($service = 0; $service <= 10000; $service++) {
-            if (isset($request['service'][$service])) {
+            if (isset($request['services'][$service])) {
                 PaidServices::create([
-                    'service_id' => $request['service'][$service],
+                    'service_id' => $request['services'][$service],
                     'clinic_id' => session('id'),
                     'is_checked' => 1,
                 ]);
             }
+        }
+        $data = $methods->getUncheckedPaidServices(session('id'));
+        foreach ($data as $datas) {
+            PaidServices::create([
+                'service_id' => $datas->id,
+                'clinic_id' => session('id'),
+                'is_checked' => 0,
+            ]);
         }
 
         for ($modern = 0;$modern <= 1000;$modern++) {
@@ -445,7 +485,9 @@ class ProviderManagementController extends Controller
                 ]);
             }
         }
-
+        Clinics::where('id', session('id'))->update([
+            'paid_service' => $request['paid'],
+        ]);
         for ($permanent = 0;$permanent <= 1000;$permanent++) {
             if (isset($request['permanent'][$permanent])) {
                 ClinicService::create([
@@ -455,8 +497,15 @@ class ProviderManagementController extends Controller
                 ]);
             }
         }
-        //$methods =new FamilyPlanTypeSubcategories();
-        //$data = $methods->getUncheckedServices(session('id'));
+
+        $datas1 = $methods->getUncheckedPaidServices(session('id'));
+        foreach ($datas1 as $data) {
+            ClinicService::create([
+                'service_id' => $data->id,
+                'clinic_id' => session('id'),
+                'is_checked' => 0,
+            ]);
+        }
         Clinics::where('id', session('id'))->update(['is_approve' => 1]);
 
         return redirect('/provider/profile/'.session('id'));
@@ -534,18 +583,18 @@ class ProviderManagementController extends Controller
     public function province()
     {
         $request = request()->all();
-        return DB::table('philippine_provinces')->select('province_description', 'province_code')->where('region_code', $request['region'])->get();
+        return DB::table('refprovince')->select('provDesc as province_description', 'provCode as province_code')->where('regCode', $request['region'])->get();
     }
 
     public function city()
     {
         $request = request()->all();
-        return DB::table('philippine_cities')->select('city_municipality_description', 'city_municipality_code')->where('province_code', $request['province'])->get();
+        return DB::table('refcitymun')->select('citymunDesc as city_municipality_description', 'citymunCode as city_municipality_code')->where('provCode', $request['province'])->get();
     }
     public function barangay()
     {
         $request = request()->all();
-        return DB::table('philippine_barangays')->select('barangay_code', 'barangay_description')->where('city_municipality_code', $request['barangay'])->get();
+        return DB::table('refbrgy')->select('brgyCode as barangay_code', 'brgyDesc as barangay_description')->where('citymuncode', $request['barangay'])->get();
     }
 
     public function galleryUpload(Request $request)

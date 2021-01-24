@@ -38,7 +38,7 @@
                             @endif
                 <td class="table__details"><span class="rateYo"></span></td>
                 <input type="hidden" class="provider_rate" value="{{$ratings}}">
-                <td class="table__details">{{ $countStaff }}</td>
+                <td class="table__details">0</td>
               </tr>
             @endforeach
             </tbody>

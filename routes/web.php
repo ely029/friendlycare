@@ -183,6 +183,7 @@ Route::group(['prefix' => 'ads'], static function () {
     Route::post('/filter', 'Admin\AdsManagementController@filter')->name('ads.filter');
     Route::get('/information/{id}', 'Admin\AdsManagementController@viewInformation')->name('ads.viewInformation');
     Route::get('/delete/{id}', 'Admin\AdsManagementController@delete')->name('ads.delete');
+    Route::get('/export', 'Admin\AdsManagementController@export')->name('ads.export');
 });
     Route::get('/', 'HomeController@index')->name('home');
     Route::post('/authenticate', 'Admin\AdminController@authenticate')->name('authenticate');

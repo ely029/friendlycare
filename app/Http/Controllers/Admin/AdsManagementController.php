@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\AdsManagement;
+use App\Exports\AdsExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdsManagementController extends Controller
 {
@@ -78,5 +80,12 @@ class AdsManagementController extends Controller
     {
         AdsManagement::where('id', $id)->delete();
         return redirect('ads/');
+    }
+
+    public function export()
+    {
+        $request = request()->all();
+        $fileName = 'Ads-Report.csv';
+        return Excel::download(new AdsExport($request['start_date'] ?? '0000-00-00', $request['end_date'] ?? '0000-00-00'), $fileName);
     }
 }

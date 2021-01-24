@@ -51,7 +51,8 @@ class ChatbotController extends Controller
         $chatbot = new ChatBot();
         $details = $chatbot->getFieldSet();
         $fieldset = ChatBot::where('id', $id)->get();
-        $response = ChatBotResponse::where('fieldset_id', $id)->get();
+        // $response = ChatBotResponse::where('fieldset_id', $id)->get();
+        $response = DB::table('chat_bot_response')->select('id', 'fieldset_id', 'response_id', 'response_prompt')->where('fieldset_id', $id)->get();
         return view('admin.chatbot.edit', ['response' => $response, 'fieldset' => $fieldset, 'details' => $details]);
     }
 
@@ -72,10 +73,13 @@ class ChatbotController extends Controller
     }
     public function delete($id)
     {
-        ChatBotResponse::where('id', $id)->delete();
         $getId = DB::table('chat_bot_response')->select('fieldset_id')->orderBy('fieldset_id', 'desc')->pluck('fieldset_id');
-
-        return redirect('chatbot/edit/'.$getId[0]);
+        $eee = [];
+        $eee[] = $getId[0];
+        ChatBotResponse::where('id', $id)->delete();
+        foreach ($eee as $eey) {
+            return redirect('chatbot/edit/'.$eey);
+        }
     }
 
     private function check($request)
@@ -87,43 +91,45 @@ class ChatbotController extends Controller
     private function check1($request, $elm)
     {
         for ($eee = 0; $eee <= $elm;  $eee++) {
-            if (isset($request['response_id'][$eee])) {
+            if (isset($request['responded_id'][$eee])) {
                 $checked = DB::table('chat_bot_response')->select('id')->where('id', $request['responded_id'][$eee])->count();
-                $this->check2($request, $checked);
+                $this->check2($request, $checked, $eee);
             }
         }
     }
 
-    private function check2($request, $checked)
+    private function check2($request, $checked, $eee)
     {
-        if ($checked >= 1) {
-            $this->updateResponse($request);
+        if ($checked <= 0) {
+            $response = [];
+            $response[] = [
+                'response_id' => $request['response_id'][$eee],
+                'response_prompt' => $request['response_prompt'][$eee],
+            ];
+            $this->insertResponse($request, $response);
         } else {
-            $this->insertResponse($request);
+            $this->updateResponse($request, $eee);
         }
     }
 
-    private function updateResponse($request)
+    private function updateResponse($request, $eee)
     {
-        $elm = count($request['responded_id']);
-        for ($eee = 0; $eee <= $elm;  $eee++) {
-            if (isset($request['response_prompt'][$eee])) {
-                ChatBotResponse::where('id', $request['responded_id'][$eee])->update([
-                    'response_prompt' => $request['response_prompt'][$eee],
-                    'response_id' => $request['response_id'][$eee],
-                ]);
-            }
+        if (isset($request['response_prompt'][$eee])) {
+            ChatBotResponse::where('id', $request['responded_id'][$eee])->update([
+                'response_prompt' => $request['response_prompt'][$eee],
+                'response_id' => $request['response_id'][$eee],
+            ]);
         }
     }
 
-    private function insertResponse($request)
+    private function insertResponse($request, $response)
     {
-        $elm = count($request['responded_id']);
-        for ($eee = 0; $eee <= $elm;  $eee++) {
-            if (isset($request['fieldset_id'][$eee])) {
+        foreach ($response as $ely) {
+            $getData = DB::table('chat_bot_response')->select('id')->where('response_prompt', $ely['response_prompt'])->count();
+            if ($ely['response_prompt'] !== null && $ely['response_id'] !== null && $getData <= 0) {
                 ChatBotResponse::create([
-                    'response_prompt' => $request['response_prompt'][$eee],
-                    'response_id' => $request['response_id'][$eee],
+                    'response_prompt' => $ely['response_prompt'],
+                    'response_id' => $ely['response_id'],
                     'fieldset_id' => $request['fieldset_id'],
                 ]);
             }

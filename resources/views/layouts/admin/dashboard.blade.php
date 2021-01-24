@@ -27,6 +27,32 @@ $('document').ready(function(){
     });
 });
 </script>
+@if(Route::currentRouteName() == 'chatbot.edit')
+<script type="text/javascript">
+$('document').ready(function(){
+    $('.add-response-option2').hide();
+   $('.add-response-chatbot').click(function(){
+       $('#add-response-option-create').clone().appendTo($('#add-response-option-create1'));
+   });
+   $('.js-add-response1').click(function(){
+      $('#add-response-option').clone().appendTo($('#add-response-option1'));
+   });
+});
+</script>
+@endif
+@if(Route::currentRouteName() == 'ads.index' || Route::currentRouteName() == 'ads.filter')
+<script type="text/javascript">
+$('document').ready(function(){
+    $('.export').on('click', function(eee){
+        eee.preventDefault();
+        var ely = confirm('The reports are already generated');
+    if (ely == true) {
+         window.open("{{ route('ads.export')}}?start_date="+$('#start_date').val()+"&end_date="+$("#end_date").val()+"","_self");
+       }
+   });
+});
+</script>
+@endif
 @if(Route::currentRouteName() == 'ads.create')
 <script type="text/javascript">
 $('document').ready(function(){
@@ -431,13 +457,6 @@ $(function(){
     if (ely == true) {
          window.location.href = "{{ route('booking.export')}}?date_from="+$('#date-from').val()+"&date_to="+$("#date-to").val()+"&clinic="+$("#clinic_id").val()+"&status="+$("#status").val()+"&service="+$('#service').val()+"";
        }
-   });
-    $('.add-response-option2').hide();
-   $('.add-response-chatbot').click(function(){
-       $('#add-response-option-create').clone().appendTo($('#add-response-option-create1'));
-   });
-   $('.js-add-response1').click(function(){
-      $('#add-response-option').clone().appendTo($('#add-response-option1'));
    });
     $('#provider_information_checkbox').change(function(){
       if(this.checked) {
