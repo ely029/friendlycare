@@ -21,24 +21,15 @@ class ProviderManagementController extends Controller
     public function index()
     {
         $users = DB::table('clinics')
-            ->select('clinics.email', 'clinics.type', 'clinics.id', 'clinics.clinic_name')
+            ->leftJoin('staffs', 'staffs.clinic_id', 'clinics.id')
+            ->leftJoin('ratings', 'ratings.clinic_id', 'clinics.id')
+            ->leftJoin('ratings_details', 'ratings_details.rating_id', 'ratings.id')
+            ->select('clinics.email', 'clinics.type', 'clinics.id', 'clinics.clinic_name', DB::raw('count(staffs.id) as number_staff'), DB::raw('avg(ratings_details.ratings) as avg'))
             ->where('clinics.email', '<>', 'null')
             ->where('clinics.is_approve', '<>', 0)
-            ->orderBy('clinics.created_at', 'desc')
+            ->groupBy(['clinics.email', 'clinics.type', 'clinics.id', 'clinics.clinic_name'])
             ->get();
-        $ratings = DB::table('ratings')
-            ->join('ratings_details', 'ratings_details.rating_id', 'ratings.id')
-            ->orderBy('ratings.clinic_id')
-            ->avg('ratings_details.ratings');
-
-        $countStaff = DB::table('staffs')
-            ->join('clinics', 'staffs.clinic_id', 'clinics.id')
-            ->select('staffs.id')
-            ->where('clinics.email', '<>', 'null')
-            ->where('clinics.is_approve', '<>', 0)
-            ->orderBy('clinics.id', 'desc')
-            ->count();
-        return view('admin.providerManagement.index', ['clinics' => $users, 'ratings' => $ratings, 'countStaff' => $countStaff]);
+        return view('admin.providerManagement.index', ['clinics' => $users]);
     }
     public function createFirstPage()
     {
@@ -194,18 +185,21 @@ class ProviderManagementController extends Controller
             ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
             ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'family_plan_type_subcategory.short_name', 'paid_services.is_checked')
             ->where('family_plan_type_subcategory.family_plan_type_id', 1)
+            ->where('paid_services.clinic_id', $id)
             ->get();
 
         $paid_permanentMethod = DB::table('family_plan_type_subcategory')
             ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
             ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'family_plan_type_subcategory.short_name', 'paid_services.is_checked')
             ->where('family_plan_type_subcategory.family_plan_type_id', 2)
+            ->where('paid_services.clinic_id', $id)
             ->get();
 
         $paid_naturalMethod = DB::table('family_plan_type_subcategory')
             ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
             ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'family_plan_type_subcategory.short_name', 'paid_services.is_checked')
             ->where('family_plan_type_subcategory.family_plan_type_id', 3)
+            ->where('paid_services.clinic_id', $id)
             ->get();
         $clinicHours = DB::table('clinic_hours')
             ->select('is_checked', 'days', 'froms', 'tos', 'id_value')
@@ -498,7 +492,7 @@ class ProviderManagementController extends Controller
             }
         }
 
-        $datas1 = $methods->getUncheckedPaidServices(session('id'));
+        $datas1 = $methods->getUncheckedServices(session('id'));
         foreach ($datas1 as $data) {
             ClinicService::create([
                 'service_id' => $data->id,
@@ -526,7 +520,7 @@ class ProviderManagementController extends Controller
 
         $clinic_name = DB::table('clinics')
             ->leftJoin('ratings', 'ratings.clinic_id', 'clinics.id')
-            ->select('clinics.clinic_name', 'clinics.contact_number', 'clinics.email')
+            ->select('clinics.clinic_name', 'clinics.contact_number', 'clinics.email', 'clinics.photo_url')
             ->where('clinics.id', $id)
             ->distinct('clinics.clinic_name')
             ->get();

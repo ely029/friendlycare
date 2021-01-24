@@ -36,9 +36,9 @@
                             @if($clinic->type == '3')
                             <td class="table__details">NGO</td>
                             @endif
-                <td class="table__details"><span class="rateYo"></span></td>
-                <input type="hidden" class="provider_rate" value="{{$ratings}}">
-                <td class="table__details">0</td>
+                <td class="table__details"><span class="rateYo-{{$clinic->id}}"></span></td>
+                <input type="hidden" class="provider_rate_{{$clinic->id}}" value="{{$clinic->avg}}">
+                <td class="table__details">{{ $clinic->number_staff }}</td>
               </tr>
             @endforeach
             </tbody>

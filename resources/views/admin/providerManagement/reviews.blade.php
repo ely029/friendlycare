@@ -22,7 +22,7 @@
           <form class="form form--viewProvider" id="js-provider-form" action="">
             <ul class="form__group form__group--viewProvider">
               <li class="form__group-item">
-                <div class="form__wrapper"><img class="form__image" src="{{URL::asset('img/placeholder.jpg')}}" alt="Image placeholder" /></div>
+                <div class="form__wrapper"><img class="form__image" src="{{ $clinic_names->photo_url}}" alt="Image placeholder" /></div>
               </li>
               @foreach($clinic_name as $clinic_names)
               <li class="form__group-item">

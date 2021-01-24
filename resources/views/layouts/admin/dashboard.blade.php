@@ -27,6 +27,20 @@ $('document').ready(function(){
     });
 });
 </script>
+@if(Route::currentRouteName() == 'providerManagement')
+@foreach ($clinics as $clinic)
+<script type="text/javascript">
+$('document').ready(function(){
+   $('.rateYo-{{$clinic->id}}').rateYo({
+    normalFill: "#F0F0F0",
+    ratedFill: "#B964C4",
+    readOnly: true,
+    rating: $('.provider_rate_{{ $clinic->id }}').val()
+   });
+});
+</script>
+@endforeach
+@endif
 @if(Route::currentRouteName() == 'chatbot.edit')
 <script type="text/javascript">
 $('document').ready(function(){
@@ -330,18 +344,6 @@ $(function(){
    });
     $('#js-consent-form').show();
     $('#js-consent-form2').hide();
-   $('.rateYo').rateYo({
-    normalFill: "#F0F0F0",
-    ratedFill: "#B964C4",
-    readOnly: true,
-    rating: $('.provider_rate').val()
-   });
-   $('#rateYo').rateYo({
-    normalFill: "#F0F0F0",
-    ratedFill: "#B964C4",
-    readOnly: true,
-    rating: $('#rate').val()
-   });
    if($('#js-schedule-1').val() == 'Post Now') {
        $('.js-scheduled-content-1').hide();
    } else {

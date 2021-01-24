@@ -21,7 +21,7 @@ class Ratings extends Model
         return DB::table('ratings_details')
             ->leftJoin('ratings', 'ratings.id', 'ratings_details.rating_id')
             ->leftJoin('users', 'ratings.patient_id', 'users.id')
-            ->select('ratings.review', 'ratings_details.ratings', 'users.name')
+            ->select('ratings.review', 'ratings_details.ratings', 'users.name', DB::raw('DATE_FORMAT(ratings_details.created_at, "%m/%d/%Y") as created_at'))
             ->where('ratings.clinic_id', $id)
             ->get();
     }
