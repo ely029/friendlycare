@@ -38,17 +38,7 @@
                 <label class="form__label">Link to fieldset*</label>
               </div>
               <div class="form__button form__button--end">
-                <button data-toggle="modal" data-target="#js-delete-response-modal-{{ $responses->id }}" class="button button--medium js-delete-response js-trigger" type="button">Delete response</button>
-                <div class="modal js-modal" id="js-delete-response-modal-{{$responses->id}}">
-              <div class="modal__background js-modal-background"></div>
-              <div class="modal__container">
-                <div class="modal__box">
-                  <h2 class="modal__title">Delete response?</h2>
-                  <p class="modal__text">Are you sure you want to delete this response?</p>
-                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><a href="{{ route('chatbot.delete',$responses->id)}}" class="button button--medium button--medium__delete" type="button">Delete response</a></div>
-                </div>
-              </div>
-            </div>
+                <a href="{{ route('chatbot.delete', $responses->id)}}" class="button button--medium js-delete-response js-trigger">Delete response</a>
               </div>
               @endforeach
             </div>
@@ -70,7 +60,18 @@
                 <input class="button button--medium js-delete-response" type="button" data-toggle="modal" data-target="#js-delete-response-modal" value="Delete response"><button class="button button--medium js-add-response1" type="button">Add response</button>
               </div>
             </div>
-            <div class="form__button form__button--end"><input class="button js-trigger" type="button" value="Save changes"></div>
+            <div class="form__button form__button--end"><input class="button js-trigger" type="submit" value="Save changes"></div>
+
+            <div class="modal js-modal" id="js-delete-response-modal">
+              <div class="modal__background js-modal-background"></div>
+              <div class="modal__container">
+                <div class="modal__box">
+                  <h2 class="modal__title">Delete response?</h2>
+                  <p class="modal__text">Are you sure you want to delete this response?</p>
+                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><button class="button button--medium button--medium__delete" type="button">Delete response</button></div>
+                </div>
+              </div>
+            </div>
             <div class="modal js-modal">
               <div class="modal__background js-modal-background"></div>
               <div class="modal__container">
