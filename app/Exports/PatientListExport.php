@@ -19,7 +19,7 @@ class PatientListExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ['Name', 'Age', 'Province', 'Municipality', 'FPM User Type'];
+        return ['Name', 'Age', 'Province', 'Municipality', 'FPM User Type', 'Date Registered'];
     }
 
     public function collection()
@@ -28,7 +28,8 @@ class PatientListExport implements FromCollection, WithHeadings
             ->leftJoin('patients', 'patients.user_id', 'users.id')
             ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
             ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
-            ->select('users.name', 'users.age', 'patients.province', 'patients.municipality', 'family_plan_type_subcategory.name as service_name')
+            ->select('users.name', 'users.age', 'patients.province', 'patients.municipality', 'family_plan_type_subcategory.name as service_name', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'))
+            ->where('users.role_id', 3)
             ->get();
     }
 }

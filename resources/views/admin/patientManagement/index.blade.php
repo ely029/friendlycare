@@ -52,6 +52,7 @@
                 <th class="table__head">Email</th>
                 <th class="table__head">Age</th>
                 <th class="table__head">Province</th>
+                <th class="table__head">Date Registered</th>
               </tr>
             </thead>
             <tbody>
@@ -62,6 +63,7 @@
                 <td class="table__details">{{ $detail->email}}</td>
                 <td class="table__details">{{ $detail->age }}</td>
                 <td class="table__details">{{ $detail->province }}</td>
+                <td class="table__details">{{ $detail->registered_at }}</td>
               </tr>
               @endforeach
             </tbody>

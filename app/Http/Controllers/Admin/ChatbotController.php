@@ -51,7 +51,6 @@ class ChatbotController extends Controller
         $chatbot = new ChatBot();
         $details = $chatbot->getFieldSet();
         $fieldset = ChatBot::where('id', $id)->get();
-        // $response = ChatBotResponse::where('fieldset_id', $id)->get();
         $response = DB::table('chat_bot_response')->select('id', 'fieldset_id', 'response_id', 'response_prompt')->where('fieldset_id', $id)->get();
         return view('admin.chatbot.edit', ['response' => $response, 'fieldset' => $fieldset, 'details' => $details]);
     }
@@ -80,6 +79,12 @@ class ChatbotController extends Controller
         foreach ($eee as $eey) {
             return redirect('chatbot/edit/'.$eey);
         }
+    }
+
+    public function deleteFieldSet($id)
+    {
+        ChatBot::where('id', $id)->delete();
+        return redirect('/chatbot/list');
     }
 
     private function check($request)

@@ -14,7 +14,7 @@ class PatientManagementController extends Controller
 {
     public function index()
     {
-        $details = DB::table('users')->leftjoin('patients', 'patients.user_id', 'users.id')->select('users.id', 'users.name', 'patients.province', 'users.email', 'users.age')->where('role_id', 3)->get();
+        $details = DB::table('users')->leftjoin('patients', 'patients.user_id', 'users.id')->select('users.id', 'users.name', 'patients.province', 'users.email', 'users.age', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'))->where('role_id', 3)->get();
         return view('admin.patientManagement.index', ['details' => $details]);
     }
 
