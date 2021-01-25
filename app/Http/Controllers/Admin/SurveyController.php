@@ -52,7 +52,6 @@ class SurveyController extends Controller
         $getFCMToken = DB::table('users')->select('fcm_notification_key')->where('fcm_notification_key', '<>', null)->pluck('fcm_notification_key');
         $fcmurl = 'https://fcm.googleapis.com/fcm/send';
         $token = $getFCMToken[0] ?? 0;
-        $key = env('BP_FIREBASE_SERVER_KEY');
         $notification = [
             'title' => 'Survey just posted',
             'body' => 'We just posted a survey. Answer if you have time.',
@@ -71,7 +70,7 @@ class SurveyController extends Controller
         ];
 
         $headers = [
-            'Authorization: key='.$key.'',
+            'Authorization: key=AAAAhGKDgoo:APA91bGxHrVfvIgku3NIcP7P3EerjE1cE_zHRXp9dVOp8RYkhb3o1Cv5g26R5Lx8vXFZoBCM10-YsSCfyBkxy34ORiqK_hLJjrJcAxnIUOswhJrgxHoOtmTgUca0gXkb4kx_ZkyAEa84',
             'Content-Type: application/json',
         ];
         $chh = curl_init();
