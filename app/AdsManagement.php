@@ -27,17 +27,18 @@ class AdsManagement extends Model
     public function getAdsDetails()
     {
         return DB::table('ads_management')
-            ->leftJoin('ad_views', 'ad_views.ads_id', 'ads_management.id')
-            ->leftJoin('ad_clicks', 'ad_clicks.ads_id', 'ads_management.id')
+            ->join('ad_views', 'ad_views.ads_id', 'ads_management.id')
+            ->join('ad_clicks', 'ad_clicks.ads_id', 'ads_management.id')
             ->select(
                 'ads_management.id',
                 'ads_management.start_date',
                 'ads_management.company_name',
                 'ads_management.title',
                 'ads_management.ad_link',
-                DB::raw('sum(ad_views.id) as count_views'),
-                DB::raw('sum(ad_clicks.id) as count_clicks'))
+                DB::raw('count(ad_views.id) as count_views'),
+                DB::raw('count(ad_clicks.id) as count_clicks'))
             ->groupBy(['ads_management.start_date', 'ads_management.id', 'ads_management.company_name', 'ads_management.title', 'ads_management.ad_link'])
+            ->orderBy('ads_management.id')
             ->get();
     }
 
