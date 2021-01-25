@@ -73,7 +73,7 @@
             <div class="form__button form__button--end">
               <input class="button" type="button" data-toggle="modal" data-target="#js-save-changes-modal" value="Save changes">
             </div>
-            <div class="form__button form__button--end">
+            <div class="form__button form__button--end form__button--fieldset">
               <a class="button button--transparent" data-toggle="modal" data-target="#js-delete-fieldset-modal">Delete Fieldset</a>
             </div></div>
             <div class="modal js-modal" id="js-delete-fieldset-modal">
