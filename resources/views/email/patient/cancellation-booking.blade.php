@@ -14,8 +14,8 @@
       @font-face {
         font-family: VAGRounded BT;
         font-display: auto;
-        src: url("fonts/VAGRoundedBT.eot");
-        src: local("☺"), url("fonts/VAGRoundedBT.ttf") format("ttf"), url("fonts/VAGRoundedBT.eot?#iefix") format("embedded-opentype"), url("fonts/VAGRoundedBT.woff") format("woff");
+        src: url("{{URL::asset('fonts/VAGRoundedBT.eot')}}");
+        src: local("☺"), url("{{URL::asset('fonts/VAGRoundedBT.ttf')}}") format("ttf"), url("{{URL::asset('fonts/VAGRoundedBT.eot?#iefix')}}") format("embedded-opentype"), url("{{URL::asset('fonts/VAGRoundedBT.woff')}}") format("woff");
       }
       .email * {
         -webkit-box-sizing: border-box;
