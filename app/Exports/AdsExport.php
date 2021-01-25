@@ -38,10 +38,15 @@ class AdsExport implements FromCollection, WithHeadings
                 ->leftJoin('ad_clicks', 'ad_clicks.ads_id', 'ads_management.id')
                 ->leftJoin('ad_views', 'ad_views.ads_id', 'ads_management.id')
                 ->select('ad_link', 'company_name', 'title',
-                DB::raw('count(ad_views.id) as views'),
-                DB::raw('count(ad_clicks.id) as clicks'))
+                    DB::raw('count(ad_views.id) as views'),
+                    DB::raw('count(ad_clicks.id) as clicks'))
                 ->orderBy('ads_management.id')
-                ->groupBy(['ads_management.ad_link', 'ads_management.company_name', 'ads_management.title', 'ads_management.id'])
+                ->groupBy([
+                    'ads_management.ad_link',
+                    'ads_management.company_name',
+                    'ads_management.title',
+                    'ads_management.id',
+                ])
                 ->get();
         }
         return DB::table('ads_management')
