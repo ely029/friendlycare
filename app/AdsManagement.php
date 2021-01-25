@@ -38,7 +38,6 @@ class AdsManagement extends Model
                 DB::raw('count(ad_views.id) as count_views'),
                 DB::raw('count(ad_clicks.id) as count_clicks'))
             ->groupBy(['ads_management.start_date', 'ads_management.id', 'ads_management.company_name', 'ads_management.title', 'ads_management.ad_link'])
-            ->orderBy('ads_management.id')
             ->get();
     }
 
