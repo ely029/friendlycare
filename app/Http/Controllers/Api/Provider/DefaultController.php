@@ -511,7 +511,7 @@ class DefaultController extends Controller
     public function getFPMDetails()
     {
         $dateNow = strtotime(date('Y-m-d'));
-        $getAds = DB::table('ads_management')->select('id')->where('end_date_string', '<=', $dateNow)->get();
+        $getAds = DB::table('ads_management')->select('id')->where('start_date_string', '<=', $dateNow)->get();
         foreach ($getAds as $getAd) {
             viewAds::create([
                 'views' => 1,
