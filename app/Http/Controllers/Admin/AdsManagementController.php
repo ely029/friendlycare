@@ -15,7 +15,8 @@ class AdsManagementController extends Controller
 {
     public function index()
     {
-        $data = AdsManagement::get();
+        $ads = new AdsManagement();
+        $data = $ads->getAdsDetails();
         return view('admin.ads.index', ['data' => $data]);
     }
 
@@ -47,10 +48,8 @@ class AdsManagementController extends Controller
     public function filter()
     {
         $request = request()->all();
-        $details = DB::table('ads_management')
-            ->select('company_name', 'start_date', 'title', 'ad_link', 'id')
-            ->whereBetween('start_date', [$request['start_date'], $request['end_date']])
-            ->get();
+        $ads = new AdsManagement();
+        $details = $ads->filter($request);
 
         return view('admin.ads.index', ['data' => $details]);
     }

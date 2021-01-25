@@ -34,12 +34,14 @@ class AdsExport implements FromCollection, WithHeadings
     public function collection()
     {
         return DB::table('ads_management')
+            ->leftJoin('ad_clicks', 'ad_clicks.ads_id', 'ads_management.id')
+            ->leftJoin('ad_views', 'ad_views.ads_id', 'ads_management.id')
             ->select('ad_link', 'company_name', 'title',
-                DB::raw('(select count(ad_views.id) as fff from ad_views left join ads_management 
-                on ads_management.id = ad_views.ads_id where ad_views.created_at between ? and ?) as fff'),
-                DB::raw('(select count(ad_clicks.id) as ggg from ad_clicks left join ads_management 
-                on ads_management.id = ad_clicks.ads_id where ad_clicks.created_at between ? and ?) as ggg'))
-            ->setBindings([$this->dateFrom, $this->dateTo, $this->dateFrom, $this->dateTo ])
+                DB::raw('count(ad_views.id) as views'),
+                DB::raw('count(ad_clicks.id) as clicks'))
+            ->orderBy('ads_management.id')
+            ->groupBy(['ads_management.ad_link', 'ads_management.company_name', 'ads_management.title', 'ads_management.id'])
+            ->whereBetween('ads_management.created_at', [$this->dateFrom, $this->dateTo])
             ->get();
     }
 }

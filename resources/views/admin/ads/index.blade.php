@@ -53,8 +53,8 @@
           <td class="table__details"><a href="{{ route('ads.viewInformation', $datas->id) }}">{{ $datas->start_date }}</a></td>
           <td class="table__details">{{ $datas->company_name }}</td>
           <td class="table__details">{{ $datas->title }}</td>
-          <td class="table__details">12</td>
-          <td class="table__details">12</td>
+          <td class="table__details">{{ $datas->count_views}}</td>
+          <td class="table__details">{{ $datas->count_clicks}}</td>
           <td class="table__details"><a class="table__link" href="{{ $datas->ad_link}}">{{ $datas->ad_link }}</a></td>
         </tr>
         @endforeach
