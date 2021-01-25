@@ -85,6 +85,6 @@ class AdsManagementController extends Controller
     {
         $request = request()->all();
         $fileName = 'Ads-Report.csv';
-        return Excel::download(new AdsExport($request['start_date'] ?? null, $request['end_date'] ?? null), $fileName);
+        return Excel::download(new AdsExport($request['start_date'] ?? '0', $request['end_date'] ?? '0'), $fileName);
     }
 }

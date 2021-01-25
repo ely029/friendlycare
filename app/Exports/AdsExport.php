@@ -33,7 +33,7 @@ class AdsExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        if ($this->dateFrom === null && $this->dateTo === null) {
+        if ($this->dateFrom === '0' && $this->dateTo === '0') {
             return DB::table('ads_management')
                 ->leftJoin('ad_clicks', 'ad_clicks.ads_id', 'ads_management.id')
                 ->leftJoin('ad_views', 'ad_views.ads_id', 'ads_management.id')
