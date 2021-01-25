@@ -70,8 +70,9 @@
                 <input class="button button--medium js-delete-response" type="button" data-toggle="modal" data-target="#js-delete-response-modal" value="Delete response"><button class="button button--medium js-add-response1" type="button">Add response</button>
               </div>
             </div>
-            <div class="form__button form__button--end"><input class="button js-trigger" type="button" value="Save changes"><br/>
-            <a class="button button--transparent" data-toggle="modal" data-target="#js-delete-fieldset-modal">Delete Fieldset</a></div></div>
+            <div class="form__button form__button--end">
+            <a class="button button--transparent" data-toggle="modal" data-target="#js-delete-fieldset-modal">Delete Fieldset</a><input class="button js-trigger" type="button" value="Save changes"><br/>
+            </div></div>
             <div class="modal js-modal" id="js-delete-fieldset-modal">
               <div class="modal__background js-modal-background"></div>
               <div class="modal__container">
