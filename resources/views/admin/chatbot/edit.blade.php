@@ -71,10 +71,10 @@
               </div>
             </div>
             <div class="form__button form__button--end">
-            <a class="button button--transparent" data-toggle="modal" data-target="#js-delete-fieldset-modal">Delete Fieldset</a><input class="button js-trigger" type="button" value="Save changes"><br/>
+            <a class="button button--transparent" data-toggle="modal" data-target="#js-delete-fieldset-modal">Delete Fieldset</a><input class="button" type="button" data-toggle="modal" data-target="#js-save-changes-modal" value="Save changes"><br/>
             </div></div>
             <div class="modal js-modal" id="js-delete-fieldset-modal">
-              <div class="modal__background js-modal-background"></div>
+              <div class="modal__background js-modal-background" data-dismiss="modal"></div>
               <div class="modal__container">
                 <div class="modal__box">
                   <h2 class="modal__title">Delete Fieldset?</h2>
@@ -85,8 +85,8 @@
                 </div>
               </div>
             </div>
-            <div class="modal js-modal">
-              <div class="modal__background js-modal-background"></div>
+            <div class="modal js-modal" id="js-save-changes-modal">
+              <div class="modal__background js-modal-background" data-dismiss="modal"></div>
               <div class="modal__container">
                 <div class="modal__box">
                   <h2 class="modal__title">Save changes?</h2>
