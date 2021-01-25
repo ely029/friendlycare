@@ -152,13 +152,13 @@
               <ul class="form__group">
                 <li class="form__group-item"><h2 class="section__heading">Clinic gallery</h2>
                 <div class="dz-default dz-message dropzoneDragArea" id="dropzoneDragArea"><span>Click to Upload File</span></div>
-                <ul>
+                <ul class="gallery__list">
                 @foreach($galleries as $gallery)
-                <li style="float: left;"><img height="100" width="100" src="{{ $gallery->file_url}}">
-                 <a href="{{ route('provider.deleteGallery',['id' => $gallery->id, 'clinicId' => $gallery->clinic_id]  )}}" class="button" style="width: 35px;font-size: 10px;height: 35px;margin-top: -95px;">X</a>
-              </li>
-                @endforeach
-              </ul>
+                <li class="gallery__item"><img class="gallery__image" src="{{ $gallery->file_url}}">
+                <a href="{{ route('provider.deleteGallery',['id' => $gallery->id, 'clinicId' => $gallery->clinic_id]  )}}" class="button button--close" aria-hidden="true">&times;</a>
+                </li>
+                  @endforeach
+                </ul>
                 </li>
                 <li class="form__group-item">
                   <h2 class="section__heading">Clinic hours</h2>
