@@ -514,7 +514,7 @@ class ProviderManagementController extends Controller
         $details = DB::table('ratings')
             ->leftJoin('users', 'users.id', 'ratings.patient_id')
             ->leftJoin('ratings_details', 'ratings_details.rating_id', 'ratings.id')
-            ->select('ratings_details.id', DB::select('mask_pan(users.name) as name'), 'ratings_details.ratings', 'ratings.review')
+            ->select('ratings_details.id', DB::raw('REPLACE(users.name,SUBSTR(users.name,1,30),"*****") as dddd '), 'ratings_details.ratings', 'ratings.review')
             ->where('ratings.clinic_id', $id)
             ->get();
 

@@ -42,7 +42,7 @@
             <h2 class="section__heading">User reviews</h2>
             @foreach($details as $detail)
             <div class="form__content form__content--reverse">
-              <label class="form__label form__label--blue">{{ $detail->name}}</label>
+              <label class="form__label form__label--blue">{{ $detail->dddd}}</label>
               <div id="rateYo-{{$detail->id}}"></div>
               <input type="hidden" id="review-{{$detail->id}}" value="{{$detail->ratings}}">
             <span class="form__text">{{ $detail->review}}</span>

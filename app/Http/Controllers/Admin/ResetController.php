@@ -6,12 +6,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Support\Facades\DB;
 
 class ResetController extends Controller
 {
     public function index($id)
     {
-        return view('reset.index', ['id' => $id]);
+        $data = DB::table('users')
+            ->leftJoin('staffs', 'staffs.user_id', 'users.id')
+            ->leftJoin('clinics', 'clinics.id', 'staffs.clinic_id')
+            ->select('users.email', 'clinics.clinic_name')
+            ->where('users.id', $id)
+            ->get();
+        return view('reset.index', ['data' => $data]);
     }
 
     public function updatePassword()
