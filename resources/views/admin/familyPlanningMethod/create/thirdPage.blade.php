@@ -21,7 +21,13 @@
                 <li class="form__group-item">
                   <h2 class="section__heading">Clinic gallery</h2>
                   <div class="dz-default dz-message dropzoneDragArea" id="dropzoneDragArea"><span>Upload File</span></div>
-                  <div class="dropzone-previews"></div>
+                  <ul class="gallery__list">
+                  @foreach($serviceGallery as $serviceGalleries)
+                  <!-- <li class="gallery__item"><img class="gallery__image" src="{{ $serviceGalleries->file_url}}">
+                     <a href="{{ route('familyPlanningMethod.deleteGallery', ['id' => $serviceGalleries->id, 'serviceId' => $serviceGalleries->service_id])}}" class="button button--close" aria-hidden="true">&times;</a>
+                 </li> -->
+                  @endforeach
+                </ul>
                 </li>
                 <li class="form__group-item">
                   <h2 class="section__heading">Video</h2>
