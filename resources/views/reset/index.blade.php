@@ -83,19 +83,19 @@
       <div class="email__bottom">
         <div class="email__bottom-container"></div>
         <p class="email__bottom-text">
-          For more information, you can send an email to: <a class="email__bottom-link" href="mailto:info@friendlycare.org">info@friendlycare.org </a><span>or contact our office hotlines (+632) 722-2968 | (+632) 722-5205</span>
+          For more information, you can send an email to: <a class="email__bottom-link" href="mailto:info@friendlycare.org">info@friendlycare.org</a><span> or contact our office hotlines (+632) 722-2968 | (+632) 722-5205</span>
         </p>
       </div>
       <div class="email__footer">
         <div class="email__footer-top">
-          <div class="email__footer-wrapper"><img class="email__image" src="src/img/logo.png" alt="white logo of e-plano" /></div>
+          <div class="email__footer-wrapper"><img class="email__image" src="src/img/logo-white.png" alt="white logo of e-plano" /></div>
           <h2 class="email__footer-text">e-Plano</h2>
         </div>
         <ul class="email__footer-links">
-          <li class="email__footer-item">
+          <li class="email__footer-item" style="margin-right: 20px;">
             <a href=""><img class="email__image" src="src/img/icon-facebook.png" alt="facebook icon" /></a>
           </li>
-          <li class="email__footer-item">
+          <li class="email__footer-item" style="margin-right: 20px;">
             <a href=""><img class="email__image" src="src/img/icon-twitter.png" alt="twitter icon" /></a>
           </li>
           <li class="email__footer-item">
