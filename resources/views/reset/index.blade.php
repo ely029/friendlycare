@@ -23,13 +23,15 @@
             <div class="form__content"><input class="form__input" name="password" id="js-password" type="password" placeholder="Enter password" /><label class="form__label">Enter password</label><i class="fa fa-eye-slash" id="js-eye-password"></i></div>
             <div class="form__content"><input class="form__input" name="password_confirmation" id="js-confirm-password" type="password" placeholder="Confirm password" /><label class="form__label">Confirm password</label><i class="fa fa-eye-slash" id="js-eye-confirm-password"></i></div>
             <div class="form__button"><input class="button" type="submit" value="Create Account"/></div>
+            @foreach ($data as $datas)
+            <input type="hidden" name="id" value="{{ $datas->id }}">
+            @endforeach
         </form>
         </div>
         <div class="login__card">
         <h2 class="section__heading">Account details</h2>
         <form class="form form--login">
             @foreach ($data as $datas)
-            <input type="hidden" name="id" value="{{ $datas->id }}">
             <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Email</label><span class="form__text">{{ $datas->email }}</span></div>
             <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Provider clinic</label><span class="form__text">{{ $datas->clinic_name }}</span></div>
             @endforeach
