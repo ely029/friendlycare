@@ -11,6 +11,12 @@
     <link href="{{ asset('assets/app/css/main.css') }}" rel="stylesheet">
 
     <style>
+      @font-face {
+        font-family: VAGRounded BT;
+        font-display: auto;
+        src: url("fonts/VAGRoundedBT.eot");
+        src: local("☺"), url("fonts/VAGRoundedBT.ttf") format("ttf"), url("fonts/VAGRoundedBT.eot?#iefix") format("embedded-opentype"), url("fonts/VAGRoundedBT.woff") format("woff");
+      }
       .email * {
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
