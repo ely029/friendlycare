@@ -15,7 +15,7 @@ class ResetController extends Controller
         $data = DB::table('users')
             ->leftJoin('staffs', 'staffs.user_id', 'users.id')
             ->leftJoin('clinics', 'clinics.id', 'staffs.clinic_id')
-            ->select('users.email', 'clinics.clinic_name')
+            ->select('users.email', 'users.id', 'clinics.clinic_name')
             ->where('users.id', $id)
             ->get();
         return view('reset.index', ['data' => $data]);
