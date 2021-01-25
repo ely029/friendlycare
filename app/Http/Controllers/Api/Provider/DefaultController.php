@@ -512,8 +512,8 @@ class DefaultController extends Controller
     {
         $dateNow = strtotime(date('Y-m-d'));
         $getAds = DB::table('ads_management')->select('id')
-            ->where('start_date_string', '>=', $dateNow)
-            ->where('end_date_string', '<=', $dateNow)
+            ->where('start_date_string', '<=', $dateNow)
+            ->where('end_date_string', '>=', $dateNow)
             ->get();
         foreach ($getAds as $getAd) {
             viewAds::create([
@@ -547,7 +547,10 @@ class DefaultController extends Controller
     public function fpmPagePerMethod($id)
     {
         $dateNow = strtotime(date('Y-m-d'));
-        $getAds = DB::table('ads_management')->select('id')->where('end_date_string', '<=', $dateNow)->get();
+        $getAds = DB::table('ads_management')->select('id')
+            ->where('start_date_string', '<=', $dateNow)
+            ->where('end_date_string', '>=', $dateNow)
+            ->get();
         foreach ($getAds as $getAd) {
             viewAds::create([
                 'views' => 1,
@@ -682,7 +685,6 @@ class DefaultController extends Controller
             'details' => $details,
         ]);
     }
-
     public function deleteCreatedHoliday($id)
     {
         $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
@@ -693,7 +695,6 @@ class DefaultController extends Controller
             'message' => 'created holiday deleted',
         ]);
     }
-
     public function postProviderTimeSlot(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);

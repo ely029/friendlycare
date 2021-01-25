@@ -160,7 +160,7 @@ Route::group(['prefix' => 'chatbot'], static function () {
     Route::get('/edit/{id}', 'Admin\ChatbotController@edit')->name('chatbot.edit');
     Route::post('/edit', 'Admin\ChatbotController@update')->name('chatbot.update');
     Route::get('/delete/{id}', 'Admin\ChatbotController@delete')->name('chatbot.delete');
-    Route::get('/delete/fieldset/{id}', 'Admin\ChatBotController@deleteFieldSet')->name('chatbot.deleteFieldSet');
+    Route::get('/delete/fieldset/{id}', 'Admin\ChatbotController@deleteFieldSet')->name('chatbot.deleteFieldSet');
 });
 
 Route::group(['prefix' => 'patient'], static function () {

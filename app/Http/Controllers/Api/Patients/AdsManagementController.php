@@ -13,8 +13,11 @@ class AdsManagementController extends Controller
 {
     public function display()
     {
+        $dateNow = strtotime(date('Y-m-d'));
         return DB::table('ads_management')
             ->select('image_url', 'ad_link', 'id')
+            ->where('start_date_string', '<=', $dateNow)
+            ->where('end_date_string', '>=', $dateNow)
             ->get();
     }
 
