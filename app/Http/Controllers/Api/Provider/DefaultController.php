@@ -513,7 +513,6 @@ class DefaultController extends Controller
         $dateNow = strtotime(date('Y-m-d'));
         $getAds = DB::table('ads_management')->select('id')
             ->where('start_date_string', '>=', $dateNow)
-            ->where('end_date_string', '<=', $dateNow)
             ->get();
         foreach ($getAds as $getAd) {
             viewAds::create([
