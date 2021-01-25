@@ -69,7 +69,7 @@
           <h2>e-Plano</h2>
           <span class="email__header__span">Family Planning Informational &amp; Booking App</span>
         </div>
-        <div class="email__header-wrapper"><img class="email__image" src="src/img/logo-outline.png" alt="logo of e-plano" /></div>
+        <div class="email__header-wrapper"><img class="email__image" src="src/img/logo.png" alt="logo of e-plano" /></div>
       </div>
       <div class="email__content">
         <h2 class="email__title">Hi </h2>
@@ -88,7 +88,7 @@
       </div>
       <div class="email__footer">
         <div class="email__footer-top">
-          <div class="email__footer-wrapper"><img class="email__image" src="src/img/logo-white.png" alt="white logo of e-plano" /></div>
+          <div class="email__footer-wrapper"><img class="email__image" src="src/img/logo.png" alt="white logo of e-plano" /></div>
           <h2 class="email__footer-text">e-Plano</h2>
         </div>
         <ul class="email__footer-links">
