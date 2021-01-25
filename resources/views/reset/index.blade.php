@@ -67,7 +67,7 @@
       <div class="email__header">
         <div class="email__header-title">
           <h2>e-Plano</h2>
-          <span class="email__header__span">Family Planning Informational &amp; Booking App</span>
+          <span class="email__header__span">Family Planning Informational <br /> &amp; Booking App</span>
         </div>
         <div class="email__header-wrapper"><img class="email__image" src="src/img/logo.png" alt="logo of e-plano" /></div>
       </div>

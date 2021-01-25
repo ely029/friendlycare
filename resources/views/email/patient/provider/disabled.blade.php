@@ -45,19 +45,18 @@
         width: 100%;
         margin: 0 auto;
         text-align: center;
+        padding: 0;
       }
       .email__footer-item {
         display: inline-block;
-        width: 24px;
-        height: 24px;
-      }
-      .email__footer-item:not(:last-of-type) {
-        margin-right: 20px;
+        width: 35px;
+        height: 35px;
       }
       .email__footer-wrapper {
         width: 86px;
         height: 74px;
         display: inline-block;
+        vertical-align: middle;
       }
       .email__footer-top {
         margin: 0 auto 40px;
@@ -75,7 +74,8 @@
         transform: translateY(-50%);
         font-size: 38px;
         display: inline-block;
-        margin-left: 3vh;
+        margin: 0 0 0 3vh;
+        vertical-align: middle;
       }
       .email__bottom {
         background-color: #f2f2f2;
@@ -124,6 +124,7 @@
         transition: 0.4s;
         display: block;
         margin: 70px auto 0;
+        font-size: 20px;
       }
       .email__link:hover {
         color: #6e1a7b;
@@ -152,24 +153,26 @@
       <div class="email__bottom">
         <div class="email__bottom-container"></div>
         <p class="email__bottom-text">
-          For more information, you can send an email to: <a class="email__bottom-link" href="mailto:info@friendlycare.org">info@friendlycare.org </a><span>or contact our office hotlines (+632) 722-2968 | (+632) 722-5205</span>
+          For more information, you can send an email to: <a class="email__bottom-link" href="mailto:info@friendlycare.org">info@friendlycare.org</a><span> or contact our office hotlines (+632) 722-2968 | (+632) 722-5205</span>
         </p>
       </div>
       <div class="email__footer">
         <div class="email__footer-top">
-          <div class="email__footer-wrapper"><img class="email__image" src="src/img/logo-white.png" alt="white logo of e-plano" /></div>
+          <div class="email__footer-wrapper"><img class="email__image" src="{{URL::asset('img/logo-white.png')}}" alt="white logo of e-plano" /></div>
           <h2 class="email__footer-text">e-Plano</h2>
         </div>
         <ul class="email__footer-links">
-          <li class="email__footer-item">
-            <a href=""><img class="email__image" src="src/img/icon-facebook.png" alt="facebook icon" /></a>
+          <li class="email__footer-item" style="margin-right: 20px;">
+            <a href=""><img class="email__image" src="{{URL::asset('img/icon-facebook.png')}}" alt="facebook icon" /></a>
+          </li>
+          <li class="email__footer-item" style="margin-right: 20px;">
+            <a href=""><img class="email__image" src="{{URL::asset('img/icon-twitter.png')}}" alt="twitter icon" /></a>
           </li>
           <li class="email__footer-item">
-            <a href=""><img class="email__image" src="src/img/icon-twitter.png" alt="twitter icon" /></a>
-          </li>
-          <li class="email__footer-item">
-            <a href=""><img class="email__image" src="src/img/icon-ig.png" alt="ig icon" /></a>
+            <a href=""><img class="email__image" src="{{URL::asset('img/icon-ig.png')}}" alt="ig icon" /></a>
           </li>
         </ul>
       </div>
     </div>
+</body>
+</html>
