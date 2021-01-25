@@ -8,7 +8,6 @@ use App\Booking;
 use App\EventsNotification;
 use App\Http\Controllers\Controller;
 use App\ProviderNotifications;
-use App\ViewAds;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mail;
@@ -17,14 +16,6 @@ class NotificationsController extends Controller
 {
     public function getNotifications($id)
     {
-        $dateNow = strtotime(date('Y-m-d'));
-        $getAds = DB::table('ads_management')->select('id')->where('end_date_string', '<=', $dateNow)->get();
-        foreach ($getAds as $getAd) {
-            viewAds::create([
-                'views' => 1,
-                'ads_id' => $getAd->id,
-            ]);
-        }
         $events = new EventsNotification();
         $data = $events->getPatientNotifications($id);
 
