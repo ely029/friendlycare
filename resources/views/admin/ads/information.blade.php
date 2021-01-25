@@ -25,8 +25,8 @@
         <div class="form__wrapper form__wrapper--ads"><img class="form__image form__image--ads" src="{{ $datas->image_url}}" alt="" /></div>
       </div>
       <div class="form__inline">
-        <div class="form__content"><span class="form__text">{{ $count_clicks }}</span><label class="form__label">Views</label></div>
-        <div class="form__content"><span class="form__text">{{ $count_views }}</span><label class="form__label">Clicks</label></div>
+        <div class="form__content"><span class="form__text">{{ $count_views }}</span><label class="form__label">Views</label></div>
+        <div class="form__content"><span class="form__text">{{ $count_clicks }}</span><label class="form__label">Clicks</label></div>
       </div>
       <div class="form__button form__button--start"><input class="button button--transparent button--noMargin js-trigger" type="button" value="Delete ad" /></div>
       <div class="modal js-modal">
