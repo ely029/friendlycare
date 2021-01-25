@@ -80,7 +80,7 @@
                   <h2 class="modal__title">Delete Fieldset?</h2>
                   <p class="modal__text">Fieldset and responses will be deleted. This may affect your other chatbot inputs and responses. Are you sure you want to delete?</p>
                   @foreach($fieldset as $fieldsets)
-                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><a href="{{ route('chatbot.deleteFieldSet',$fieldsets->id)}}" class="button button--medium button--medium__delete" type="button">Delete fieldset</a></div>
+                  <div class="modal__button"><button class="button button--transparent" data-dismiss="modal" type="button">Cancel</button><a href="{{ route('chatbot.deleteFieldSet',$fieldsets->id)}}" class="button button--medium button--medium__delete" type="button">Delete fieldset</a></div>
                   @endforeach
                 </div>
               </div>
@@ -91,7 +91,7 @@
                 <div class="modal__box">
                   <h2 class="modal__title">Save changes?</h2>
                   <p class="modal__text">All changes will update the version of the app. Are you sure you want to Save?</p>
-                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><input class="button button--medium" type="submit" value="Save changes"></div>
+                  <div class="modal__button"><button class="button button--transparent" data-dismiss="modal" type="button">Cancel</button><input class="button button--medium" type="submit" value="Save changes"></div>
                 </div>
               </div>
             </div>
