@@ -58,6 +58,7 @@ class AdsManagementController extends Controller
     {
         $data = DB::table('ads_management')
             ->select(
+                'ads_management.title',
                 'ads_management.id',
                 'ads_management.ad_link',
                 'ads_management.start_date',
