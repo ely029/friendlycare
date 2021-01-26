@@ -163,9 +163,9 @@
                       <span class="gallery__text gallery__text--gray">Upload image maximum 2 mb,<br>maximum 5 images</span><span class="gallery__text">Select file</span>
 
                   </div>
-                  <ul class="gallery__list">
+                  <ul class="gallery__list" id="tpl">
                   @foreach($serviceGallery as $serviceGalleries)
-                  <li class="gallery__item"><img class="gallery__image" src="{{ $serviceGalleries->file_url}}">
+                  <li class="gallery__item"><img class="gallery__image" data-dz-thumbnail src="{{ $serviceGalleries->file_url}}">
                      <a href="{{ route('familyPlanningMethod.deleteGallery', ['id' => $serviceGalleries->id, 'serviceId' => $serviceGalleries->service_id])}}" class="button button--close" aria-hidden="true">&times;</a>
                  </li>
                   @endforeach

@@ -33,10 +33,11 @@
                 <div class="gallery__icon"><img class="gallery__image gallery__image--upload" src="{{URL::asset('img/icon-upload.png')}}" alt="Upload icon" /></div>
                 <span class="gallery__text gallery__text--gray">Upload image maximum 2 mb,<br>320x50px</span><span class="gallery__text">Select file</span>
             </div>
-            <ul class="gallery__list dropzone-previews">
-            <li class="gallery__item dz-preview"><img data-dz-thumbnail class="gallery__image">
+            <ul class="gallery__list">
+              <li class="gallery__item dz-preview" id="tpl">
+                <img data-dz-thumbnail class="gallery__image">
                 <a href="" class="button button--close" aria-hidden="true">&times;</a>
-                </li>
+              </li>
             </ul>
           </div>
         </li>
