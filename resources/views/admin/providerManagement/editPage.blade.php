@@ -154,7 +154,7 @@
                 <div class="dz-default dz-message dropzoneDragArea" id="dropzoneDragArea">
                 <div class="gallery">
                       <div class="gallery__icon"><img class="gallery__image gallery__image--upload" src="{{URL::asset('img/icon-upload.png')}}" alt="Upload icon" /></div>
-                      <span class="gallery__text gallery__text--gray"></span><span class="gallery__text">Select file</span>
+                      <span class="gallery__text gallery__text--gray">Upload image maximum 2 mb,<br>maximum 5 images</span><span class="gallery__text">Select file</span>
                     </div>  
 
                 </div>
