@@ -2,7 +2,7 @@
 
 @section('title', 'Bookings')
 @section('description', 'Dashboard')
-`
+
 @section('content')
 <div class="wrapper">
 @include('includes.sidebar')

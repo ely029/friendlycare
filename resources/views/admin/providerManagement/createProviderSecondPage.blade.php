@@ -25,7 +25,11 @@
         <ul class="form__group">
         <li class="form__group-item">
             <h2 class="section__heading">Clinic gallery</h2>
-            <div class="dz-default dz-message dropzoneDragArea" id="dropzoneDragArea1"><span>Upload File</span></div>
+            <div class="dz-default dz-message dropzoneDragArea" id="dropzoneDragArea1">
+                <div class="gallery">
+                    <span class="gallery__text">Upload File</span>
+                </div>
+            </div>
             <input type="hidden" name="id" id="id" value="{{ session()->get('id') }}"/>
             <ul class="gallery__list">
             </ul>
