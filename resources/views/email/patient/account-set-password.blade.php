@@ -10,12 +10,6 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
     <link href="{{ asset('assets/app/css/main.css') }}" rel="stylesheet">
     <style>
-      /* @font-face {
-        font-family: VAGRounded BT;
-        font-display: auto;
-        src: "{{ asset('assets/app/css/fonts/VAGRoundedBT.eot') }}";
-        src: local("☺"), "{{ asset('assets/app/css/fonts/VAGRoundedBT.ttf') }}" format("ttf"), "{{ asset('assets/app/css/fonts/VAGRoundedBT.eot?#iefix') }}" format("embedded-opentype"), "{{ asset('assets/app/css/fonts/VAGRoundedBT.woff') }}" format("woff");
-      } */
       .email * {
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
