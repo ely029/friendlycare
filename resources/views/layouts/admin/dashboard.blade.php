@@ -128,6 +128,7 @@ $('document').ready(function(){
         data: {id: $("#id").val(), },
         maxFileSize: 2,
         maxFiles: 5,
+        uploadMultiple: true,
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
