@@ -39,6 +39,84 @@ class AdminBookingExport implements FromCollection, WithHeadings
 
     public function collection()
     {
+        if ($this->clinicId === '0' && $this->status === '0' && $this->service === '0') {
+            return DB::table('booking')
+                ->leftJoin('users', 'booking.patient_id', 'users.id')
+                ->leftJoin('status', 'status.id', 'booking.status')
+                ->leftJoin('family_plan_type_subcategory as fpm', 'fpm.id', 'booking.service_id')
+                ->select('users.name', 'fpm.name as availed_service', 'status.name as status', 'booking.referal', 'booking.time_slot as date_booked')
+                ->whereBetween('booking.time_slot', [$this->dateFrom, $this->dateTo])
+                ->get();
+        }
+
+        if ($this->clinicId === '0' && $this->status !== '0' && $this->service === '0') {
+            return DB::table('booking')
+                ->leftJoin('users', 'booking.patient_id', 'users.id')
+                ->leftJoin('status', 'status.id', 'booking.status')
+                ->leftJoin('family_plan_type_subcategory as fpm', 'fpm.id', 'booking.service_id')
+                ->where('booking.status', $this->status)
+                ->whereBetween('booking.time_slot', [$this->dateFrom, $this->dateTo])
+                ->select('users.name', 'fpm.name as availed_service', 'status.name as status', 'booking.referal', 'booking.time_slot as date_booked')
+                ->get();
+        }
+
+        if ($this->clinicId === '0' && $this->status === '0' && $this->service !== '0') {
+            return DB::table('booking')
+                ->leftJoin('users', 'booking.patient_id', 'users.id')
+                ->leftJoin('status', 'status.id', 'booking.status')
+                ->leftJoin('family_plan_type_subcategory as fpm', 'fpm.id', 'booking.service_id')
+                ->where('booking.service_id', $this->service)
+                ->whereBetween('booking.time_slot', [$this->dateFrom, $this->dateTo])
+                ->select('users.name', 'fpm.name as availed_service', 'status.name as status', 'booking.referal', 'booking.time_slot as date_booked')
+                ->get();
+        }
+
+        if ($this->clinicId !== '0' && $this->status === '0' && $this->service === '0') {
+            return DB::table('booking')
+                ->leftJoin('users', 'booking.patient_id', 'users.id')
+                ->leftJoin('status', 'status.id', 'booking.status')
+                ->leftJoin('family_plan_type_subcategory as fpm', 'fpm.id', 'booking.service_id')
+                ->where('booking.clinic_id', $this->clinicId)
+                ->whereBetween('booking.time_slot', [$this->dateFrom, $this->dateTo])
+                ->select('users.name', 'fpm.name as availed_service', 'status.name as status', 'booking.referal', 'booking.time_slot as date_booked')
+                ->get();
+        }
+
+        if ($this->clinicId === '0' && $this->status !== '0' && $this->service !== '0') {
+            return DB::table('booking')
+                ->leftJoin('users', 'booking.patient_id', 'users.id')
+                ->leftJoin('status', 'status.id', 'booking.status')
+                ->leftJoin('family_plan_type_subcategory as fpm', 'fpm.id', 'booking.service_id')
+                ->where('booking.status', $this->status)
+                ->where('booking.service_id', $this->service)
+                ->whereBetween('booking.time_slot', [$this->dateFrom, $this->dateTo])
+                ->select('users.name', 'fpm.name as availed_service', 'status.name as status', 'booking.referal', 'booking.time_slot as date_booked')
+                ->get();
+        }
+
+        if ($this->clinicId !== '0' && $this->status !== '0' && $this->service === '0') {
+            return DB::table('booking')
+                ->leftJoin('users', 'booking.patient_id', 'users.id')
+                ->leftJoin('status', 'status.id', 'booking.status')
+                ->leftJoin('family_plan_type_subcategory as fpm', 'fpm.id', 'booking.service_id')
+                ->where('booking.status', $this->status)
+                ->where('booking.clinic_id', $this->clinicId)
+                ->whereBetween('booking.time_slot', [$this->dateFrom, $this->dateTo])
+                ->select('users.name', 'fpm.name as availed_service', 'status.name as status', 'booking.referal', 'booking.time_slot as date_booked')
+                ->get();
+        }
+
+        if ($this->clinicId !== '0' && $this->status === '0' && $this->service !== '0') {
+            return DB::table('booking')
+                ->leftJoin('users', 'booking.patient_id', 'users.id')
+                ->leftJoin('status', 'status.id', 'booking.status')
+                ->leftJoin('family_plan_type_subcategory as fpm', 'fpm.id', 'booking.service_id')
+                ->where('booking.service_id', $this->service)
+                ->where('booking.clinic_id', $this->clinicId)
+                ->whereBetween('booking.time_slot', [$this->dateFrom, $this->dateTo])
+                ->select('users.name', 'fpm.name as availed_service', 'status.name as status', 'booking.referal', 'booking.time_slot as date_booked')
+                ->get();
+        }
         return DB::table('booking')
             ->leftJoin('users', 'booking.patient_id', 'users.id')
             ->leftJoin('status', 'status.id', 'booking.status')
