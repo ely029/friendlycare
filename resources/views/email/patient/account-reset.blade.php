@@ -167,7 +167,7 @@
           <div class="email__footer-wrapper"><img class="email__image" src="{{URL::asset('img/logo-white.png')}}" alt="white logo of e-plano" /></div>
           <h2 class="email__footer-text">e-Plano</h2>
         </div>
-        <ul class="email__footer-links">
+        <!-- <ul class="email__footer-links">
           <li class="email__footer-item" style="margin-right: 20px;">
             <a href=""><img class="email__image" src="{{URL::asset('img/icon-facebook.png')}}" alt="facebook icon" /></a>
           </li>
@@ -177,7 +177,7 @@
           <li class="email__footer-item">
             <a href=""><img class="email__image" src="{{URL::asset('img/icon-ig.png')}}" alt="ig icon" /></a>
           </li>
-        </ul>
+        </ul> -->
       </div>
     </div>
 </body>
