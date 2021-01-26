@@ -14,7 +14,7 @@
           <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{  route('familyPlanningMethod.index')}}">Family planning methods</a><a class="breadcrumbs__link" >Create method</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
-          <form class="form form--method" id="js-provider-form" method="POST" action="{{ route('familyPlanningMethod.createThree') }}" enctype="multipart/form-data">
+          <form class="form form--method" method="POST" action="{{ route('familyPlanningMethod.createThree') }}" enctype="multipart/form-data">
           @csrf
             <div class="form__tab">
               <ul class="form__group">
@@ -26,7 +26,10 @@
                       <span class="gallery__text gallery__text--gray">Upload image maximum 2 mb,<br>maximum 5 images</span><span class="gallery__text">Select file</span>
             
                   </div>
-                  <ul class="gallery__list">
+                  <ul class="gallery__list" id="tpl">
+                    <li class="gallery__item dz-preview dz-file-preview"><img class="gallery__image" data-dz-thumbnail src="{{ $serviceGalleries->file_url}}">
+                      <a href="{{ route('familyPlanningMethod.deleteGallery', ['id' => $serviceGalleries->id, 'serviceId' => $serviceGalleries->service_id])}}" class="button button--close" aria-hidden="true">&times;</a>
+                  </li>
                   </ul>
                 </li>
                 <li class="form__group-item">

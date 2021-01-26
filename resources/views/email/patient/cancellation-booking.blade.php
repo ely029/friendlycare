@@ -149,7 +149,7 @@
           <h2>e-Plano</h2>
           <span class="email__header__span">Family Planning Informational &amp; Booking App</span>
         </div>
-        <div class="email__header-wrapper"><img class="email__image" src="{{URL::asset('img/logo-outline.png')}}" alt="logo of e-plano" /></div>
+        <div class="email__header-wrapper"><img class="email__image" src="{{URL::asset('img/logo.png')}}" alt="logo of e-plano" /></div>
       </div>
       <div class="email__content">
         <h2 class="email__title">Hi </h2>
