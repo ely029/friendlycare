@@ -21,7 +21,15 @@
             @elseif (Auth::user()->role_id = 2)
             <div class="form__content"><span class="form__text">Administrator</span><label class="form__label form__label--visible">Role </label></div>
             @endif
-            <div class="form__button form__button--start"><a class="button" href="#">Edit profile</a><a class="button button--transparent" href="{{ route('admin.logout')}}">Logout</a></div>
+
+            <div class="form__password">
+              <h3 class="section__heading">Update Password?</h3>
+              <div class="form__content"><input class="form__input" id="js-password" type="password" placeholder="Old password" /><label class="form__label">Old password</label><i class="fa fa-eye-slash" id="js-eye-password"></i></div>
+              <div class="form__content">
+                <input class="form__input" id="js-confirm-password" type="password" placeholder="New password" /><label class="form__label">New password</label><i class="fa fa-eye-slash" id="js-eye-confirm-password"></i>
+              </div>
+            </div>
+            <div class="form__button form__button--start"><a class="button" href="#">Update password</a><a class="button button--transparent" href="{{ route('admin.logout')}}">Logout</a></div>
           </form>
         </div>
       </div>

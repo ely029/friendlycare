@@ -29,10 +29,22 @@
             @endif
             <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Profession </label><span class="form__text">{{ $user->professions }}</span></div>
             <div class="form__content form__content--reverse"><label class="form__label form__label--visible">Training </label><span class="form__text">{{ $user->trainings }}</span></div>
+            <div class="form__button form__button--start"><button class="button js-trigger" type="button">Reset password</button></div>
             <div class="form__button form__button--start"><a class="button" href="{{ route('editUserProfile',$user->id)}}">Edit profile</a>
             <a class="button button--transparent js-trigger" href="#">Delete account</a>
           </div>
           </form>
+          
+          <div class="modal js-modal">
+            <div class="modal__background js-modal-background"></div>
+            <div class="modal__container">
+              <div class="modal__box">
+                <h2 class="modal__title">Reset password</h2>
+                <p class="modal__text">An email will be sent with instructions to reset the password to the account holder. Are you sure you want to reset the password?</p>
+                <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><button class="button button--medium" type="button">Reset password</button></div>
+              </div>
+            </div>
+          </div>
 
           <div class="modal js-modal" tabindex="-1" role="dialog" aria-hidden="true">
               <div class="modal__background js-modal-background"></div>
