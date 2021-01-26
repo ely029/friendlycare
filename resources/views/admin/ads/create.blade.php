@@ -29,13 +29,15 @@
           <h2 class="section__heading">Image</h2>
           <div class="form__content">
             <input type="hidden" name="ads-image-location" id="ads-image-location">
-            <div class="dz-default dz-message dropzoneDragArea" id="dropzoneDragArea">
-              <div class="gallery">
+            <div class="dz-default dz-message dropzoneDragArea gallery" id="dropzoneDragArea">
                 <div class="gallery__icon"><img class="gallery__image gallery__image--upload" src="{{URL::asset('img/icon-upload.png')}}" alt="Upload icon" /></div>
                 <span class="gallery__text gallery__text--gray">Upload image maximum 2 mb,<br>320x50px</span><span class="gallery__text">Select file</span>
-              </div>
             </div>
-            <div class="dropzone-previews"></div>
+            <ul class="gallery__list dropzone-previews">
+            <li class="gallery__item dz-preview"><img data-dz-thumbnail class="gallery__image">
+                <a href="" class="button button--close" aria-hidden="true">&times;</a>
+                </li>
+            </ul>
           </div>
         </li>
       </ul>
