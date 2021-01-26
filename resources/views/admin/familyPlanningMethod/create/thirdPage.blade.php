@@ -14,7 +14,7 @@
           <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{  route('familyPlanningMethod.index')}}">Family planning methods</a><a class="breadcrumbs__link" >Create method</a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
-          <form class="form form--method" id="js-provider-form" method="POST" action="{{ route('familyPlanningMethod.createThree') }}" enctype="multipart/form-data">
+          <form class="form form--method" method="POST" action="{{ route('familyPlanningMethod.createThree') }}" enctype="multipart/form-data">
           @csrf
             <div class="form__tab">
               <ul class="form__group">
