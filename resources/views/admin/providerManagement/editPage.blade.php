@@ -155,7 +155,7 @@
                   <div class="gallery__icon"><img class="gallery__image gallery__image--upload" src="{{URL::asset('img/icon-upload.png')}}" alt="Upload icon" /></div>
                   <span class="gallery__text gallery__text--gray">Upload image maximum 2 mb,<br>maximum 5 images</span><span class="gallery__text">Select file</span>
                 </div>  
-                <ul class="gallery__list" id="tpl">
+                <ul class="gallery__list" id="gallery-container">
                 @foreach($galleries as $gallery)
                 <li class="gallery__item dz-preview dz-file-preview"><img data-dz-thumbnail class="gallery__image" src="{{ $gallery->file_url}}">
                 <a href="{{ route('provider.deleteGallery',['id' => $gallery->id, 'clinicId' => $gallery->clinic_id]  )}}" class="button button--close" aria-hidden="true">&times;</a>

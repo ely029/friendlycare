@@ -30,7 +30,7 @@
                 <span class="gallery__text gallery__text--gray">Upload image maximum 2 mb,<br>maximum 5 images</span><span class="gallery__text">Select file</span>
             </div>
             <input type="hidden" name="id" id="id" value="{{ session()->get('id') }}"/>
-            <ul class="gallery__list" id="tpl">
+            <ul class="gallery__list" id="gallery-container">
                 <li class="gallery__item dz-preview dz-file-preview"><img data-dz-thumbnail class="gallery__image">
                 <button class="button button--close" aria-hidden="true" data-dz-remove>&times;</button>
                 </li>

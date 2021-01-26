@@ -135,6 +135,7 @@ $('document').ready(function(){
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
+        previewTemplate: document.querySelector('#gallery-container').innerHTML,
         init: function() {
                 this.on("sending", function(file, xhr, formData){
                         formData.append("fpm", $("#id").val());
@@ -154,6 +155,7 @@ $('document').ready(function(){
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
+        previewTemplate: document.querySelector('#gallery-container').innerHTML,
         init: function() {
                 this.on("sending", function(file, xhr, formData){
                         formData.append("fpm", $("#id").val());
@@ -188,6 +190,7 @@ $(function(){
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
+        previewTemplate: document.querySelector('#gallery-container').innerHTML,
         init: function() {
                 this.on("sending", function(file, xhr, formData){
                         formData.append("clinic", $("#id").val());
@@ -209,6 +212,7 @@ $(function(){
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
+        previewTemplate: document.querySelector('#gallery-container').innerHTML,
         init: function() {
                 this.on("sending", function(file, xhr, formData){
                         formData.append("clinic", $("#clinic_id").val());

@@ -35,12 +35,9 @@
                 <button data-dz-remove class="button button--close" aria-hidden="true">&times;</button>
               </li>
             </ul>
-            <div class="dz-default dz-message dropzoneDragArea " id="dropzoneDragArea">
-              <div class="gallery">
+            <div class="dz-default dz-message dropzoneDragArea gallery" id="dropzoneDragArea"> 
                 <div class="gallery__icon"><img class="gallery__image gallery__image--upload" src="{{URL::asset('img/icon-upload.png')}}" alt="Upload icon" /></div>
                 <span class="gallery__text gallery__text--gray">Upload image maximum 2 mb,<br>320x50px</span><span class="gallery__text">Select file</span>
-
-              </div>
             </div>
             
           </div>
