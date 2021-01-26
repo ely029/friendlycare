@@ -158,7 +158,13 @@
               <ul class="form__group">
                 <li class="form__group-item">
                   <h2 class="section__heading">Clinic gallery</h2>
-                  <div class="dz-default dz-message dropzoneDragArea" id="dropzoneDragArea"><span>Upload File</span></div>
+                  <div class="dz-default dz-message dropzoneDragArea" id="dropzoneDragArea">
+                    <div class="gallery">
+                      <div class="gallery__icon"><img class="gallery__image gallery__image--upload" src="{{URL::asset('img/icon-upload.png')}}" alt="Upload icon" /></div>
+                      <span class="gallery__text gallery__text--gray"></span><span class="gallery__text">Select file</span>
+                    </div>  
+
+                  </div>
                   <ul class="gallery__list">
                   @foreach($serviceGallery as $serviceGalleries)
                   <li class="gallery__item"><img class="gallery__image" src="{{ $serviceGalleries->file_url}}">
