@@ -11,7 +11,7 @@
 <div class="section">
   <div class="section__top">
     <h1 class="section__title">{{ $datas->title }}</h1>
-    <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('ads.index')}}">Ad Management</a><a class="breadcrumbs__link">Pangalan ng Ad</a><a class="breadcrumbs__link"></a></div>
+    <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('ads.index')}}">Ad Management</a><a class="breadcrumbs__link">{{ $datas->title}}</a><a class="breadcrumbs__link"></a></div>
   </div>
   
   <div class="section__container">

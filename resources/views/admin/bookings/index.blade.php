@@ -30,13 +30,14 @@
                       <div class="form__content">
                         <select name="clinic_id" id="clinic_id" class="form__input form__input--select form__input--border form__input--border__age">
                           @foreach ($clinics as $clinic)
+                          <option value="" selected>All Provider</option>
                           <option value="{{ $clinic->id}}">{{ $clinic->clinic_name}}</option>
                           @endforeach
                         </select>
                       </div>
                       <div class="form__content">
                         <select name="service_id" id="service" class="form__input form__input--select form__input--border form__input--border__age">
-                          <option disabled selected>Availed Services</option>
+                          <option value="" selected>All Service</option>
                           @foreach($services as $service)
                           <option value="{{ $service->id}}">{{ $service->name}} </option>
                           @endforeach
@@ -44,7 +45,7 @@
                       </div>
                       <div class="form__content">
                         <select name="status" id="status" class="form__input form__input--select form__input--border form__input--border__age">
-                          <option disabled selected>Status</option>
+                          <option value="">All Status</option>
                           <option value="1">Upcoming/Confirmed</option>
                           <option value="2">Reschedule</option>
                           <option value="3">Cancelled</option>
