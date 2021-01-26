@@ -555,6 +555,7 @@ class DefaultController extends Controller
             ->select('clinics.id', 'paid_service as free_consultation', 'clinics.clinic_name', 'clinics.photo_url', 'clinics.street_address', 'clinics.philhealth_accredited_1', 'clinics.type')
             ->where('is_approve', 1)
             ->where('user_id', 0)
+            ->where('is_close', '<>', 1)
             ->get();
 
         return response([
