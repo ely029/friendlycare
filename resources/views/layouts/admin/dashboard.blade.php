@@ -126,6 +126,8 @@ $('document').ready(function(){
    $("#dropzoneDragArea").dropzone({
         url: "{{ route('familyPlanningMethod.updateGalleryUpload')}}",
         data: {id: $("#id").val(), },
+        maxFileSize: 2,
+        maxFiles: 5,
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
