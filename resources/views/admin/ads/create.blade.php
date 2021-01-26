@@ -29,6 +29,12 @@
           <h2 class="section__heading">Image</h2>
           <div class="form__content">
             <input type="hidden" name="ads-image-location" id="ads-image-location">
+            <ul class="gallery__list" id="gallery-container">
+              <li class="gallery__item dz-preview dz-file-preview">
+                <img data-dz-thumbnail class="gallery__image">
+                <button data-dz-remove class="button button--close" aria-hidden="true">&times;</button>
+              </li>
+            </ul>
             <div class="dz-default dz-message dropzoneDragArea " id="dropzoneDragArea">
               <div class="gallery">
                 <div class="gallery__icon"><img class="gallery__image gallery__image--upload" src="{{URL::asset('img/icon-upload.png')}}" alt="Upload icon" /></div>
@@ -36,12 +42,7 @@
 
               </div>
             </div>
-            <ul class="gallery__list" id="gallery-container">
-              <li class="gallery__item dz-preview dz-file-preview" id="tpl">
-                <img data-dz-thumbnail class="gallery__image">
-                <button data-dz-remove class="button button--close" aria-hidden="true">&times;</button>
-              </li>
-            </ul>
+            
           </div>
         </li>
       </ul>

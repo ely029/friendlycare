@@ -20,13 +20,13 @@
               <ul class="form__group">
                 <li class="form__group-item">
                   <h2 class="section__heading">Clinic gallery</h2>
-                  <div class="dz-default dz-message dropzoneDragArea gallery" id="dropzoneDragArea">
-                    
+                  <div class="dz-default dz-message dropzoneDragArea" id="dropzoneDragArea">
+                    <div class="gallery">
                       <div class="gallery__icon"><img class="gallery__image gallery__image--upload" src="{{URL::asset('img/icon-upload.png')}}" alt="Upload icon" /></div>
                       <span class="gallery__text gallery__text--gray">Upload image maximum 2 mb,<br>maximum 5 images</span><span class="gallery__text">Select file</span>
-            
+                    </div>
                   </div>
-                  <ul class="gallery__list" id="tpl">
+                  <ul class="gallery__list" id="gallery-container">
                     <li class="gallery__item dz-preview dz-file-preview"><img class="gallery__image" data-dz-thumbnail src="{{ $serviceGalleries->file_url}}">
                       <button class="button button--close" aria-hidden="true" data-dz-remove>&times;</button>
                   </li>
