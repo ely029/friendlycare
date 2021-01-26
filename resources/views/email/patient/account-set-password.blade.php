@@ -13,8 +13,8 @@
       @font-face {
         font-family: VAGRounded BT;
         font-display: auto;
-        src: "{{URL::asset('fonts/VAGRoundedBT.eot')}}";
-        src: local("☺"), "{{URL::asset('fonts/VAGRoundedBT.ttf')}}" format("ttf"), "{{URL::asset('fonts/VAGRoundedBT.eot?#iefix')}}" format("embedded-opentype"), "{{URL::asset('fonts/VAGRoundedBT.woff')}}" format("woff");
+        src: "{{ asset('assets/app/css/fonts/VAGRoundedBT.eot') }}";
+        src: local("☺"), "{{ asset('assets/app/css/fonts/VAGRoundedBT.ttf') }}" format("ttf"), "{{ asset('assets/app/css/fonts/VAGRoundedBT.eot?#iefix') }}" format("embedded-opentype"), "{{ asset('assets/app/css/fonts/VAGRoundedBT.woff') }}" format("woff");
       }
       .email * {
         -webkit-box-sizing: border-box;
