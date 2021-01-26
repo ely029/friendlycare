@@ -11,7 +11,7 @@
 <div class="section">
   <div class="section__top">
     <h1 class="section__title">Create Ad</h1>
-    <div class="breadcrumbs"><a class="breadcrumbs__link" href="ads.html">Ad Management</a><a class="breadcrumbs__link">Create Ad</a><a class="breadcrumbs__link"></a></div>
+    <div class="breadcrumbs"><a class="breadcrumbs__link" href="{{ route('ads.index')}}">Ad Management</a><a class="breadcrumbs__link">Create Ad</a><a class="breadcrumbs__link"></a></div>
   </div>
   <div class="section__container">
     <form class="form" id="js-provider-form" method="POST" action="{{ route('ads.post') }}">
