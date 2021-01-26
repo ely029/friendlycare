@@ -165,7 +165,7 @@
                   </div>
                   <ul class="gallery__list" id="tpl">
                   @foreach($serviceGallery as $serviceGalleries)
-                  <li class="gallery__item"><img class="gallery__image" data-dz-thumbnail src="{{ $serviceGalleries->file_url}}">
+                  <li class="gallery__item dz-preview dz-file-preview"><img class="gallery__image" data-dz-thumbnail src="{{ $serviceGalleries->file_url}}">
                      <a href="{{ route('familyPlanningMethod.deleteGallery', ['id' => $serviceGalleries->id, 'serviceId' => $serviceGalleries->service_id])}}" class="button button--close" aria-hidden="true">&times;</a>
                  </li>
                   @endforeach
