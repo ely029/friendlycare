@@ -25,11 +25,9 @@
         <ul class="form__group">
         <li class="form__group-item">
             <h2 class="section__heading">Clinic gallery</h2>
-            <div class="dz-default dz-message dropzoneDragArea" id="dropzoneDragArea1">
-            <div class="gallery">
+            <div class="dz-default dz-message dropzoneDragArea gallery" id="dropzoneDragArea1">
                 <div class="gallery__icon"><img class="gallery__image gallery__image--upload" src="{{URL::asset('img/icon-upload.png')}}" alt="Upload icon" /></div>
                 <span class="gallery__text gallery__text--gray">Upload image maximum 2 mb,<br>maximum 5 images</span><span class="gallery__text">Select file</span>
-            </div>  
             </div>
             <input type="hidden" name="id" id="id" value="{{ session()->get('id') }}"/>
             <ul class="gallery__list">
