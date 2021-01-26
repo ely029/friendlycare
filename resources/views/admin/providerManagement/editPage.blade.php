@@ -157,7 +157,7 @@
                 </div>  
                 <ul class="gallery__list">
                 @foreach($galleries as $gallery)
-                <li class="gallery__item"><img class="gallery__image" src="{{ $gallery->file_url}}">
+                <li class="gallery__item dz-preview"><img data-dz-thumbnail class="gallery__image" src="{{ $gallery->file_url}}">
                 <a href="{{ route('provider.deleteGallery',['id' => $gallery->id, 'clinicId' => $gallery->clinic_id]  )}}" class="button button--close" aria-hidden="true">&times;</a>
                 </li>
                   @endforeach

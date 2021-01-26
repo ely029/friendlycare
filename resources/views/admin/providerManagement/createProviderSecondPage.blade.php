@@ -30,7 +30,10 @@
                 <span class="gallery__text gallery__text--gray">Upload image maximum 2 mb,<br>maximum 5 images</span><span class="gallery__text">Select file</span>
             </div>
             <input type="hidden" name="id" id="id" value="{{ session()->get('id') }}"/>
-            <ul class="gallery__list">
+            <ul class="gallery__list dz-preview">
+                <li class="gallery__item dz-preview"><img data-dz-thumbnail class="gallery__image">
+                <a href="{{ route('provider.deleteGallery',['id' => $gallery->id, 'clinicId' => $gallery->clinic_id]  )}}" class="button button--close" aria-hidden="true">&times;</a>
+                </li>
             </ul>
         </li>
         <li class="form__group-item">
