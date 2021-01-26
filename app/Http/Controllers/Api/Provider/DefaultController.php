@@ -510,17 +510,6 @@ class DefaultController extends Controller
 
     public function getFPMDetails()
     {
-        $dateNow = strtotime(date('Y-m-d'));
-        $getAds = DB::table('ads_management')->select('id')
-            ->where('start_date_string', '<=', $dateNow)
-            ->where('end_date_string', '>=', $dateNow)
-            ->get();
-        foreach ($getAds as $getAd) {
-            viewAds::create([
-                'views' => 1,
-                'ads_id' => $getAd->id,
-            ]);
-        }
         $modernMethod = DB::table('family_plan_type_subcategory')
             ->select('id', 'icon_url', 'name', 'short_name', 'percent_effective', DB::raw("'Modern Method' as method_name"))
             ->where('family_plan_type_id', 1)
@@ -546,17 +535,6 @@ class DefaultController extends Controller
     //APIs for Booking (from service page)
     public function fpmPagePerMethod($id)
     {
-        $dateNow = strtotime(date('Y-m-d'));
-        $getAds = DB::table('ads_management')->select('id')
-            ->where('start_date_string', '<=', $dateNow)
-            ->where('end_date_string', '>=', $dateNow)
-            ->get();
-        foreach ($getAds as $getAd) {
-            viewAds::create([
-                'views' => 1,
-                'ads_id' => $getAd->id,
-            ]);
-        }
         $header = DB::table('family_plan_type_subcategory')
             ->select('name', 'short_name', 'icon_url', 'percent_effective', 'typical_validity', 'family_plan_type_id')
             ->where('id', $id)

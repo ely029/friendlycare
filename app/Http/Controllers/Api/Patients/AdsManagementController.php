@@ -6,6 +6,7 @@ namespace App\Http\Controllers\API\Patients;
 
 use App\ClickAds;
 use App\Http\Controllers\Controller;
+use App\ViewAds;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -29,5 +30,15 @@ class AdsManagementController extends Controller
         ]);
         $ads = DB::table('ads_management')->select('ad_link')->where('id', $id)->pluck('ad_link');
         return redirect($ads[0]);
+    }
+
+    public function viewAds($id)
+    {
+        viewAds::create([
+            'views' => 1,
+            'ads_id' => $id,
+        ]);
+
+        return true;
     }
 }

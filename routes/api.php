@@ -212,3 +212,4 @@ Route::get('fpmtypeservice', 'Patients\FPMController@fpmType');
 //patient Ads Management
 Route::get('/ads/patient', 'Patients\AdsManagementController@display');
 Route::get('/ads/click/{id}', 'Patients\AdsManagementController@clickAds');
+Route::get('/ads/views/{id}', 'Patients\AdsManagementController@viewAds');
