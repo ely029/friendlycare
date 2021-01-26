@@ -19,7 +19,7 @@
     <div class="alert alert-danger">{{ $error }}</div>
     @endforeach
     @endif
-    <form class="form" id="js-provider-form" method="POST" action="{{ route('storeSecondPage')}}">
+    <form class="form" method="POST" action="{{ route('storeSecondPage')}}">
      @csrf
     <div class="form__tab">
         <ul class="form__group">

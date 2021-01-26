@@ -19,7 +19,7 @@
     <div class="alert alert-danger">{{ $error }}</div>
     @endforeach
     @endif
-    <form class="form" id="js-provider-form" method="POST" action="{{ route('storeFirstPage') }}" enctype="multipart/form-data">
+    <form class="form" method="POST" action="{{ route('storeFirstPage') }}" enctype="multipart/form-data">
         @csrf
     <div class="form__tab">
         <ul class="form__group form__group--upload">

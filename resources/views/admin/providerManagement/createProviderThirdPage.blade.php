@@ -19,7 +19,7 @@
     <div class="alert alert-danger">{{ $error }}</div>
     @endforeach
     @endif
-    <form class="form" id="js-provider-form" method="POST" action="{{ route('storeThirdPage') }}">
+    <form class="form"  method="POST" action="{{ route('storeThirdPage') }}">
     @csrf
     <div class="form__tab">
         <h2 class="section__heading">Available services</h2>
