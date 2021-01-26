@@ -14,7 +14,7 @@
     <div class="breadcrumbs"><a class="breadcrumbs__link">Ad Management</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
   </div>
   <div class="section__container">
-    <a class="button button--create" href="{{ route('ads.create') }}">Create Ads<i class="fa fa-plus"></i></a>
+    <a class="button button--create" href="{{ route('ads.create') }}">Create Ad<i class="fa fa-plus"></i></a>
     <div class="accordion accordion--ads">
       <ul class="accordion__list">
         <li class="accordion__item">
