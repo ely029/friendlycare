@@ -28,11 +28,6 @@
             <div class="dz-default dz-message dropzoneDragArea" id="dropzoneDragArea1"><span>Upload File</span></div>
             <input type="hidden" name="id" id="id" value="{{ session()->get('id') }}"/>
             <ul class="gallery__list">
-            @foreach($galleries as $gallery)
-            <!-- <li class="gallery__item"><img class="gallery__image" src="{{ $gallery->file_url}}"> 
-            <a href="{{ route('provider.deleteGallery',['id' => $gallery->id, 'clinicId' => $gallery->clinic_id]  )}}" class="button button--close" aria-hidden="true">&times;</a> -->
-            </li>
-            @endforeach
         </li>
         <li class="form__group-item">
             <h2 class="section__heading">Clinic hours</h2>
