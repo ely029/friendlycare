@@ -151,7 +151,13 @@
             <div class="tabs__details">
               <ul class="form__group">
                 <li class="form__group-item"><h2 class="section__heading">Clinic gallery</h2>
-                <div class="dz-default dz-message dropzoneDragArea" id="dropzoneDragArea"><span>Click to Upload File</span></div>
+                <div class="dz-default dz-message dropzoneDragArea" id="dropzoneDragArea">
+                <div class="gallery">
+                      <div class="gallery__icon"><img class="gallery__image gallery__image--upload" src="{{URL::asset('img/icon-upload.png')}}" alt="Upload icon" /></div>
+                      <span class="gallery__text gallery__text--gray">Upload image maximum 2 mb,<br>maximum 5 images</span><span class="gallery__text">Select file</span>
+                    </div>  
+
+                </div>
                 <ul class="gallery__list">
                 @foreach($galleries as $gallery)
                 <li class="gallery__item"><img class="gallery__image" src="{{ $gallery->file_url}}">

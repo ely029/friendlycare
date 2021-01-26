@@ -2,7 +2,7 @@
 
 @section('title', 'Bookings')
 @section('description', 'Dashboard')
-`
+
 @section('content')
 <div class="wrapper">
 @include('includes.sidebar')
@@ -49,7 +49,7 @@
       </thead>
       <tbody>
         @foreach ($data as $datas)
-        <tr class="table__row" data-href="{{ route('ads.viewInformation', $datas->id)}}">
+        <tr class="table__row js-view" data-href="{{ route('ads.viewInformation', $datas->id)}}">
           <td class="table__details"><a href="{{ route('ads.viewInformation', $datas->id) }}">{{ $datas->start_date }}</a></td>
           <td class="table__details">{{ $datas->company_name }}</td>
           <td class="table__details">{{ $datas->title }}</td>
