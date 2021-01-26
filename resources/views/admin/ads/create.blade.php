@@ -36,7 +36,7 @@
             <ul class="gallery__list">
               <li class="gallery__item dz-preview dz-file-preview" id="tpl">
                 <img data-dz-thumbnail class="gallery__image">
-                <a href="" class="button button--close" aria-hidden="true">&times;</a>
+                <button data-dz-remove class="button button--close" aria-hidden="true">&times;</button>
               </li>
             </ul>
           </div>

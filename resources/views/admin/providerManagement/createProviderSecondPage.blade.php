@@ -32,7 +32,7 @@
             <input type="hidden" name="id" id="id" value="{{ session()->get('id') }}"/>
             <ul class="gallery__list" id="tpl">
                 <li class="gallery__item dz-preview dz-file-preview"><img data-dz-thumbnail class="gallery__image">
-    
+                <button class="button button--close" aria-hidden="true" data-dz-remove>&times;</button>
                 </li>
             </ul>
         </li>
