@@ -29,8 +29,20 @@
                 <input class="form__input" id="js-confirm-password" type="password" placeholder="New password" /><label class="form__label">New password</label><i class="fa fa-eye-slash" id="js-eye-confirm-password"></i>
               </div>
             </div>
-            <div class="form__button form__button--start"><a class="button" href="#">Update password</a><a class="button button--transparent" href="{{ route('admin.logout')}}">Logout</a></div>
+            <div class="form__button form__button--start"><a class="button js-trigger" href="#">Update password</a><a class="button button--transparent" href="{{ route('admin.logout')}}">Logout</a></div>
+
+            <div class="modal js-modal">
+              <div class="modal__background js-modal-background"></div>
+              <div class="modal__container">
+                <div class="modal__box">
+                  <h2 class="modal__title">Update password?</h2>
+                  <p class="modal__text">Are you sure you want to update your password?</p>
+                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><input class="button button--medium" type="submit" value="Save changes" /></div>
+                </div>
+              </div>
+            </div>
           </form>
+          
         </div>
       </div>
 </div>
