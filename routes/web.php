@@ -38,6 +38,7 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin', 'middleware' => 'auth'
     Route::get('/', 'AdminController@index');
     Route::get('/accounts', 'AdminController@accounts')->name('admin.accounts');
     Route::get('/logout', 'AdminController@logout')->name('admin.logout');
+    Route::post('/change-password', 'AdminController@changePassword')->name('admin.changePassword');
 });
 
 //user management

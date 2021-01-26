@@ -14,8 +14,8 @@ class AddASuperAdmin1 extends Migration
      */
     public function up()
     {
-        $email = "kim@thinkbitsolutions.com";
-        $password = "P@ssw0rd$$";
+        $email = "eladrica@friendlycare.com.ph";
+        $password = "password1234";
 
         app('command.migrate')->getOutput()->writeln('<info>Password:</info> See laravel.log');
 
