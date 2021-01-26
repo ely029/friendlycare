@@ -73,6 +73,7 @@ $('document').ready(function(){
     $("#dropzoneDragArea").dropzone({
         url: "{{ route('ads.uploadImage')}}",
         maxFiles: 1,
+        acceptedFiles: "image/*",
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
@@ -129,6 +130,7 @@ $('document').ready(function(){
         maxFileSize: 2,
         maxFiles: 5,
         uploadMultiple: true,
+        acceptedFiles: "image/*",
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
@@ -179,6 +181,9 @@ $(function(){
     $("#dropzoneDragArea1").dropzone({
         url: "{{ route('provider.galleryUpload')}}",
         data: {id: $("#id").val(), },
+        maxFileSize: 2,
+        maxFiles: 5,
+        acceptedFiles: "image/*",
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
@@ -197,6 +202,9 @@ $(function(){
     $("#dropzoneDragArea").dropzone({
         url: "{{ route('provider.galleryUpload')}}",
         data: {id: $("#clinic_id").val(), },
+        maxFileSize: 2,
+        maxFiles: 5,
+        acceptedFiles: "image/*",
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
