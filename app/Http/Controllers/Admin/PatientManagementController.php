@@ -60,6 +60,14 @@ class PatientManagementController extends Controller
     public function filter()
     {
         $request = request()->all();
+        $validator = \Validator::make(request()->all(), [
+            'age-range' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect('patient/list')
+                ->withErrors($validator)
+                ->withInput();
+        }
         if ($request['age-range'] === '1') {
             $details = DB::table('users')->leftJoin('patients', 'users.id', 'patients.user_id')
                 ->select('users.id', 'users.name', 'users.email', 'users.age', 'patients.province')
