@@ -103,8 +103,8 @@
               <button class="button"  type="button">Back</button>
               <div class="steps">
                 <ul class="steps__list">
+                  <li class="steps__item "></li>
                   <li class="steps__item active"></li>
-                  <li class="steps__item"></li>
                   <li class="steps__item"></li>
                 </ul>
               </div>
