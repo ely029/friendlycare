@@ -77,6 +77,7 @@ $('document').ready(function(){
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
+        previewTemplate: document.querySelector('#gallery-container').innerHTML,
         success: function(file, response) {
                 $('#ads-image-location').attr('value', response);
             }
