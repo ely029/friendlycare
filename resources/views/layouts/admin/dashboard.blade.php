@@ -87,7 +87,7 @@ $('document').ready(function(){
 @if(Route::currentRouteName() == 'providerCreateFirstPage' || Route::currentRouteName() == 'editPage')
 <script type="text/javascript">
 $('document').ready(function(){
-    $("#js-provider-form").on("change", function(){
+    $(".form").on("change", function(){
       var formData = new FormData(this);
       $.ajax({
          url  : "{{ route('provider.profPicUpload') }}",
