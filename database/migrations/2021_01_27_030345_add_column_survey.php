@@ -3,10 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\RatingDetails;
-use App\Ratings;
 
-class DeleteDataRatings extends Migration
+class AddColumnSurvey extends Migration
 {
     /**
      * Run the migrations.
@@ -15,8 +13,9 @@ class DeleteDataRatings extends Migration
      */
     public function up()
     {
-        Ratings::query()->truncate();
-        RatingDetails::query()->truncate();
+        Schema::table('survey', function (Blueprint $table) {
+            $table->string('survey_display')->nullable()->default(0);
+        });
     }
 
     /**

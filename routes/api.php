@@ -190,7 +190,7 @@ Route::get('/notifications/provider/details/{id}', 'Provider\NotificationsContro
 Route::get('/notifications/provider/badge/{id}', 'Provider\NotificationsController@badge');
 
 //survey push notification
-Route::get('/patient/survey/pushnotification/{id}', 'Patients\SurveyController@index');
+Route::get('/patient/survey/pushnotification/{id}/{survey}', 'Patients\SurveyController@index');
 
 Route::get('/providerNotifications', 'Provider\NotificationsController@getAllProviderNotification');
 

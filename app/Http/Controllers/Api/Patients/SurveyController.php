@@ -5,15 +5,27 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\Patients;
 
 use App\Http\Controllers\Controller;
+use App\Survey;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class SurveyController extends Controller
 {
-    public function index($id)
+    public function index($id, $survey)
     {
-        $dateToday = strtotime(date('Y-m-d'));
-        $details = DB::table('survey')->select('date_from_datestring', 'id')->where('date_from_datestring', '>=', $dateToday)->get();
+        $getBoolean = DB::table('survey')->select('survey_display')->where('id', $survey)->pluck('survey_display');
+        if ($getBoolean[0] === '0') {
+            $dateToday = strtotime(date('Y-m-d'));
+            $details = DB::table('survey')->select('date_from_datestring', 'id')->where('date_from_datestring', '>=', $dateToday)->get();
+            Survey::where('id', $survey)->update([
+                'survey_display' => 1,
+            ]);
+            $this->pushNotification($details, $dateToday, $id);
+        }
+    }
+
+    private function pushNotification($details, $dateToday, $id)
+    {
         foreach ($details as $detail) {
             if ($detail->date_from_datestring >= $dateToday) {
                 $user = DB::table('users')->select('fcm_notification_key')->where('id', $id)->pluck('fcm_notification_key');
