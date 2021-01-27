@@ -72,7 +72,7 @@ class NotificationsController extends Controller
                 $request['scheduled'] = $request['schedule'];
                 $request['schedule'] = 0;
                 EventsNotification::create($request);
-                $this->pushNotification($request);
+                $this->runPushNotification($request);
             } else {
                 $request['is_approve'] = 1;
                 $request['date_string'] = strtotime(date('Y-m-d'));
@@ -81,7 +81,7 @@ class NotificationsController extends Controller
                 $request['scheduled'] = $request['schedule'];
                 $request['schedule'] = 0;
                 EventsNotification::create($request);
-                $this->pushNotification($request);
+                $this->runPushNotification($request);
             }
         } else {
             if ($request['type'] === 'Scheduled') {
@@ -158,7 +158,7 @@ class NotificationsController extends Controller
         }
     }
 
-    private function pushNotification($request)
+    private function pushNotification()
     {
         $user = DB::table('users')->select('fcm_notification_key')->where('fcm_notification_key', '<>', null)->get();
         foreach ($user as $users) {
