@@ -176,7 +176,7 @@ class NotificationsController extends Controller
                 EventsNotification::where('date_string', '>=', $data->date_string)->update([
                     'events_display' => '1',
                 ]);
-                $this->pushNotification1($id);
+                return $this->pushNotification1($id);
             } else {
                 return false;
             }
