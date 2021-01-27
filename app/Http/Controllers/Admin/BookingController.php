@@ -26,8 +26,8 @@ class BookingController extends Controller
     public function results()
     {
         $request = request()->all();
-        $dateFrom = date('Y-m-d', $request['date-from']);
-        $dateTo = date('Y-m-d', $request['date-to']);
+        $dateFrom = date('Y-m-d', strtotime($request['date-from']));
+        $dateTo = date('Y-m-d', strtotime($request['date-to']));
         $count_patients = DB::table('booking')
             ->select(['id'])
             ->where('clinic_id', $request['clinic_id'])
