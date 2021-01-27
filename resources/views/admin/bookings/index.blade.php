@@ -25,8 +25,8 @@
                   <form class="form form--patient" method="POST" action="{{ route('booking.results') }}">
                   @csrf
                     <div class="form__inline">
-                      <div class="form__content"><input name="date-from" id="date-from" class="form__input form__input--border js-date" type="" placeholder="Date from" /></div>
-                      <div class="form__content"><input name="date-to" id="date-to" class="form__input form__input--border js-date" type="" placeholder="Date to" /></div>
+                      <div class="form__content"><input name="date-from" id="date-from" class="form__input form__input--border form__input--date js-date" type="" placeholder="Date from" /></div>
+                      <div class="form__content"><input name="date-to" id="date-to" class="form__input form__input--border form__input--date js-date" type="" placeholder="Date to" /></div>
                       <div class="form__content">
                         <select name="clinic_id" id="clinic_id" class="form__input form__input--select form__input--border form__input--border__age">
                           @foreach ($clinics as $clinic)
