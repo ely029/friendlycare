@@ -85,6 +85,11 @@ $('document').ready(function(){
         previewTemplate: previewTemplate,
         previewsContainer: "#gallery-preview",
         clickable: ".gallery",
+        init: function() {
+            this.on("maxfilesexceeded", function(file){
+              this.removeFile(file);
+            });
+          },
         success: function(file, response) {
                 $('#ads-image-location').attr('value', response);
             }
@@ -154,6 +159,9 @@ $('document').ready(function(){
                 this.on("sending", function(file, xhr, formData){
                         formData.append("fpm", $("#id").val());
                 });
+                this.on("maxfilesexceeded", function(file){
+                  this.removeFile(file);
+                });
             }
         });
 
@@ -183,6 +191,10 @@ $('document').ready(function(){
         init: function() {
                 this.on("sending", function(file, xhr, formData){
                         formData.append("fpm", $("#id").val());
+                });
+
+                this.on("maxfilesexceeded", function(file){
+                  this.removeFile(file);
                 });
             }
         });
@@ -225,6 +237,10 @@ $(function(){
                 this.on("sending", function(file, xhr, formData){
                         formData.append("clinic", $("#id").val());
                 });
+
+                this.on("maxfilesexceeded", function(file){
+                  this.removeFile(file);
+                });
             }
         });
 });
@@ -252,6 +268,9 @@ $(function(){
         init: function() {
                 this.on("sending", function(file, xhr, formData){
                         formData.append("clinic", $("#clinic_id").val());
+                });
+                this.on("maxfilesexceeded", function(file){
+                  this.removeFile(file);
                 });
             }
         });
