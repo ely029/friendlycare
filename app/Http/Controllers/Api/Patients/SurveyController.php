@@ -18,12 +18,12 @@ class SurveyController extends Controller
             if ($data->survey_display === '0') {
                 $dateToday = strtotime(date('Y-m-d'));
                 $details = DB::table('survey')->select('date_from_datestring', 'id')->where('date_from_datestring', '>=', $dateToday)->get();
-                Survey::where('id', $data->id)->update([
+                Survey::where('survey_display', 0)->update([
                     'survey_display' => '1',
                 ]);
                 return $this->pushNotification($details, $dateToday, $id);
             }
-            return false;
+            return 0;
         }
     }
 
