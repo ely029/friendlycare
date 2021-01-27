@@ -184,10 +184,9 @@ class NotificationsController extends Controller
 
     private function pushNotification1($id)
     {
-        $user = DB::table('users')->select('fcm_notification_key')->where('id', $id)->get();
-        foreach ($user as $detail) {
+        $user = DB::table('users')->select('fcm_notification_key')->where('id', $id)->pluck('fcm_notification_key');
             $fcmurl = 'https://fcm.googleapis.com/fcm/send';
-            $token = $detail->fcm_notification_key;
+            $token = $user[0];
             $notification = [
                 'title' => 'Events Posted',
                 'body' => 'There is a Events Posted',
@@ -218,5 +217,4 @@ class NotificationsController extends Controller
 
             return $result;
         }
-    }
 }
