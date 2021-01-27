@@ -17,6 +17,16 @@ class PasswordController extends Controller
     public function readyPassword()
     {
         $request = request()->all();
+        $validator = \Validator::make(request()->all(), [
+            'password' => 'required',
+            'password_confirmation' => 'required|same:password',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('reset/'.$request['id'])
+                ->withErrors($validator)
+                ->withInput();
+        }
         User::where('id', $request['id'])->update([
             'password' => bcrypt($request['password']),
         ]);
