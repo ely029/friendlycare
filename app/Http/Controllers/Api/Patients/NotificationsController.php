@@ -178,7 +178,7 @@ class NotificationsController extends Controller
                 ]);
                 return $this->pushNotification1($id);
             }
-                return false;
+            return false;
         }
     }
 
