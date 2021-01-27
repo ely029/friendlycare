@@ -18,8 +18,8 @@ class PasswordController extends Controller
     {
         $request = request()->all();
         $validator = \Validator::make(request()->all(), [
-            'password' => 'required',
-            'password_confirmation' => 'required|same:password',
+            'password' => 'required|min:8|max:15',
+            'password_confirmation' => 'required|min:8|max:15|same:password',
         ]);
 
         if ($validator->fails()) {
