@@ -11,16 +11,19 @@ use Illuminate\Support\Facades\DB;
 
 class SurveyController extends Controller
 {
-    public function index($id, $survey)
+    public function index($id)
     {
-        $getBoolean = DB::table('survey')->select('survey_display')->where('id', $survey)->pluck('survey_display');
-        if ($getBoolean[0] === '0') {
-            $dateToday = strtotime(date('Y-m-d'));
-            $details = DB::table('survey')->select('date_from_datestring', 'id')->where('date_from_datestring', '>=', $dateToday)->get();
-            Survey::where('id', $survey)->update([
-                'survey_display' => 1,
-            ]);
-            $this->pushNotification($details, $dateToday, $id);
+        $getBoolean = DB::table('survey')->select('survey_display', 'id')->get();
+        foreach ($getBoolean as $data) {
+            if ($data->survey_display === '0') {
+                $dateToday = strtotime(date('Y-m-d'));
+                $details = DB::table('survey')->select('date_from_datestring', 'id')->where('date_from_datestring', '>=', $dateToday)->get();
+                Survey::where('id', $data->id)->update([
+                    'survey_display' => 1,
+                ]);
+                return $this->pushNotification($details, $dateToday, $id);
+            }
+            return false;
         }
     }
 
@@ -46,7 +49,7 @@ class SurveyController extends Controller
                     'data' => $extraNotifications,
                 ];
                 $headers = [
-                    'Authorization: key=AAAAhGKDgoo:APA91bGxHrVfvIgku3NIcP7P3EerjE1cE_zHRXp9dVOp8RYkhb3o1Cv5g26R5Lx8vXFZoBCM10-YsSCfyBkxy34ORiqK_hLJjrJcAxnIUOswhJrgxHoOtmTgUca0gXkb4kx_ZkyAEa84',
+                    'Authorization: key='.\Config::get('boilerplate.firebase.server_key').'',
                     'Content-Type: application/json',
                 ];
                 $chh = curl_init();
