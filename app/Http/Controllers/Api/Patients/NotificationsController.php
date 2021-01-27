@@ -177,9 +177,8 @@ class NotificationsController extends Controller
                     'events_display' => '1',
                 ]);
                 return $this->pushNotification1($id);
-            } else {
-                return false;
             }
+                return false;
         }
     }
 
