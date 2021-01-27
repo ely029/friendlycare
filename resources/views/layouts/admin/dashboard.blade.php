@@ -71,6 +71,10 @@ $('document').ready(function(){
 @if(Route::currentRouteName() == 'ads.create')
 <script type="text/javascript">
 $('document').ready(function(){
+  var previewNode = document.querySelector("#gallery-container");
+  previewNode.id = "";
+  var previewTemplate = previewNode.parentNode.innerHTML;
+  previewNode.parentNode.removeChild(previewNode);
     $("#dropzoneDragArea").dropzone({
         url: "{{ route('ads.uploadImage')}}",
         maxFiles: 1,
@@ -78,7 +82,9 @@ $('document').ready(function(){
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
-        previewTemplate: document.querySelector('#gallery-container').innerHTML,
+        previewTemplate: previewTemplate,
+        previewsContainer: "#gallery-preview",
+        clickable: ".gallery",
         success: function(file, response) {
                 $('#ads-image-location').attr('value', response);
             }
@@ -126,6 +132,11 @@ $('document').ready(function(){
       });
    });
 
+  var previewNode = document.querySelector("#gallery-container");
+  previewNode.id = "";
+  var previewTemplate = previewNode.parentNode.innerHTML;
+  previewNode.parentNode.removeChild(previewNode);
+
    $("#dropzoneDragArea").dropzone({
         url: "{{ route('familyPlanningMethod.updateGalleryUpload')}}",
         data: {id: $("#id").val(), },
@@ -136,7 +147,9 @@ $('document').ready(function(){
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
-        previewTemplate: document.querySelector('#gallery-container').innerHTML,
+        previewTemplate: previewTemplate,
+        previewsContainer: "#gallery-preview",
+        clickable: ".gallery",
         init: function() {
                 this.on("sending", function(file, xhr, formData){
                         formData.append("fpm", $("#id").val());
@@ -150,13 +163,23 @@ $('document').ready(function(){
 @if(Route::currentRouteName() == 'familyPlanningMethod.thirdPage')
 <script type="text/javascript">
 $('document').ready(function(){
+  var previewNode = document.querySelector("#gallery-container");
+  previewNode.id = "";
+  var previewTemplate = previewNode.parentNode.innerHTML;
+  previewNode.parentNode.removeChild(previewNode);
     $("#dropzoneDragArea").dropzone({
         url: "{{ route('familyPlanningMethod.galleryUpload')}}",
         data: {id: $("#id").val(), },
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
-        previewTemplate: document.querySelector('#gallery-container').innerHTML,
+        maxFileSize: 2,
+        maxFiles: 5,
+        uploadMultiple: true,
+        acceptedFiles: "image/*",
+        previewTemplate: previewTemplate,
+        previewsContainer: "#gallery-preview",
+        clickable: ".gallery",
         init: function() {
                 this.on("sending", function(file, xhr, formData){
                         formData.append("fpm", $("#id").val());
@@ -182,6 +205,10 @@ $('document').ready(function(){
 @if(Route::currentRouteName() == 'storeFirstPage')
 <script type="text/javascript">
 $(function(){
+  var previewNode = document.querySelector("#gallery-container");
+  previewNode.id = "";
+  var previewTemplate = previewNode.parentNode.innerHTML;
+  previewNode.parentNode.removeChild(previewNode);
     $("#dropzoneDragArea1").dropzone({
         url: "{{ route('provider.galleryUpload')}}",
         data: {id: $("#id").val(), },
@@ -191,7 +218,9 @@ $(function(){
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
-        previewTemplate: document.querySelector('#gallery-container').innerHTML,
+        previewTemplate: previewTemplate,
+        previewsContainer: "#gallery-preview",
+        clickable: ".gallery",
         init: function() {
                 this.on("sending", function(file, xhr, formData){
                         formData.append("clinic", $("#id").val());
@@ -204,6 +233,10 @@ $(function(){
 @if(Route::currentRouteName() == 'editPage')
 <script type="text/javascript">
 $(function(){
+  var previewNode = document.querySelector("#gallery-container");
+  previewNode.id = "";
+  var previewTemplate = previewNode.parentNode.innerHTML;
+  previewNode.parentNode.removeChild(previewNode);
     $("#dropzoneDragArea").dropzone({
         url: "{{ route('provider.galleryUpload')}}",
         data: {id: $("#clinic_id").val(), },
@@ -213,7 +246,9 @@ $(function(){
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
-        previewTemplate: document.querySelector('#gallery-container').innerHTML,
+        previewTemplate: previewTemplate,
+        previewsContainer: "#gallery-preview",
+        clickable: ".gallery",
         init: function() {
                 this.on("sending", function(file, xhr, formData){
                         formData.append("clinic", $("#clinic_id").val());
