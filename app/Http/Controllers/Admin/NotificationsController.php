@@ -81,6 +81,7 @@ class NotificationsController extends Controller
                 $request['scheduled'] = $request['schedule'];
                 $request['schedule'] = 0;
                 EventsNotification::create($request);
+                $this->pushNotification();
             }
         } else {
             if ($request['type'] === 'Scheduled') {
@@ -90,7 +91,7 @@ class NotificationsController extends Controller
                 $request['scheduled'] = $request['schedule'];
                 $request['schedule'] = 0;
                 EventsNotification::create($request);
-                $this->pushNotification();
+                $this->runPushNotification($request);
             } else {
                 $request['is_approve'] = 1;
                 $request['date_string'] = strtotime($request['date']);
@@ -149,9 +150,16 @@ class NotificationsController extends Controller
         return redirect()->action('Admin\NotificationsController@index');
     }
 
+    private function runPushNotification($request)
+    {
+        if ($request['date_string'] >= strtotime(date('Y-m-d'))) {
+            $this->pushNotification();
+        }
+    }
+
     private function pushNotification()
     {
-        $user = DB::table('users')->select('fcm_notification_key')->get();
+        $user = DB::table('users')->select('fcm_notification_key')->where('fcm_notification_key', '<>', null)->get();
         foreach ($user as $users) {
             $fcmurl = 'https://fcm.googleapis.com/fcm/send';
             $token = $users->fcm_notification_key;

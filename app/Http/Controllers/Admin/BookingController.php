@@ -26,10 +26,12 @@ class BookingController extends Controller
     public function results()
     {
         $request = request()->all();
+        $dateFrom = date('Y-m-d', $request['date-from']);
+        $dateTo = date('Y-m-d', $request['date-to']);
         $count_patients = DB::table('booking')
             ->select(['id'])
             ->where('clinic_id', $request['clinic_id'])
-            ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+            ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
             ->where('booking.clinic_id', $request['clinic_id'])
             ->where('booking.service_id', $request['service_id'] ?? null)
             ->where('booking.status', '<>', 6)
@@ -44,7 +46,7 @@ class BookingController extends Controller
             ->where('booking.clinic_id', $request['clinic_id'])
             ->where('booking.service_id', $request['service_id'] ?? null)
             ->where('booking.status', '<>', 6)
-            ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+            ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
             ->groupBy(['family_plan_type_subcategory.name'])
             ->get();
         $confirmed = DB::table('booking')->select('id')->where('clinic_id', $request['clinic_id'])->Where('service_id', $request['service_id'] ?? null)->where('status', 1)->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])->count();
@@ -68,7 +70,7 @@ class BookingController extends Controller
             ->where('booking.clinic_id', $request['clinic_id'])
             ->where('booking.service_id', $request['service_id'] ?? null)
             ->where('booking.status', $request['status'])
-            ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+            ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
             ->get();
         return view('admin.bookings.result', [
             'count_patient' => $count_patients,
