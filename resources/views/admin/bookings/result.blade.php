@@ -32,6 +32,7 @@
                           @foreach($selected_clinic as $clinic)
                           <option selected value="{{ $clinic->id}}">{{ $clinic->clinic_name}}</option>
                           @endforeach
+                          <option value="">All Provider</option>
                           @foreach ($providers as $provider)
                           <option value="{{ $provider->id}}">{{ $provider->clinic_name }}</option>
                           @endforeach
@@ -42,6 +43,7 @@
                           @foreach($selected_service as $eee)
                           <option selected value="{{ $eee->id }}">{{ $eee->name }}</option>
                           @endforeach
+                          <option value="">All Service</option>
                           @foreach($service as $services)
                           <option value="{{ $services->id}}">{{ $services->name}}</option>
                           @endforeach
@@ -52,6 +54,7 @@
                           @foreach ($selected_status as $status)
                           <option selected value="{{ $status->id }}">{{ $status->name }}</option>
                           @endforeach
+                          <option value="">All Status</option>
                           <option value="1">Upcoming/Confirmed</option>
                           <option value="2">Reschedule</option>
                           <option value="3">Cancelled</option>
