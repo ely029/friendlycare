@@ -20,14 +20,14 @@
         text-align: center;
         color: #fff;
         font-family: Arial;
-        padding: 80px 290px;">
+        padding: 80px 290px; box-sizing: border-box;">
         <div class="email__header-title" style="width: 230px;
         margin: 0 auto 25px;">
-          <h2>e-Plano</h2>
+          <h2 style="font-size: 45px; margin: 0;">e-Plano</h2>
           <span class="email__header__span" style="margin-top: 10px;">Family Planning Informational &amp; Booking App</span>
         </div>
-        <div class="email__header-wrapper" style="width: 219px;
-        height: 190px;
+        <div class="email__header-wrapper" style="width: 190px;
+        height: 170px;
         margin: 0 auto;"><img style="width: 100%;
         height: 100%;
         -o-object-fit: cover;

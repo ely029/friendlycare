@@ -23,20 +23,20 @@
         text-align: center;
         color: #fff;
         font-family: Arial;
-        padding: 80px 290px;">
+        padding: 60px 290px; box-sizing: border-box;">
         <div class="email__header-title" style="width: 230px;
         margin: 0 auto 25px;">
-          <h2>e-Plano</h2>
-          <span class="email__header__span" style="margin-top: 10px;">Family Planning Informational &amp; Booking App</span>
+          <h2 style="font-size: 45px; margin: 0;">e-Plano</h2>
+          <span class="email__header__span" style="font-size: 13px;">Family Planning Informational &amp; Booking App</span>
         </div>
-        <div class="email__header-wrapper" style="width: 219px;
-        height: 190px;
+        <div class="email__header-wrapper" style="width: 190px;
+        height: 170px;
         margin: 0 auto;"><img style="width: 100%;
         height: 100%;
         -o-object-fit: cover;
         object-fit: cover;" class="email__image" src="{{URL::asset('img/logo.png')}}" alt="logo of e-plano" /></div>
       </div>
-      <div class="email__content" style="padding: 100px 130px;
+      <div class="email__content" style="padding: 75px 130px;
         font-family: 'Open Sans', sans-serif;">
         <h2 class="email__title" style="color: #911aa2;
         font-size: 24px;">Hi </h2>
@@ -76,7 +76,7 @@
         padding: 80px 290px;
         font-family: Arial;
         color: #fff;">
-        <div class="email__footer-top" style="margin: 0 auto 40px;
+        <div class="email__footer-top" style="
         width: 255px;
         position: relative;">
           <div class="email__footer-wrapper" style="width: 86px;
