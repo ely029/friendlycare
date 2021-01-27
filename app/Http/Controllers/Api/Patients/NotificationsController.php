@@ -170,8 +170,8 @@ class NotificationsController extends Controller
 
     public function index($id)
     {
-        $getBoolean = DB::table('events_notification')->select('date_string')->where('date_string', '<>', null)->orderBy('id', 'desc')->pluck('date_string');
-        if ($getBoolean[0] >= strtotime(date('Y-m-d'))) {
+        $getBoolean = DB::table('events_notification')->select('events_display')->where('date_string', '<>', null)->orderBy('id', 'desc')->pluck('events_display');
+        if ($getBoolean[0] === '0') {
             EventsNotification::where('events_display', 0)->update([
                 'events_display' => '1',
             ]);
