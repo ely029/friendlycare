@@ -62,7 +62,7 @@ class NotificationsController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-
+        $this->pushNotification();
         $request = request()->all();
         if ($request['schedule'] === 'Post Now') {
             if ($request['type'] === '2') {
@@ -99,7 +99,6 @@ class NotificationsController extends Controller
                 EventsNotification::create($request);
             }
         }
-        $this->pushNotification();
         return redirect()->action('Admin\NotificationsController@index');
     }
 
