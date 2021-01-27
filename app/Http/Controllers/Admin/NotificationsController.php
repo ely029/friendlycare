@@ -99,7 +99,7 @@ class NotificationsController extends Controller
                 EventsNotification::create($request);
             }
         }
-
+        $this->pushNotification();
         return redirect()->action('Admin\NotificationsController@index');
     }
 
@@ -147,5 +147,42 @@ class NotificationsController extends Controller
     {
         EventsNotification::where('id', $id)->delete();
         return redirect()->action('Admin\NotificationsController@index');
+    }
+
+    private function pushNotification()
+    {
+        $user = DB::table('users')->select('fcm_notification_key')->pluck('fcm_notification_key');
+        foreach ($user as $users) {
+            $fcmurl = 'https://fcm.googleapis.com/fcm/send';
+            $token = $users->fcm_notification_key;
+            $notification = [
+                'title' => 'Events Posted',
+                'body' => 'There is a Events Posted',
+                'icon' => 'myIcon',
+                'sound' => 'defaultSound',
+                'priority' => 'high',
+                'contentAvailable' => true,
+            ];
+            $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
+            $fcmNotification = [
+                'to' => $token,
+                'notification' => $notification,
+                'data' => $extraNotifications,
+            ];
+            $headers = [
+                'Authorization: key='.\Config::get('boilerplate.firebase.server_key').'',
+                'Content-Type: application/json',
+            ];
+            $chh = curl_init();
+            curl_setopt($chh, CURLOPT_URL, $fcmurl);
+            curl_setopt($chh, CURLOPT_POST, true);
+            curl_setopt($chh, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($chh, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($chh, CURLOPT_SSL_VERIFYPEER, $headers);
+            curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
+            $result = curl_exec($chh);
+            curl_close($chh);
+            return $result;
+        }
     }
 }
