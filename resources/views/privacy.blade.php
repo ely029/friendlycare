@@ -3,7 +3,7 @@
 @section('content')
 <div class="section section--privacy">
       <div class="privacy__top">
-        <div class="privacy__wrapper"><img class="privacy__image" src="src/img/logo.png" alt="Logo of e-Plano" /></div>
+        <div class="privacy__wrapper"><img class="privacy__image" src="{{URL::asset('img/logo.png')}}" alt="Logo of e-Plano" /></div>
         <h2 class="privacy__top-title">e-Plano</h2>
       </div>
       <div class="section__container section__container--privacy">
