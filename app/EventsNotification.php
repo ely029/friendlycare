@@ -34,6 +34,7 @@ class EventsNotification extends Model
         'survey_date_from_string',
         'survey_date_to_string',
         'survey_id',
+        'events_display',
     ];
 
     public function getPatientNotifications($id)
