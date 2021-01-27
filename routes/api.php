@@ -192,6 +192,10 @@ Route::get('/notifications/provider/badge/{id}', 'Provider\NotificationsControll
 //survey push notification
 Route::get('/patient/survey/pushnotification/{id}', 'Patients\SurveyController@index');
 
+//push notification for events
+Route::get('/patient/events/pushnotification/{id}', 'Patients\NotificationsController@index');
+
+//provider notification
 Route::get('/providerNotifications', 'Provider\NotificationsController@getAllProviderNotification');
 
 //provider report

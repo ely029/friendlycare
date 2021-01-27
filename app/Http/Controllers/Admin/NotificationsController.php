@@ -62,7 +62,6 @@ class NotificationsController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        $this->pushNotification();
         $request = request()->all();
         if ($request['schedule'] === 'Post Now') {
             if ($request['type'] === '2') {
@@ -73,6 +72,7 @@ class NotificationsController extends Controller
                 $request['scheduled'] = $request['schedule'];
                 $request['schedule'] = 0;
                 EventsNotification::create($request);
+                $this->pushNotification();
             } else {
                 $request['is_approve'] = 1;
                 $request['date_string'] = strtotime(date('Y-m-d'));
@@ -90,6 +90,7 @@ class NotificationsController extends Controller
                 $request['scheduled'] = $request['schedule'];
                 $request['schedule'] = 0;
                 EventsNotification::create($request);
+                $this->pushNotification();
             } else {
                 $request['is_approve'] = 1;
                 $request['date_string'] = strtotime($request['date']);

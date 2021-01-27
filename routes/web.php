@@ -190,3 +190,4 @@ Route::group(['prefix' => 'ads'], static function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::post('/authenticate', 'Admin\AdminController@authenticate')->name('authenticate');
     Route::post('/updateclinicgallery/{id}', 'Admin\ProviderManagementController@updateClinicGallery');
+    Route::get('/privacy-policy', 'Admin\AdminController@policy')->name('admin.privacy-policy');

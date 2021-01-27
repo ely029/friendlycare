@@ -167,4 +167,56 @@ class NotificationsController extends Controller
             'message' => 'Booking has been cancelled',
         ]);
     }
+
+    public function index($id)
+    {
+        $getBoolean = DB::table('events_notification')->select('date_string')->get();
+        foreach ($getBoolean as $data) {
+            if ($data->date_string >= strtotime(date('Y-m-d'))) {
+                EventsNotification::where('id', $data->id)->update([
+                    'events_display' => 1,
+                ]);
+                return $this->pushNotification1($id);
+            }
+            return false;
+        }
+    }
+
+    private function pushNotification1($id)
+    {
+        $user = DB::table('users')->select('fcm_notification_key')->where('id', $id)->get();
+        foreach ($user as $detail) {
+            $fcmurl = 'https://fcm.googleapis.com/fcm/send';
+            $token = $detail->fcm_notification_key;
+            $notification = [
+                'title' => 'Events Posted',
+                'body' => 'There is a Events Posted',
+                'icon' => 'myIcon',
+                'sound' => 'defaultSound',
+                'priority' => 'high',
+                'contentAvailable' => true,
+            ];
+            $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
+            $fcmNotification = [
+                'to' => $token,
+                'notification' => $notification,
+                'data' => $extraNotifications,
+            ];
+            $headers = [
+                'Authorization: key='.\Config::get('boilerplate.firebase.server_key').'',
+                'Content-Type: application/json',
+            ];
+            $chh = curl_init();
+            curl_setopt($chh, CURLOPT_URL, $fcmurl);
+            curl_setopt($chh, CURLOPT_POST, true);
+            curl_setopt($chh, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($chh, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($chh, CURLOPT_SSL_VERIFYPEER, $headers);
+            curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
+            $result = curl_exec($chh);
+            curl_close($chh);
+
+            return $result;
+        }
+    }
 }

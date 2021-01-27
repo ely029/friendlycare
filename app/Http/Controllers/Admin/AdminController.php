@@ -62,4 +62,9 @@ class AdminController extends Controller
         ]);
         return back()->with('message', 'Password updated successfully');
     }
+
+    public function policy()
+    {
+        return view('privacy');
+    }
 }
