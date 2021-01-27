@@ -33,7 +33,7 @@
         -o-object-fit: cover;
         object-fit: cover;" class="email__image" src="{{URL::asset('img/logo.png')}}" alt="logo of e-plano" /></div>
       </div>
-      <div class="email__content" style="padding: 100px 130px;
+      <div class="email__content" style="padding: 75px 130px;
         font-family: 'Open Sans', sans-serif;">
         <h2 class="email__title" style="color: #911aa2;
         font-size: 24px;">Hi </h2>
@@ -73,7 +73,7 @@
         padding: 80px 290px;
         font-family: Arial;
         color: #fff;">
-        <div class="email__footer-top" style="margin: 0 auto 40px;
+        <div class="email__footer-top" style="
         width: 255px;
         position: relative;">
           <div class="email__footer-wrapper" style="width: 86px;

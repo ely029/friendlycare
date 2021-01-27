@@ -64,7 +64,7 @@
         padding: 80px 290px;
         font-family: Arial;
         color: #fff;">
-        <div class="email__footer-top" style="margin: 0 auto 40px;
+        <div class="email__footer-top" style="
         width: 255px;
         position: relative;">
           <div class="email__footer-wrapper" style="width: 86px;

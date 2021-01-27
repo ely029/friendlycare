@@ -27,7 +27,7 @@
         <div class="email__header-title" style="width: 230px;
         margin: 0 auto 25px;">
           <h2 style="font-size: 45px; margin: 0;">e-Plano</h2>
-          <span class="email__header__span" style="font-size: 13px;">Family Planning Informational &amp; Booking App</span>
+          <span class="email__header__span" style="font-size: 13px;">Family Planning Informational<br>&amp; Booking App</span>
         </div>
         <div class="email__header-wrapper" style="width: 190px;
         height: 170px;
