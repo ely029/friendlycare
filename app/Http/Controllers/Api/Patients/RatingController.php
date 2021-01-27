@@ -46,7 +46,7 @@ class RatingController extends Controller
             'is_rated' => 1,
         ]);
         RatingDetails::create([
-            'ratings' => array_sum($obj['ratings']),
+            'ratings' => array_sum($obj['ratings']) / 3,
             'rating_id' => $id[0],
         ]);
 

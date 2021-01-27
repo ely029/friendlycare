@@ -57,23 +57,28 @@ class AdsManagementController extends Controller
     public function viewInformation($id)
     {
         $data = DB::table('ads_management')
+            ->leftJoin('ad_views', 'ads_management.id', 'ad_views.ads_id')
+            ->leftJoin('ad_clicks', 'ads_management.id', 'ad_clicks.ads_id')
             ->select(
                 'ads_management.title',
+                DB::raw('count(ad_views.id) as count_views'),
+                DB::raw('count(ad_clicks.id) as count_clicks'),
                 'ads_management.id',
                 'ads_management.ad_link',
                 'ads_management.start_date',
                 'ads_management.end_date',
-                'ads_management.image_url')->where('ads_management.id', $id)
+                'ads_management.image_url')
+            ->groupBy([
+                'ads_management.id',
+                'ads_management.ad_link',
+                'ads_management.start_date',
+                'ads_management.end_date',
+                'ads_management.image_url',
+            ])
+            ->orderBy('ads_management.id')
+            ->where('ads_management.id', $id)
             ->get();
-        $count_clicks = DB::table('ad_clicks')
-            ->select('ad_clicks.id')
-            ->where('ad_clicks.ads_id', $id)
-            ->count();
-        $count_views = DB::table('ad_views')
-            ->select('ad_views.id')
-            ->where('ad_views.ads_id', $id)
-            ->count();
-        return view('admin.ads.information', ['data' => $data, 'count_clicks' => $count_clicks, 'count_views' => $count_views]);
+        return view('admin.ads.information', ['data' => $data]);
     }
 
     public function delete($id)

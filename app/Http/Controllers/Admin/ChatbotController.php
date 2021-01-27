@@ -49,9 +49,10 @@ class ChatbotController extends Controller
     public function edit($id)
     {
         $chatbot = new ChatBot();
+        $chatBotResponse = new ChatBotResponse();
         $details = $chatbot->getFieldSet();
         $fieldset = ChatBot::where('id', $id)->get();
-        $response = DB::table('chat_bot_response')->select('id', 'fieldset_id', 'response_id', 'response_prompt')->where('fieldset_id', $id)->get();
+        $response = $chatBotResponse->getResponse($id);
         return view('admin.chatbot.edit', ['response' => $response, 'fieldset' => $fieldset, 'details' => $details]);
     }
 

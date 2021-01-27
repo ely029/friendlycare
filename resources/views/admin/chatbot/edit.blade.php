@@ -30,7 +30,7 @@
                 <input type="hidden" name="responded_id[]" value="{{ $responses->id}}">
                 <select class="form__input form__input--select" name="response_id[]">
                   <option value="">Select Field set</option>
-                  <option value="{{ $fieldsets->id}}" selected>{{ $fieldsets->field_set_title }}</option>
+                  <option value="{{ $responses->fieldset_id}}" selected>{{ $responses->field_set_title }}</option>
                   @foreach ($details as $detail)
                   <option value="{{$detail->id}}">{{ $detail->field_set_title}}</option>
                   @endforeach
