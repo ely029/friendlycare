@@ -153,7 +153,7 @@ class NotificationsController extends Controller
 
     private function runPushNotification($request)
     {
-        if ($request['date_string'] >= strtotime(date('Y-m-d'))) {
+        if ($request['date_string'] <= strtotime(date('Y-m-d'))) {
             $this->pushNotification();
         }
     }
