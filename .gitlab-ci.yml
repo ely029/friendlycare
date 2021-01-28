@@ -151,6 +151,12 @@ PHPUnit:
     # Migrate
     - ssh -T $USERNAME@$IP_ADDRESS -p$SSH_PORT "$SERVER_PHP $APP_PATH/laravel/artisan migrate --force"
 
+    # Clear Cache
+    - ssh -T $USERNAME@$IP_ADDRESS -p$SSH_PORT "$SERVER_PHP $APP_PATH/laravel/artisan cache:clear"
+
+    # Clear Config Cache
+    - ssh -T $USERNAME@$IP_ADDRESS -p$SSH_PORT "$SERVER_PHP $APP_PATH/laravel/artisan config:cache"
+
     # Populate the cache
     - ssh -T $USERNAME@$IP_ADDRESS -p$SSH_PORT "$SERVER_PHP $APP_PATH/laravel/artisan optimize"
 
