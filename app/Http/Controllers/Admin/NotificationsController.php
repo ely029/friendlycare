@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\EventsNotification;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class NotificationsController extends Controller
@@ -57,6 +58,8 @@ class NotificationsController extends Controller
             'schedule' => 'required',
         ]);
 
+        $mytime = Carbon::now()->timezone('Asia/Manila');
+
         if ($validator->fails()) {
             return redirect('notification/create')
                 ->withErrors($validator)
@@ -66,20 +69,26 @@ class NotificationsController extends Controller
         if ($request['schedule'] === 'Post Now') {
             if ($request['type'] === '2') {
                 $request['is_approve'] = 1;
+                $request['date_time_string'] = $mytime->toDateTimeString();
                 $request['date_string'] = strtotime(date('Y-m-d'));
                 $request['date'] = date('Y-m-d');
                 $request['display_type'] = 'Announcements';
                 $request['scheduled'] = $request['schedule'];
                 $request['schedule'] = 0;
+                $request['created_at'] = $mytime->toDateTimeString();
+                $request['updated_at'] = $mytime->toDateTimeString();
                 EventsNotification::create($request);
                 $this->runPushNotification($request);
             } else {
                 $request['is_approve'] = 1;
                 $request['date_string'] = strtotime(date('Y-m-d'));
+                $request['date_time_string'] = $mytime->toDateTimeString();
                 $request['date'] = date('Y-m-d');
                 $request['display_type'] = 'Events';
                 $request['scheduled'] = $request['schedule'];
                 $request['schedule'] = 0;
+                $request['created_at'] = $mytime->toDateTimeString();
+                $request['updated_at'] = $mytime->toDateTimeString();
                 EventsNotification::create($request);
                 $this->runPushNotification($request);
             }
@@ -88,8 +97,11 @@ class NotificationsController extends Controller
                 $request['is_approve'] = 1;
                 $request['date_string'] = strtotime($request['date']);
                 $request['display_type'] = 'Announcements';
+                $request['date_time_string'] = $mytime->toDateTimeString();
                 $request['scheduled'] = $request['schedule'];
                 $request['schedule'] = 0;
+                $request['created_at'] = $mytime->toDateTimeString();
+                $request['updated_at'] = $mytime->toDateTimeString();
                 EventsNotification::create($request);
                 $this->runPushNotification($request);
             } else {
@@ -97,7 +109,10 @@ class NotificationsController extends Controller
                 $request['date_string'] = strtotime($request['date']);
                 $request['display_type'] = 'Events';
                 $request['scheduled'] = $request['schedule'];
+                $request['date_time_string'] = $mytime->toDateTimeString();
                 $request['schedule'] = 0;
+                $request['created_at'] = $mytime->toDateTimeString();
+                $request['updated_at'] = $mytime->toDateTimeString();
                 EventsNotification::create($request);
                 $this->runPushNotification($request);
             }
@@ -124,6 +139,7 @@ class NotificationsController extends Controller
         $request = request()->all();
         if (isset($request['date']) || isset($request['time'])) {
             $request['date_string'] = strtotime($request['date']);
+            $mytime = Carbon::now();
             EventsNotification::where('id', $request['id'])->update([
                 'title' => $request['title'],
                 'message' => $request['message'],
@@ -132,6 +148,8 @@ class NotificationsController extends Controller
                 'date' => $request['date'],
                 'time' => $request['time'],
                 'date_string' => $request['date_string'],
+                'created_at' => $mytime->toDateTimeString(),
+                'updated_at' => $mytime->toDateTimeString(),
             ]);
         } else {
             EventsNotification::where('id', $request['id'])->update([

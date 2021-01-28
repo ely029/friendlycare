@@ -13,7 +13,7 @@ class SurveyController extends Controller
 {
     public function index($id)
     {
-        $getBoolean = DB::table('survey')->select('survey_display')->pluck('survey_display');
+        $getBoolean = DB::table('survey')->select('survey_display')->orderBy('id', 'desc')->pluck('survey_display');
         if ($getBoolean[0] === '0') {
             Survey::where('survey_display', 0)->update([
                 'survey_display' => '1',

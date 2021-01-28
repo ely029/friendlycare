@@ -39,10 +39,7 @@ class SurveyController extends Controller
             'survey_date_to_string' => $request['date_to_datestring'],
             'survey_id' => $id[0],
         ]);
-
-        if ($request['date_from_datestring'] >= strtotime(date('Y-m-d'))) {
-            $this->pushNotification();
-        }
+        $this->pushNotification();
 
         return redirect('/survey/information/'.$id[0]);
     }

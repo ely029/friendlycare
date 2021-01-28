@@ -151,8 +151,8 @@ class BookingController extends Controller
                 ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
                 ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
                 ->where('clinic_service.service_id', $getMethod[0])
-                ->where('clinics.province', $obj['province'][0])
-                ->Where('clinics.city', $obj['city'][0])
+                ->orWhere('clinics.province', $obj['province'][0])
+                ->orWhere('clinics.city', $obj['city'][0])
                 ->Where('clinics.paid_service', 0)
                 ->where('clinics.philhealth_accredited_1', 1)
                 ->where('clinics.user_id', 0)
@@ -162,8 +162,8 @@ class BookingController extends Controller
                 ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
                 ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
                 ->where('clinic_service.service_id', $getMethod[0])
-                ->where('clinics.province', $obj['province'][0])
-                ->Where('clinics.city', $obj['city'][0])
+                ->orWhere('clinics.province', $obj['province'][0])
+                ->orWhere('clinics.city', $obj['city'][0])
                 ->where('clinics.paid_service', 0)
                 ->where('clinics.user_id', 0)
                 ->get();
@@ -173,8 +173,8 @@ class BookingController extends Controller
                 ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
                 ->distinct('clinics.clinic_name')
                 ->where('clinic_service.service_id', $getMethod[0])
-                ->where('clinics.province', $obj['province'][0])
-                ->Where('clinics.city', $obj['city'][0])
+                ->orWhere('clinics.province', $obj['province'][0])
+                ->orWhere('clinics.city', $obj['city'][0])
                 ->where('clinics.philhealth_accredited_1', 1)
                 ->where('clinics.paid_service', 0)
                 ->where('clinics.user_id', 0)
@@ -512,16 +512,11 @@ class BookingController extends Controller
             $mail->from('notifications@friendlycare.com');
             $mail->to($getClinicEmail[0], 'Provider')->subject('Booking Completed');
         });
-        $checkService = DB::table('fpm_type_service')->select('id')
-            ->where('patient_id', $getPatientId[0])
-            ->where('service_id', $getServiceId[0])
-            ->count();
-        if ($checkService <= 0) {
-            FpmTypeService::create([
-                'service_id' => $getServiceId[0],
-                'patient_id' => $getPatientId[0],
-            ]);
-        }
+        FpmTypeService::where('patient_id', $getPatientId[0])->delete();
+        FpmTypeService::create([
+            'service_id' => $getServiceId[0],
+            'patient_id' => $getPatientId[0],
+        ]);
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
             'message' => $message,

@@ -240,10 +240,10 @@ class FamilyPlanningMethodController extends Controller
     {
         $icon = $request->file('file');
         $destination = public_path('/uploads/fpm');
-        $icon->move($destination, $icon->getClientOriginalName());
-        $icon_url = url('uploads/fpm/'.$icon->getClientOriginalName());
+        $icon[0]->move($destination, $icon[0]->getClientOriginalName());
+        $icon_url = url('uploads/fpm/'.$icon[0]->getClientOriginalName());
         ServiceGallery::create([
-            'file_name' => $icon->getClientOriginalName(),
+            'file_name' => $icon[0]->getClientOriginalName(),
             'service_id' => session('id'),
             'file_url' => $icon_url,
         ]);
@@ -254,10 +254,10 @@ class FamilyPlanningMethodController extends Controller
         $icon = $request->file('file');
         $requests = request()->all();
         $destination = public_path('/uploads/fpm');
-        $icon->move($destination, $icon->getClientOriginalName());
-        $icon_url = url('uploads/fpm/'.$icon->getClientOriginalName());
+        $icon[0]->move($destination, $icon[0]->getClientOriginalName());
+        $icon_url = url('uploads/fpm/'.$icon[0]->getClientOriginalName());
         ServiceGallery::create([
-            'file_name' => $icon->getClientOriginalName(),
+            'file_name' => $icon[0]->getClientOriginalName(),
             'service_id' => $requests['fpm'],
             'file_url' => $icon_url,
         ]);
