@@ -13,7 +13,7 @@
           <h1 class="section__title">{{ $clinic_names->clinic_name}}</h1>
           <div class="breadcrumbs">
             <a class="breadcrumbs__link" href="{{ route('providerManagement')}}">Provider management</a>
-            <a class="breadcrumbs__link" href="">{{$clinic_names->clinic_name}}</a>
+            <a class="breadcrumbs__link" href="{{ route('editProviderProfile',$clinic->id)}}">{{$clinic_names->clinic_name}}</a>
             <a class="breadcrumbs__link">Reviews</a>
           </div>
         </div>
