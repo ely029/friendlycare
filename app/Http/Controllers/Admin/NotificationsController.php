@@ -58,7 +58,7 @@ class NotificationsController extends Controller
             'schedule' => 'required',
         ]);
 
-        $mytime = Carbon::now();
+        $mytime = Carbon::now()->timezone('Asia/Manila');
 
         if ($validator->fails()) {
             return redirect('notification/create')
@@ -69,6 +69,7 @@ class NotificationsController extends Controller
         if ($request['schedule'] === 'Post Now') {
             if ($request['type'] === '2') {
                 $request['is_approve'] = 1;
+                $request['date_time_string'] = $mytime->toDateTimeString();
                 $request['date_string'] = strtotime(date('Y-m-d'));
                 $request['date'] = date('Y-m-d');
                 $request['display_type'] = 'Announcements';

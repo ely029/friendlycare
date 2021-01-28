@@ -512,16 +512,11 @@ class BookingController extends Controller
             $mail->from('notifications@friendlycare.com');
             $mail->to($getClinicEmail[0], 'Provider')->subject('Booking Completed');
         });
-        $checkService = DB::table('fpm_type_service')->select('id')
-            ->where('patient_id', $getPatientId[0])
-            ->where('service_id', $getServiceId[0])
-            ->count();
-        if ($checkService <= 0) {
-            FpmTypeService::create([
-                'service_id' => $getServiceId[0],
-                'patient_id' => $getPatientId[0],
-            ]);
-        }
+        FpmTypeService::where('patient_id', $getPatientId[0])->delete();
+        FpmTypeService::create([
+            'service_id' => $getServiceId[0],
+            'patient_id' => $getPatientId[0],
+        ]);
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
             'message' => $message,

@@ -37,6 +37,7 @@ class EventsNotification extends Model
         'events_display',
         'created_at',
         'updated_at',
+        'date_time_string',
     ];
 
     public function getPatientNotifications($id)
