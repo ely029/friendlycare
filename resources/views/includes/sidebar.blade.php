@@ -105,15 +105,7 @@
                   <span class="sidebar__text">Ad management</span>
                 </a>
               </li>
-              <li class="sidebar__item">
-                <a class="sidebar__link" href="admin-logs.php">
-                  <div class="sidebar__wrapper">
-                    <img class="sidebar__icon" src="{{URL::asset('img/icon-admin-log.png')}}" alt="Admin logs icon for e-plano" />
-                    <img class="sidebar__icon sidebar__icon--white" src="{{URL::asset('img/icon-admin-log-white.png')}}" alt="Admin logs icon on hover for e-plano" />
-                  </div>
-                  <span class="sidebar__text">Admin logs</span>
-                </a>
-              </li>
+              
             </ul>
           </div>
           <a class="sidebar__footer" href="{{ route('admin.accounts')}}">
