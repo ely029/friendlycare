@@ -16,6 +16,7 @@
         <div class="section__container">
           <form class="form form--method" method="POST" action="{{ route('familyPlanningMethod.createThree') }}" enctype="multipart/form-data">
           @csrf
+          <input type="hidden" name="id" id="id" value="{{ session()->get('id') }}"/>
             <div class="form__tab">
               <ul class="form__group">
                 <li class="form__group-item">

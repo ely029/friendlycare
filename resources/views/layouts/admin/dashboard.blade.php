@@ -176,15 +176,13 @@ $('document').ready(function(){
   var previewTemplate = previewNode.parentNode.innerHTML;
   previewNode.parentNode.removeChild(previewNode);
     $("#dropzoneDragArea").dropzone({
-        url: "{{ route('familyPlanningMethod.galleryUpload')}}",
-        data: {id: $("#id").val(), },
+        url: "{{ route('familyPlanningMethod.galleryUpload')}}",    
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
         maxFileSize: 2,
         maxFiles: 5,
         uploadMultiple: true,
-        acceptedFiles: "image/*",
         previewTemplate: previewTemplate,
         previewsContainer: "#gallery-preview",
         clickable: ".gallery",
