@@ -36,6 +36,7 @@ $('document').ready(function(){
     normalFill: "#F0F0F0",
     ratedFill: "#B964C4",
     readOnly: true,
+    starWidth: "20px",
     rating: $('#review-{{ $detail->id }}').val()
    });
 });
@@ -50,6 +51,7 @@ $('document').ready(function(){
     normalFill: "#F0F0F0",
     ratedFill: "#B964C4",
     readOnly: true,
+    starWidth: "20px",
     rating: $('.provider_rate_{{ $clinic->id }}').val()
    });
 });
@@ -572,11 +574,13 @@ $(function(){
     normalFill: "#F0F0F0",
     ratedFill: "#B964C4",
     readOnly: true,
+    starWidth: "20px",
     rating: $('.provider_rate').val()
    });
    $('#rateYo').rateYo({
     normalFill: "#F0F0F0",
     ratedFill: "#B964C4",
+    starWidth: "20px",
     readOnly: true,
     rating: $('#rate').val()
    });
