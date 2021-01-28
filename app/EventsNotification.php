@@ -11,6 +11,11 @@ class EventsNotification extends Model
 {
     protected $table = 'events_notification';
 
+    protected $casts = [
+        'created_at' => 'datetime',
+        'update_at' => 'datetime',
+    ];
+
     protected $fillable = [
         'title',
         'message',

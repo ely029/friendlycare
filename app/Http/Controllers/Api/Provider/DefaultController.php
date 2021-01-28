@@ -285,23 +285,6 @@ class DefaultController extends Controller
     public function getServices($id)
     {
         $users = Staffs::where('user_id', $id)->pluck('clinic_id');
-        $modernMethodWithoutClinic = DB::table('family_plan_type_subcategory')
-            ->leftJoin('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
-            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
-            ->where('clinic_service.is_checked', null);
-
-        $permanentMethodWithoutClinic = DB::table('family_plan_type_subcategory')
-            ->leftJoin('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
-            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
-            ->where('clinic_service.is_checked', null);
-
-        $naturalMethodWithoutClinic = DB::table('family_plan_type_subcategory')
-            ->leftJoin('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
-            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
-            ->where('clinic_service.is_checked', null);
 
         $modernMethod = DB::table('family_plan_type_subcategory')
             ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
@@ -324,15 +307,11 @@ class DefaultController extends Controller
             ->where('family_plan_type_subcategory.family_plan_type_id', 3)
             ->where('clinic_service.is_checked', 1);
 
-        $mergeModernMethod = $modernMethodWithoutClinic->union($modernMethod)->get();
-        $mergePermanentMethod = $permanentMethodWithoutClinic->union($permanentMethod)->get();
-        $mergeNaturalMethod = $naturalMethodWithoutClinic->union($naturalMethod)->get();
-
         return response([
             'name' => 'Services',
-            'permanentMethod' => $mergePermanentMethod,
-            'naturalMethod' => $mergeNaturalMethod,
-            'modernMethod' => $mergeModernMethod,
+            'permanentMethod' => $permanentMethod,
+            'naturalMethod' => $naturalMethod,
+            'modernMethod' => $modernMethod,
         ]);
     }
 
