@@ -82,40 +82,38 @@ class SurveyController extends Controller
 
     private function pushNotification()
     {
-        $fcm = [];
         $user = DB::table('users')->select('fcm_notification_key')->where('fcm_notification_key', '<>', null)->get();
         foreach ($user as $users) {
-            $fcm[] = $users;
+            $fcmurl = 'https://fcm.googleapis.com/fcm/send';
+            $token = $users;
+            $notification = [
+                'title' => 'Survey Posted',
+                'body' => 'There is a Survey Posted',
+                'icon' => 'myIcon',
+                'sound' => 'defaultSound',
+                'priority' => 'high',
+                'contentAvailable' => true,
+            ];
+            $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
+            $fcmNotification = [
+                'to' => $token,
+                'notification' => $notification,
+                'data' => $extraNotifications,
+            ];
+            $headers = [
+                'Authorization: key='.\Config::get('boilerplate.firebase.server_key').'',
+                'Content-Type: application/json',
+            ];
+            $chh = curl_init();
+            curl_setopt($chh, CURLOPT_URL, $fcmurl);
+            curl_setopt($chh, CURLOPT_POST, true);
+            curl_setopt($chh, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($chh, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($chh, CURLOPT_SSL_VERIFYPEER, $headers);
+            curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
+            $result = curl_exec($chh);
+            curl_close($chh);
+            return $result;
         }
-        $fcmurl = 'https://fcm.googleapis.com/fcm/send';
-        $token = $fcm;
-        $notification = [
-            'title' => 'Survey Posted',
-            'body' => 'There is a Survey Posted',
-            'icon' => 'myIcon',
-            'sound' => 'defaultSound',
-            'priority' => 'high',
-            'contentAvailable' => true,
-        ];
-        $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
-        $fcmNotification = [
-            'to' => $token,
-            'notification' => $notification,
-            'data' => $extraNotifications,
-        ];
-        $headers = [
-            'Authorization: key='.\Config::get('boilerplate.firebase.server_key').'',
-            'Content-Type: application/json',
-        ];
-        $chh = curl_init();
-        curl_setopt($chh, CURLOPT_URL, $fcmurl);
-        curl_setopt($chh, CURLOPT_POST, true);
-        curl_setopt($chh, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($chh, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($chh, CURLOPT_SSL_VERIFYPEER, $headers);
-        curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
-        $result = curl_exec($chh);
-        curl_close($chh);
-        return $result;
     }
 }
