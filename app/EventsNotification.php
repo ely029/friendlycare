@@ -13,7 +13,7 @@ class EventsNotification extends Model
 
     protected $casts = [
         'created_at' => 'datetime',
-        'update_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     protected $fillable = [
