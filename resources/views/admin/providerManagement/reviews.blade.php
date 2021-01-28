@@ -30,7 +30,7 @@
                   <label class="form__label form__label--blue">{{ $clinic_names->clinic_name}}</label>
                   <span class="form__text form__text--group">
                     <div id="rateYo"></div>
-                    <span class="form__text">({{$patientCount}})</span><a class="form__link form__link--gray" href="">View reviews?</a>
+                    <span class="form__text">({{$patientCount}})</span>
                   </span>
                   <span class="form__text">{{$clinic_names->email}}</span><span class="form__text">09857754852</span>
                 </div>
