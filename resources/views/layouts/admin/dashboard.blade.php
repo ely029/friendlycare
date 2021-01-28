@@ -28,6 +28,20 @@ $('document').ready(function(){
     });
 });
 </script>
+@if(Route::currentRouteName() == 'provider.reviews')
+@foreach($details as $detail)
+<script type="text/javascript">
+$('document').ready(function(){
+    $('#rateYo-{{$detail->id}}').rateYo({
+    normalFill: "#F0F0F0",
+    ratedFill: "#B964C4",
+    readOnly: true,
+    rating: $('#review-{{ $detail->id }}').val()
+   });
+});
+</script>
+@endforeach
+@endif
 @if(Route::currentRouteName() == 'providerManagement')
 @foreach ($clinics as $clinic)
 <script type="text/javascript">
