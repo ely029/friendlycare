@@ -318,8 +318,7 @@ class ProviderManagementController extends Controller
 
     public function pushNotification($id)
     {
-        $getStaffId = DB::table('staffs')->select('user_id')->where('clinic_id', $id)->pluck('user_id');
-        $getFCMToken = DB::table('users')->select('fcm_notification_key')->where('id', $getStaffId[0])->pluck('fcm_notification_key');
+        $getFCMToken = DB::table('users')->select('fcm_notification_key')->get();
         $fcmurl = 'https://fcm.googleapis.com/fcm/send';
         $token = $getFCMToken[0];
         $notification = [
