@@ -82,10 +82,13 @@ class SurveyController extends Controller
 
     private function pushNotification()
     {
+        $fcm = [];
         $user = DB::table('users')->select('fcm_notification_key')->where('fcm_notification_key', '<>', null)->get();
         foreach ($user as $users) {
+            $fcm[] = $users; 
+        }
             $fcmurl = 'https://fcm.googleapis.com/fcm/send';
-            $token = $users->fcm_notification_key;
+            $token = $fcm;
             $notification = [
                 'title' => 'Survey Posted',
                 'body' => 'There is a Survey Posted',
@@ -114,6 +117,5 @@ class SurveyController extends Controller
             $result = curl_exec($chh);
             curl_close($chh);
             return $result;
-        }
     }
 }
