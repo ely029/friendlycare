@@ -48,13 +48,13 @@
         </tr>
       </thead>
       <tbody>
-        @foreach ($data as $datas)
+        @foreach ($details as $datas)
         <tr class="table__row js-view" data-href="{{ route('ads.viewInformation', $datas->id)}}">
           <td class="table__details"><a href="{{ route('ads.viewInformation', $datas->id) }}">{{ $datas->start_date }}</a></td>
           <td class="table__details">{{ $datas->company_name }}</td>
           <td class="table__details">{{ $datas->title }}</td>
-          <td class="table__details">{{ $datas->count_views}}</td>
-          <td class="table__details">{{ $datas->count_clicks}}</td>
+          <td class="table__details">{{ $datas->views }}</td>
+          <td class="table__details">{{ $datas->clicks }}</td>
           <td class="table__details"><a class="table__link" href="{{ $datas->ad_link}}">{{ $datas->ad_link }}</a></td>
         </tr>
         @endforeach

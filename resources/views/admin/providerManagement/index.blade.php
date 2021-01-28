@@ -36,7 +36,7 @@
                             @if($clinic->type == '3')
                             <td class="table__details">NGO</td>
                             @endif
-                <td class="table__details table__details--rating"><span class="rateYo-{{$clinic->id}}"></span><span>({{$patientCount}})</span></td>
+                <td class="table__details table__details--rating"><span class="rateYo-{{$clinic->id}}"></span><span></span></td>
                 <input type="hidden" class="provider_rate_{{$clinic->id}}" value="{{$clinic->avg}}">
                 <td class="table__details">{{ $clinic->number_staff }}</td>
               </tr>

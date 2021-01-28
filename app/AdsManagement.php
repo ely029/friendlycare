@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -27,23 +28,23 @@ class AdsManagement extends Model
     public function getAdsDetails()
     {
         return DB::table('ads_management')
-            ->leftJoin('ad_clicks', 'ad_clicks.ads_id', 'ads_management.id')
             ->leftJoin('ad_views', 'ad_views.ads_id', 'ads_management.id')
+            ->leftJoin('ad_clicks', 'ad_clicks.ads_id', 'ads_management.id')
             ->select('ads_management.start_date', 'ads_management.ad_link', 'ads_management.company_name', 'ads_management.title', 'ads_management.id',
-            DB::raw('count(ad_views.id) as count_views'),
-            DB::raw('count(ad_clicks.id) as count_clicks'))
-            ->orderBy('ads_management.id')
+            DB::raw('COUNT(DISTINCT ad_clicks.id) as clicks'),
+            DB::raw('COUNT(DISTINCT ad_views.id) as views'))
             ->groupBy([
                 'ads_management.ad_link',
                 'ads_management.company_name',
                 'ads_management.title',
                 'ads_management.id',
-            ])
-            ->get();
+            ])->get();
     }
 
     public function filter($request)
     {
+        $dateFrom = Carbon::parse($request['start_date'])->format('Y-m-d');
+        $dateTo = Carbon::parse($request['end_date'])->format('Y-m-d');
         return DB::table('ads_management')
             ->leftJoin('ad_views', 'ad_views.ads_id', 'ads_management.id')
             ->leftJoin('ad_clicks', 'ad_clicks.ads_id', 'ads_management.id')
@@ -53,11 +54,11 @@ class AdsManagement extends Model
                 'ads_management.company_name',
                 'ads_management.title',
                 'ads_management.ad_link',
-                DB::raw('count(ad_views.id) as count_views'),
-                DB::raw('count(ad_clicks.id) as count_clicks'))
-            ->whereBetween('ads_management.created_at', [$request['start_date'], $request['end_date']])
+                DB::raw('COUNT(DISTINCT ad_views.id) as views'),
+                DB::raw('COUNT(DISTINCT ad_clicks.id) as clicks'))
             ->groupBy(['ads_management.start_date', 'ads_management.id', 'ads_management.company_name', 'ads_management.title', 'ads_management.ad_link'])
             ->orderBy('ads_management.id')
+            ->whereBetween('ads_management.created_at', [$dateFrom, $dateTo])
             ->get();
     }
 }

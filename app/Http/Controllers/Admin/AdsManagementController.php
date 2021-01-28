@@ -16,8 +16,8 @@ class AdsManagementController extends Controller
     public function index()
     {
         $ads = new AdsManagement();
-        $data = $ads->getAdsDetails();
-        return view('admin.ads.index', ['data' => $data]);
+        $adsDetails = $ads->getAdsDetails();
+        return view('admin.ads.index', ['details' => $adsDetails]);
     }
 
     public function create()
@@ -52,31 +52,34 @@ class AdsManagementController extends Controller
         $details = $ads->filter($request);
         $start_date = $request['start_date'];
         $end_date = $request['end_date'];
-        return view('admin.ads.index', ['data' => $details, 'start_date' => $start_date, 'end_date' => $end_date]);
+        return view('admin.ads.index', ['details' => $details, 'start_date' => $start_date, 'end_date' => $end_date]);
     }
 
     public function viewInformation($id)
     {
         $data = DB::table('ads_management')
-            ->leftJoin('ad_views', 'ads_management.id', 'ad_views.ads_id')
-            ->leftJoin('ad_clicks', 'ads_management.id', 'ad_clicks.ads_id')
+            ->leftJoin('ad_views', 'ad_views.ads_id', 'ads_management.id')
+            ->leftJoin('ad_clicks', 'ad_clicks.ads_id', 'ads_management.id')
             ->select(
+                'ads_management.start_date',
+                'ads_management.ad_link',
+                'ads_management.company_name',
                 'ads_management.title',
-                DB::raw('count(ad_views.id) as count_views'),
-                DB::raw('count(ad_clicks.id) as count_clicks'),
-                'ads_management.id',
-                'ads_management.ad_link',
-                'ads_management.start_date',
-                'ads_management.end_date',
-                'ads_management.image_url')
-            ->groupBy([
-                'ads_management.id',
-                'ads_management.ad_link',
-                'ads_management.start_date',
-                'ads_management.end_date',
                 'ads_management.image_url',
+                'ads_management.start_date',
+                'ads_management.end_date',
+                'ads_management.id',
+            DB::raw('COUNT(DISTINCT ad_clicks.id) as count_clicks'),
+            DB::raw('COUNT(DISTINCT ad_views.id) as count_views'))
+            ->groupBy([
+                'ads_management.image_url',
+                'ads_management.ad_link',
+                'ads_management.company_name',
+                'ads_management.title',
+                'ads_management.id',
+                'ads_management.start_date',
+                'ads_management.end_date',
             ])
-            ->orderBy('ads_management.id')
             ->where('ads_management.id', $id)
             ->get();
         return view('admin.ads.information', ['data' => $data]);
