@@ -93,7 +93,8 @@ class NotificationsController extends Controller
                 $this->runPushNotification($request);
             }
         } else {
-            if ($request['type'] === 'Scheduled') {
+            if ($request['type'] === '2') {
+                // dd($request['date'].''.$request['time']);
                 $request['is_approve'] = 1;
                 $request['date_string'] = strtotime($request['date']);
                 $request['display_type'] = 'Announcements';
