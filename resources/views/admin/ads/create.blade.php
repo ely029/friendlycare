@@ -30,7 +30,7 @@
           <div class="form__content">
             <input type="hidden" name="ads-image-location" id="ads-image-location">
             <ul class="gallery__list" id="gallery-preview">
-              <li class="gallery__item dz-preview dz-file-preview" id="gallery-container">
+              <li class="gallery__item gallery__item--ads dz-preview dz-file-preview" id="gallery-container">
                 <img data-dz-thumbnail class="gallery__image">
                 <button data-dz-remove class="button button--close" aria-hidden="true">&times;</button>
               </li>

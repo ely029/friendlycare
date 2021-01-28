@@ -22,7 +22,7 @@
     <form class="form" method="POST" action="{{ route('storeSecondPage')}}">
      @csrf
     <div class="form__tab">
-        <ul class="form__group">
+        <ul class="form__group"> 
         <li class="form__group-item">
             <h2 class="section__heading">Clinic gallery</h2>
             <div class="dz-default dz-message dropzoneDragArea" id="dropzoneDragArea1">

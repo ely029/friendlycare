@@ -226,6 +226,7 @@ $(function(){
         data: {id: $("#id").val(), },
         maxFileSize: 2,
         maxFiles: 5,
+        uploadMultiple: true,
         acceptedFiles: "image/*",
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
@@ -258,6 +259,7 @@ $(function(){
         data: {id: $("#clinic_id").val(), },
         maxFileSize: 2,
         maxFiles: 5,
+        uploadMultiple: true,
         acceptedFiles: "image/*",
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
