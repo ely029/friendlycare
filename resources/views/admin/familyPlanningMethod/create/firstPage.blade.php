@@ -46,7 +46,7 @@
               <ul class="form__group">
                 <li class="form__group-item">
                   <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Method name*" name="name" value="{{ old('name') }}"  /><label class="form__label">Method name* </label></div>
-                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Short name*" short_name" value="{{ old('short_name') }}"  /><label class="form__label">Short name* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" placeholder="Short name*" name="short_name" value="{{ old('short_name') }}"  /><label class="form__label">Short name* </label></div>
                   <div class="form__content form__content--full">
                     <select name="family_plan_type_id" class="form__input form__input--select">
                          <option value="">Select Method...</option>
