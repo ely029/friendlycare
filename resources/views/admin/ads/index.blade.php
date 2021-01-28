@@ -27,8 +27,8 @@
             <form class="form form--patient" action="{{ route('ads.filter') }}" method="POST">
               @csrf
               <div class="form__inline">
-                <div class="form__content"><input id="start_date" name="start_date" class="form__input form__input--border" type="date" placeholder="Date from" /></div>
-                <div class="form__content"><input id="end_date" name="end_date" class="form__input form__input--border" type="date" placeholder="Date to" /></div>
+                <div class="form__content"><input id="start_date" value="{{ $start_date ?? null }}" name="start_date" class="form__input form__input--border" type="date" placeholder="Date from" /></div>
+                <div class="form__content"><input id="end_date" value="{{ $end_date ?? null }}" name="end_date" class="form__input form__input--border" type="date" placeholder="Date to" /></div>
                 <button class="button button--filter button--filter__patient">Apply filter</button><a class="button button--filter button--filter__patient export">Export csv</a>
               </div>
             </form>

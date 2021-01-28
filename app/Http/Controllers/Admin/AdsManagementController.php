@@ -50,8 +50,9 @@ class AdsManagementController extends Controller
         $request = request()->all();
         $ads = new AdsManagement();
         $details = $ads->filter($request);
-
-        return view('admin.ads.index', ['data' => $details]);
+        $start_date = $request['start_date'];
+        $end_date = $request['end_date'];
+        return view('admin.ads.index', ['data' => $details, 'start_date' => $start_date, 'end_date' => $end_date]);
     }
 
     public function viewInformation($id)

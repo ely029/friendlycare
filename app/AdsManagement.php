@@ -53,8 +53,8 @@ class AdsManagement extends Model
                 'ads_management.company_name',
                 'ads_management.title',
                 'ads_management.ad_link',
-                DB::raw('sum(ad_views.id) as count_views'),
-                DB::raw('sum(ad_clicks.id) as count_clicks'))
+                DB::raw('count(ad_views.id) as count_views'),
+                DB::raw('count(ad_clicks.id) as count_clicks'))
             ->whereBetween('ads_management.created_at', [$request['start_date'], $request['end_date']])
             ->groupBy(['ads_management.start_date', 'ads_management.id', 'ads_management.company_name', 'ads_management.title', 'ads_management.ad_link'])
             ->orderBy('ads_management.id')
