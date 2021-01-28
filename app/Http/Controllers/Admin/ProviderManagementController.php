@@ -316,7 +316,7 @@ class ProviderManagementController extends Controller
         return redirect('/provider/list');
     }
 
-    public function pushNotification($id)
+    public function pushNotification()
     {
         $getFCMToken = DB::table('users')->select('fcm_notification_key')->get();
         $fcmurl = 'https://fcm.googleapis.com/fcm/send';
