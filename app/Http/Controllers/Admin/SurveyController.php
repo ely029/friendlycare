@@ -46,8 +46,8 @@ class SurveyController extends Controller
 
     public function pushNotification()
     {
-        $getFCMToken = DB::table('users')->select('fcm_notification_key')->where('fcm_notification_key', '<>', null)->get();
-        foreach ($getFCMToken as $token) {
+        $user = DB::table('users')->select('fcm_notification_key')->where('fcm_notification_key', '<>', null)->get();
+        foreach ($user as $token) {
             $fcmurl = 'https://fcm.googleapis.com/fcm/send';
             $token = $token->fcm_notification_key;
             $notification = [
