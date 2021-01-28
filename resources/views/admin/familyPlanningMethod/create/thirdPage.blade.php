@@ -27,7 +27,7 @@
                     </div>
                   </div>
                   <ul class="gallery__list" id="gallery-preview">
-                    <li class="gallery__item dz-preview dz-file-preview" id="gallery-container"><img class="gallery__image" data-dz-thumbnail src="{{ $serviceGalleries->file_url}}">
+                    <li class="gallery__item dz-preview dz-file-preview" id="gallery-container"><img class="gallery__image" data-dz-thumbnail>
                       <button class="button button--close" aria-hidden="true" data-dz-remove>&times;</button>
                   </li>
                   </ul>
