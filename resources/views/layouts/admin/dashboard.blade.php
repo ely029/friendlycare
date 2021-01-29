@@ -103,6 +103,7 @@ $('document').ready(function(){
     $("#dropzoneDragArea").dropzone({
         url: "{{ route('ads.uploadImage')}}",
         maxFiles: 1,
+        maxFileSize: 2,
         acceptedFiles: "image/*",
         thumbnailWidth: 300,
         thumbnailHeight: 100,

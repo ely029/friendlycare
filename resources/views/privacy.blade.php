@@ -125,7 +125,7 @@
             </li>
             <li class="privacy__item">
               <h2 class="privacy__title">Contact us</h2>
-              <p class="privacy__text">If you have any questions about this Privacy Policy, please contact thru our email <a class="privacy__link" href="mailto:infor@friendlycare.org">infor@friendlycare.org</a></p>
+              <p class="privacy__text">If you have any questions about this Privacy Policy, please contact thru our email <a class="privacy__link" href="mailto:info@friendlycare.org">info@friendlycare.org</a></p>
             </li>
           </ul>
         </div>
