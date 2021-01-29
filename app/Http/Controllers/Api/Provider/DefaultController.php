@@ -8,6 +8,7 @@ use App\ClinicGallery;
 use App\ClinicHours;
 use App\Clinics;
 use App\ClinicService;
+use App\FamilyPlanTypeSubcategories;
 use App\Holiday;
 use App\Http\Controllers\Controller;
 use App\PaidServices;
@@ -291,21 +292,21 @@ class DefaultController extends Controller
             ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
             ->where('clinic_service.clinic_id', $users[0])
             ->where('family_plan_type_subcategory.family_plan_type_id', 1)
-            ->where('clinic_service.is_checked', 1);
+            ->get();
 
         $permanentMethod = DB::table('family_plan_type_subcategory')
             ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
             ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
             ->where('clinic_service.clinic_id', $users[0])
             ->where('family_plan_type_subcategory.family_plan_type_id', 2)
-            ->where('clinic_service.is_checked', 1);
+            ->get();
 
         $naturalMethod = DB::table('family_plan_type_subcategory')
             ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
             ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
             ->where('clinic_service.clinic_id', $users[0])
             ->where('family_plan_type_subcategory.family_plan_type_id', 3)
-            ->where('clinic_service.is_checked', 1);
+            ->get();
 
         return response([
             'name' => 'Services',
@@ -318,13 +319,24 @@ class DefaultController extends Controller
     public function updateServices($id, Request $requests)
     {
         $obj = json_decode($requests->getContent(), true);
+        $methods = new FamilyPlanTypeSubcategories();
         $users = Staffs::where('user_id', $id)->pluck('clinic_id');
+        ClinicService::where('clinic_id', $users[0])->delete();
         for ($eee = 0;$eee <= 10000;$eee++) {
             if (isset($obj['services'][$eee])) {
                 ClinicService::create([
                     'clinic_id' => $users[0],
                     'service_id' => $obj['services'][$eee],
                     'is_checked' => 1,
+                ]);
+            }
+
+            $data = $methods->getUncheckedServices($users[0]);
+            foreach ($data as $datas) {
+                ClinicService::create([
+                    'service_id' => $datas->id,
+                    'clinic_id' => $users[0],
+                    'is_checked' => 0,
                 ]);
             }
         }
