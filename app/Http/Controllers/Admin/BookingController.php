@@ -161,7 +161,7 @@ class BookingController extends Controller
         return DB::table('booking')
             ->select(['id'])
             ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
-            ->where('booking.service', $request['service_id'])
+            ->where('booking.service_id', $request['service_id'])
             ->where('booking.clinic_id', $request['clinic_id'])
             ->where('booking.status', $request['status'])
             ->where('booking.status', '<>', 6)
