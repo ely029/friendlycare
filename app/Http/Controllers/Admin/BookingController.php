@@ -26,6 +26,15 @@ class BookingController extends Controller
     public function results()
     {
         $request = request()->all();
+        $validator = \Validator::make(request()->all(), [
+            'date-from' => 'required',
+            'date-to' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect('booking/index')
+                ->withErrors($validator)
+                ->withInput();
+        }
         $dateFrom = date('Y-m-d', strtotime($request['date-from']));
         $dateTo = date('Y-m-d', strtotime($request['date-to']));
         $this->displayCountPatient($request, $dateFrom, $dateTo);

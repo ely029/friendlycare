@@ -58,6 +58,15 @@ $('document').ready(function(){
 </script>
 @endforeach
 @endif
+@if(Route::currentRouteName() == 'chatbot.create')
+<script type="text/javascript">
+$('document').ready(function(){
+   $('.js-add-response1').click(function(){
+      $('#add-response-option').clone().appendTo($('#add-response-option1'));
+   });
+});
+</script>
+@endif
 @if(Route::currentRouteName() == 'chatbot.edit')
 <script type="text/javascript">
 $('document').ready(function(){

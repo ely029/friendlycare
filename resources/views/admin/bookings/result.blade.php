@@ -13,6 +13,12 @@
           <div class="breadcrumbs"><a class="breadcrumbs__link">Bookings</a><a class="breadcrumbs__link"></a><a class="breadcrumbs__link"></a></div>
         </div>
         <div class="section__container">
+        @if ($errors->any())
+
+@foreach ($errors->all() as $error)
+<div class="alert alert-danger">{{ $error }}</div>
+@endforeach
+@endif
           <div class="accordion accordion--bookings">
             <ul class="accordion__list">
               <li class="accordion__item">

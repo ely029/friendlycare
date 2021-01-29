@@ -85,7 +85,7 @@ class SurveyController extends Controller
         $user = DB::table('users')->select('fcm_notification_key')->where('fcm_notification_key', '<>', null)->get();
         foreach ($user as $users) {
             $fcmurl = 'https://fcm.googleapis.com/fcm/send';
-            $token = $users;
+            $token = $users->fcm_notification_key;
             $notification = [
                 'title' => 'Survey Posted',
                 'body' => 'There is a Survey Posted',

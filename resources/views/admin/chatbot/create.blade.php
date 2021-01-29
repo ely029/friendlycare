@@ -32,15 +32,15 @@
                 <label class="form__label">Link to fieldset*</label>
               </div>
               <div class="form__button form__button--end">
-                <button class="button button--medium js-delete-response js-trigger" type="button">Delete response</button><button class="button button--medium js-add-response add-response-chatbot" type="button">Add response</button>
+                <button class="button button--medium js-delete-response js-trigger" type="button">Delete response</button><button class="button button--medium js-add-response js-add-response1" type="button">Add response</button>
               </div>
             </div>
-            <div id="add-response-option-create1">
+            <div id="add-response-option1">
             </div>
-            <div id="add-response-option-create">
-            <h2 class="section__heading">Response options</h2>
-            <div class="form__content form__content--full"><input class="form__input" type="text" name="response_prompt[]" /><label class="form__label">Response prompt*</label></div>
-            <div class="form__content form__content--full">
+            <div id="add-response-option">
+              <div class="form__content form__content--full"><input class="form__input" type="text" name="response_prompt[]"/><label class="form__label">Response prompt*</label></div>
+              <div class="form__content form__content--full">
+              <input type="hidden" name="responded_id[]" value="0">
                 <select class="form__input form__input--select" name="response_id[]">
                   <option value="">Select Field set</option>
                   @foreach ($details as $detail)
@@ -50,7 +50,7 @@
                 <label class="form__label">Link to fieldset*</label>
               </div>
               <div class="form__button form__button--end">
-                <input class="button button--medium js-delete-response" type="button" data-toggle="modal" data-target="#js-delete-response-modal" value="Delete response"><button class="button button--medium js-add-response add-response-chatbot" type="button">Add response</button>
+                <input class="button button--medium js-delete-response" type="button" data-toggle="modal" data-target="#js-delete-response-modal" value="Delete response"><button class="button button--medium js-add-response1" type="button">Add response</button>
               </div>
             </div>
             <div class="form__button form__button--end"><input class="button js-trigger" type="button" value="Submit"></div>
