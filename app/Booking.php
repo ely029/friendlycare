@@ -177,4 +177,11 @@ class Booking extends Model
             ->where('booking.status', $obj['status'][0])
             ->get();
     }
+
+    public function checkBooking()
+    {
+        return DB::table('booking_time')
+            ->leftJoin('booking', 'booking.id', 'booking_time.booking_id')
+            ->select('booking_time.time_slot')->where('booking.status', 1)->count();
+    }
 }

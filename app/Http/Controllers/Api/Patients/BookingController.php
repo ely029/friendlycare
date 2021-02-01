@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api\Patients;
 use App\Booking;
 use App\BookingTime;
 use App\ClinicService;
+use App\ClinicTime;
 use App\EventsNotification;
 use App\FpmTypeService;
 use App\Http\Controllers\Controller;
@@ -236,36 +237,12 @@ class BookingController extends Controller
             ->orderBy('id', 'desc')
             ->pluck('clinic_id');
 
-        $getStartTime = DB::table('clinic_hours')
-            ->select('froms')
-            ->where('days', $day)
-            ->where('clinic_id', $getDetails[0])
-            ->pluck('froms');
-
-        $getEndTime = DB::table('clinic_hours')
-            ->select('tos')
-            ->where('days', $day)
-            ->where('clinic_id', $getDetails[0])
-            ->pluck('tos');
-
-        $starttime = $getStartTime[0];  // your start time
-        $endtime = $getEndTime[0];  // End time
-        $duration = '30';  // split by 30 mins
-
-        $array_of_time = [];
-        $start_time = strtotime($starttime); //change to strtotime
-        $end_time = strtotime($endtime); //change to strtotime
-
-        $add_mins = $duration * 60;
-
-        while ($start_time <= $end_time) { // loop between time
-            $array_of_time[] = date('h:i A', $start_time);
-            $start_time += $add_mins; // to check endtie=me
-        }
+        $clinicTime = new ClinicTime();
+        $time = $clinicTime->getTime($getDetails[0], $day);
 
         return response([
             'name' => 'setUpTime',
-            'details' => $array_of_time,
+            'details' => $time,
         ]);
     }
 
@@ -274,17 +251,20 @@ class BookingController extends Controller
         $obj = json_decode($request->getContent(), true);
 
         $getDetails = DB::table('booking')
-            ->select('clinic_id', 'service_id', 'id')
+            ->select('id')
             ->where('patient_id', $id)
             ->limit(1)
             ->orderBy('id', 'desc')
             ->pluck('id');
 
-        $startTime = date('Y-m-d H:i');
-        $endtime = date('Y-m-d H:i', strtotime('3 minutes', strtotime($startTime)));
-        DB::update('update booking set is_approved = ?, status = ?, time_slot = ?, time_from = ?, time_to = ?, new_request_end_time = ?, referal = ? where patient_id = ? order by id desc limit 1', [1, 6, $obj['date'][0], $startTime, $endtime, strtotime($endtime), $obj['referal'][0], $id]);
+        $getClinicId = DB::table('booking')
+            ->select('clinic_id')
+            ->where('patient_id', $id)
+            ->limit(1)
+            ->orderBy('id', 'desc')
+            ->pluck('clinic_id');
 
-        return $this->checkPatientCount($id, $getDetails, $obj);
+        return $this->checkPatientCount($id, $getDetails, $getClinicId, $obj);
     }
 
     public function selectedClinic($id)
@@ -656,7 +636,24 @@ class BookingController extends Controller
         }
     }
 
-    private function checkPatientCount($id, $getDetails, $obj)
+    private function checkPatientCount($id, $getDetails, $getClinicId, $obj)
+    {
+        $booking = new Booking();
+        $timeSlot = new PatientTimeSlot();
+        $checkBooking = $booking->checkBooking($getDetails[0]);
+        $getSlot = $timeSlot->getSlot($getClinicId[0]);
+        if ($checkBooking >= $getSlot[0]) {
+            return response([
+                'response' => 'The time you entered are already full. please choose another time',
+            ], 422);
+        }
+        $this->createBookingTime($id, $getDetails, $obj);
+        return response([
+            'response' => 'Booking Created Succesfully',
+        ], 200);
+    }
+
+    private function createBookingTime($id, $getDetails, $obj)
     {
         for ($eee = 0; $eee <= 100; $eee++) {
             if (isset($obj['time'][$eee])) {
@@ -667,15 +664,6 @@ class BookingController extends Controller
                 ]);
             }
         }
-        $getBookedDate = DB::table('booking')->select('time_slot')->where('id', $getDetails[0])->first();
-        $getBookedTime = DB::table('booking_time')->select('time_slot')->where('booking_id', $getDetails[0])->first();
-        $bookedTime = date('H:i:s', strtotime($getBookedTime->time_slot));
-        $starttime = strtotime($getBookedDate->time_slot.''.$bookedTime);
-        $endtime = date('Y-m-d H:i', strtotime('3 minutes', $starttime));
-        DB::update('update booking set new_request_end_time = ? where id = ?', [strtotime($endtime), $getDetails[0]]);
-        return response([
-            'response' => 'Booking Created Succesfully',
-        ]);
     }
 
     private function checkNoShow($clinic, $endTime)

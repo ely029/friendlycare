@@ -8,6 +8,7 @@ use App\ClinicGallery;
 use App\ClinicHours;
 use App\Clinics;
 use App\ClinicService;
+use App\ClinicTime;
 use App\FamilyPlanTypeSubcategories;
 use App\Holiday;
 use App\Http\Controllers\Controller;
@@ -15,7 +16,6 @@ use App\PaidServices;
 use App\PatientTimeSlot;
 use App\Staffs;
 use App\User;
-use App\ViewAds;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mail;
@@ -668,6 +668,10 @@ class DefaultController extends Controller
     {
         $obj = json_decode($request->getContent(), true);
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
+        $clinicTime = new ClinicTime();
+        ClinicTime::where('clinic_id', $clinic[0])->delete();
+        $days = $clinicTime->CreateTimeDuration($clinic[0]);
+        $clinicTime->CreateTime($days, $clinic[0]);
         $data = DB::table('patient_time_slot')
             ->select('clinic_id')
             ->where('clinic_id', $clinic[0])

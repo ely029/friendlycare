@@ -39,13 +39,13 @@
                   </label>
                   <div class="accordion__content">
                     @foreach ($medical_history as $medical_histories)
-                    @if ($medical_histories->yes == 1)
-                      @if (isset($question[$medical_histories->question_no]))
-                      <div class="form__inline"><label class="form__label form__label--visible form__label--question">{{ $question[$medical_histories->question_no]['question']}}</label><span class="form__text form__text--answer">Yes</span></div>
+                    @if ($medical_histories->yes == '1')
+                      @if (isset($tagalog_question[$medical_histories->question_no]))
+                      <div class="form__inline"><label class="form__label form__label--visible form__label--question">{{ $english_question[$medical_histories->question_no]['question']}}{{ $tagalog_question[$medical_histories->question_no]['question']}}</label><span class="form__text form__text--answer">Yes</span></div>
                       @endif
                     @else
-                    @if (isset($question[$medical_histories->question_no]))
-                      <div class="form__inline"><label class="form__label form__label--visible form__label--question">{{ $question[$medical_histories->question_no]['question']}}</label><span class="form__text form__text--answer">No</span></div>
+                    @if (isset($tagalog_question[$medical_histories->question_no]))
+                      <div class="form__inline"><label class="form__label form__label--visible form__label--question">{{ $english_question[$medical_histories->question_no]['question']}}{{ $tagalog_question[$medical_histories->question_no]['question']}}</label><span class="form__text form__text--answer">No</span></div>
                       @endif
                     @endif
                     @endforeach
