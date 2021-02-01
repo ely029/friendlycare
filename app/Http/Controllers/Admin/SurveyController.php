@@ -85,7 +85,7 @@ class SurveyController extends Controller
         $fcm = [];
         $user = DB::table('users')->select('fcm_notification_key')->where('fcm_notification_key', '<>', null)->get();
         $data = json_decode(json_encode($user), true);
-        foreach($data as $datas) {
+        foreach ($data as $datas) {
             $fcm[] = $datas['fcm_notification_key'];
         }
         $fcmurl = 'https://fcm.googleapis.com/fcm/send';
