@@ -640,7 +640,7 @@ class BookingController extends Controller
     {
         $booking = new Booking();
         $timeSlot = new PatientTimeSlot();
-        $checkBooking = $booking->checkBooking($obj);
+        $checkBooking = $booking->checkBooking($getClinicId[0], $obj);
         $getSlot = $timeSlot->getSlot($getClinicId[0]);
         if ($checkBooking >= $getSlot[0]) {
             return response([
