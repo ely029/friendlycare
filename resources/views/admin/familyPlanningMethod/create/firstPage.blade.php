@@ -39,8 +39,8 @@
                 </li>
                 <li class="form__group-item">
                   <h2 class="section__heading">Effectiveness (in percent)</h2>
-                  <div class="form__content form__content--full"><input class="form__input" type="number" name="percent_effective" value="{{ old('percent_effective') }}" placeholder="Sa tamang paggamit*" /><label class="form__label">Sa tamang paggamit* </label></div>
-                  <div class="form__content form__content--full"><input class="form__input" type="number" name="typical_validity" value="{{ old('typical_validity') }}"placeholder="Tipikal na bisa*" /><label class="form__label">Tipikal na bisa* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" name="percent_effective" value="{{ old('percent_effective') }}" placeholder="Sa tamang paggamit*" /><label class="form__label">Sa tamang paggamit* </label></div>
+                  <div class="form__content form__content--full"><input class="form__input" type="text" name="typical_validity" value="{{ old('typical_validity') }}"placeholder="Tipikal na bisa*" /><label class="form__label">Tipikal na bisa* </label></div>
                 </li>
               </ul>
               <ul class="form__group">
