@@ -43,14 +43,14 @@
             @endforeach
         </li>
         </ul>
-        <div class="form__content">
-                <div class="form__content form__content--row">
+        <div class="form__content form__content--reverse">
+            <label class="form__label form__label--blue" for="paid-services">Do you have paid services?</label>
+                <div class="form__content form__content--row" id="js-paid-services">
                   <label class="form__sublabel">Yes<input class="form__trigger" id="js-yes-paid" type="radio" name="paid" checked="checked" value="1"/><span class="form__radio"></span></label>
                   <label class="form__sublabel">No<input class="form__trigger" id="js-no-paid" type="radio" name="paid" value="0" /><span class="form__radio"></span></label>
                 </div>
-                <label class="form__label form__label--blue" for="paid-services">Do you have paid services?</label>
-              </div>
-              <div class="js-services-content">
+
+                <div class="form__content form__content--reverse form__content--full" id="js-services-content">
                 <h2 class="section__heading section__heading--margin">Which of your services are paid?</h2>
                 <ul class="form__group form__group--viewProviderServices">
                   <li class="form__group-item">
@@ -75,6 +75,8 @@
                   </li>
                 </ul>
               </div>
+              </div>
+              
     </div>
     <div class="form__button form__button--steps">
         <button class="button button--back" id="back-provider-page" >Back</button>
