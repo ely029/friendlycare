@@ -183,7 +183,7 @@ class NotificationsController extends Controller
 
     public function scheduledEvents($id)
     {
-        $getBoolean = DB::table('events_notification')->select('date_time_string')->where('date_string', '<>', null)->orderBy('id', 'desc')->where('schedule', 0)->pluck('date_string');
+        $getBoolean = DB::table('events_notification')->select('date_time_string')->orderBy('id', 'desc')->where('schedule', 0)->pluck('date_time_string');
         if (strtotime(Carbon::now()->toDateTimeString()) >= $getBoolean[0]) {
             EventsNotification::where('events_display', 0)->update([
                 'events_display' => '1',
@@ -197,7 +197,7 @@ class NotificationsController extends Controller
     {
         $user = DB::table('users')->select('fcm_notification_key')->where('id', $id)->pluck('fcm_notification_key');
         $fcmurl = 'https://fcm.googleapis.com/fcm/send';
-        $token = $user[0];
+        $token = $user[0] ?? null;
         $notification = [
             'title' => 'Events Posted',
             'body' => 'There is a Events Posted',
