@@ -283,10 +283,10 @@ class ProviderManagementController extends Controller
         $province = DB::table('refprovince')->select('provDesc')->where('provCode', $request['province'] ?? '')->pluck('provDesc');
         $city = DB::table('refcitymun')->select('citymundesc')->where('citymunCode', $request['city'] ?? '')->pluck('citymundesc');
         $barangay = DB::table('refbrgy')->select('brgyDesc')->where('brgyCode', $request['barangay'] ?? '')->pluck('brgyDesc');
-        $request['region'] = $region[0];
-        $request['province'] = $province[0];
-        $request['city'] = $city[0];
-        $request['barangay'] = $barangay[0];
+        $request['region'] = $region[0] ?? '';
+        $request['province'] = $province[0] ?? '';
+        $request['city'] = $city[0] ?? '';
+        $request['barangay'] = $barangay[0] ?? '';
         Clinics::where('id', $request['clinic_id'])->update([
             'clinic_name' => $request['clinic_name'],
             'street_address' => $request['street_address'],
