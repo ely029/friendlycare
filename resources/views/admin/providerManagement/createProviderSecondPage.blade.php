@@ -82,7 +82,7 @@
     </div>
 
     <div class="form__button form__button--steps">
-        <button class="button" id="back-provider-page">Back</button>
+        <button class="button button--back" id="back-provider-page">Back</button>
         <div class="steps">
         <ul class="steps__list">
             <li class="steps__item "></li>
@@ -90,7 +90,7 @@
             <li class="steps__item"></li>
         </ul>
         </div>
-        <button class="button" type="submit">Next</button>
+        <button class="button button--next" type="submit">Next</button>
     </div>
     </form>
 </div>

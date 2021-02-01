@@ -22,24 +22,24 @@
         <li class="tabs__item tabs__item--notifications">Past Announcements</li>
     </ul>
     <div class="tabs__details tabs__details--active">
-    <table class="table">
-        <thead>
-            <tr>
-            <th class="table__head">Date</th>
-            <th class="table__head">Title</th>
-            <th class="table__head">Type</th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach($upcomingEvent as $events)
-        <tr class="table__row js-view" data-href="{{ route('notifications.information',$events->id)}}">
-            <td class="table__details">{{ $events->date}}</td>
-            <td class="table__details">{{ $events->title}}</td>
-            <td class="table__details"></td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+        <table class="table" id="notificationsTable">
+            <thead>
+                <tr>
+                <th class="table__head">Date</th>
+                <th class="table__head">Title</th>
+                <th class="table__head">Type</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach($upcomingEvent as $events)
+            <tr class="table__row js-view" data-href="{{ route('notifications.information',$events->id)}}">
+                <td class="table__details">{{ $events->date}}</td>
+                <td class="table__details">{{ $events->title}}</td>
+                <td class="table__details"></td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     </div>
 </div>
 </div>
