@@ -226,7 +226,7 @@
             <div class="tabs__details">
               <div class="form__content form__content--reverse">
                 <label class="form__label form__label--blue" for="paid-services">Do you have paid services?</label>
-                <div class="form__content form__content--reverse" id="js-paid-services">
+                <div class="form__content form__content--row" id="js-paid-services">
                   @if ($providers->paid_service == '1')
                   <label class="form__sublabel">Yes<input class="form__trigger" id="js-yes-paid" type="radio" name="paid" checked="checked" value="1"/><span class="form__radio"></span></label>
                   <label class="form__sublabel">No<input class="form__trigger" id="js-no-paid" type="radio" name="paid" value="0" /><span class="form__radio"></span></label>
