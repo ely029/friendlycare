@@ -42,8 +42,8 @@ class FamilyPlanningMethodController extends Controller
         $request = request()->all();
         $validator = \Validator::make(request()->all(), [
             'name' => 'required|string|max:255|unique:family_plan_type_subcategory',
-            'percent_effective' => 'required|numeric|between:0,99.99',
-            'typical_validity' => 'required|numeric|between:0,99.99',
+            'percent_effective' => 'required|numeric',
+            'typical_validity' => 'required|numeric',
         ]);
         if ($validator->fails()) {
             return redirect('fpm/create/1')

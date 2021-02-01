@@ -226,7 +226,6 @@ class BookingController extends Controller
                 'message' => 'The clinic on the date you set is on holiday. Please choose another date',
             ], 422);
         }
-        //get the day
         $timestamp = strtotime($obj['date'][0]);
         $day = date('l', $timestamp);
 
@@ -236,13 +235,16 @@ class BookingController extends Controller
             ->limit(1)
             ->orderBy('id', 'desc')
             ->pluck('clinic_id');
-
+        $times = [];
         $clinicTime = new ClinicTime();
         $time = $clinicTime->getTime($getDetails[0], $day);
-
+        $data = json_decode(json_encode($time), true);
+        foreach ($data as $datas) {
+            $times[] = $datas['time'];
+        }
         return response([
             'name' => 'setUpTime',
-            'details' => $time,
+            'details' => $times,
         ]);
     }
 

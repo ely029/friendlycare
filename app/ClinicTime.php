@@ -65,7 +65,7 @@ class ClinicTime extends Model
 
     public function getTime($clinicId, $day)
     {
-        return DB::table('clinic_time')->select('time')->where('days', $day)->where('clinic_id', $clinicId)->get();
+        return DB::table('clinic_time')->select('time')->where('days', $day)->where('clinic_id', $clinicId)->get()->toArray();
     }
 
     private function createClinicTime($clinicId, $days, $day, $fff)

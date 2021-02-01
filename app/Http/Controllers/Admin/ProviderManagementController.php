@@ -377,6 +377,9 @@ class ProviderManagementController extends Controller
             'email' => 'required',
             'street_address' => 'required',
             'type' => 'required',
+            'region' => 'required',
+            'province' => 'required',
+            'city' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect('provider/create/1')
@@ -433,7 +436,7 @@ class ProviderManagementController extends Controller
         $request = request()->all();
         $methods = new FamilyPlanTypeSubcategories();
         $validator = \Validator::make(request()->all(), [
-            'services' => 'required',
+            'paid_services' => 'required',
             'modern' => 'required',
         ]);
         $request['role_id'] = 2;
@@ -594,10 +597,10 @@ class ProviderManagementController extends Controller
     {
         $icon = $request->file('file');
         $destination = public_path('/uploads');
-        $icon->move($destination, $icon->getClientOriginalName());
-        $icon_url = url('uploads/'.$icon->getClientOriginalName());
+        $icon[0]->move($destination, $icon[0]->getClientOriginalName());
+        $icon_url = url('uploads/'.$icon[0]->getClientOriginalName());
         ClinicGallery::create([
-            'file_name' => $icon->getClientOriginalName(),
+            'file_name' => $icon[0]->getClientOriginalName(),
             'clinic_id' => $request['clinic'],
             'file_url' => $icon_url,
         ]);
