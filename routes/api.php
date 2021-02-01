@@ -192,6 +192,8 @@ Route::get('/notifications/provider/badge/{id}', 'Provider\NotificationsControll
 //survey push notification
 Route::get('/patient/survey/pushnotification/{id}', 'Patients\SurveyController@index');
 
+//Survey Push Notification for Events (scheduled)
+Route::get('/patient/survey/scheduled/{id}', 'Patients\SurveyController@scheduledEvents');
 //push notification for events
 Route::get('/patient/events/pushnotification/{id}', 'Patients\NotificationsController@index');
 

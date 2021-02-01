@@ -69,7 +69,7 @@ class NotificationsController extends Controller
         if ($request['schedule'] === 'Post Now') {
             if ($request['type'] === '2') {
                 $request['is_approve'] = 1;
-                $request['date_time_string'] = $mytime->toDateTimeString();
+                $request['date_time_string'] = strtotime($mytime->toDateTimeString());
                 $request['date_string'] = strtotime(date('Y-m-d'));
                 $request['date'] = date('Y-m-d');
                 $request['display_type'] = 'Announcements';
@@ -82,7 +82,7 @@ class NotificationsController extends Controller
             } else {
                 $request['is_approve'] = 1;
                 $request['date_string'] = strtotime(date('Y-m-d'));
-                $request['date_time_string'] = $mytime->toDateTimeString();
+                $request['date_time_string'] = strtotime($mytime->toDateTimeString());
                 $request['date'] = date('Y-m-d');
                 $request['display_type'] = 'Events';
                 $request['scheduled'] = $request['schedule'];
@@ -94,11 +94,10 @@ class NotificationsController extends Controller
             }
         } else {
             if ($request['type'] === '2') {
-                // dd($request['date'].''.$request['time']);
                 $request['is_approve'] = 1;
                 $request['date_string'] = strtotime($request['date']);
                 $request['display_type'] = 'Announcements';
-                $request['date_time_string'] = $mytime->toDateTimeString();
+                $request['date_time_string'] = strtotime($request['date'].' '.$request['time']);
                 $request['scheduled'] = $request['schedule'];
                 $request['schedule'] = 0;
                 $request['created_at'] = $mytime->toDateTimeString();
@@ -110,7 +109,7 @@ class NotificationsController extends Controller
                 $request['date_string'] = strtotime($request['date']);
                 $request['display_type'] = 'Events';
                 $request['scheduled'] = $request['schedule'];
-                $request['date_time_string'] = $mytime->toDateTimeString();
+                $request['date_time_string'] = strtotime($request['date'].' '.$request['time']);
                 $request['schedule'] = 0;
                 $request['created_at'] = $mytime->toDateTimeString();
                 $request['updated_at'] = $mytime->toDateTimeString();

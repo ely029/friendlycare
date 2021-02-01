@@ -8,6 +8,7 @@ use App\Booking;
 use App\EventsNotification;
 use App\Http\Controllers\Controller;
 use App\ProviderNotifications;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mail;
@@ -179,6 +180,19 @@ class NotificationsController extends Controller
         }
         return 0;
     }
+
+    public function scheduledEvents($id)
+    {
+        $getBoolean = DB::table('events_notification')->select('date_time_string')->where('date_string', '<>', null)->orderBy('id', 'desc')->where('schedule', 0)->pluck('date_string');
+        if (strtotime(Carbon::now()->toDateTimeString()) >= $getBoolean[0]) {
+            EventsNotification::where('events_display', 0)->update([
+                'events_display' => '1',
+            ]);
+            return $this->pushNotification1($id);
+        }
+        return 0;
+    }
+
     private function pushNotification1($id)
     {
         $user = DB::table('users')->select('fcm_notification_key')->where('id', $id)->pluck('fcm_notification_key');
