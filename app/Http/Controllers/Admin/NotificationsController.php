@@ -103,7 +103,6 @@ class NotificationsController extends Controller
                 $request['created_at'] = $mytime->toDateTimeString();
                 $request['updated_at'] = $mytime->toDateTimeString();
                 EventsNotification::create($request);
-                $this->runPushNotification($request);
             } else {
                 $request['is_approve'] = 1;
                 $request['date_string'] = strtotime($request['date']);
@@ -114,7 +113,6 @@ class NotificationsController extends Controller
                 $request['created_at'] = $mytime->toDateTimeString();
                 $request['updated_at'] = $mytime->toDateTimeString();
                 EventsNotification::create($request);
-                $this->runPushNotification($request);
             }
         }
         return redirect()->action('Admin\NotificationsController@index');
