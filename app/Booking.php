@@ -178,10 +178,10 @@ class Booking extends Model
             ->get();
     }
 
-    public function checkBooking()
+    public function checkBooking($obj)
     {
         return DB::table('booking_time')
             ->leftJoin('booking', 'booking.id', 'booking_time.booking_id')
-            ->select('booking_time.time_slot')->where('booking.status', 1)->count();
+            ->select('booking_time.time_slot')->where('booking_time.time_slot', $obj['time'])->count();
     }
 }
