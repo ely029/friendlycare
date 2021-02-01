@@ -188,7 +188,7 @@
             </div>
             <div class="tabs__details">
               <h2 class="section__heading">Available services</h2>
-              <ul class="form__group form__group--createProviderServices">
+              <ul class="form__group form__group--viewProviderServices">
                 <li class="form__group-item">
                   <h3 class="section__heading section__heading--sub">Modern method</h3>
                   @foreach($service_modern as $method)
@@ -237,7 +237,7 @@
                 </div>
                 <div class="form__content form__content--reverse form__content--full" id="js-services-content">
                   <h2 class="section__heading section__heading--margin">Which of your services are paid?</h2>
-                  <ul class="form__group form__group--createProviderServices">
+                  <ul class="form__group form__group--viewProviderServices">
                     <li class="form__group-item">
                       <h3 class="section__heading section__heading--sub">Modern method</h3>
                       @foreach($modernMethod as $method)
