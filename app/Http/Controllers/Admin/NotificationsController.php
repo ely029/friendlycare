@@ -167,13 +167,6 @@ class NotificationsController extends Controller
         return redirect()->action('Admin\NotificationsController@index');
     }
 
-    private function runPushNotification($request)
-    {
-        if ($request['date_string'] <= strtotime(date('Y-m-d'))) {
-            $this->pushNotification();
-        }
-    }
-
     private function pushNotification()
     {
         $user = DB::table('users')->select('fcm_notification_key')->where('fcm_notification_key', '<>', null)->get();
