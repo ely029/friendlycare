@@ -181,7 +181,7 @@ class NotificationsController extends Controller
         return 0;
     }
 
-    public function bobo($id)
+    public function scheduledEvents($id)
     {
         $getBoolean = DB::table('events_notification')->select('date_time_string')->where('date_string', '<>', null)->orderBy('id', 'desc')->where('schedule', 0)->pluck('date_string');
         if (strtotime(Carbon::now()->toDateTimeString()) >= $getBoolean[0]) {
