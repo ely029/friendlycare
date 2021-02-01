@@ -28,6 +28,16 @@ $('document').ready(function(){
     });
 });
 </script>
+@if(Route::currentRouteName() == 'providerCreateThirdPage')
+<script type="text/javascript">
+$('document').ready(function(){
+    $('#back-provider-page').click(function(e){
+    e.preventDefault();
+    window.history.back();
+   });
+});
+</script>
+@endif
 @if(Route::currentRouteName() == 'provider.reviews')
 @foreach($details as $detail)
 <script type="text/javascript">
@@ -142,6 +152,10 @@ $('document').ready(function(){
               $('#pic_url').attr('value', response);
          }
       });
+   });
+   $('#back-provider-page').click(function(e){
+    e.preventDefault();
+    window.location.href = "{{ route('providerManagement')}}";
    });
 });
 </script>
@@ -276,6 +290,11 @@ $(function(){
                 });
             }
         });
+
+        $('#back-provider-page').click(function(e){
+    e.preventDefault();
+    window.history.back();
+   });
 });
 </script>
 @endif

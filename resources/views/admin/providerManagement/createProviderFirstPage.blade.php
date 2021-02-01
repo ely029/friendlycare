@@ -83,7 +83,7 @@
         </div>
     </div>
     <div class="form__button form__button--steps">
-        <button class="button" >Back</button>
+        <button class="button" id="back-provider-page" >Back</button>
         <div class="steps">
         <ul class="steps__list">
             <li class="steps__item active"></li>
