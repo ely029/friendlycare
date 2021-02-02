@@ -181,6 +181,6 @@ class Booking extends Model
     {
         return DB::table('booking_time')
             ->leftJoin('booking', 'booking.id', 'booking_time.booking_id')
-            ->select('booking_time.id')->where('booking.clinic_id', $clinic_id)->where('booking.time_slot', $obj['time'][0])->count();
+            ->select('booking_time.id')->where('booking.clinic_id', $clinic_id)->where('booking.time_slot', $obj['date'][0])->count();
     }
 }
