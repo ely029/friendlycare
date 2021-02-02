@@ -33,7 +33,6 @@ class Booking extends Model
             ->join('users', 'users.id', 'booking.patient_id')
             ->join('booking_time', 'booking_time.booking_id', 'booking.id')
             ->select('users.id as user_id', 'booking.is_read', 'booking.id as booking_id', 'users.name', 'family_plan_type_subcategory.name as service_name', 'booking_time.time_slot', 'booking.status', 'booking.time_slot as date_booked')
-            ->where('booking.status', 6)
             ->where('booking.clinic_id', $clinic_id)
             ->where('booking.is_approved', 1)
             ->get();
