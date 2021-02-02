@@ -647,7 +647,7 @@ class BookingController extends Controller
         if ($checkBooking >= $getSlot[0]) {
             return response()->json('The time you choose are already full. please choose another time.', 422);
         }
-        $this->createBookingTime($id, $getDetails, $obj);
+        $this->createBookingTime($id, $obj);
         return response([
             'response' => 'Booking Created Succesfully',
         ], 200);
