@@ -266,7 +266,7 @@ class BookingController extends Controller
             ->orderBy('id', 'desc')
             ->pluck('clinic_id');
 
-        return $this->checkPatientCount($id, $getDetails, $getClinicId, $obj);
+        return $this->checkPatientCount($id, $getClinicId, $obj);
     }
 
     public function selectedClinic($id)
@@ -638,7 +638,7 @@ class BookingController extends Controller
         }
     }
 
-    private function checkPatientCount($id, $getDetails, $getClinicId, $obj)
+    private function checkPatientCount($id, $getClinicId, $obj)
     {
         $booking = new Booking();
         $timeSlot = new PatientTimeSlot();
