@@ -648,14 +648,10 @@ class BookingController extends Controller
 
     private function createBookingTime($id, $obj)
     {
-        for ($eee = 0; $eee <= 100; $eee++) {
-            if (isset($obj['date'][$eee])) {
-                Booking::create([
-                    'patient_id' => $id,
-                    'time_slot' => $obj['date'][$eee],
-                ]);
-            }
-        }
+        Booking::create([
+            'patient_id' => $id,
+            'time_slot' => $obj['date'][0],
+        ]);
     }
 
     private function checkNoShow($clinic, $endTime)
