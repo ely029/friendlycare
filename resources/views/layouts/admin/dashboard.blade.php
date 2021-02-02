@@ -157,7 +157,7 @@ $('document').ready(function(){
   previewNode.parentNode.removeChild(previewNode);
     $("#dropzoneDragArea").dropzone({
         url: "{{ route('ads.uploadImage')}}",
-        maxFiles: 10,
+        maxFiles: 1,
         acceptedFiles: "image/*",
         thumbnailWidth: 300,
         thumbnailHeight: 100,
@@ -231,7 +231,7 @@ $('document').ready(function(){
    $("#dropzoneDragArea").dropzone({
         url: "{{ route('familyPlanningMethod.updateGalleryUpload')}}",
         data: {id: $("#id").val(), },
-        maxFiles: 10,
+        maxFiles: 5,
         uploadMultiple: true,
         thumbnailWidth: 80,
         thumbnailHeight: 60,
@@ -267,7 +267,7 @@ $('document').ready(function(){
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
-        maxFiles: 10,
+        maxFiles: 5,
         uploadMultiple: true,
         thumbnailWidth: 80,
         thumbnailHeight: 60,
@@ -297,7 +297,7 @@ $(function(){
     $("#dropzoneDragArea1").dropzone({
         url: "{{ route('provider.galleryUpload')}}",
         data: {id: $("#id").val(), },
-        maxFiles: 10,
+        maxFiles: 5,
         thumbnailWidth: 80,
         thumbnailHeight: 60,
         uploadMultiple: true,
@@ -336,7 +336,7 @@ $(function(){
     $("#dropzoneDragArea").dropzone({
         url: "{{ route('provider.galleryUpload')}}",
         data: {id: $("#clinic_id").val(), },
-        maxFiles: 10,
+        maxFiles: 5,
         thumbnailWidth: 80,
         thumbnailHeight: 60,
         uploadMultiple: true,

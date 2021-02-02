@@ -41,7 +41,7 @@ class FamilyPlanningMethodController extends Controller
     {
         $request = request()->all();
         $validator = \Validator::make(request()->all(), [
-            'name' => 'required|string|max:255|unique:family_plan_type_subcategory',
+            'name' => 'required|string',
             'percent_effective' => 'required|numeric',
             'typical_validity' => 'required|numeric',
         ]);

@@ -51,11 +51,11 @@ class BookingController extends Controller
             ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
             ->groupBy(['family_plan_type_subcategory.name'])
             ->get();
-        $confirmed = DB::table('booking')->select('id')->Where('service_id', $request['service_id'] ?? null)->where('status', 1)->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])->count();
-        $reschedule = DB::table('booking')->select('id')->Where('service_id', $request['service_id'] ?? null)->where('status', 2)->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])->count();
-        $cancelled = DB::table('booking')->select('id')->Where('service_id', $request['service_id'] ?? null)->where('status', 3)->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])->count();
-        $complete = DB::table('booking')->select('id')->Where('service_id', $request['service_id'] ?? null)->where('status', 4)->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])->count();
-        $noShow = DB::table('booking')->select('id')->Where('service_id', $request['service_id'] ?? null)->where('status', 5)->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])->count();
+        $confirmed = DB::table('booking')->select('id')->where('clinic_id', $request['clinic_id'])->Where('service_id', $request['service_id'] ?? null)->where('status', 1)->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])->count();
+        $reschedule = DB::table('booking')->select('id')->where('clinic_id', $request['clinic_id'])->Where('service_id', $request['service_id'] ?? null)->where('status', 2)->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])->count();
+        $cancelled = DB::table('booking')->select('id')->where('clinic_id', $request['clinic_id'])->Where('service_id', $request['service_id'] ?? null)->where('status', 3)->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])->count();
+        $complete = DB::table('booking')->select('id')->where('clinic_id', $request['clinic_id'])->Where('service_id', $request['service_id'] ?? null)->where('status', 4)->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])->count();
+        $noShow = DB::table('booking')->select('id')->where('clinic_id', $request['clinic_id'])->Where('service_id', $request['service_id'] ?? null)->where('status', 5)->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])->count();
         $provider = DB::table('clinics')
             ->select('clinics.id', 'clinics.clinic_name')
             ->where('clinics.email', '<>', 'null')
