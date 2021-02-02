@@ -193,7 +193,6 @@ class Booking extends Model
                     ->where('status', 1)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
 
             case $request['clinic_id'] !== null && $request['service_id'] === null:
                 return DB::table('booking')
@@ -202,7 +201,6 @@ class Booking extends Model
                     ->where('status', 1)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
 
             case $request['clinic_id'] === null && $request['service_id'] !== null:
                 return DB::table('booking')
@@ -211,7 +209,6 @@ class Booking extends Model
                     ->where('status', 1)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
 
             case $request['clinic_id'] !== null && $request['service_id'] !== null:
                 return DB::table('booking')
@@ -221,7 +218,6 @@ class Booking extends Model
                     ->where('status', 1)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
         }
     }
 
@@ -234,7 +230,6 @@ class Booking extends Model
                     ->where('status', 2)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
 
             case $request['clinic_id'] !== null && $request['service_id'] === null:
                 return DB::table('booking')
@@ -243,7 +238,6 @@ class Booking extends Model
                     ->where('status', 2)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
 
             case $request['clinic_id'] === null && $request['service_id'] !== null:
                 return DB::table('booking')
@@ -252,7 +246,6 @@ class Booking extends Model
                     ->where('status', 2)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
 
             case $request['clinic_id'] !== null && $request['service_id'] !== null:
                 return DB::table('booking')
@@ -262,7 +255,6 @@ class Booking extends Model
                     ->where('status', 2)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
         }
     }
 
@@ -275,7 +267,6 @@ class Booking extends Model
                     ->where('status', 3)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
 
             case $request['clinic_id'] !== null && $request['service_id'] === null:
                 return DB::table('booking')
@@ -284,7 +275,6 @@ class Booking extends Model
                     ->where('status', 3)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
 
             case $request['clinic_id'] === null && $request['service_id'] !== null:
                 return DB::table('booking')
@@ -293,7 +283,6 @@ class Booking extends Model
                     ->where('status', 3)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
 
             case $request['clinic_id'] !== null && $request['service_id'] !== null:
                 return DB::table('booking')
@@ -303,7 +292,6 @@ class Booking extends Model
                     ->where('status', 3)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
         }
     }
 
@@ -316,7 +304,6 @@ class Booking extends Model
                     ->where('status', 4)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
 
             case $request['clinic_id'] !== null && $request['service_id'] === null:
                 return DB::table('booking')
@@ -325,7 +312,6 @@ class Booking extends Model
                     ->where('status', 4)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
 
             case $request['clinic_id'] === null && $request['service_id'] !== null:
                 return DB::table('booking')
@@ -334,7 +320,6 @@ class Booking extends Model
                     ->where('status', 4)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
 
             case $request['clinic_id'] !== null && $request['service_id'] !== null:
                 return DB::table('booking')
@@ -344,7 +329,6 @@ class Booking extends Model
                     ->where('status', 4)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
         }
     }
 
@@ -357,7 +341,6 @@ class Booking extends Model
                     ->where('status', 5)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
 
             case $request['clinic_id'] !== null && $request['service_id'] === null:
                 return DB::table('booking')
@@ -366,7 +349,6 @@ class Booking extends Model
                     ->where('status', 5)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
 
             case $request['clinic_id'] === null && $request['service_id'] !== null:
                 return DB::table('booking')
@@ -375,7 +357,6 @@ class Booking extends Model
                     ->where('status', 5)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
 
             case $request['clinic_id'] !== null && $request['service_id'] !== null:
                 return DB::table('booking')
@@ -385,7 +366,6 @@ class Booking extends Model
                     ->where('status', 5)
                     ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
                     ->count();
-            break;
         }
     }
 

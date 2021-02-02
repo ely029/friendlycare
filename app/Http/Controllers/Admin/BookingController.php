@@ -39,7 +39,7 @@ class BookingController extends Controller
         }
         $dateFrom = date('Y-m-d', strtotime($request['date-from']));
         $dateTo = date('Y-m-d', strtotime($request['date-to']));
-        $booking->displayCountPatient($request, $dateFrom, $dateTo);
+        $this->displayDetails($request, $dateFrom, $dateTo);
         $selected_service = DB::table('family_plan_type_subcategory')->select('id', 'name')->where('id', $request['service_id'])->get();
         $selected_clinic = DB::table('clinics')->select('id', 'clinic_name')->where('id', $request['clinic_id'])->get();
         $selected_status = DB::table('status')->select('id', 'name')->where('id', $request['status'])->get();
@@ -56,8 +56,8 @@ class BookingController extends Controller
         $confirmed = $booking->getConfirmedStatus($request);
         $reschedule = $booking->getRescheduledStatus($request);
         $cancelled = $booking->getCancelledStatus($request);
-        $complete = $booking->CompleteStatus($request);
-        $noShow = $booking->NoShowStatus($request);
+        $complete = $booking->getCompleteStatus($request);
+        $noShow = $booking->getNoShowStatus($request);
         $provider = DB::table('clinics')
             ->select('clinics.id', 'clinics.clinic_name')
             ->where('clinics.email', '<>', 'null')
@@ -65,7 +65,7 @@ class BookingController extends Controller
             ->get();
         $service = DB::table('family_plan_type_subcategory')->select('id', 'name')->where('is_approve', 1)->get();
         $details = $this->displayDetails($request, $dateFrom, $dateTo);
-        $count_patients = $this->displayCountPatient($request, $dateFrom, $dateTo);
+        $count_patients = 0;
         return view('admin.bookings.result', [
             'count_patient' => $count_patients,
             'availed_service' => $availed_service,
