@@ -28,6 +28,51 @@ $('document').ready(function(){
     });
 });
 </script>
+@if(Route::currentRouteName() == 'survey.create')
+<script type="text/javascript">
+$('document').ready(function(){
+   $('#date_from').change(function(){
+      $('#date-display').html($('#date_from').val());
+   });
+   $('#taym').change(function(){
+      $('#time-display').html($('#taym').val());
+   });
+});
+</script>
+@endif
+@if(Route::currentRouteName() == 'ads.create')
+<script type="text/javascript">
+$('document').ready(function(){
+   $('#start_date').change(function(){
+      $('#date-display').html($('#start_date').val());
+   });
+});
+</script>
+@endif
+@if(Route::currentRouteName() == 'patientManagement.filter' || Route::currentRouteName() == 'patientManagement.index')
+<script type="text/javascript">
+$('document').ready(function(){
+    $('.export').on('click', function(eee){
+        eee.preventDefault();
+        var ely = confirm('The reports are already generated');
+        alert($("#start_date").val());
+    if (ely == true) {
+         window.open("{{ route('patientManagement.export')}}?start_date="+$('#start_date').val()+"&end_date="+$("#end_date").val()+"&age="+$("#age").val()+"","_self");
+       }
+   });
+});
+</script>
+@endif
+@if(Route::currentRouteName() == 'familyPlanningMethod.thirdPage' || Route::currentRouteName() == 'familyPlanningMethod.secondPage')
+<script type="text/javascript">
+$('document').ready(function(){
+    $('#back-fpm-page').click(function(e){
+    e.preventDefault();
+    window.history.back();
+   });
+});
+</script>
+@endif
 @if(Route::currentRouteName() == 'providerCreateThirdPage')
 <script type="text/javascript">
 $('document').ready(function(){
@@ -112,7 +157,7 @@ $('document').ready(function(){
   previewNode.parentNode.removeChild(previewNode);
     $("#dropzoneDragArea").dropzone({
         url: "{{ route('ads.uploadImage')}}",
-        maxFiles: 1,
+        maxFiles: 10,
         acceptedFiles: "image/*",
         thumbnailWidth: 300,
         thumbnailHeight: 100,
@@ -186,7 +231,7 @@ $('document').ready(function(){
    $("#dropzoneDragArea").dropzone({
         url: "{{ route('familyPlanningMethod.updateGalleryUpload')}}",
         data: {id: $("#id").val(), },
-        maxFiles: 5,
+        maxFiles: 10,
         uploadMultiple: true,
         thumbnailWidth: 80,
         thumbnailHeight: 60,
@@ -222,7 +267,7 @@ $('document').ready(function(){
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
-        maxFiles: 5,
+        maxFiles: 10,
         uploadMultiple: true,
         thumbnailWidth: 80,
         thumbnailHeight: 60,
@@ -242,19 +287,6 @@ $('document').ready(function(){
 });
 </script>
 @endif
-@if(Route::currentRouteName() == 'patientManagement.index' || Route::currentRouteName() == 'patientManagement.filter' )
-<script type="text/javascript">
-$('document').ready(function(){
-    $('.export_patient_list').on('click', function(eee){
-        eee.preventDefault();
-        var ely = confirm('The reports are already generated');
-    if (ely == true) {
-         window.location.href = "{{ route('patientManagement.export')}}";
-       }
-   });
-});
-</script>
-@endif
 @if(Route::currentRouteName() == 'storeFirstPage')
 <script type="text/javascript">
 $(function(){
@@ -265,7 +297,7 @@ $(function(){
     $("#dropzoneDragArea1").dropzone({
         url: "{{ route('provider.galleryUpload')}}",
         data: {id: $("#id").val(), },
-        maxFiles: 5,
+        maxFiles: 10,
         thumbnailWidth: 80,
         thumbnailHeight: 60,
         uploadMultiple: true,
@@ -304,7 +336,7 @@ $(function(){
     $("#dropzoneDragArea").dropzone({
         url: "{{ route('provider.galleryUpload')}}",
         data: {id: $("#clinic_id").val(), },
-        maxFiles: 5,
+        maxFiles: 10,
         thumbnailWidth: 80,
         thumbnailHeight: 60,
         uploadMultiple: true,

@@ -249,4 +249,16 @@ class UserManagementController extends Controller
             return view('admin.userManagement.index', ['admin' => $user]);
         }
     }
+
+    public function emailResetPassword($id)
+    {
+        $users = DB::table('users')->select('id')->where('id', $id)->pluck('id');
+        $getEmail = DB::table('users')->select('email')->where('id', $id)->pluck('email');
+        Mail::send('email.patient.account-reset', ['users' => $users[0]], function ($mail) use ($getEmail) {
+            $mail->from('no-reply@friendlycare.com');
+            $mail->to($getEmail[0], 'Staff')->subject('Reset Password');
+        });
+
+        return redirect('/user/list');
+    }
 }

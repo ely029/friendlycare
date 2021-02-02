@@ -70,8 +70,9 @@ class PatientManagementController extends Controller
 
     public function export()
     {
+        $request = request()->all();
         $fileName = 'Patients-List.csv';
-        return Excel::download(new PatientListExport(), $fileName);
+        return Excel::download(new PatientListExport($request['start_date'], $request['end_date'], $request['age']), $fileName);
     }
 
     public function filter()
@@ -98,6 +99,9 @@ class PatientManagementController extends Controller
                 ->where('users.age', '>=', 20)
                 ->get();
         }
-        return view('admin.patientManagement.filter', ['details' => $details]);
+        $age = $request['age-range'];
+        $dateFrom = $request['date-from'];
+        $dateTo = $request['date-to'];
+        return view('admin.patientManagement.filter', ['details' => $details, 'age' => $age, 'dateFrom' => $dateFrom, 'dateTo' => $dateTo]);
     }
 }

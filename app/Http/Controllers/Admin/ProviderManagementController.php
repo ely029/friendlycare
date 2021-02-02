@@ -436,8 +436,8 @@ class ProviderManagementController extends Controller
         $request = request()->all();
         $methods = new FamilyPlanTypeSubcategories();
         $validator = \Validator::make(request()->all(), [
-            'paid_services' => 'required',
-            'modern' => 'required',
+            'available_service' => 'required',
+            'paid' => 'required',
         ]);
         $request['role_id'] = 2;
         if ($validator->fails()) {
@@ -464,9 +464,9 @@ class ProviderManagementController extends Controller
         }
 
         for ($modern = 0;$modern <= 1000;$modern++) {
-            if (isset($request['modern'][$modern])) {
+            if (isset($request['available_service'][$modern])) {
                 ClinicService::create([
-                    'service_id' => $request['modern'][$modern],
+                    'service_id' => $request['available_service'][$modern],
                     'clinic_id' => session('id'),
                     'is_checked' => 1,
                 ]);

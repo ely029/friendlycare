@@ -19,9 +19,9 @@
             <ul class="form__group form__group--editMethod">
               <li class="form__group-item">
                 <h2 class="section__heading">Date</h2>
-                <div class="form__content"><input class="form__input" name="date_from" type="date" placeholder="Start date*" required /><label class="form__label">Start date*</label></div>
+                <div class="form__content"><input class="form__input" name="date_from" id="date_from" type="date" placeholder="Start date*" required /><label class="form__label">Start date*</label></div>
                 <div class="form__content"><input class="form__input" name="date_to" type="date" placeholder="End date*" required /><label class="form__label">End date*</label></div>
-                <div class="form__content"><input class="form__input" name="time" type="time" placeholder="Time*" required /><label class="form__label">Time*</label></div>
+                <div class="form__content"><input class="form__input" name="time" id="taym" type="time" placeholder="Time*" required /><label class="form__label">Time*</label></div>
               </li>
               <li class="form__group-item">
                 <h2 class="section__heading">Content</h2>
@@ -37,7 +37,7 @@
               <div class="modal__container">
                 <div class="modal__box">
                   <h2 class="modal__title">Success!</h2>
-                  <p class="modal__text">Your message will be sent on (start-date), (time).</p>
+                  <p class="modal__text">Your message will be sent on <span id="date-display"></span>, <span id="time-display"></span>.</p>
                   <div class="modal__button modal__button--center"><input class="button button--medium" value="Confirm" type="submit"></div>
                 </div>
               </div>

@@ -41,7 +41,7 @@
               <div class="modal__box">
                 <h2 class="modal__title">Reset password</h2>
                 <p class="modal__text">An email will be sent with instructions to reset the password to the account holder. Are you sure you want to reset the password?</p>
-                <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><button class="button button--medium" type="button">Reset password</button></div>
+                <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><a class="button button--medium" href="{{ route('userManagement.emailResetpassword', $user->id)}}" type="button">Reset password</a></div>
               </div>
             </div>
           </div>
@@ -56,26 +56,7 @@
                 </div>
               </div>
             </div>
-          <!-- <div class="modal fade" id="confirmCreateFPM" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    You are about to delete the user. Proceed?
-                                </div>
-                                <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <a href="{{ route('deleteUser', $user->id)}}" class="btn btn-success">Delete Account</a>
-                                </div>
-                        </div>
-                    </div>
-             </div>
-        </div> -->
+
       @endforeach
       </div>
 </div>

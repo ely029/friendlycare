@@ -32,10 +32,10 @@
                     <form class="form form--patient" method="POST" action="{{ route('patientManagement.filter') }}">
                       @csrf
                       <div class="form__inline">
-                        <div class="form__content"><input name="date-from" class="form__input form__input--border" type="date" placeholder="Date from" /></div>
-                        <div class="form__content"><input name="date-to" class="form__input form__input--border" type="date" placeholder="Date to" /></div>
+                        <div class="form__content"><input id="start_date" name="date-from" class="form__input form__input--border" type="date" placeholder="Date from" /></div>
+                        <div class="form__content"><input id="end_date" name="date-to" class="form__input form__input--border" type="date" placeholder="Date to" /></div>
                         <div class="form__content">
-                          <select name="age-range" class="form__input form__input--select form__input--border form__input--border__age">
+                          <select name="age-range" id="age" class="form__input form__input--select form__input--border form__input--border__age">
                             <option disabled selected>Select age range</option>
                             <option value="1">19 years old and below</option>
                             <option value="2">20 years old and above</option>
@@ -48,7 +48,7 @@
                 </li>
               </ul>
             </div>
-            <a class="button button--filter button--filter__patient export_patient_list">Export patient list</a>
+            <a class="button export button--filter button--filter__patient export_patient_list">Export patient list</a>
           </div>
           <table class="table" id="noSearch">
             <thead>

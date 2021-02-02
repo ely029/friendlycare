@@ -22,7 +22,7 @@
           <div class="form__content"><input name="company_name" class="form__input" type="text" placeholder="Company name" /><label class="form__label">Company name</label></div>
           <div class="form__content"><input name="title" class="form__input" type="text" placeholder="Title" /><label class="form__label">Title</label></div>
           <div class="form__content"><input name="ad_link" class="form__input" type="text" placeholder="Ad link" /><label class="form__label">Ad link</label></div>
-          <div class="form__content"><input name="start_date" class="form__input" type="date" placeholder="Start date" /><label class="form__label">Start date</label></div>
+          <div class="form__content"><input name="start_date" class="form__input" id="start_date" type="date" placeholder="Start date" /><label class="form__label">Start date</label></div>
           <div class="form__content"><input name="end_date" class="form__input" type="date" placeholder="End date" /><label class="form__label">End date</label></div>
         </li>
         <li class="form__group-item">
@@ -51,7 +51,7 @@
       <div class="modal__container">
         <div class="modal__box">
           <h2 class="modal__title">Success!</h2>
-          <p class="modal__text">Your ad will be displayed on Start date.</p>
+          <p class="modal__text">Your ad will be displayed on <span id="date-display"></span>.</p>
           <div class="modal__button modal__button--center"><input class="button button--medium" type="submit" value="Confirm" /></div>
         </div>
       </div>
