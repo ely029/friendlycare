@@ -183,4 +183,290 @@ class Booking extends Model
             ->leftJoin('booking', 'booking.id', 'booking_time.booking_id')
             ->select('booking_time.id')->where('booking.clinic_id', $clinic_id)->where('booking.time_slot', $obj['date'][0])->count();
     }
+
+    public function getConfirmedStatus($request)
+    {
+        switch (true) {
+            case $request['clinic_id'] === null && $request['service_id'] === null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('status', 1)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+
+            case $request['clinic_id'] !== null && $request['service_id'] === null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('clinic_id', $request['clinic_id'])
+                    ->where('status', 1)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+
+            case $request['clinic_id'] === null && $request['service_id'] !== null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('service_id', $request['service_id'])
+                    ->where('status', 1)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+
+            case $request['clinic_id'] !== null && $request['service_id'] !== null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('service_id', $request['service_id'])
+                    ->where('clinic_id', $request['clinic_id'])
+                    ->where('status', 1)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+        }
+    }
+
+    public function getRescheduledStatus($request)
+    {
+        switch (true) {
+            case $request['clinic_id'] === null && $request['service_id'] === null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('status', 2)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+
+            case $request['clinic_id'] !== null && $request['service_id'] === null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('clinic_id', $request['clinic_id'])
+                    ->where('status', 2)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+
+            case $request['clinic_id'] === null && $request['service_id'] !== null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('service_id', $request['service_id'])
+                    ->where('status', 2)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+
+            case $request['clinic_id'] !== null && $request['service_id'] !== null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('service_id', $request['service_id'])
+                    ->where('clinic_id', $request['clinic_id'])
+                    ->where('status', 2)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+        }
+    }
+
+    public function getCancelledStatus($request)
+    {
+        switch (true) {
+            case $request['clinic_id'] === null && $request['service_id'] === null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('status', 3)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+
+            case $request['clinic_id'] !== null && $request['service_id'] === null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('clinic_id', $request['clinic_id'])
+                    ->where('status', 3)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+
+            case $request['clinic_id'] === null && $request['service_id'] !== null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('service_id', $request['service_id'])
+                    ->where('status', 3)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+
+            case $request['clinic_id'] !== null && $request['service_id'] !== null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('service_id', $request['service_id'])
+                    ->where('clinic_id', $request['clinic_id'])
+                    ->where('status', 3)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+        }
+    }
+
+    public function getCompleteStatus($request)
+    {
+        switch (true) {
+            case $request['clinic_id'] === null && $request['service_id'] === null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('status', 4)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+
+            case $request['clinic_id'] !== null && $request['service_id'] === null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('clinic_id', $request['clinic_id'])
+                    ->where('status', 4)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+
+            case $request['clinic_id'] === null && $request['service_id'] !== null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('service_id', $request['service_id'])
+                    ->where('status', 4)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+
+            case $request['clinic_id'] !== null && $request['service_id'] !== null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('service_id', $request['service_id'])
+                    ->where('clinic_id', $request['clinic_id'])
+                    ->where('status', 4)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+        }
+    }
+
+    public function getNoShowStatus($request)
+    {
+        switch (true) {
+            case $request['clinic_id'] === null && $request['service_id'] === null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('status', 5)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+
+            case $request['clinic_id'] !== null && $request['service_id'] === null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('clinic_id', $request['clinic_id'])
+                    ->where('status', 5)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+
+            case $request['clinic_id'] === null && $request['service_id'] !== null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('service_id', $request['service_id'])
+                    ->where('status', 5)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+
+            case $request['clinic_id'] !== null && $request['service_id'] !== null:
+                return DB::table('booking')
+                    ->select('id')
+                    ->where('service_id', $request['service_id'])
+                    ->where('clinic_id', $request['clinic_id'])
+                    ->where('status', 5)
+                    ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+                    ->count();
+            break;
+        }
+    }
+
+    public function displayCountFirstScenario($dateFrom, $dateTo)
+    {
+        return DB::table('booking')
+            ->leftJoin('users', 'users.id', 'booking.patient_id')
+            ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->leftJoin('clinics', 'clinics.id', 'booking.clinic_id')
+            ->leftJoin('status', 'booking.status', 'status.id')
+            ->select('users.name', 'family_plan_type_subcategory.name as service_name', 'clinics.clinic_name', 'status.name as status', 'booking.time_slot as booked_date')
+            ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
+            ->get();
+    }
+
+    public function displayCountSecondScenario($request, $dateFrom, $dateTo)
+    {
+        return DB::table('booking')
+            ->leftJoin('users', 'users.id', 'booking.patient_id')
+            ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->leftJoin('clinics', 'clinics.id', 'booking.clinic_id')
+            ->leftJoin('status', 'booking.status', 'status.id')
+            ->where('booking.status', $request['status'])
+            ->select('users.name', 'family_plan_type_subcategory.name as service_name', 'clinics.clinic_name', 'status.name as status', 'booking.time_slot as booked_date')
+            ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
+            ->get();
+    }
+
+    public function displayCountThirdScenario($request, $dateFrom, $dateTo)
+    {
+        return DB::table('booking')
+            ->leftJoin('users', 'users.id', 'booking.patient_id')
+            ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->leftJoin('clinics', 'clinics.id', 'booking.clinic_id')
+            ->leftJoin('status', 'booking.status', 'status.id')
+            ->where('booking.service_id', $request['service_id'])
+            ->where('booking.status', $request['status'])
+            ->select('users.name', 'family_plan_type_subcategory.name as service_name', 'clinics.clinic_name', 'status.name as status', 'booking.time_slot as booked_date')
+            ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
+            ->get();
+    }
+
+    public function displayCountFourthScenario($request, $dateFrom, $dateTo)
+    {
+        return DB::table('booking')
+            ->leftJoin('users', 'users.id', 'booking.patient_id')
+            ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->leftJoin('clinics', 'clinics.id', 'booking.clinic_id')
+            ->leftJoin('status', 'booking.status', 'status.id')
+            ->where('booking.clinic_id', $request['clinic_id'])
+            ->where('booking.status', $request['status'])
+            ->select('users.name', 'family_plan_type_subcategory.name as service_name', 'clinics.clinic_name', 'status.name as status', 'booking.time_slot as booked_date')
+            ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
+            ->get();
+    }
+
+    public function displayCountFifthScenario($request, $dateFrom, $dateTo)
+    {
+        return DB::table('booking')
+            ->leftJoin('users', 'users.id', 'booking.patient_id')
+            ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->leftJoin('clinics', 'clinics.id', 'booking.clinic_id')
+            ->leftJoin('status', 'booking.status', 'status.id')
+            ->where('booking.clinic_id', $request['clinic_id'])
+            ->where('booking.service_id', $request['service_id'])
+            ->select('users.name', 'family_plan_type_subcategory.name as service_name', 'clinics.clinic_name', 'status.name as status', 'booking.time_slot as booked_date')
+            ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
+            ->get();
+    }
+
+    public function displayCountSixthScenario($request, $dateFrom, $dateTo)
+    {
+        return DB::table('booking')
+            ->leftJoin('users', 'users.id', 'booking.patient_id')
+            ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->leftJoin('clinics', 'clinics.id', 'booking.clinic_id')
+            ->leftJoin('status', 'booking.status', 'status.id')
+            ->where('booking.status', $request['status'])
+            ->where('booking.service_id', $request['service_id'])
+            ->select('users.name', 'family_plan_type_subcategory.name as service_name', 'clinics.clinic_name', 'status.name as status', 'booking.time_slot as booked_date')
+            ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
+            ->get();
+    }
 }

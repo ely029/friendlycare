@@ -640,6 +640,7 @@ class BookingController extends Controller
         if ($getSlot[0] <= $checkBooking) {
             return response()->json('The time you choose are already full. please choose another time.', 422);
         }
+        DB::update('update booking set time_slot = ? where patient_id = ? order by id desc limit 1', [$obj['date'][0], $id]);
         $this->createBookingTime($id, $obj);
         return response([
             'response' => 'Booking Created Succesfully',
@@ -648,9 +649,17 @@ class BookingController extends Controller
 
     private function createBookingTime($id, $obj)
     {
-        Booking::create([
+        $getDetails = DB::table('booking')
+            ->select('clinic_id', 'service_id', 'id')
+            ->where('patient_id', $id)
+            ->limit(1)
+            ->orderBy('id', 'desc')
+            ->pluck('id');
+
+        BookingTime::create([
             'patient_id' => $id,
-            'time_slot' => $obj['date'][0],
+            'time_slot' => $obj['time'][0],
+            'booking_id' => $getDetails[0],
         ]);
     }
 
