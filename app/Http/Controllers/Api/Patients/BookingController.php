@@ -653,14 +653,13 @@ class BookingController extends Controller
         ], 200);
     }
 
-    private function createBookingTime($id, $getDetails, $obj)
+    private function createBookingTime($id, $obj)
     {
         for ($eee = 0; $eee <= 100; $eee++) {
-            if (isset($obj['time'][$eee])) {
-                BookingTime::create([
+            if (isset($obj['date'][$eee])) {
+                Booking::create([
                     'patient_id' => $id,
-                    'booking_id' => $getDetails[0],
-                    'time_slot' => $obj['time'][$eee],
+                    'time_slot' => $obj['date'][$eee],
                 ]);
             }
         }
