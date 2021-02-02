@@ -252,13 +252,6 @@ class BookingController extends Controller
     {
         $obj = json_decode($request->getContent(), true);
 
-        $getDetails = DB::table('booking')
-            ->select('id')
-            ->where('patient_id', $id)
-            ->limit(1)
-            ->orderBy('id', 'desc')
-            ->pluck('id');
-
         $getClinicId = DB::table('booking')
             ->select('clinic_id')
             ->where('patient_id', $id)
