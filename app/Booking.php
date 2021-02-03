@@ -334,7 +334,7 @@ class Booking extends Model
     {
         return DB::table('booking')
             ->select('id')
-            ->where('status', 3)
+            ->where('status', 5)
             ->whereBetween('booking.time_slot', [date('Y-m-d', strtotime($request['date-from'])), date('Y-m-d', strtotime($request['date-to']))])
             ->count();
     }
@@ -343,7 +343,7 @@ class Booking extends Model
     {
         return DB::table('booking')
             ->select('id')
-            ->where('status', 3)
+            ->where('status', 5)
             ->where('clinic_id', $request['clinic_id'])
             ->whereBetween('booking.time_slot', [date('Y-m-d', strtotime($request['date-from'])), date('Y-m-d', strtotime($request['date-to']))])
             ->count();
@@ -353,7 +353,36 @@ class Booking extends Model
     {
         return DB::table('booking')
             ->select('id')
-            ->where('status', 3)
+            ->where('status', 5)
+            ->where('service_id', $request['service_id'])
+            ->whereBetween('booking.time_slot', [date('Y-m-d', strtotime($request['date-from'])), date('Y-m-d', strtotime($request['date-to']))])
+            ->count();
+    }
+
+    public function getCompleteCountFirstScenario($request)
+    {
+        return DB::table('booking')
+            ->select('id')
+            ->where('status', 4)
+            ->whereBetween('booking.time_slot', [date('Y-m-d', strtotime($request['date-from'])), date('Y-m-d', strtotime($request['date-to']))])
+            ->count();
+    }
+
+    public function getCompleteCountSecondScenario($request)
+    {
+        return DB::table('booking')
+            ->select('id')
+            ->where('status', 4)
+            ->where('clinic_id', $request['clinic_id'])
+            ->whereBetween('booking.time_slot', [date('Y-m-d', strtotime($request['date-from'])), date('Y-m-d', strtotime($request['date-to']))])
+            ->count();
+    }
+
+    public function getCompleteCountThirdScenario($request)
+    {
+        return DB::table('booking')
+            ->select('id')
+            ->where('status', 4)
             ->where('service_id', $request['service_id'])
             ->whereBetween('booking.time_slot', [date('Y-m-d', strtotime($request['date-from'])), date('Y-m-d', strtotime($request['date-to']))])
             ->count();

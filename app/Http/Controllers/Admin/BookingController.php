@@ -165,15 +165,15 @@ class BookingController extends Controller
     {
         $booking = new Booking();
         if ($request['clinic_id'] === null && $request['service_id'] === null) {
-            return $booking->getCancelledCountFirstScenario($request);
+            return $booking->getCompleteCountFirstScenario($request);
         }
 
         if ($request['clinic_id'] !== null && $request['service_id'] === null) {
-            return $booking->getCancelledCountSecondScenario($request);
+            return $booking->getCompleteCountSecondScenario($request);
         }
 
         if ($request['clinic_id'] === null && $request['service_id'] !== null) {
-            return $booking->getCancelledCountThirdScenario($request);
+            return $booking->getCompleteCountThirdScenario($request);
         }
         return DB::table('booking')
             ->select('id')
