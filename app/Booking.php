@@ -240,6 +240,15 @@ class Booking extends Model
             ->count();
     }
 
+    public function countPatientSeventhScenario($request, $dateFrom, $dateTo)
+    {
+        return DB::table('booking')
+            ->select('id')
+            ->where('clinic_id', $request['clinic_id'])
+            ->WhereBetween('time_slot', [$dateFrom, $dateTo])
+            ->count();
+    }
+
     public function getConfirmedCountFirstScenario($request)
     {
         return DB::table('booking')

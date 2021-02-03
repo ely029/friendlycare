@@ -225,6 +225,9 @@ class BookingController extends Controller
         if ($request['clinic_id'] !== null && $request['service_id'] !== null && $request['status'] === null) {
             return $booking->countPatientFifthScenario($request, $dateFrom, $dateTo);
         }
+        if ($request['clinic_id'] !== null && $request['service_id'] === null && $request['status'] === null) {
+            return $booking->countPatientSeventhScenario($request, $dateFrom, $dateTo);
+        }
         if ($request['clinic_id'] !== null && $request['service_id'] !== null && $request['status'] !== null) {
             return $booking->countPatientSixthScenario($request, $dateFrom, $dateTo);
         }
