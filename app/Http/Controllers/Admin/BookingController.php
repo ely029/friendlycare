@@ -251,6 +251,9 @@ class BookingController extends Controller
         if ($request['clinic_id'] !== null && $request['service_id'] !== null && $request['status'] !== null) {
             return $booking->displayCountSixthScenario($request, $dateFrom, $dateTo);
         }
+        if ($request['clinic_id'] !== null && $request['service_id'] === null && $request['status'] === null) {
+            return $booking->displayCountSeventhScenario($request, $dateFrom, $dateTo);
+        }
         return DB::table('booking')
             ->leftJoin('users', 'users.id', 'booking.patient_id')
             ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
