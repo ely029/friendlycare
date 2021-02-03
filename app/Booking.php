@@ -47,7 +47,6 @@ class Booking extends Model
             ->select('users.id as user_id', 'booking.is_read', 'booking.id as booking_id', 'users.name', 'family_plan_type_subcategory.name as service_name', 'booking_time.time_slot', 'booking.status', 'booking.time_slot as date_booked')
             ->where('booking.clinic_id', $clinic_id)
             ->where('booking.time_slot', $date)
-            ->where('booking.is_approved', 1)
             ->where('booking.status', '<>', 6)
             ->get();
     }
@@ -61,7 +60,6 @@ class Booking extends Model
             ->select('users.id as user_id', 'booking.is_read', 'booking.id as booking_id', 'users.name', 'family_plan_type_subcategory.name as service_name', 'booking_time.time_slot', 'booking.status', 'booking.time_slot as date_booked')
             ->where('booking.clinic_id', $clinic_id)
             ->where('booking.status', '<>', 3)
-            ->where('booking.is_approved', 1)
             ->where('booking.time_slot', $date)
             ->get();
     }
@@ -74,7 +72,6 @@ class Booking extends Model
             ->leftJoin('booking_time', 'booking_time.booking_id', 'booking.id')
             ->select('users.id as user_id', 'booking.is_read', 'booking.id as booking_id', 'users.name', 'family_plan_type_subcategory.name as service_name', 'booking_time.time_slot', 'booking.status', 'booking.time_slot as date_booked')
             ->where('booking.clinic_id', $clinic_id)
-            ->where('booking.is_approved', 1)
             ->where('booking.time_slot', $date)
             ->orderBy('booking_time.time_slot')
             ->get();
