@@ -27,7 +27,6 @@ class BookingController extends Controller
     public function results()
     {
         $request = request()->all();
-        $booking = new Booking();
         $validator = \Validator::make(request()->all(), [
             'date-from' => 'required',
             'date-to' => 'required',
@@ -53,11 +52,11 @@ class BookingController extends Controller
             ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
             ->groupBy(['family_plan_type_subcategory.name'])
             ->get();
-        $confirmed = $booking->getConfirmedStatus($request);
-        $reschedule = $booking->getRescheduledStatus($request);
-        $cancelled = $booking->getCancelledStatus($request);
-        $complete = $booking->getCompleteStatus($request);
-        $noShow = $booking->getNoShowStatus($request);
+        $confirmed = $this->getConfirmedStatus($request);
+        $reschedule = $this->getRescheduleStatus($request);
+        $cancelled = $this->getCancelledStatus($request);
+        $complete = $this->getCompleteStatus($request);
+        $noShow = $this->getNoShowStatus($request);
         $provider = DB::table('clinics')
             ->select('clinics.id', 'clinics.clinic_name')
             ->where('clinics.email', '<>', 'null')
@@ -65,7 +64,7 @@ class BookingController extends Controller
             ->get();
         $service = DB::table('family_plan_type_subcategory')->select('id', 'name')->where('is_approve', 1)->get();
         $details = $this->displayDetails($request, $dateFrom, $dateTo);
-        $count_patients = 0;
+        $count_patients = $this->countPatients($request, $dateFrom, $dateTo);
         return view('admin.bookings.result', [
             'count_patient' => $count_patients,
             'availed_service' => $availed_service,
@@ -91,6 +90,144 @@ class BookingController extends Controller
         $dateTo = date('Y-m-d', strtotime($request['date_to']));
         $fileName = 'Admin-Booking-Report-'.$dateFrom.'-to-'.$dateTo.'.csv';
         return Excel::download(new AdminBookingExport($dateFrom ?? '0000-00-00', $dateTo ?? '0000-00-00', $request['clinic'] ?? '0', $request['status'] ?? '0', $request['service'] ?? '0'), $fileName);
+    }
+
+    private function getConfirmedStatus($request)
+    {
+        $booking = new Booking();
+        if ($request['clinic_id'] === null && $request['service_id'] === null) {
+            return $booking->getConfirmedCountFirstScenario($request);
+        }
+
+        if ($request['clinic_id'] !== null && $request['service_id'] === null) {
+            return $booking->getConfirmedCountSecondScenario($request);
+        }
+
+        if ($request['clinic_id'] === null && $request['service_id'] !== null) {
+            return $booking->getConfirmedCountThirdScenario($request);
+        }
+        return DB::table('booking')
+            ->select('id')
+            ->where('status', 1)
+            ->where('clinic_id', $request['clinic_id'])
+            ->where('service_id', $request['service_id'])
+            ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+            ->count();
+    }
+
+    private function getRescheduleStatus($request)
+    {
+        $booking = new Booking();
+        if ($request['clinic_id'] === null && $request['service_id'] === null) {
+            return $booking->getRescheduleCountFirstScenario($request);
+        }
+
+        if ($request['clinic_id'] !== null && $request['service_id'] === null) {
+            return $booking->getRescheduleCountSecondScenario($request);
+        }
+
+        if ($request['clinic_id'] === null && $request['service_id'] !== null) {
+            return $booking->getRescheduleCountThirdScenario($request);
+        }
+        return DB::table('booking')
+            ->select('id')
+            ->where('status', 2)
+            ->where('clinic_id', $request['clinic_id'])
+            ->where('service_id', $request['service_id'])
+            ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+            ->count();
+    }
+
+    private function getCancelledStatus($request)
+    {
+        $booking = new Booking();
+        if ($request['clinic_id'] === null && $request['service_id'] === null) {
+            return $booking->getCancelledCountFirstScenario($request);
+        }
+
+        if ($request['clinic_id'] !== null && $request['service_id'] === null) {
+            return $booking->getCancelledCountSecondScenario($request);
+        }
+
+        if ($request['clinic_id'] === null && $request['service_id'] !== null) {
+            return $booking->getCancelledCountThirdScenario($request);
+        }
+        return DB::table('booking')
+            ->select('id')
+            ->where('status', 3)
+            ->where('clinic_id', $request['clinic_id'])
+            ->where('service_id', $request['service_id'])
+            ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+            ->count();
+    }
+
+    private function getCompleteStatus($request)
+    {
+        $booking = new Booking();
+        if ($request['clinic_id'] === null && $request['service_id'] === null) {
+            return $booking->getCancelledCountFirstScenario($request);
+        }
+
+        if ($request['clinic_id'] !== null && $request['service_id'] === null) {
+            return $booking->getCancelledCountSecondScenario($request);
+        }
+
+        if ($request['clinic_id'] === null && $request['service_id'] !== null) {
+            return $booking->getCancelledCountThirdScenario($request);
+        }
+        return DB::table('booking')
+            ->select('id')
+            ->where('status', 4)
+            ->where('clinic_id', $request['clinic_id'])
+            ->where('service_id', $request['service_id'])
+            ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+            ->count();
+    }
+
+    private function getNoShowStatus($request)
+    {
+        $booking = new Booking();
+        if ($request['clinic_id'] === null && $request['service_id'] === null) {
+            return $booking->getNoShowCountFirstScenario($request);
+        }
+
+        if ($request['clinic_id'] !== null && $request['service_id'] === null) {
+            return $booking->getNoShowCountSecondScenario($request);
+        }
+
+        if ($request['clinic_id'] === null && $request['service_id'] !== null) {
+            return $booking->getNoShowCountThirdScenario($request);
+        }
+        return DB::table('booking')
+            ->select('id')
+            ->where('status', 5)
+            ->where('clinic_id', $request['clinic_id'])
+            ->where('service_id', $request['service_id'])
+            ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+            ->count();
+    }
+
+    private function countPatients($request, $dateFrom, $dateTo)
+    {
+        $booking = new Booking();
+        if ($request['clinic_id'] === null && $request['service_id'] === null && $request['status'] === null) {
+            return $booking->countPatientFirstScenario($dateFrom, $dateTo);
+        }
+        if ($request['clinic_id'] === null && $request['service_id'] === null && $request['status'] !== null) {
+            return $booking->countPatientSecondScenario($request, $dateFrom, $dateTo);
+        }
+        if ($request['clinic_id'] === null && $request['service_id'] !== null && $request['status'] !== null) {
+            return $booking->countPatientThirdScenario($request, $dateFrom, $dateTo);
+        }
+        if ($request['clinic_id'] !== null && $request['service_id'] === null && $request['status'] !== null) {
+            return $booking->countPatientFourthScenario($request, $dateFrom, $dateTo);
+        }
+        if ($request['clinic_id'] !== null && $request['service_id'] !== null && $request['status'] === null) {
+            return $booking->countPatientFifthScenario($request, $dateFrom, $dateTo);
+        }
+        if ($request['clinic_id'] !== null && $request['service_id'] !== null && $request['status'] !== null) {
+            return $booking->countPatientSixthScenario($request, $dateFrom, $dateTo);
+        }
     }
 
     private function displayDetails($request, $dateFrom, $dateTo)
