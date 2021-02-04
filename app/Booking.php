@@ -249,6 +249,15 @@ class Booking extends Model
             ->count();
     }
 
+    public function countPatientEighthScenario($request, $dateFrom, $dateTo)
+    {
+        return DB::table('booking')
+            ->select('id')
+            ->where('service_id', $request['clinic_id'])
+            ->WhereBetween('time_slot', [$dateFrom, $dateTo])
+            ->count();
+    }
+
     public function getConfirmedCountFirstScenario($request)
     {
         return DB::table('booking')
@@ -483,6 +492,19 @@ class Booking extends Model
             ->leftJoin('clinics', 'clinics.id', 'booking.clinic_id')
             ->leftJoin('status', 'booking.status', 'status.id')
             ->where('booking.clinic_id', $request['clinic_id'])
+            ->select('users.name', 'family_plan_type_subcategory.name as service_name', 'clinics.clinic_name', 'status.name as status', 'booking.time_slot as booked_date')
+            ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
+            ->get();
+    }
+
+    public function displayCountEighthScenario($request, $dateFrom, $dateTo)
+    {
+        return DB::table('booking')
+            ->leftJoin('users', 'users.id', 'booking.patient_id')
+            ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->leftJoin('clinics', 'clinics.id', 'booking.clinic_id')
+            ->leftJoin('status', 'booking.status', 'status.id')
+            ->where('service_id', $request['service_id'])
             ->select('users.name', 'family_plan_type_subcategory.name as service_name', 'clinics.clinic_name', 'status.name as status', 'booking.time_slot as booked_date')
             ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
             ->get();
