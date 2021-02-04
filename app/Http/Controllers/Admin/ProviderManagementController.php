@@ -318,43 +318,41 @@ class ProviderManagementController extends Controller
 
     public function pushNotification($id)
     {
-        $getFCMToken = DB::table('users')->select('fcm_notification_key')
+        $users = DB::table('users')->select('fcm_notification_key')
             ->leftJoin('staffs', 'staffs.user_id', 'users.id')
-            ->where('staffs.clinic_id', $id)->pluck('fcm_notification_key');
-        $fcmurl = 'https://fcm.googleapis.com/fcm/send';
-        $token = $getFCMToken[0];
-        $notification = [
-            'title' => 'Provider Information',
-            'body' => 'The Provider information are updated',
-            'icon' => 'myIcon',
-            'sound' => 'defaultSound',
-            'priority' => 'high',
-            'contentAvailable' => true,
-        ];
-
-        $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
-
-        $fcmNotification = [
-            'to' => $token,
-            'notification' => $notification,
-            'data' => $extraNotifications,
-        ];
-
-        $headers = [
-            'Authorization: key='.env('BP_FIREBASE_SERVER_KEY').'',
-            'Content-Type: application/json',
-        ];
-        $chh = curl_init();
-        curl_setopt($chh, CURLOPT_URL, $fcmurl);
-        curl_setopt($chh, CURLOPT_POST, true);
-        curl_setopt($chh, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($chh, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($chh, CURLOPT_SSL_VERIFYPEER, $headers);
-        curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
-        $result = curl_exec($chh);
-        curl_close($chh);
-
-        return $result;
+            ->where('staffs.clinic_id', $id)->get();
+        foreach ($users as $user) {
+            $fcmurl = 'https://fcm.googleapis.com/fcm/send';
+            $token = $user->fcm_notification_key;
+            $notification = [
+                'title' => 'Provider Information',
+                'body' => 'The Provider information are updated',
+                'icon' => 'myIcon',
+                'sound' => 'defaultSound',
+                'priority' => 'high',
+                'contentAvailable' => true,
+            ];
+            $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
+            $fcmNotification = [
+                'to' => $token,
+                'notification' => $notification,
+                'data' => $extraNotifications,
+            ];
+            $headers = [
+                'Authorization: key='.env('BP_FIREBASE_SERVER_KEY').'',
+                'Content-Type: application/json',
+            ];
+            $chh = curl_init();
+            curl_setopt($chh, CURLOPT_URL, $fcmurl);
+            curl_setopt($chh, CURLOPT_POST, true);
+            curl_setopt($chh, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($chh, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($chh, CURLOPT_SSL_VERIFYPEER, $headers);
+            curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
+            $result = curl_exec($chh);
+            curl_close($chh);
+            return $result;
+        }
     }
 
     public function deleteProvider($id)
