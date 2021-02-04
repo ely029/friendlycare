@@ -183,7 +183,7 @@ class NotificationsController extends Controller
 
     public function scheduledEvents($id)
     {
-        $getBoolean1 = DB::table('events_notification')->select('events_display')->pluck('events_display');
+        $getBoolean1 = DB::table('events_notification')->select('events_display')->orderBy('id', 'desc')->pluck('events_display');
         if ($getBoolean1[0] === 0) {
             EventsNotification::where('events_display', 0)->update([
                 'events_display' => '1',
