@@ -83,10 +83,9 @@ class SurveyController extends Controller
     private function pushNotification()
     {
         $user = DB::table('users')->select('fcm_notification_key')->where('fcm_notification_key', '<>', null)->get();
-        $data = json_decode(json_encode($user), true);
-        foreach ($data as $datas) {
+        foreach ($user as $users) {
             $fcmurl = 'https://fcm.googleapis.com/fcm/send';
-            $token = $datas->fcm_notification_key;
+            $token = $users->fcm_notification_key;
             $notification = [
                 'title' => 'Survey Posted',
                 'body' => 'There is a Survey Posted',
