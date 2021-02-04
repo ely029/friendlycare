@@ -27,6 +27,7 @@ class BookingController extends Controller
     public function results()
     {
         $request = request()->all();
+        $booking = new Booking();
         $validator = \Validator::make(request()->all(), [
             'date-from' => 'required',
             'date-to' => 'required',
@@ -42,16 +43,7 @@ class BookingController extends Controller
         $selected_service = DB::table('family_plan_type_subcategory')->select('id', 'name')->where('id', $request['service_id'])->get();
         $selected_clinic = DB::table('clinics')->select('id', 'clinic_name')->where('id', $request['clinic_id'])->get();
         $selected_status = DB::table('status')->select('id', 'name')->where('id', $request['status'])->get();
-        $availed_service = DB::table('booking')
-            ->select('family_plan_type_subcategory.name as service',
-                    DB::raw(' count(booking.id) as services_count'))
-            ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
-            ->where('booking.clinic_id', $request['clinic_id'] ?? null)
-            ->where('booking.service_id', $request['service_id'] ?? null)
-            ->where('booking.status', '<>', 6)
-            ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
-            ->groupBy(['family_plan_type_subcategory.name'])
-            ->get();
+        $availed_service = $booking->getAvailedService($request, $dateFrom, $dateTo);
         $confirmed = $this->getConfirmedStatus($request);
         $reschedule = $this->getRescheduleStatus($request);
         $cancelled = $this->getCancelledStatus($request);

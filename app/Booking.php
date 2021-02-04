@@ -517,4 +517,18 @@ class Booking extends Model
             ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
             ->get();
     }
+
+    public function getAvailedService($request, $dateFrom, $dateTo)
+    {
+        return DB::table('booking')
+            ->select('family_plan_type_subcategory.name as service',
+                    DB::raw(' count(booking.id) as services_count'))
+            ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->where('booking.clinic_id', $request['clinic_id'] ?? null)
+            ->where('booking.service_id', $request['service_id'] ?? null)
+            ->where('booking.status', '<>', 6)
+            ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
+            ->groupBy(['family_plan_type_subcategory.name'])
+            ->get();
+    }
 }
