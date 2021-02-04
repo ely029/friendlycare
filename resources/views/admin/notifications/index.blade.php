@@ -23,7 +23,7 @@
     </ul>
 
     <div class="tabs__details tabs__details--active">
-        <table class="table" id="notificationsTable">
+        <table class="table notificationsTable">
             <thead>
                 <tr>
                 <th class="table__head">Date</th>
@@ -44,7 +44,7 @@
     </div>
 
     <div class="tabs__details">
-        <table class="table" id="notificationsTable">
+        <table class="table notificationsTable">
             <thead>
                 <tr>
                 <th class="table__head">Date</th>
@@ -65,7 +65,7 @@
     </div>
 
     <div class="tabs__details">
-        <table class="table" id="notificationsTable">
+        <table class="table notificationsTable">
             <thead>
                 <tr>
                 <th class="table__head">Date</th>
@@ -86,7 +86,7 @@
     </div>
 
     <div class="tabs__details">
-        <table class="table" id="notificationsTable">
+        <table class="table notificationsTable">
             <thead>
                 <tr>
                 <th class="table__head">Date</th>
