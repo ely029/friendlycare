@@ -253,7 +253,7 @@ class Booking extends Model
     {
         return DB::table('booking')
             ->select('id')
-            ->where('service_id', $request['clinic_id'])
+            ->where('service_id', $request['service_id'])
             ->WhereBetween('time_slot', [$dateFrom, $dateTo])
             ->count();
     }
