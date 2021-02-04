@@ -185,6 +185,7 @@ class Booking extends Model
     {
         return DB::table('booking')
             ->select('id')
+            ->where('status', '<>', null)
             ->where('status', '<>', 6)
             ->WhereBetween('time_slot', [$dateFrom, $dateTo])
             ->count();
@@ -194,6 +195,7 @@ class Booking extends Model
     {
         return DB::table('booking')
             ->select('id')
+            ->where('status', '<>', null)
             ->where('status', $request['status'])
             ->WhereBetween('time_slot', [$dateFrom, $dateTo])
             ->count();
@@ -203,6 +205,7 @@ class Booking extends Model
     {
         return DB::table('booking')
             ->select('id')
+            ->where('status', '<>', null)
             ->where('status', $request['status'])
             ->where('service_id', $request['service_id'])
             ->WhereBetween('time_slot', [$dateFrom, $dateTo])
@@ -213,6 +216,7 @@ class Booking extends Model
     {
         return DB::table('booking')
             ->select('id')
+            ->where('status', '<>', null)
             ->where('status', $request['status'])
             ->where('clinic_id', $request['clinic_id'])
             ->WhereBetween('time_slot', [$dateFrom, $dateTo])
@@ -223,6 +227,7 @@ class Booking extends Model
     {
         return DB::table('booking')
             ->select('id')
+            ->where('status', '<>', null)
             ->where('service_id', $request['service_id'])
             ->where('clinic_id', $request['clinic_id'])
             ->WhereBetween('time_slot', [$dateFrom, $dateTo])
@@ -233,6 +238,7 @@ class Booking extends Model
     {
         return DB::table('booking')
             ->select('id')
+            ->where('status', '<>', null)
             ->where('service_id', $request['service_id'])
             ->where('clinic_id', $request['clinic_id'])
             ->where('status', $request['status'])
@@ -244,6 +250,7 @@ class Booking extends Model
     {
         return DB::table('booking')
             ->select('id')
+            ->where('status', '<>', null)
             ->where('clinic_id', $request['clinic_id'])
             ->WhereBetween('time_slot', [$dateFrom, $dateTo])
             ->count();
@@ -253,6 +260,7 @@ class Booking extends Model
     {
         return DB::table('booking')
             ->select('id')
+            ->where('status', '<>', null)
             ->where('service_id', $request['service_id'])
             ->WhereBetween('time_slot', [$dateFrom, $dateTo])
             ->count();
