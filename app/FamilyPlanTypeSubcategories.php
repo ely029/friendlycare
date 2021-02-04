@@ -38,4 +38,9 @@ class FamilyPlanTypeSubcategories extends Model
             $query->select('service_id')->from('paid_services')->where('clinic_id', $id);
         })->get();
     }
+
+    public function getSelectedService($request)
+    {
+        return DB::table('family_plan_type_subcategory')->select('id', 'name')->where('id', $request['service_id'])->get();
+    }
 }

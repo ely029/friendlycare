@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Clinics extends Model
 {
@@ -44,5 +45,14 @@ class Clinics extends Model
     public function staff()
     {
         return $this->belongsTo('App\Staffs');
+    }
+
+    public function getProvider()
+    {
+        return DB::table('clinics')
+            ->select('clinics.id', 'clinics.clinic_name')
+            ->where('clinics.email', '<>', 'null')
+            ->where('clinics.is_approve', '<>', 0)
+            ->get();
     }
 }

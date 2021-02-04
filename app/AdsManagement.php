@@ -61,4 +61,13 @@ class AdsManagement extends Model
             ->whereBetween('ads_management.created_at', [$dateFrom, $dateTo])
             ->get();
     }
+
+    public function getDisplayDetails($dateNow)
+    {
+        return DB::table('ads_management')
+            ->select('image_url', 'ad_link', 'id')
+            ->where('start_date_string', '<=', $dateNow)
+            ->where('end_date_string', '>=', $dateNow)
+            ->get();
+    }
 }

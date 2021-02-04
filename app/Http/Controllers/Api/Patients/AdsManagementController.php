@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\API\Patients;
 
+use App\AdsManagement;
 use App\ClickAds;
 use App\Http\Controllers\Controller;
 use App\ViewAds;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AdsManagementController extends Controller
@@ -15,11 +15,8 @@ class AdsManagementController extends Controller
     public function display()
     {
         $dateNow = strtotime(date('Y-m-d'));
-        return DB::table('ads_management')
-            ->select('image_url', 'ad_link', 'id')
-            ->where('start_date_string', '<=', $dateNow)
-            ->where('end_date_string', '>=', $dateNow)
-            ->get();
+        $ads = new AdsManagement();
+        return $ads->getDisplayDetails($dateNow);
     }
 
     public function clickAds($id)

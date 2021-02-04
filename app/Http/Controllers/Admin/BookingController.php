@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Booking;
+use App\Clinics;
 use App\Exports\AdminBookingExport;
 use App\FamilyPlanTypeSubcategories;
 use App\Http\Controllers\Controller;
@@ -28,6 +29,8 @@ class BookingController extends Controller
     {
         $request = request()->all();
         $booking = new Booking();
+        $clinic = new Clinics();
+        $fpm = new FamilyPlanTypeSubcategories();
         $validator = \Validator::make(request()->all(), [
             'date-from' => 'required',
             'date-to' => 'required',
@@ -40,7 +43,7 @@ class BookingController extends Controller
         $dateFrom = date('Y-m-d', strtotime($request['date-from']));
         $dateTo = date('Y-m-d', strtotime($request['date-to']));
         $this->displayDetails($request, $dateFrom, $dateTo);
-        $selected_service = DB::table('family_plan_type_subcategory')->select('id', 'name')->where('id', $request['service_id'])->get();
+        $selected_service = $fpm->getSelectedService($request);
         $selected_clinic = DB::table('clinics')->select('id', 'clinic_name')->where('id', $request['clinic_id'])->get();
         $selected_status = DB::table('status')->select('id', 'name')->where('id', $request['status'])->get();
         $availed_service = $booking->getAvailedService($request, $dateFrom, $dateTo);
@@ -49,11 +52,7 @@ class BookingController extends Controller
         $cancelled = $this->getCancelledStatus($request);
         $complete = $this->getCompleteStatus($request);
         $noShow = $this->getNoShowStatus($request);
-        $provider = DB::table('clinics')
-            ->select('clinics.id', 'clinics.clinic_name')
-            ->where('clinics.email', '<>', 'null')
-            ->where('clinics.is_approve', '<>', 0)
-            ->get();
+        $provider = $clinic->getProvider();
         $service = DB::table('family_plan_type_subcategory')->select('id', 'name')->where('is_approve', 1)->get();
         $details = $this->displayDetails($request, $dateFrom, $dateTo);
         $count_patients = $this->countPatients($request, $dateFrom, $dateTo);

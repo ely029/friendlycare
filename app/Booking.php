@@ -295,6 +295,17 @@ class Booking extends Model
             ->count();
     }
 
+    public function getConfirmedCountFourthScenario($request)
+    {
+        return DB::table('booking')
+            ->select('id')
+            ->where('status', 1)
+            ->where('clinic_id', $request['clinic_id'])
+            ->where('service_id', $request['service_id'])
+            ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
+            ->count();
+    }
+
     public function getRescheduleCountFirstScenario($request)
     {
         return DB::table('booking')
