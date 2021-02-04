@@ -238,7 +238,7 @@ class ProviderManagementController extends Controller
         ClinicService::where('clinic_id', $request['clinic_id'])->delete();
         PaidServices::where('clinic_id', $request['clinic_id'])->delete();
         $this->validateClinicHours($request);
-        $this->pushNotification();
+        $this->pushNotification($request['clinic_id']);
         for ($eee = 0;$eee <= 10000;$eee++) {
             if (isset($request['services'][$eee])) {
                 PaidServices::create([
@@ -316,9 +316,11 @@ class ProviderManagementController extends Controller
         return redirect('/provider/list');
     }
 
-    public function pushNotification()
+    public function pushNotification($id)
     {
-        $getFCMToken = DB::table('users')->select('fcm_notification_key')->pluck('fcm_notification_key');
+        $getFCMToken = DB::table('users')->select('fcm_notification_key')
+            ->leftJoin('staffs', 'staffs.user_id', 'users.id')
+            ->where('staffs.clinic_id', $id)->pluck('fcm_notification_key');
         $fcmurl = 'https://fcm.googleapis.com/fcm/send';
         $token = $getFCMToken[0];
         $notification = [
