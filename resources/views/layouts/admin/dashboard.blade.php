@@ -418,10 +418,6 @@ $(function(){
         })
         .done(function( data ) {
             if ($('#region').val() == '13') {
-                $('#barangay').hide();
-                $('#province').hide();
-                $('.province-label').hide();
-                $('.barangay-label').hide();
                 $("#city").empty();
             jQuery.each(data, function(index, item) {
                $('#city').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
@@ -544,22 +540,17 @@ $('document').ready(function(){
         })
         .done(function( data ) {
             if ($('#region').val() == '13') {
-                $('#barangay').hide();
-                $('#province').hide();
-                $('.province-label').hide();
-                $('.barangay-label').hide();
+                $('#barangay').attr('disabled', 'disabled');
+                $('#province').attr('disabled', 'disabled').empty();
                 $("#city").empty();
+                $("#barangay").empty();
             jQuery.each(data, function(index, item) {
                $('#city').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
             });
             }  else {
-                $("#province").empty();
+                $('#barangay').removeAttr('disabled', 'disabled');
+                $('#province').removeAttr('disabled', 'disabled');
                 $("#city").empty();
-                $("#barangay").empty();
-                $('#barangay').show();
-                $('#province').show();
-                $('.province-label').show();
-                $('.barangay-label').show();
             jQuery.each(data, function(index, item) {
                $('#province').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
             });

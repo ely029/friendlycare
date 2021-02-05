@@ -378,7 +378,6 @@ class ProviderManagementController extends Controller
             'street_address' => 'required',
             'type' => 'required',
             'region' => 'required',
-            'province' => 'required',
             'city' => 'required',
         ]);
         if ($validator->fails()) {
@@ -392,18 +391,18 @@ class ProviderManagementController extends Controller
         $request['training'] = 'N/A';
         $icon_url = $request['pic_url'];
         $request['photo_url'] = $icon_url;
-        $request['region_id_string'] = $request['region'];
-        $request['city_id_string'] = $request['city'];
-        $request['province_id_string'] = $request['province'];
-        $request['barangay_id_string'] = $request['barangay'];
+        $request['region_id_string'] = $request['region'] ?? null;
+        $request['city_id_string'] = $request['city'] ?? null;
+        $request['province_id_string'] = $request['province'] ?? null;
+        $request['barangay_id_string'] = $request['barangay'] ?? null;
         $region = DB::table('refregion')->select('regDesc')->where('regCode', $request['region'])->pluck('regDesc');
         $province = DB::table('refprovince')->select('provDesc')->where('provCode', $request['province'] ?? '')->pluck('provDesc');
         $city = DB::table('refcitymun')->select('citymundesc')->where('citymunCode', $request['city'] ?? '')->pluck('citymundesc');
         $barangay = DB::table('refbrgy')->select('brgyDesc')->where('brgyCode', $request['barangay'] ?? '')->pluck('brgyDesc');
-        $request['region'] = $region[0];
-        $request['province'] = $province[0];
-        $request['city'] = $city[0];
-        $request['barangay'] = $barangay[0];
+        $request['region'] = $region[0] ?? null;
+        $request['province'] = $province[0] ?? null;
+        $request['city'] = $city[0] ?? null;
+        $request['barangay'] = $barangay[0] ?? null;
         Clinics::create($request);
         $user = DB::table('clinics')->where('clinic_name', $request['clinic_name'])->pluck('id');
         session(['id' => $user[0]]);

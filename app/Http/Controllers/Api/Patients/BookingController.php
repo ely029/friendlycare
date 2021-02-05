@@ -92,8 +92,8 @@ class BookingController extends Controller
                 ->select('clinics.id', 'clinics.type', 'clinics.photo_url', 'clinics.clinic_name', 'clinics.city', 'clinics.paid_service as free_consultation', 'clinics.philhealth_accredited_1')
                 ->orWhere('province', $obj['province'][0])
                 ->orWhere('city', $obj['city'][0])
-                ->Where('philhealth_accredited_1', 1)
-                ->Where('paid_service', 1)
+                ->where('philhealth_accredited_1', 1)
+                ->where('paid_service', 1)
                 ->where('clinics.user_id', 0)
                 ->get();
         } elseif ($obj['philhealth_accredited'][0] === 1 && $obj['paid_service'][0] === 0) {
@@ -101,17 +101,17 @@ class BookingController extends Controller
                 ->select('clinics.id', 'clinics.type', 'clinics.photo_url', 'clinics.clinic_name', 'clinics.city', 'clinics.paid_service as free_consultation', 'clinics.philhealth_accredited_1')
                 ->orWhere('province', $obj['province'][0])
                 ->orWhere('city', $obj['city'][0])
-                ->Where('philhealth_accredited_1', 1)
-                ->Where('paid_service', 0)
+                ->where('philhealth_accredited_1', 1)
+                ->where('paid_service', 0)
                 ->where('clinics.user_id', 0)
                 ->get();
         } elseif ($obj['philhealth_accredited'][0] === 0 && $obj['paid_service'][0] === 1) {
             $details = DB::table('clinics')
                 ->select('clinics.id', 'clinics.type', 'clinics.photo_url', 'clinics.clinic_name', 'clinics.city', 'clinics.paid_service as free_consultation', 'clinics.philhealth_accredited_1')
-                ->Where('province', $obj['province'][0])
+                ->orwhere('province', $obj['province'][0])
                 ->orWhere('city', $obj['city'][0])
-                ->orWhere('philhealth_accredited_1', 0)
-                ->Where('paid_service', 0)
+                ->Where('philhealth_accredited_1', 0)
+                ->where('paid_service', 0)
                 ->where('clinics.user_id', 0)
                 ->get();
         } else {
@@ -141,28 +141,28 @@ class BookingController extends Controller
 
         if ($obj['philhealth_accredited'][0] === 1 && $obj['free_consultation'][0] === 1) {
             $clinic = DB::table('clinics')
-                ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+                ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
                 ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
                 ->where('clinic_service.service_id', $getMethod[0])
                 ->orWhere('clinics.province', $obj['province'][0])
                 ->orWhere('clinics.city', $obj['city'][0])
-                ->Where('clinics.paid_service', 0)
+                ->Where('clinics.paid_service', 1)
                 ->where('clinics.philhealth_accredited_1', 1)
                 ->where('clinics.user_id', 0)
                 ->get();
         } elseif ($obj['philhealth_accredited'][0] === 0 && $obj['free_consultation'][0] === 1) {
             $clinic = DB::table('clinics')
-                ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+                ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
                 ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
                 ->where('clinic_service.service_id', $getMethod[0])
                 ->orWhere('clinics.province', $obj['province'][0])
                 ->orWhere('clinics.city', $obj['city'][0])
-                ->where('clinics.paid_service', 0)
+                ->where('clinics.paid_service', 1)
                 ->where('clinics.user_id', 0)
                 ->get();
         } elseif ($obj['philhealth_accredited'][0] === 1 && $obj['free_consultation'][0] === 0) {
             $clinic = DB::table('clinic_service')
-                ->join('clinics', 'clinic_service.clinic_id', 'clinics.id')
+                ->leftJoin('clinics', 'clinic_service.clinic_id', 'clinics.id')
                 ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
                 ->distinct('clinics.clinic_name')
                 ->where('clinic_service.service_id', $getMethod[0])
@@ -174,7 +174,7 @@ class BookingController extends Controller
                 ->get();
         } else {
             $clinic = DB::table('clinic_service')
-                ->join('clinics', 'clinic_service.clinic_id', 'clinics.id')
+                ->leftJoin('clinics', 'clinic_service.clinic_id', 'clinics.id')
                 ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
                 ->where('clinic_service.service_id', $getMethod[0])
                 ->orWhere('clinics.province', $obj['province'][0])
@@ -640,7 +640,7 @@ class BookingController extends Controller
         if ($getSlot[0] <= $checkBooking) {
             return response()->json('The time you choose are already full. please choose another time.', 422);
         }
-        DB::update('update booking set time_slot = ? where patient_id = ? order by id desc limit 1', [$obj['date'][0], $id]);
+        DB::update('update booking set time_slot = ?, status where patient_id = ? order by id desc limit 1', [$obj['date'][0], 6, $id]);
         $this->createBookingTime($id, $obj);
         return response([
             'response' => 'Booking Created Succesfully',
