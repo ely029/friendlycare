@@ -36,7 +36,7 @@
             <tr class="table__row js-view" data-href="{{ route('notifications.information',$events->id)}}">
                 <td class="table__details">{{ $events->date}}</td>
                 <td class="table__details">{{ $events->title}}</td>
-                <td class="table__details"></td>
+                <td class="table__details">Upcoming Event</td>
                 </tr>
             @endforeach
             </tbody>
@@ -53,11 +53,11 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach($upcomingEvent as $events)
+            @foreach($pastEvent as $events)
             <tr class="table__row js-view" data-href="{{ route('notifications.information',$events->id)}}">
                 <td class="table__details">{{ $events->date}}</td>
                 <td class="table__details">{{ $events->title}}</td>
-                <td class="table__details">Upcoming Event</td>
+                <td class="table__details">Past Event</td>
                 </tr>
             @endforeach
             </tbody>
