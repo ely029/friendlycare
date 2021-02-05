@@ -529,6 +529,21 @@ class Booking extends Model
             ->get();
     }
 
+    public function displayCountNinthScenario($request, $dateFrom, $dateTo)
+    {
+        return DB::table('booking')
+            ->leftJoin('users', 'users.id', 'booking.patient_id')
+            ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->leftJoin('clinics', 'clinics.id', 'booking.clinic_id')
+            ->leftJoin('status', 'booking.status', 'status.id')
+            ->select('users.name', 'family_plan_type_subcategory.name as service_name', 'clinics.clinic_name', 'status.name as status', 'booking.time_slot as booked_date')
+            ->where('booking.clinic_id', $request['clinic_id'] ?? null)
+            ->where('booking.service_id', $request['service_id'] ?? null)
+            ->where('booking.status', $request['status'] ?? null)
+            ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
+            ->get();
+    }
+
     public function getAvailedService($request, $dateFrom, $dateTo)
     {
         return DB::table('booking')

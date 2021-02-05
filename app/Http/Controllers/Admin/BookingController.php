@@ -5,6 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Booking;
+use App\Classes\CountPatient;
+use App\Classes\DisplayDetails;
+use App\Classes\GetCancelledStatus;
+use App\Classes\GetCompletedStatus;
+use App\Classes\GetConfirmedStatus;
+use App\Classes\GetNoShowStatus;
+use App\Classes\GetRescheduledStatus;
 use App\Clinics;
 use App\Exports\AdminBookingExport;
 use App\FamilyPlanTypeSubcategories;
@@ -85,185 +92,52 @@ class BookingController extends Controller
 
     private function getConfirmedStatus($request)
     {
-        $booking = new Booking();
-        if ($request['clinic_id'] === null && $request['service_id'] === null) {
-            return $booking->getConfirmedCountFirstScenario($request);
-        }
-
-        if ($request['clinic_id'] !== null && $request['service_id'] === null) {
-            return $booking->getConfirmedCountSecondScenario($request);
-        }
-
-        if ($request['clinic_id'] === null && $request['service_id'] !== null) {
-            return $booking->getConfirmedCountThirdScenario($request);
-        }
-        return DB::table('booking')
-            ->select('id')
-            ->where('status', 1)
-            ->where('clinic_id', $request['clinic_id'])
-            ->where('service_id', $request['service_id'])
-            ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
-            ->count();
+        $class = new GetConfirmedStatus();
+        return $class->index($request);
     }
 
     private function getRescheduleStatus($request)
     {
-        $booking = new Booking();
-        if ($request['clinic_id'] === null && $request['service_id'] === null) {
-            return $booking->getRescheduleCountFirstScenario($request);
-        }
-
-        if ($request['clinic_id'] !== null && $request['service_id'] === null) {
-            return $booking->getRescheduleCountSecondScenario($request);
-        }
-
-        if ($request['clinic_id'] === null && $request['service_id'] !== null) {
-            return $booking->getRescheduleCountThirdScenario($request);
-        }
-        return DB::table('booking')
-            ->select('id')
-            ->where('status', 2)
-            ->where('clinic_id', $request['clinic_id'])
-            ->where('service_id', $request['service_id'])
-            ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
-            ->count();
+        $class = new GetRescheduledStatus();
+        return $class->index($request);
     }
 
     private function getCancelledStatus($request)
     {
-        $booking = new Booking();
-        if ($request['clinic_id'] === null && $request['service_id'] === null) {
-            return $booking->getCancelledCountFirstScenario($request);
-        }
-
-        if ($request['clinic_id'] !== null && $request['service_id'] === null) {
-            return $booking->getCancelledCountSecondScenario($request);
-        }
-
-        if ($request['clinic_id'] === null && $request['service_id'] !== null) {
-            return $booking->getCancelledCountThirdScenario($request);
-        }
-        return DB::table('booking')
-            ->select('id')
-            ->where('status', 3)
-            ->where('clinic_id', $request['clinic_id'])
-            ->where('service_id', $request['service_id'])
-            ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
-            ->count();
+        $class = new GetCancelledStatus();
+        return $class->index($request);
     }
 
     private function getCompleteStatus($request)
     {
-        $booking = new Booking();
-        if ($request['clinic_id'] === null && $request['service_id'] === null) {
-            return $booking->getCompleteCountFirstScenario($request);
-        }
-
-        if ($request['clinic_id'] !== null && $request['service_id'] === null) {
-            return $booking->getCompleteCountSecondScenario($request);
-        }
-
-        if ($request['clinic_id'] === null && $request['service_id'] !== null) {
-            return $booking->getCompleteCountThirdScenario($request);
-        }
-        return DB::table('booking')
-            ->select('id')
-            ->where('status', 4)
-            ->where('clinic_id', $request['clinic_id'])
-            ->where('service_id', $request['service_id'])
-            ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
-            ->count();
+        $class = new GetCompletedStatus();
+        return $class->index($request);
     }
 
     private function getNoShowStatus($request)
     {
-        $booking = new Booking();
-        if ($request['clinic_id'] === null && $request['service_id'] === null) {
-            return $booking->getNoShowCountFirstScenario($request);
-        }
-
-        if ($request['clinic_id'] !== null && $request['service_id'] === null) {
-            return $booking->getNoShowCountSecondScenario($request);
-        }
-
-        if ($request['clinic_id'] === null && $request['service_id'] !== null) {
-            return $booking->getNoShowCountThirdScenario($request);
-        }
-        return DB::table('booking')
-            ->select('id')
-            ->where('status', 5)
-            ->where('clinic_id', $request['clinic_id'])
-            ->where('service_id', $request['service_id'])
-            ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
-            ->count();
+        $class = new GetNoShowStatus();
+        return $class->index($request);
     }
 
     private function countPatients($request, $dateFrom, $dateTo)
     {
         $booking = new Booking();
-        if ($request['clinic_id'] === null && $request['service_id'] === null && $request['status'] === null) {
-            return $booking->countPatientFirstScenario($dateFrom, $dateTo);
-        }
-        if ($request['clinic_id'] === null && $request['service_id'] === null && $request['status'] !== null) {
-            return $booking->countPatientSecondScenario($request, $dateFrom, $dateTo);
-        }
-        if ($request['clinic_id'] === null && $request['service_id'] !== null && $request['status'] !== null) {
-            return $booking->countPatientThirdScenario($request, $dateFrom, $dateTo);
-        }
-        if ($request['clinic_id'] !== null && $request['service_id'] === null && $request['status'] !== null) {
-            return $booking->countPatientFourthScenario($request, $dateFrom, $dateTo);
-        }
-        if ($request['clinic_id'] !== null && $request['service_id'] !== null && $request['status'] === null) {
-            return $booking->countPatientFifthScenario($request, $dateFrom, $dateTo);
-        }
-        if ($request['clinic_id'] !== null && $request['service_id'] === null && $request['status'] === null) {
-            return $booking->countPatientSeventhScenario($request, $dateFrom, $dateTo);
-        }
         if ($request['clinic_id'] !== null && $request['service_id'] !== null && $request['status'] !== null) {
             return $booking->countPatientSixthScenario($request, $dateFrom, $dateTo);
         }
-        if ($request['clinic_id'] === null && $request['service_id'] !== null && $request['status'] === null) {
-            return $booking->countPatientEighthScenario($request, $dateFrom, $dateTo);
-        }
+
+        $class = new CountPatient();
+        return $class->index($request, $dateFrom, $dateTo);
     }
 
     private function displayDetails($request, $dateFrom, $dateTo)
     {
         $booking = new Booking();
-        if ($request['clinic_id'] === null && $request['service_id'] === null && $request['status'] === null) {
-            return $booking->displayCountFirstScenario($dateFrom, $dateTo);
-        }
-        if ($request['clinic_id'] === null && $request['service_id'] === null && $request['status'] !== null) {
-            return $booking->displayCountSecondScenario($request, $dateFrom, $dateTo);
-        }
-        if ($request['clinic_id'] === null && $request['service_id'] !== null && $request['status'] !== null) {
-            return $booking->displayCountThirdScenario($request, $dateFrom, $dateTo);
-        }
-        if ($request['clinic_id'] !== null && $request['service_id'] === null && $request['status'] !== null) {
-            return $booking->displayCountFourthScenario($request, $dateFrom, $dateTo);
-        }
-        if ($request['clinic_id'] !== null && $request['service_id'] !== null && $request['status'] === null) {
-            return $booking->displayCountFifthScenario($request, $dateFrom, $dateTo);
-        }
         if ($request['clinic_id'] !== null && $request['service_id'] !== null && $request['status'] !== null) {
             return $booking->displayCountSixthScenario($request, $dateFrom, $dateTo);
         }
-        if ($request['clinic_id'] !== null && $request['service_id'] === null && $request['status'] === null) {
-            return $booking->displayCountSeventhScenario($request, $dateFrom, $dateTo);
-        }
-        if ($request['clinic_id'] === null && $request['service_id'] !== null && $request['status'] === null) {
-            return $booking->displayCountEighthScenario($request, $dateFrom, $dateTo);
-        }
-        return DB::table('booking')
-            ->leftJoin('users', 'users.id', 'booking.patient_id')
-            ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
-            ->leftJoin('clinics', 'clinics.id', 'booking.clinic_id')
-            ->leftJoin('status', 'booking.status', 'status.id')
-            ->select('users.name', 'family_plan_type_subcategory.name as service_name', 'clinics.clinic_name', 'status.name as status', 'booking.time_slot as booked_date')
-            ->where('booking.clinic_id', $request['clinic_id'] ?? null)
-            ->where('booking.service_id', $request['service_id'] ?? null)
-            ->where('booking.status', $request['status'] ?? null)
-            ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
-            ->get();
+        $class = new DisplayDetails();
+        return $class->index($request, $dateFrom, $dateTo);
     }
 }

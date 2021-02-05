@@ -6,15 +6,18 @@ namespace App\Http\Controllers\Api\Patients;
 
 use App\Booking;
 use App\BookingTime;
+use App\Classes\SearchClinicWithOutProvinceandCity;
+use App\Classes\SearchClinicWithProvinceAndCity;
+use App\Classes\TaggedMethodWithoutProvinceAndCity;
+use App\Classes\TaggedMethodWithProvinceAndCity;
+use App\Clinics;
 use App\ClinicService;
 use App\ClinicTime;
 use App\EventsNotification;
 use App\FpmTypeService;
 use App\Http\Controllers\Controller;
-use App\Patients;
 use App\PatientTimeSlot;
 use App\Staffs;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mail;
@@ -85,49 +88,14 @@ class BookingController extends Controller
 
     public function searchClinic(Request $request)
     {
+        $clinic = new Clinics();
         $obj = json_decode($request->getContent(), true);
-
-        if ($obj['philhealth_accredited'][0] === 1 && $obj['paid_service'][0] === 1) {
-            $clinic = DB::table('clinics')
-                ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
-                ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
-                ->orWhere('clinics.province', $obj['province'][0])
-                ->orWhere('clinics.city', $obj['city'][0])
-                ->Where('clinics.paid_service', 1)
-                ->where('clinics.philhealth_accredited_1', 1)
-                ->where('clinics.user_id', 0)
-                ->get();
-        } elseif ($obj['philhealth_accredited'][0] === 0 && $obj['paid_service'][0] === 1) {
-            $clinic = DB::table('clinics')
-                ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
-                ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
-                ->orWhere('clinics.province', $obj['province'][0])
-                ->orWhere('clinics.city', $obj['city'][0])
-                ->where('clinics.paid_service', 1)
-                ->where('clinics.user_id', 0)
-                ->get();
-        } elseif ($obj['philhealth_accredited'][0] === 1 && $obj['paid_service'][0] === 0) {
-            $clinic = DB::table('clinic_service')
-                ->leftJoin('clinics', 'clinic_service.clinic_id', 'clinics.id')
-                ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
-                ->distinct('clinics.clinic_name')
-                ->orWhere('clinics.province', $obj['province'][0])
-                ->orWhere('clinics.city', $obj['city'][0])
-                ->where('clinics.philhealth_accredited_1', 1)
-                ->where('clinics.paid_service', 0)
-                ->where('clinics.user_id', 0)
-                ->get();
-        } else {
-            $clinic = DB::table('clinic_service')
-                ->leftJoin('clinics', 'clinic_service.clinic_id', 'clinics.id')
-                ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
-                ->orWhere('clinics.province', $obj['province'][0])
-                ->orWhere('clinics.city', $obj['city'][0])
-                ->where('clinics.user_id', 0)
-                ->distinct('clinics.clinic_name')
-                ->get();
+        if ($obj['province'][0] === '' && $obj['city'][0] === '') {
+            $class = new SearchClinicWithOutProvinceandCity();
+            $clinic = $class->searchClinic($obj);
         }
-
+        $class = new SearchClinicWithProvinceandCity();
+        $clinic = $class->searchClinic($obj);
         return response([
             'name' => 'searchClinic',
             'details' => $clinic,
@@ -144,50 +112,12 @@ class BookingController extends Controller
             ->limit(1)
             ->pluck('service_id');
 
-        if ($obj['philhealth_accredited'][0] === 1 && $obj['free_consultation'][0] === 1) {
-            $clinic = DB::table('clinics')
-                ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
-                ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
-                ->where('clinic_service.service_id', $getMethod[0])
-                ->orWhere('clinics.province', $obj['province'][0])
-                ->orWhere('clinics.city', $obj['city'][0])
-                ->Where('clinics.paid_service', 1)
-                ->where('clinics.philhealth_accredited_1', 1)
-                ->where('clinics.user_id', 0)
-                ->get();
-        } elseif ($obj['philhealth_accredited'][0] === 0 && $obj['free_consultation'][0] === 1) {
-            $clinic = DB::table('clinics')
-                ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
-                ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
-                ->where('clinic_service.service_id', $getMethod[0])
-                ->orWhere('clinics.province', $obj['province'][0])
-                ->orWhere('clinics.city', $obj['city'][0])
-                ->where('clinics.paid_service', 1)
-                ->where('clinics.user_id', 0)
-                ->get();
-        } elseif ($obj['philhealth_accredited'][0] === 1 && $obj['free_consultation'][0] === 0) {
-            $clinic = DB::table('clinic_service')
-                ->leftJoin('clinics', 'clinic_service.clinic_id', 'clinics.id')
-                ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
-                ->distinct('clinics.clinic_name')
-                ->where('clinic_service.service_id', $getMethod[0])
-                ->orWhere('clinics.province', $obj['province'][0])
-                ->orWhere('clinics.city', $obj['city'][0])
-                ->where('clinics.philhealth_accredited_1', 1)
-                ->where('clinics.paid_service', 0)
-                ->where('clinics.user_id', 0)
-                ->get();
-        } else {
-            $clinic = DB::table('clinic_service')
-                ->leftJoin('clinics', 'clinic_service.clinic_id', 'clinics.id')
-                ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
-                ->where('clinic_service.service_id', $getMethod[0])
-                ->orWhere('clinics.province', $obj['province'][0])
-                ->orWhere('clinics.city', $obj['city'][0])
-                ->where('clinics.user_id', 0)
-                ->distinct('clinics.clinic_name')
-                ->get();
+        if ($obj['province'][0] === '' && $obj['city'][0] === '') {
+            $class = new TaggedMethodWithProvinceAndCity();
+            $clinic = $class->index($obj, $getMethod);
         }
+        $class = new TaggedMethodWithoutProvinceAndCity();
+        $clinic = $class->index($obj, $getMethod);
 
         return response([
             'name' => 'postMethodWithTagged',
@@ -479,16 +409,16 @@ class BookingController extends Controller
         $getPatientId = DB::table('booking')->select('patient_id')->where('id', $id)->pluck('patient_id');
         $getServiceId = DB::table('booking')->select('service_id')->where('id', $id)->pluck('service_id');
         $message = $getClinicName[0];
-        $getClinicEmail = DB::table('clinics')->select('email')->where('id', $getClinicId[0])->pluck('email');
-        Mail::send('email.patient.provider.provider-complete-booking', [], function ($mail) use ($getClinicEmail) {
-            $mail->from('notifications@friendlycare.com');
-            $mail->to($getClinicEmail[0], 'Provider')->subject('Booking Completed');
-        });
         FpmTypeService::where('patient_id', $getPatientId[0])->delete();
         FpmTypeService::create([
             'service_id' => $getServiceId[0],
             'patient_id' => $getPatientId[0],
         ]);
+        $getClinicEmail = DB::table('clinics')->select('email')->where('id', $getClinicId[0])->pluck('email');
+        Mail::send('email.patient.provider.provider-complete-booking', [], function ($mail) use ($getClinicEmail) {
+            $mail->from('notifications@friendlycare.com');
+            $mail->to($getClinicEmail[0], 'Provider')->subject('Booking Completed');
+        });
         EventsNotification::create([
             'patient_id' => $getPatientId[0],
             'message' => $message,

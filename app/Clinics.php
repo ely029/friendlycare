@@ -55,4 +55,162 @@ class Clinics extends Model
             ->where('clinics.is_approve', '<>', 0)
             ->get();
     }
+
+    public function getClinicFirstScenario($obj)
+    {
+        return DB::table('clinics')
+            ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
+            ->where('clinics.province', $obj['province'][0])
+            ->where('clinics.city', $obj['city'][0])
+            ->Where('clinics.paid_service', 1)
+            ->where('clinics.philhealth_accredited_1', 1)
+            ->where('clinics.user_id', 0)
+            ->get();
+    }
+
+    public function getClinicSecondScenario($obj)
+    {
+        return DB::table('clinics')
+            ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
+            ->where('clinics.province', $obj['province'][0])
+            ->where('clinics.city', $obj['city'][0])
+            ->Where('clinics.paid_service', 1)
+            ->where('clinics.philhealth_accredited_1', 1)
+            ->where('clinics.user_id', 0)
+            ->get();
+    }
+
+    public function getClinicThirdScenario($obj)
+    {
+        return DB::table('clinics')
+            ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
+            ->where('clinics.province', $obj['province'][0])
+            ->where('clinics.city', $obj['city'][0])
+            ->Where('clinics.paid_service', 0)
+            ->where('clinics.philhealth_accredited_1', 1)
+            ->where('clinics.user_id', 0)
+            ->get();
+    }
+
+    public function getClinicFourthScenario($obj)
+    {
+        return DB::table('clinics')
+            ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
+            ->where('clinics.province', $obj['province'][0])
+            ->where('clinics.city', $obj['city'][0])
+            ->Where('clinics.paid_service', 1)
+            ->where('clinics.philhealth_accredited_1', 0)
+            ->where('clinics.user_id', 0)
+            ->get();
+    }
+
+    public function getClinicFifthScenario()
+    {
+        return DB::table('clinics')
+            ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
+            ->Where('clinics.paid_service', 1)
+            ->where('clinics.philhealth_accredited_1', 1)
+            ->where('clinics.user_id', 0)
+            ->get();
+    }
+
+    public function getClinicSixthScenario()
+    {
+        return DB::table('clinics')
+            ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
+            ->Where('clinics.paid_service', 0)
+            ->where('clinics.philhealth_accredited_1', 0)
+            ->where('clinics.user_id', 0)
+            ->get();
+    }
+
+    public function getClinicSeventhScenario()
+    {
+        return DB::table('clinics')
+            ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
+            ->Where('clinics.paid_service', 0)
+            ->where('clinics.philhealth_accredited_1', 1)
+            ->where('clinics.user_id', 0)
+            ->get();
+    }
+
+    public function getClinicEighthScenario()
+    {
+        return DB::table('clinics')
+            ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
+            ->Where('clinics.paid_service', 1)
+            ->where('clinics.philhealth_accredited_1', 0)
+            ->where('clinics.user_id', 0)
+            ->get();
+    }
+
+    public function getClinicWithTaggedMethodFirstScenario($obj, $getMethod)
+    {
+        return DB::table('clinics')
+            ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
+            ->where('clinic_service.service_id', $getMethod[0])
+            ->orWhere('clinics.province', $obj['province'][0])
+            ->orWhere('clinics.city', $obj['city'][0])
+            ->Where('clinics.paid_service', 1)
+            ->where('clinics.philhealth_accredited_1', 1)
+            ->where('clinics.user_id', 0)
+            ->get();
+    }
+
+    public function getTaggedMethodFirstScenario($getMethod)
+    {
+        return DB::table('clinics')
+            ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
+            ->where('clinic_service.service_id', $getMethod[0])
+            ->Where('clinics.paid_service', 0)
+            ->where('clinics.philhealth_accredited_1', 1)
+            ->where('clinics.user_id', 0)
+            ->get();
+    }
+
+    public function getTaggedMethodSecondScenario($getMethod)
+    {
+        return DB::table('clinics')
+            ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
+            ->where('clinic_service.service_id', $getMethod[0])
+            ->Where('clinics.paid_service', 1)
+            ->where('clinics.philhealth_accredited_1', 0)
+            ->where('clinics.user_id', 0)
+            ->get();
+    }
+
+    public function getTaggedMethodThirdScenario($getMethod)
+    {
+        return DB::table('clinics')
+            ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
+            ->where('clinic_service.service_id', $getMethod[0])
+            ->Where('clinics.paid_service', 1)
+            ->where('clinics.philhealth_accredited_1', 1)
+            ->where('clinics.user_id', 0)
+            ->get();
+    }
+
+    public function getTaggedMethodFourthScenario($getMethod)
+    {
+        return DB::table('clinics')
+            ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
+            ->where('clinic_service.service_id', $getMethod[0])
+            ->Where('clinics.paid_service', 0)
+            ->where('clinics.philhealth_accredited_1', 1)
+            ->where('clinics.user_id', 0)
+            ->get();
+    }
 }
