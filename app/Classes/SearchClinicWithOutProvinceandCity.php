@@ -12,16 +12,16 @@ class SearchClinicWithOutProvinceandCity
     {
         $clinic = new Clinics();
         if ($obj['philhealth_accredited'][0] === 1 && $obj['paid_service'][0] === 1) {
-            return $clinic->getClinicFirstScenario($obj);
+            return $clinic->getClinicFirstScenario();
         }
         if ($obj['philhealth_accredited'][0] === 0 && $obj['paid_service'][0] === 0) {
-            return $clinic->getClinicSecondScenario($obj);
+            return $clinic->getClinicSecondScenario();
         }
         if ($obj['philhealth_accredited'][0] === 1 && $obj['paid_service'][0] === 0) {
-            return $clinic->getClinicThirdScenario($obj);
+            return $clinic->getClinicThirdScenario();
         }
         if ($obj['philhealth_accredited'][0] === 0 && $obj['paid_service'][0] === 1) {
-            return $clinic->getClinicFourthScenario($obj);
+            return $clinic->getClinicFourthScenario();
         }
     }
 }
