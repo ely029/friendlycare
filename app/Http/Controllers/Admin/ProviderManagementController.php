@@ -322,38 +322,37 @@ class ProviderManagementController extends Controller
             ->leftJoin('staffs', 'staffs.user_id', 'users.id')
             ->where('users.fcm_notification_key', '<>', null)
             ->where('staffs.clinic_id', $id)->orderBy('users.id', 'desc')->get();
-        foreach ($users as $user) {
-            $fcmurl = 'https://fcm.googleapis.com/fcm/send';
-            $token = $user->fcm_notification_key;
-            $notification = [
-                'title' => 'Provider Information',
-                'body' => 'The Provider information are updated',
-                'icon' => 'myIcon',
-                'sound' => 'defaultSound',
-                'priority' => 'high',
-                'contentAvailable' => true,
-            ];
-            $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
-            $fcmNotification = [
-                'to' => $token,
-                'notification' => $notification,
-                'data' => $extraNotifications,
-            ];
-            $headers = [
-                'Authorization: key='.env('BP_FIREBASE_SERVER_KEY').'',
-                'Content-Type: application/json',
-            ];
-            $chh = curl_init();
-            curl_setopt($chh, CURLOPT_URL, $fcmurl);
-            curl_setopt($chh, CURLOPT_POST, true);
-            curl_setopt($chh, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($chh, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($chh, CURLOPT_SSL_VERIFYPEER, $headers);
-            curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
-            $result = curl_exec($chh);
-            curl_close($chh);
-            return $result;
-        }
+        $eee = json_decode(json_encode($users), true);
+        $fcmurl = 'https://fcm.googleapis.com/fcm/send';
+        $token = $eee;
+        $notification = [
+            'title' => 'Provider Information',
+            'body' => 'The Provider information are updated',
+            'icon' => 'myIcon',
+            'sound' => 'defaultSound',
+            'priority' => 'high',
+            'contentAvailable' => true,
+        ];
+        $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
+        $fcmNotification = [
+            'to' => $token,
+            'notification' => $notification,
+            'data' => $extraNotifications,
+        ];
+        $headers = [
+            'Authorization: key='.env('BP_FIREBASE_SERVER_KEY').'',
+            'Content-Type: application/json',
+        ];
+        $chh = curl_init();
+        curl_setopt($chh, CURLOPT_URL, $fcmurl);
+        curl_setopt($chh, CURLOPT_POST, true);
+        curl_setopt($chh, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($chh, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($chh, CURLOPT_SSL_VERIFYPEER, $headers);
+        curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
+        $result = curl_exec($chh);
+        curl_close($chh);
+        return $result;
     }
 
     public function deleteProvider($id)
