@@ -87,7 +87,7 @@ class BookingController extends Controller
     {
         $obj = json_decode($request->getContent(), true);
 
-        if ($obj['philhealth_accredited'][0] === 1 && $obj['free_consultation'][0] === 1) {
+        if ($obj['philhealth_accredited'][0] === 1 && $obj['paid_service'][0] === 1) {
             $clinic = DB::table('clinics')
                 ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
                 ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
@@ -97,7 +97,7 @@ class BookingController extends Controller
                 ->where('clinics.philhealth_accredited_1', 1)
                 ->where('clinics.user_id', 0)
                 ->get();
-        } elseif ($obj['philhealth_accredited'][0] === 0 && $obj['free_consultation'][0] === 1) {
+        } elseif ($obj['philhealth_accredited'][0] === 0 && $obj['paid_service'][0] === 1) {
             $clinic = DB::table('clinics')
                 ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
                 ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
@@ -106,7 +106,7 @@ class BookingController extends Controller
                 ->where('clinics.paid_service', 1)
                 ->where('clinics.user_id', 0)
                 ->get();
-        } elseif ($obj['philhealth_accredited'][0] === 1 && $obj['free_consultation'][0] === 0) {
+        } elseif ($obj['philhealth_accredited'][0] === 1 && $obj['paid_service'][0] === 0) {
             $clinic = DB::table('clinic_service')
                 ->leftJoin('clinics', 'clinic_service.clinic_id', 'clinics.id')
                 ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation')
