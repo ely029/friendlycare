@@ -6,6 +6,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Storage;
 
 /**
@@ -188,5 +189,23 @@ class User extends Authenticatable
     public function fcmRegistrationTokens()
     {
         return $this->hasMany(FcmRegistrationToken::class);
+    }
+
+    public function patientsLessNineteen($request)
+    {
+        return DB::table('users')->leftJoin('patients', 'users.id', 'patients.user_id')
+            ->select('users.id', 'users.name', 'users.email', 'users.age', 'patients.province', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'))
+            ->whereBetween('users.created_at', [$request['date-from'], $request['date-to']])
+            ->where('users.age', '<=', 19)
+            ->get();
+    }
+
+    public function patientsMoreThanTwenty($request)
+    {
+        return DB::table('users')->leftJoin('patients', 'users.id', 'patients.user_id')
+            ->select('users.id', 'users.name', 'users.email', 'users.age', 'patients.province', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'))
+            ->whereBetween('users.created_at', [$request['date-from'], $request['date-to']])
+            ->where('users.age', '>=', 20)
+            ->get();
     }
 }

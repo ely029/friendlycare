@@ -24,4 +24,34 @@ class ClinicService extends Model
             ->where('clinic_service.clinic_id', $id)
             ->get();
     }
+
+    public function editPageModern($id)
+    {
+        return DB::table('family_plan_type_subcategory as fpm')
+            ->leftJoin('clinic_service', 'clinic_service.service_id', 'fpm.id')
+            ->select('fpm.id', 'fpm.name', 'clinic_service.is_checked')
+            ->where('clinic_service.clinic_id', $id)
+            ->where('fpm.family_plan_type_id', 1)
+            ->get();
+    }
+
+    public function editPagePermanent($id)
+    {
+        return DB::table('family_plan_type_subcategory as fpm')
+            ->leftJoin('clinic_service', 'clinic_service.service_id', 'fpm.id')
+            ->select('fpm.id', 'fpm.name', 'clinic_service.is_checked')
+            ->where('clinic_service.clinic_id', $id)
+            ->where('fpm.family_plan_type_id', 2)
+            ->get();
+    }
+
+    public function editPageNatural($id)
+    {
+        return DB::table('family_plan_type_subcategory as fpm')
+            ->leftJoin('clinic_service', 'clinic_service.service_id', 'fpm.id')
+            ->select('fpm.id', 'fpm.name', 'clinic_service.is_checked')
+            ->where('clinic_service.clinic_id', $id)
+            ->where('fpm.family_plan_type_id', 3)
+            ->get();
+    }
 }

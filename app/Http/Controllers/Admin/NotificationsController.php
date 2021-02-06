@@ -13,33 +13,11 @@ class NotificationsController extends Controller
 {
     public function index()
     {
-        $upcomingEvent = DB::table('events_notification')
-            ->select('id', 'title', 'date', 'type')
-            ->where('is_approve', 1)
-            ->where('type', 1)
-            ->where('date_string', '>=', strtotime(date('Y-m-d')))
-            ->get();
-
-        $pastEvent = DB::table('events_notification')
-            ->select('id', 'title', 'date', 'type')
-            ->where('is_approve', 1)
-            ->where('type', 1)
-            ->where('date_string', '<=', strtotime(date('Y-m-d')))
-            ->get();
-
-        $upcomingAnnouncement = DB::table('events_notification')
-            ->select('id', 'title', 'date', 'type')
-            ->where('is_approve', 1)
-            ->where('type', 2)
-            ->where('date_string', '>=', strtotime(date('Y-m-d')))
-            ->get();
-
-        $pastAnnouncement = DB::table('events_notification')
-            ->select('id', 'title', 'date', 'type')
-            ->where('is_approve', 1)
-            ->where('type', 2)
-            ->where('date_string', '<=', strtotime(date('Y-m-d')))
-            ->get();
+        $notification = new EventsNotification();
+        $upcomingEvent = $notification->upcomingEvents();
+        $pastEvent = $notification->pastEvent();
+        $upcomingAnnouncement = $notification->upcomingAnnouncement();
+        $pastAnnouncement = $notification->pastAnnouncement();
 
         return view('admin.notifications.index', ['upcomingEvent' => $upcomingEvent, 'pastEvent' => $pastEvent, 'upcomingAnnouncement' => $upcomingAnnouncement, 'pastAnnouncement' => $pastAnnouncement]);
     }

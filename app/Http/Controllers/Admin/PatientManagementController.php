@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Exports\PatientListExport;
+use App\FpmTypeService;
 use App\Http\Controllers\Controller;
+use App\MedicalHistory;
+use App\Spouses;
 use App\User;
 use Auth;
 use Illuminate\Support\Facades\DB;
@@ -21,6 +24,9 @@ class PatientManagementController extends Controller
 
     public function information($id)
     {
+        $fpmType = new FpmTypeService();
+        $spouses = new Spouses();
+        $medicalHistory = new MedicalHistory();
         if (Auth::user() !== null) {
             $tagalog_questions = [
                 ['id' => 1, 'question' => 'Ikaw ba ay nanganak ka ba sa nakaraang 6 weeks?'],
@@ -49,13 +55,10 @@ class PatientManagementController extends Controller
                 ['id' => 11, 'question' => 'Are you allergic to any medications?'],
             ];
             $details = DB::table('users')->select('users.id', 'users.name', 'users.age', 'users.birth_date', 'users.gender', 'users.email')->where('id', $id)->get();
-            $fpm = DB::table('fpm_type_service')->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
-                ->select('family_plan_type_subcategory.name')
-                ->where('fpm_type_service.patient_id', $id)
-                ->get();
-            $medical_history = DB::table('medical_history')->select('question_no', 'yes', 'no')->where('patient_id', $id)->get();
+            $fpm = $fpmType->patientManagementInformation($id);
+            $medical_history = $medicalHistory->patientManagementInformation($id);
             $personal_history = DB::table('patients')->select('civil_status', 'street_address', 'religion', 'occupation', 'city', 'province', 'monthly_income_1', 'city', 'province', 'barangay', 'no_of_living_children', 'do_you_have_plan_children')->where('user_id', $id)->get();
-            $spouse = DB::table('spouses')->select('spouse_first_name', 'spouse_last_name', 'spouse_birth_date', 'spouse_occupation')->where('patient_id', $id)->get();
+            $spouse = $spouses->patientmanagementInformation($id);
             return view('admin.patientManagement.information', ['details' => $details, 'english_question' => $english_questions, 'fpm' => $fpm, 'tagalog_question' => $tagalog_questions, 'medical_history' => $medical_history, 'personal_history' => $personal_history, 'spouse' => $spouse]);
         }
         redirect('/logout');
@@ -78,6 +81,7 @@ class PatientManagementController extends Controller
     public function filter()
     {
         $request = request()->all();
+        $users = new User();
         $validator = \Validator::make(request()->all(), [
             'age-range' => 'required',
         ]);
@@ -87,17 +91,9 @@ class PatientManagementController extends Controller
                 ->withInput();
         }
         if ($request['age-range'] === '1') {
-            $details = DB::table('users')->leftJoin('patients', 'users.id', 'patients.user_id')
-                ->select('users.id', 'users.name', 'users.email', 'users.age', 'patients.province', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'))
-                ->whereBetween('users.created_at', [$request['date-from'], $request['date-to']])
-                ->where('users.age', '<=', 19)
-                ->get();
+            $details = $users->patientsLessNineteen($request);
         } else {
-            $details = DB::table('users')->leftJoin('patients', 'users.id', 'patients.user_id')
-                ->select('users.id', 'users.name', 'users.email', 'users.age', 'patients.province', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'))
-                ->whereBetween('users.created_at', [$request['date-from'], $request['date-to']])
-                ->where('users.age', '>=', 20)
-                ->get();
+            $details = $users->patientsMoreThanTwenty($request);
         }
         $age = $request['age-range'];
         $dateFrom = $request['date-from'];

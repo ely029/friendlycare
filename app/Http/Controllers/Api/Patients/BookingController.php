@@ -14,6 +14,7 @@ use App\Clinics;
 use App\ClinicService;
 use App\ClinicTime;
 use App\EventsNotification;
+use App\FamilyPlanTypeSubcategories;
 use App\FpmTypeService;
 use App\Http\Controllers\Controller;
 use App\PatientTimeSlot;
@@ -40,23 +41,10 @@ class BookingController extends Controller
 
     public function selectMethodPage()
     {
-        $modernMethod = DB::table('family_plan_type_subcategory')
-            ->select('id', 'name', 'short_name', 'family_plan_type_id', 'percent_effective', 'icon_url')
-            ->where('is_approve', 1)
-            ->where('family_plan_type_id', 1)
-            ->get();
-
-        $permanentMethod = DB::table('family_plan_type_subcategory')
-            ->select('id', 'name', 'short_name', 'family_plan_type_id', 'percent_effective', 'icon_url')
-            ->where('is_approve', 1)
-            ->where('family_plan_type_id', 2)
-            ->get();
-
-        $naturalMethod = DB::table('family_plan_type_subcategory')
-            ->select('id', 'name', 'short_name', 'family_plan_type_id', 'percent_effective', 'icon_url')
-            ->where('is_approve', 1)
-            ->where('family_plan_type_id', 3)
-            ->get();
+        $fpm = new FamilyPlanTypeSubcategories();
+        $modernMethod = $fpm->selectMethodPageModern();
+        $permanentMethod = $fpm->selectMethodPagePermanent();
+        $naturalMethod = $fpm->selectMethodPageNatural();
 
         return response([
             'name' => 'SelectAService',
@@ -68,17 +56,13 @@ class BookingController extends Controller
 
     public function postMethod(Request $request, $id)
     {
+        $booking = new Booking();
         $obj = json_decode($request->getContent(), true);
         Booking::create([
             'patient_id' => $id,
             'service_id' => $obj['method'][0],
         ]);
-        $details = DB::table('booking')
-            ->select('service_id', 'patient_id', 'id as booking_id', 'clinic_id')
-            ->where('patient_id', $id)
-            ->limit(1)
-            ->orderBy('id', 'desc')
-            ->get();
+        $details = $booking->getDetailsPostMethod($id);
 
         return response([
             'name' => 'postMethod',
@@ -93,9 +77,10 @@ class BookingController extends Controller
         if ($obj['province'][0] === '' && $obj['city'][0] === '') {
             $class = new SearchClinicWithOutProvinceandCity();
             $clinic = $class->searchClinic($obj);
+        } else {
+            $class = new SearchClinicWithProvinceandCity();
+            $clinic = $class->searchClinic($obj);
         }
-        $class = new SearchClinicWithProvinceandCity();
-        $clinic = $class->searchClinic($obj);
         return response([
             'name' => 'searchClinic',
             'details' => $clinic,
@@ -104,20 +89,17 @@ class BookingController extends Controller
 
     public function searchClinicWithMethodTagged(Request $request, $id)
     {
+        $booking = new Booking();
         $obj = json_decode($request->getContent(), true);
-        $getMethod = DB::table('booking')
-            ->select('service_id', 'id')
-            ->where('patient_id', $id)
-            ->orderBy('id', 'desc')
-            ->limit(1)
-            ->pluck('service_id');
+        $getMethod = $booking->getMethod($id);
 
         if ($obj['province'][0] === '' && $obj['city'][0] === '') {
             $class = new TaggedMethodWithProvinceAndCity();
             $clinic = $class->index($obj, $getMethod);
+        } else {
+            $class = new TaggedMethodWithoutProvinceAndCity();
+            $clinic = $class->index($obj, $getMethod);
         }
-        $class = new TaggedMethodWithoutProvinceAndCity();
-        $clinic = $class->index($obj, $getMethod);
 
         return response([
             'name' => 'postMethodWithTagged',
@@ -199,11 +181,8 @@ class BookingController extends Controller
 
     public function selectedClinic($id)
     {
-        $details = DB::table('clinics')
-            ->leftJoin('paid_services', 'paid_services.clinic_id', 'clinics.id')
-            ->select('clinics.id', 'paid_services.id as free_consultation', 'clinics.photo_url', 'clinics.clinic_name', 'clinics.street_address', 'clinics.type', 'clinics.philhealth_accredited_1')
-            ->where('clinics.id', $id)
-            ->get();
+        $clinics = new Clinics();
+        $details = $clinics->getSelectedClinic($id);
 
         return response([
             'name' => 'SelectedClinic',
@@ -233,6 +212,7 @@ class BookingController extends Controller
     }
     public function servicepage($id)
     {
+        $fpm = new FamilyPlanTypeSubcategories();
         $getDetails = DB::table('booking')
             ->select('clinic_id', 'service_id', 'id')
             ->where('patient_id', $id)
@@ -240,29 +220,9 @@ class BookingController extends Controller
             ->orderBy('id', 'desc')
             ->pluck('clinic_id');
 
-        $modernMethod = DB::table('family_plan_type_subcategory')
-            ->select('family_plan_type_subcategory.id', 'name', 'short_name', 'type', 'percent_effective', 'icon_url')
-            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
-            ->where('clinics.id', $getDetails[0])
-            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
-            ->get();
-
-        $permanentMethod = DB::table('family_plan_type_subcategory')
-            ->select('family_plan_type_subcategory.id', 'name', 'short_name', 'type', 'percent_effective', 'icon_url')
-            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
-            ->where('clinics.id', $getDetails[0])
-            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
-            ->get();
-
-        $naturalMethod = DB::table('family_plan_type_subcategory')
-            ->select('family_plan_type_subcategory.id', 'name', 'short_name', 'type', 'percent_effective', 'icon_url')
-            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
-            ->where('clinics.id', $getDetails[0])
-            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
-            ->get();
+        $modernMethod = $fpm->getFPMModernServicePage($getDetails);
+        $permanentMethod = $fpm->getFPMPermanentServicePage($getDetails);
+        $naturalMethod = $fpm->getFPMNaturalServicePage($getDetails);
 
         return response([
             'name' => 'ServicePage',

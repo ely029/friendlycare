@@ -77,4 +77,44 @@ class EventsNotification extends Model
         AND survey_date_to_string >= '.strtotime(date('Y-m-d')).' 
         ', [$id, $id]);
     }
+
+    public function upcomingEvents()
+    {
+        return DB::table('events_notification')
+            ->select('id', 'title', 'date', 'type')
+            ->where('is_approve', 1)
+            ->where('type', 1)
+            ->where('date_string', '>=', strtotime(date('Y-m-d')))
+            ->get();
+    }
+
+    public function pastEvent()
+    {
+        return DB::table('events_notification')
+            ->select('id', 'title', 'date', 'type')
+            ->where('is_approve', 1)
+            ->where('type', 1)
+            ->where('date_string', '<=', strtotime(date('Y-m-d')))
+            ->get();
+    }
+
+    public function upcomingAnnouncement()
+    {
+        return DB::table('events_notification')
+            ->select('id', 'title', 'date', 'type')
+            ->where('is_approve', 1)
+            ->where('type', 2)
+            ->where('date_string', '>=', strtotime(date('Y-m-d')))
+            ->get();
+    }
+
+    public function pastAnnouncement()
+    {
+        return DB::table('events_notification')
+            ->select('id', 'title', 'date', 'type')
+            ->where('is_approve', 1)
+            ->where('type', 2)
+            ->where('date_string', '<=', strtotime(date('Y-m-d')))
+            ->get();
+    }
 }

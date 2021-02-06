@@ -14,6 +14,7 @@ class FPMController extends Controller
 {
     public function pages($pageid, $id)
     {
+        $fpmType = new FpmTypeService();
         if ($pageid === '1') {
             $data = DB::table('patients')->select('fpm_user_type')->where('user_id', $id)->pluck('fpm_user_type');
             if ($data[0] === null) {
@@ -22,10 +23,7 @@ class FPMController extends Controller
                     'answer' => false,
                 ]);
             }
-            $services = DB::table('fpm_type_service')->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
-                ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name')
-                ->where('fpm_type_service.patient_id', $id)
-                ->get();
+            $services = $fpmType->getService($id);
             $reasons = [
                 ['id' => 1, 'name' => 'Limiting'],
                 ['id' => 2, 'name' => 'Spacing'],

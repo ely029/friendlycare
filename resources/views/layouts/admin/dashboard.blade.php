@@ -55,7 +55,6 @@ $('document').ready(function(){
     $('.export').on('click', function(eee){
         eee.preventDefault();
         var ely = confirm('The reports are already generated');
-        alert($("#start_date").val());
     if (ely == true) {
          window.open("{{ route('patientManagement.export')}}?start_date="+$('#start_date').val()+"&end_date="+$("#end_date").val()+"&age="+$("#age").val()+"","_self");
        }
@@ -548,9 +547,10 @@ $('document').ready(function(){
                $('#city').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
             });
             }  else {
-                $('#barangay').removeAttr('disabled', 'disabled');
-                $('#province').removeAttr('disabled', 'disabled');
+                $('#barangay').removeAttr('disabled');
+                $('#province').removeAttr('disabled');
                 $("#city").empty();
+                $("#province").empty();
             jQuery.each(data, function(index, item) {
                $('#province').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
             });

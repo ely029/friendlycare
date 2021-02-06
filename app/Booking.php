@@ -557,4 +557,24 @@ class Booking extends Model
             ->groupBy(['family_plan_type_subcategory.name'])
             ->get();
     }
+
+    public function getMethod($id)
+    {
+        return DB::table('booking')
+            ->select('service_id', 'id')
+            ->where('patient_id', $id)
+            ->orderBy('id', 'desc')
+            ->limit(1)
+            ->pluck('service_id');
+    }
+
+    public function getDetailsPostMethod($id)
+    {
+        return DB::table('booking')
+            ->select('service_id', 'patient_id', 'id as booking_id', 'clinic_id')
+            ->where('patient_id', $id)
+            ->limit(1)
+            ->orderBy('id', 'desc')
+            ->get();
+    }
 }

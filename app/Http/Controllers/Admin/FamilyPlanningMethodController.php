@@ -198,24 +198,8 @@ class FamilyPlanningMethodController extends Controller
     public function update(Request $request)
     {
         $requests = request()->all();
-        FamilyPlanTypeSubcategories::where('id', $requests['id'])->update([
-            'name' => $requests['name'],
-            'family_plan_type_id' => $requests['family_plan_type_id'],
-            'short_name' => $requests['short_name'],
-            'typical_validity' => $requests['typical_validity'],
-            'percent_effective' => $requests['percent_effective'],
-            'description_english' => $requests['description_english'],
-            'description_filipino' => $requests['description_tagalog'],
-            'how_it_works_english' => $requests['how_it_works_english'],
-            'how_it_works_filipino' => $requests['how_it_works_tagalog'],
-            'side_effect_filipino' => $requests['side_effect_tagalog'],
-            'side_effect_english' => $requests['side_effect_english'],
-            'additional_note_english' => $requests['additional_note_english'],
-            'additional_note_filipino' => $requests['additional_note_tagalog'],
-            'video_link' => $requests['video_link'],
-            'icon' => $request['icon_1'],
-            'icon_url' => $request['icon_url'],
-        ]);
+        $fpm = new FamilyPlanTypeSubcategories();
+        $fpm->updateFPM($requests, $request);
         return redirect('fpm');
     }
 

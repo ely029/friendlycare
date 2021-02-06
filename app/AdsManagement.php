@@ -70,4 +70,33 @@ class AdsManagement extends Model
             ->where('end_date_string', '>=', $dateNow)
             ->get();
     }
+
+    public function getViewInformation($id)
+    {
+        return DB::table('ads_management')
+            ->leftJoin('ad_views', 'ad_views.ads_id', 'ads_management.id')
+            ->leftJoin('ad_clicks', 'ad_clicks.ads_id', 'ads_management.id')
+            ->select(
+                'ads_management.start_date',
+                'ads_management.ad_link',
+                'ads_management.company_name',
+                'ads_management.title',
+                'ads_management.image_url',
+                'ads_management.start_date',
+                'ads_management.end_date',
+                'ads_management.id',
+        DB::raw('COUNT(DISTINCT ad_clicks.id) as count_clicks'),
+        DB::raw('COUNT(DISTINCT ad_views.id) as count_views'))
+            ->groupBy([
+                'ads_management.image_url',
+                'ads_management.ad_link',
+                'ads_management.company_name',
+                'ads_management.title',
+                'ads_management.id',
+                'ads_management.start_date',
+                'ads_management.end_date',
+            ])
+            ->where('ads_management.id', $id)
+            ->get();
+    }
 }

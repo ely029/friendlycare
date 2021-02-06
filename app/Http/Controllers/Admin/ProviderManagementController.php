@@ -12,6 +12,7 @@ use App\FamilyPlanTypeSubcategories;
 use App\Http\Controllers\Controller;
 use App\PaidServices;
 use App\ProviderNotifications;
+use App\Ratings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mail;
@@ -20,15 +21,8 @@ class ProviderManagementController extends Controller
 {
     public function index()
     {
-        $users = DB::table('clinics')
-            ->leftJoin('staffs', 'staffs.clinic_id', 'clinics.id')
-            ->leftJoin('ratings', 'ratings.clinic_id', 'clinics.id')
-            ->leftJoin('ratings_details', 'ratings_details.rating_id', 'ratings.id')
-            ->select('clinics.email', 'clinics.type', 'clinics.id', 'clinics.clinic_name', DB::raw('count(staffs.id) as number_staff'), DB::raw('avg(ratings_details.ratings) as avg'))
-            ->where('clinics.email', '<>', 'null')
-            ->where('clinics.is_approve', '<>', 0)
-            ->groupBy(['clinics.email', 'clinics.type', 'clinics.id', 'clinics.clinic_name'])
-            ->get();
+        $clinics = new Clinics();
+        $users = $clinics->indexPage();
         return view('admin.providerManagement.index', ['clinics' => $users]);
     }
     public function createFirstPage()
@@ -66,79 +60,25 @@ class ProviderManagementController extends Controller
 
     public function editProviderInformation($id)
     {
-        $provider = DB::table('clinics')
-            ->select(
-                'clinics.clinic_name',
-                'clinics.city',
-                'clinics.province',
-                'clinics.contact_number',
-                'clinics.municipality',
-                'clinics.email',
-                'clinics.description',
-                'clinics.type',
-                'clinics.street_address',
-                'clinics.id',
-                'clinics.is_close',
-                'clinics.philhealth_accredited_1',
-                'clinics.photo_url',
-           )
-            ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
-            ->whereNotNull('clinics.clinic_name')
-            ->get();
-
-        $modernMethod = DB::table('family_plan_type_subcategory')
-            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.name')
-            ->where('clinic_service.clinic_id', $id)
-            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
-            ->where('clinic_service.is_checked', 1)
-            ->get();
-
-        $ratings = DB::table('ratings')
-            ->join('ratings_details', 'ratings_details.rating_id', 'ratings.id')
-            ->where('ratings.clinic_id', $id)
-            ->avg('ratings_details.ratings');
-
-        $permanentMethod = DB::table('family_plan_type_subcategory')
-            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.name')
-            ->where('clinic_service.clinic_id', $id)
-            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
-            ->where('clinic_service.is_checked', 1)
-            ->get();
-
-        $naturalMethod = DB::table('family_plan_type_subcategory')
-            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.name')
-            ->where('clinic_service.clinic_id', $id)
-            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
-            ->where('clinic_service.is_checked', 1)
-            ->get();
-
-        $paidServices = DB::table('paid_services')
-            ->join('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'paid_services.service_id')
-            ->select('family_plan_type_subcategory.name')
-            ->where('paid_services.clinic_id', $id)
-            ->get();
-
+        $clinics = new Clinics();
+        $ratings = new Ratings();
+        $fpm = new FamilyPlanTypeSubcategories();
+        $paidService = new PaidServices();
+        $clinicGallery = new ClinicGallery();
+        $clinicHours = new ClinicHours();
+        $provider = $clinics->editProviderInformation($id);
+        $modernMethod = $fpm->providerInformationModern($id);
+        $ratings = $ratings->getRatingsProviderInformation($id);
+        $permanentMethod = $fpm->providerInformationPermanent($id);
+        $naturalMethod = $fpm->providerInformationNatural($id);
+        $paidServices = $paidService->providerInformationPaidService($id);
         $staff = DB::table('staffs')
             ->join('users', 'users.id', 'staffs.user_id')
             ->select('users.first_name', 'users.last_name')
             ->where('staffs.clinic_id', $id)
             ->get();
-
-        $clinicHours = DB::table('clinics')
-            ->join('clinic_hours', 'clinic_hours.clinic_id', 'clinics.id')
-            ->select('clinic_hours.days', 'clinic_hours.froms', 'clinic_hours.tos')
-            ->where('clinic_hours.clinic_id', $id)
-            ->get();
-
-        $gallery = DB::table('clinic_gallery')
-            ->join('clinics', 'clinics.id', 'clinic_gallery.clinic_id')
-            ->select('clinic_gallery.file_name')
-            ->where('clinic_gallery.clinic_id', $id)
-            ->get();
-
+        $clinicHours = $clinicHours->providerInformationPage($id);
+        $gallery = $clinicGallery->galleryEditProviderInformation($id);
         $countPatientRatings = DB::table('ratings')
             ->select('patient_id')
             ->where('clinic_id', $id)
@@ -149,82 +89,20 @@ class ProviderManagementController extends Controller
 
     public function editPage($id)
     {
-        $provider = DB::table('clinics')
-            ->select(
-                'clinics.clinic_name',
-                'clinics.city',
-                'clinics.province',
-                'clinics.contact_number',
-                'clinics.municipality',
-                'clinics.email',
-                'clinics.description',
-                'clinics.type',
-                'clinics.street_address',
-                'clinics.id',
-                'clinics.paid_service',
-                'clinics.philhealth_accredited_1',
-                'clinics.photo_url',
-                'clinics.region',
-                'clinics.region_id_string',
-                'clinics.province_id_string',
-                'clinics.barangay_id_string',
-                'clinics.city_id_string',
-                'clinics.province',
-                'clinics.city',
-                'clinics.barangay',
-               )
-            ->where('clinics.id', $id)
-            ->get();
-
-        $gallery = DB::table('clinic_gallery')
-            ->join('clinics', 'clinics.id', 'clinic_gallery.clinic_id')
-            ->select('clinic_gallery.file_name', 'clinics.id as clinic_id', 'clinic_gallery.file_url', 'clinic_gallery.id')
-            ->where('clinic_gallery.clinic_id', $id)
-            ->get();
-        $paid_modernMethod = DB::table('family_plan_type_subcategory')
-            ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'family_plan_type_subcategory.short_name', 'paid_services.is_checked')
-            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
-            ->where('paid_services.clinic_id', $id)
-            ->get();
-
-        $paid_permanentMethod = DB::table('family_plan_type_subcategory')
-            ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'family_plan_type_subcategory.short_name', 'paid_services.is_checked')
-            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
-            ->where('paid_services.clinic_id', $id)
-            ->get();
-
-        $paid_naturalMethod = DB::table('family_plan_type_subcategory')
-            ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'family_plan_type_subcategory.short_name', 'paid_services.is_checked')
-            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
-            ->where('paid_services.clinic_id', $id)
-            ->get();
-        $clinicHours = DB::table('clinic_hours')
-            ->select('is_checked', 'days', 'froms', 'tos', 'id_value')
-            ->where('clinic_id', $id)
-            ->get();
-
-        $service_modern = DB::table('family_plan_type_subcategory as fpm')
-            ->leftJoin('clinic_service', 'clinic_service.service_id', 'fpm.id')
-            ->select('fpm.id', 'fpm.name', 'clinic_service.is_checked')
-            ->where('clinic_service.clinic_id', $id)
-            ->where('fpm.family_plan_type_id', 1)
-            ->get();
-        $service_permanent = DB::table('family_plan_type_subcategory as fpm')
-            ->leftJoin('clinic_service', 'clinic_service.service_id', 'fpm.id')
-            ->select('fpm.id', 'fpm.name', 'clinic_service.is_checked')
-            ->where('clinic_service.clinic_id', $id)
-            ->where('fpm.family_plan_type_id', 2)
-            ->get();
-
-        $service_natural = DB::table('family_plan_type_subcategory as fpm')
-            ->leftJoin('clinic_service', 'clinic_service.service_id', 'fpm.id')
-            ->select('fpm.id', 'fpm.name', 'clinic_service.is_checked')
-            ->where('clinic_service.clinic_id', $id)
-            ->where('fpm.family_plan_type_id', 3)
-            ->get();
+        $clinics = new Clinics();
+        $clinicGallery = new ClinicGallery();
+        $paidService = new PaidServices();
+        $clinicHours = new ClinicHours();
+        $clinicService = new ClinicService();
+        $provider = $clinics->getInformation($id);
+        $gallery = $clinicGallery->editPage($id);
+        $paid_modernMethod = $paidService->editPageModern($id);
+        $paid_permanentMethod = $paidService->editPagePermanent($id);
+        $paid_naturalMethod = $paidService->editPageNatural($id);
+        $clinicHours = $clinicHours->editPage($id);
+        $service_modern = $clinicService->editPageModern($id);
+        $service_permanent = $clinicService->editPagePermanent($id);
+        $service_natural = $clinicService->editPageNatural($id);
 
         $data = DB::table('refregion')->select('regCode as region_code', 'regDesc as region_description')->get();
 
@@ -234,6 +112,7 @@ class ProviderManagementController extends Controller
     public function updateProvider()
     {
         $request = request()->all();
+        $clinics = new Clinics();
         ClinicHours::where('clinic_id', $request['clinic_id'])->delete();
         ClinicService::where('clinic_id', $request['clinic_id'])->delete();
         PaidServices::where('clinic_id', $request['clinic_id'])->delete();
@@ -287,24 +166,7 @@ class ProviderManagementController extends Controller
         $request['province'] = $province[0] ?? '';
         $request['city'] = $city[0] ?? '';
         $request['barangay'] = $barangay[0] ?? '';
-        Clinics::where('id', $request['clinic_id'])->update([
-            'clinic_name' => $request['clinic_name'],
-            'street_address' => $request['street_address'],
-            'description' => $request['description'],
-            'contact_number' => $request['contact_number'],
-            'city' => $request['city'] ?? '',
-            'province' => $request['province'] ?? '',
-            'email' => $request['email'],
-            'region' => $request['region'] ?? '',
-            'type' => $request['type'],
-            'paid_service' => $request['paid'],
-            'barangay' => $request['barangay'],
-            'barangay_id_string' => $request['barangay_id_string'],
-            'region_id_string' => $request['region_id_string'] ?? '',
-            'province_id_string' => $request['province_id_string'] ?? '',
-            'city_id_string' => $request['city_id_string'] ?? '',
-            'philhealth_accredited_1' => $request['philhealth_accredited_1'],
-        ]);
+        $clinics->updateProvider($request);
         ProviderNotifications::create([
             'title' => 'Clinic Information are updated',
             'message' => 'Your clinic had updated some of the information.',
@@ -508,17 +370,9 @@ class ProviderManagementController extends Controller
 
     public function ratingPerPatient($id)
     {
-        $countPatientRatings = DB::table('ratings')
-            ->select('patient_id')
-            ->where('clinic_id', $id)
-            ->count();
-        $details = DB::table('ratings')
-            ->leftJoin('users', 'users.id', 'ratings.patient_id')
-            ->leftJoin('ratings_details', 'ratings_details.rating_id', 'ratings.id')
-            ->select('ratings_details.id', DB::raw('REPLACE(users.name,SUBSTR(users.name,2,2),"*****") as dddd '), 'ratings_details.ratings', 'ratings.review')
-            ->where('ratings.clinic_id', $id)
-            ->get();
-
+        $ratings = new Ratings();
+        $countPatientRatings = $ratings->viewPageCountRatings($id);
+        $details = $ratings->viewPageDetails($id);
         $clinic_name = DB::table('clinics')
             ->leftJoin('ratings', 'ratings.clinic_id', 'clinics.id')
             ->select('clinics.clinic_name', 'clinics.contact_number', 'clinics.email', 'clinics.photo_url')
