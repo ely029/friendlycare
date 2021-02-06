@@ -99,6 +99,7 @@ class Clinics extends Model
     public function getClinicFifthScenario($obj)
     {
         return DB::table('clinics')
+            ->distinct('clinics.clinic_name')
             ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
             ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
             ->Where('clinics.paid_service', 1)
@@ -112,6 +113,7 @@ class Clinics extends Model
     public function getClinicSixthScenario($obj)
     {
         return DB::table('clinics')
+            ->distinct('clinics.clinic_name')
             ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
             ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
             ->Where('clinics.paid_service', 0)
@@ -125,6 +127,7 @@ class Clinics extends Model
     public function getClinicSeventhScenario($obj)
     {
         return DB::table('clinics')
+            ->distinct('clinics.clinic_name')
             ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
             ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
             ->Where('clinics.paid_service', 0)
@@ -138,6 +141,7 @@ class Clinics extends Model
     public function getClinicEighthScenario($obj)
     {
         return DB::table('clinics')
+            ->distinct('clinics.clinic_name')
             ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
             ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
             ->Where('clinics.paid_service', 1)

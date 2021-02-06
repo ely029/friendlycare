@@ -25,14 +25,6 @@ class DefaultController extends Controller
     public function login(Request $request)
     {
         $obj = json_decode($request->getContent(), true);
-        $validator = \Validator::make(request()->all(), [
-            'email' => 'required',
-            'password' => 'required|min:8',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
 
         if (\Auth::attempt(['email' => $obj['email'], 'password' => $obj['password'], 'role_id' => 4])) {
             $user = \Auth::user();
