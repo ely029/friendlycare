@@ -562,9 +562,7 @@ class Booking extends Model
     {
         return DB::table('booking')
             ->select('service_id', 'id')
-            ->where('patient_id', $id)
-            ->orderBy('id', 'desc')
-            ->limit(1)
+            ->where('id', $id)
             ->pluck('service_id');
     }
 
