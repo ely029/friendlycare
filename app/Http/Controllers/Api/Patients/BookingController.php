@@ -94,10 +94,10 @@ class BookingController extends Controller
         $getMethod = $booking->getMethod($id);
 
         if ($obj['province'][0] === '' && $obj['city'][0] === '') {
-            $class = new TaggedMethodWithProvinceAndCity();
+            $class = new TaggedMethodWithoutProvinceAndCity();
             $clinic = $class->index($obj, $getMethod);
         } else {
-            $class = new TaggedMethodWithoutProvinceAndCity();
+            $class = new TaggedMethodWithProvinceAndCity();
             $clinic = $class->index($obj, $getMethod);
         }
 
