@@ -416,23 +416,33 @@ $(function(){
             data: { region: $('#region').val()}
         })
         .done(function( data ) {
-            if ($('#region').val() == '13') {
-                $("#city").empty();
+            if ($("#region").val() === "13") {
+                $("#province").empty();
             jQuery.each(data, function(index, item) {
-               $('#city').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
+               $('#province').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
             });
-            }  else {
+            $("#city").empty();
+
+            $.ajax({
+            type: "GET",
+            url: "{{ route('provider.city')}}",
+            data: { province: $('#province').val()}
+        })
+        .done(function( data ) {
+            $("#city").empty();
+            $("#barangay").empty();
+            jQuery.each(data, function(index, item) {
+               $('#city').append('<option value='+item.city_municipality_code+'>'+item.city_municipality_description+'</option>');
+            });
+        });
+            } else {
                 $("#province").empty();
                 $("#city").empty();
-                $("#barangay").empty();
-                $('#barangay').show();
-                $('#province').show();
-                $('.province-label').show();
-                $('.barangay-label').show();
             jQuery.each(data, function(index, item) {
                $('#province').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
             });
             }
+            
         });      
    });
 
@@ -538,23 +548,33 @@ $('document').ready(function(){
             data: { region: $('#region').val()}
         })
         .done(function( data ) {
-            if ($('#region').val() == '13') {
-                $('#barangay').attr('disabled', 'disabled');
-                $('#province').attr('disabled', 'disabled').empty();
-                $("#city").empty();
-                $("#barangay").empty();
-            jQuery.each(data, function(index, item) {
-               $('#city').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
-            });
-            }  else {
-                $('#barangay').removeAttr('disabled');
-                $('#province').removeAttr('disabled');
-                $("#city").empty();
+            if ($("#region").val() === "13") {
                 $("#province").empty();
             jQuery.each(data, function(index, item) {
                $('#province').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
             });
+            $("#city").empty();
+
+            $.ajax({
+            type: "GET",
+            url: "{{ route('provider.city')}}",
+            data: { province: $('#province').val()}
+        })
+        .done(function( data ) {
+            $("#city").empty();
+            $("#barangay").empty();
+            jQuery.each(data, function(index, item) {
+               $('#city').append('<option value='+item.city_municipality_code+'>'+item.city_municipality_description+'</option>');
+            });
+        });
+            } else {
+                $("#province").empty();
+                $("#city").empty();
+            jQuery.each(data, function(index, item) {
+               $('#province').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
+            });
             }
+            
         });      
    });
 
