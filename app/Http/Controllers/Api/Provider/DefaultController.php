@@ -539,9 +539,8 @@ class DefaultController extends Controller
             ->where('family_plan_type_subcategory.id', $id)
             ->get();
 
-        $clinic = DB::table('clinics')
-            ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
-            ->join('family_plan_type_subcategory', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+        $clinic = DB::table('clinic_service')
+            ->join('clinics', 'clinic_service.clinic_id', 'clinics.id')
             ->select('clinics.id', 'clinics.clinic_name', 'clinics.photo_url', 'clinics.street_address', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinic_service.is_checked as paid_services')
             ->where('clinic_service.service_id', $id)
             ->get();
