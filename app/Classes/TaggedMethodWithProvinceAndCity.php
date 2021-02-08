@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class TaggedMethodWithProvinceAndCity
 {
-    public function index($obj)
+    public function index($obj, $method)
     {
         if ($obj['province'][0] !== '' && $obj['city'][0] !== '' && $obj['philhealth_accredited'][0] === 1 && $obj['free_consultation'][0] === 1) {
             return DB::table('clinics')
@@ -18,6 +18,7 @@ class TaggedMethodWithProvinceAndCity
                 ->where('clinics.province', $obj['province'][0])
                 ->where('clinics.city', $obj['city'][0])
                 ->where('clinics.paid_service', 0)
+                ->where('clinic_service.service_id', $method)
                 ->where('clinics.philhealth_accredited_1', 1)
                 ->where('clinics.user_id', 0)
                 ->get();
@@ -30,6 +31,7 @@ class TaggedMethodWithProvinceAndCity
                 ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
                 ->where('clinics.province', $obj['province'][0])
                 ->where('clinics.city', $obj['city'][0])
+                ->where('clinic_service.service_id', $method)
                 ->where('clinics.user_id', 0)
                 ->get();
         }
@@ -41,6 +43,7 @@ class TaggedMethodWithProvinceAndCity
                 ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
                 ->where('clinics.province', $obj['province'][0])
                 ->where('clinics.city', $obj['city'][0])
+                ->where('clinic_service.service_id', $method)
                 ->where('clinics.philhealth_accredited_1', 1)
                 ->where('clinics.user_id', 0)
                 ->get();
@@ -53,6 +56,7 @@ class TaggedMethodWithProvinceAndCity
                 ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
                 ->where('clinics.province', $obj['province'][0])
                 ->where('clinics.city', $obj['city'][0])
+                ->where('clinic_service.service_id', $method)
                 ->where('clinics.paid_service', 1)
                 ->where('clinics.user_id', 0)
                 ->get();
