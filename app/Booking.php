@@ -561,7 +561,7 @@ class Booking extends Model
     public function getMethod($id)
     {
         return DB::table('booking')
-            ->select('service_id', 'id')
+            ->select('service_id')
             ->where('id', $id)
             ->pluck('service_id');
     }

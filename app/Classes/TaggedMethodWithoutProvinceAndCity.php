@@ -8,23 +8,23 @@ use App\Clinics;
 
 class TaggedMethodWithoutProvinceAndCity
 {
-    public function index($obj, $getMethod)
+    public function index($obj, $method)
     {
         $clinics = new Clinics();
         if ($obj['province'][0] === '' && $obj['city'][0] === '' && $obj['philhealth_accredited'][0] === 1 && $obj['free_consultation'][0] === 1) {
-            return $clinics->getTaggedMethodFirstScenario($getMethod);
+            return $clinics->getTaggedMethodFirstScenario($method);
         }
 
         if ($obj['province'][0] === '' && $obj['city'][0] === '' && $obj['philhealth_accredited'][0] === 0 && $obj['free_consultation'][0] === 0) {
-            return $clinics->getTaggedMethodSecondScenario($getMethod);
+            return $clinics->getTaggedMethodSecondScenario($method);
         }
 
         if ($obj['province'][0] === '' && $obj['city'][0] === '' && $obj['philhealth_accredited'][0] === 1 && $obj['free_consultation'][0] === 0) {
-            return $clinics->getTaggedMethodThirdScenario($getMethod);
+            return $clinics->getTaggedMethodThirdScenario($method);
         }
 
         if ($obj['province'][0] === '' && $obj['city'][0] === '' && $obj['philhealth_accredited'][0] === 0 && $obj['free_consultation'][0] === 1) {
-            return $clinics->getTaggedMethodFourthScenario($getMethod);
+            return $clinics->getTaggedMethodFourthScenario($method);
         }
     }
 }

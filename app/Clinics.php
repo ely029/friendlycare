@@ -157,47 +157,47 @@ class Clinics extends Model
             ->get();
     }
 
-    public function getTaggedMethodFirstScenario($getMethod)
+    public function getTaggedMethodFirstScenario($method)
     {
         return DB::table('clinics')
             ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
             ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
-            ->where('clinic_service.service_id', $getMethod[0])
-            ->Where('clinics.paid_service', 0)
+            ->where('clinics.paid_service', 0)
+            ->where('clinic_service.service_id', $method)
             ->where('clinics.philhealth_accredited_1', 1)
             ->where('clinics.user_id', 0)
             ->get();
     }
 
-    public function getTaggedMethodSecondScenario($getMethod)
+    public function getTaggedMethodSecondScenario($method)
     {
         return DB::table('clinics')
             ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
             ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
-            ->where('clinic_service.service_id', $getMethod[0])
             ->where('clinics.user_id', 0)
+            ->where('clinic_service.service_id', $method)
             ->get();
     }
 
-    public function getTaggedMethodThirdScenario($getMethod)
+    public function getTaggedMethodThirdScenario($method)
     {
         return DB::table('clinics')
             ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
             ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
-            ->where('clinic_service.service_id', $getMethod[0])
             ->where('clinics.philhealth_accredited_1', 1)
             ->where('clinics.user_id', 0)
+            ->where('clinic_service.service_id', $method)
             ->get();
     }
 
-    public function getTaggedMethodFourthScenario($getMethod)
+    public function getTaggedMethodFourthScenario($method)
     {
         return DB::table('clinics')
             ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
             ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
-            ->where('clinic_service.service_id', $getMethod[0])
             ->Where('clinics.paid_service', 1)
             ->where('clinics.user_id', 0)
+            ->where('clinic_service.service_id', $method)
             ->get();
     }
 
