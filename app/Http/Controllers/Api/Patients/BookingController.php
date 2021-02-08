@@ -369,7 +369,7 @@ class BookingController extends Controller
         $getPatientId = DB::table('booking')->select('patient_id')->where('id', $id)->pluck('patient_id');
         $getServiceId = DB::table('booking')->select('service_id')->where('id', $id)->pluck('service_id');
         $message = $getClinicName[0];
-        DB::delete('delete from fpm_type_service where patient_id = ?',[$getPatientId[0]]);
+        DB::delete('delete from fpm_type_service where patient_id = ?', [$getPatientId[0]]);
         FpmTypeService::create([
             'service_id' => $getServiceId[0],
             'patient_id' => $getPatientId[0],
