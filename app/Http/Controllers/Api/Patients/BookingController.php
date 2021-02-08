@@ -17,6 +17,7 @@ use App\EventsNotification;
 use App\FamilyPlanTypeSubcategories;
 use App\FpmTypeService;
 use App\Http\Controllers\Controller;
+use App\Patients;
 use App\PatientTimeSlot;
 use App\Staffs;
 use Illuminate\Http\Request;
@@ -373,6 +374,9 @@ class BookingController extends Controller
         FpmTypeService::create([
             'service_id' => $getServiceId[0],
             'patient_id' => $getPatientId[0],
+        ]);
+        Patients::where('user_id', $getPatientId[0])->update([
+            'fpm_user_type' => 3,
         ]);
         $getClinicEmail = DB::table('clinics')->select('email')->where('id', $getClinicId[0])->pluck('email');
         Mail::send('email.patient.provider.provider-complete-booking', [], function ($mail) use ($getClinicEmail) {
