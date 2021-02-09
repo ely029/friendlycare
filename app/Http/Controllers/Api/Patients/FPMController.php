@@ -45,8 +45,8 @@ class FPMController extends Controller
                 'answer' => true,
                 'use_FPM' => 'Yes',
                 'services' => $services,
-                'reasons' => $reasons[$answer]['name'],
-                'fpm_type' => $fpms[$answer1]['name1'],
+                'reasons' => $reasons[$answer]['name'] ?? null,
+                'fpm_type' => $fpms[$answer1]['name1'] ?? null,
                 'date_time' => $date_time[0] ?? '',
             ]);
         }
