@@ -16,11 +16,13 @@ class FPMController extends Controller
     {
         $fpmType = new FpmTypeService();
         if ($pageid === '1') {
-            $data = DB::table('patients')->select('fpm_plan_reasons')->where('user_id', $id)->pluck('fpm_user_type');
+            $data = DB::table('patients')->select('fpm_plan_reasons')->where('user_id', $id)->pluck('fpm_plan_reasons');
+            $data1 = DB::table('patients')->select('fpm_user_type')->where('user_id', $id)->pluck('fpm_user_type');
             if ($data[0] === null) {
                 return response([
                     'name' => 'fpmUserType',
                     'answer' => false,
+                    'fpm_type' => $data1[0],
                 ]);
             }
             $services = $fpmType->getService($id);
