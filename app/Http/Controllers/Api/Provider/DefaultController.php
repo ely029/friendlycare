@@ -518,26 +518,11 @@ class DefaultController extends Controller
     //APIs for Booking (from service page)
     public function fpmPagePerMethod($id)
     {
-        $header = DB::table('family_plan_type_subcategory')
-            ->select('name', 'short_name', 'icon_url', 'percent_effective', 'typical_validity', 'family_plan_type_id')
-            ->where('id', $id)
-            ->get();
-
-        $description = DB::table('family_plan_type_subcategory')
-            ->select('description_filipino', 'description_english', 'how_it_works_english', 'side_effect_english', 'additional_note_english', 'how_it_works_filipino', 'side_effect_filipino', 'additional_note_filipino')
-            ->where('id', $id)
-            ->get();
-
-        $videolink = DB::table('family_plan_type_subcategory')
-            ->select('family_plan_type_subcategory.video_link')
-            ->where('family_plan_type_subcategory.id', $id)
-            ->get();
-
-        $gallery = DB::table('family_plan_type_subcategory')
-            ->join('service_gallery', 'service_gallery.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.video_link', 'service_gallery.file_url')
-            ->where('family_plan_type_subcategory.id', $id)
-            ->get();
+        $fpm = new FamilyPlanTypeSubcategories();
+        $header = $fpm->fpmPerPageHeader($id);
+        $description = $fpm->fpmPerPageDescription($id);
+        $videolink = $fpm->fpmPerPageVideoLink($id);
+        $gallery = $fpm->fpmPerPageGallery($id);
 
         $clinic = DB::table('paid_services')
             ->join('clinics', 'paid_services.clinic_id', 'clinics.id')

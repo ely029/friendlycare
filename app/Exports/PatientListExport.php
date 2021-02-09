@@ -35,6 +35,26 @@ class PatientListExport implements FromCollection, WithHeadings
 
     public function collection()
     {
+        if ($this->dateFrom === '0' && $this->dateTo === '0') {
+            if ($this->age === '1') {
+                return DB::table('users')
+                    ->leftJoin('patients', 'patients.user_id', 'users.id')
+                    ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
+                    ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
+                    ->select('users.name', 'users.age', 'patients.province', 'patients.municipality', 'family_plan_type_subcategory.name as service_name', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'))
+                    ->where('users.role_id', 3)
+                    ->where('users.age', '<=', 19)
+                    ->get();
+            }
+            return DB::table('users')
+                ->leftJoin('patients', 'patients.user_id', 'users.id')
+                ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
+                ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
+                ->select('users.name', 'users.age', 'patients.province', 'patients.municipality', 'family_plan_type_subcategory.name as service_name', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'))
+                ->where('users.role_id', 3)
+                ->where('users.age', '>=', 20)
+                ->get();
+        }
         if ($this->age === '1') {
             return DB::table('users')
                 ->leftJoin('patients', 'patients.user_id', 'users.id')

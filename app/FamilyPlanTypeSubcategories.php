@@ -20,6 +20,39 @@ class FamilyPlanTypeSubcategories extends Model
         'icon_url',
     ];
 
+    public function fpmPerPageHeader($id)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->select('name', 'short_name', 'icon_url', 'percent_effective', 'typical_validity', 'family_plan_type_id')
+            ->where('id', $id)
+            ->get();
+    }
+
+    public function fpmPerPageDescription($id)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->select('description_filipino', 'description_english', 'how_it_works_english', 'side_effect_english', 'additional_note_english', 'how_it_works_filipino', 'side_effect_filipino', 'additional_note_filipino')
+            ->where('id', $id)
+            ->get();
+    }
+
+    public function fpmPerPageVideoLink($id)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->select('family_plan_type_subcategory.video_link')
+            ->where('family_plan_type_subcategory.id', $id)
+            ->get();
+    }
+
+    public function fpmPerPageGallery($id)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->join('service_gallery', 'service_gallery.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.video_link', 'service_gallery.file_url')
+            ->where('family_plan_type_subcategory.id', $id)
+            ->get();
+    }
+
     public function serviceGalleries()
     {
         return $this->hasMany('App\ServiceGallery', 'service_id');

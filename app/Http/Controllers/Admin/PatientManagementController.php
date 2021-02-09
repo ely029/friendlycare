@@ -75,7 +75,7 @@ class PatientManagementController extends Controller
     {
         $request = request()->all();
         $fileName = 'Patients-List.csv';
-        return Excel::download(new PatientListExport($request['start_date'], $request['end_date'], $request['age']), $fileName);
+        return Excel::download(new PatientListExport($request['start_date'] ?? '0', $request['end_date'] ?? '0', $request['age']), $fileName);
     }
 
     public function filter()
