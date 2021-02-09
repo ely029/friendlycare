@@ -113,6 +113,9 @@ class DefaultController extends Controller
 
         $request['user_id'] = $user->id;
         $request['patient_id'] = $user->id;
+        Patients::where('user_id', $request['user_id'])->update([
+            'fpm_user_type' => 1,
+        ]);
 
         Patients::create($request);
         Spouses::create($request);
