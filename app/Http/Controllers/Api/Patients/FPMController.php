@@ -24,11 +24,12 @@ class FPMController extends Controller
             ];
             $data = DB::table('patients')->select('family_plan_reasons')->where('user_id', $id)->pluck('family_plan_reasons');
             $data1 = DB::table('patients')->select('fpm_user_type')->where('user_id', $id)->pluck('fpm_user_type');
+            $eee = $data1[0] - 1;
             if ($data[0] === null) {
                 return response([
                     'name' => 'fpmUserType',
                     'answer' => false,
-                    'fpm_type' => $fpms[$data1[0]]['name1'],
+                    'fpm_type' => $fpms[$eee]['name1'],
                 ]);
             }
             $services = $fpmType->getService($id);
