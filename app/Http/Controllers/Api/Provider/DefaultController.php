@@ -684,4 +684,9 @@ class DefaultController extends Controller
             'details' => $obj['timeslot'][0],
         ]);
     }
+
+    public function getClinicService()
+    {
+        return ClinicService::get();
+    }
 }
