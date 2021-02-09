@@ -418,10 +418,10 @@ $(function(){
         .done(function( data ) {
             if ($("#region").val() === "13") {
                 $("#province").empty();
+                $("#city").empty();
             jQuery.each(data, function(index, item) {
                $('#province').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
             });
-            $("#city").empty();
 
             $.ajax({
             type: "GET",
