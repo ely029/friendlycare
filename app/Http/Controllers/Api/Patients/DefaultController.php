@@ -113,7 +113,7 @@ class DefaultController extends Controller
 
         $request['user_id'] = $user->id;
         $request['patient_id'] = $user->id;
-        DB::statement('update patients set fpm_user_type = 1 where user_id = ?', [$request['user_id']]);
+        $request['fpm_user_type'] = 1;
 
         Patients::create($request);
         Spouses::create($request);

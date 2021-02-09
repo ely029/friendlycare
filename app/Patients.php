@@ -8,5 +8,5 @@
 
  class Patients extends Model
  {
-     protected $fillable = ['user_id'];
+     protected $fillable = ['user_id', 'fpm_user_type'];
  }
