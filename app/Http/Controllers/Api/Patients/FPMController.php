@@ -16,13 +16,19 @@ class FPMController extends Controller
     {
         $fpmType = new FpmTypeService();
         if ($pageid === '1') {
+            $fpms = [
+                ['id' => 1, 'name1' => 'New Acceptor'],
+                ['id' => 2, 'name1' => 'Changing Methods'],
+                ['id' => 3, 'name1' => 'Current User'],
+                ['id' => 4, 'name1' => 'Restart'],
+            ];
             $data = DB::table('patients')->select('family_plan_reasons')->where('user_id', $id)->pluck('family_plan_reasons');
             $data1 = DB::table('patients')->select('fpm_user_type')->where('user_id', $id)->pluck('fpm_user_type');
             if ($data[0] === null) {
                 return response([
                     'name' => 'fpmUserType',
                     'answer' => false,
-                    'fpm_type' => $data1[0],
+                    'fpm_type' => $fpms[$data1[0]]['name1'],
                 ]);
             }
             $services = $fpmType->getService($id);
@@ -30,12 +36,6 @@ class FPMController extends Controller
                 ['id' => 1, 'name' => 'Limiting'],
                 ['id' => 2, 'name' => 'Spacing'],
                 ['id' => 3, 'name' => 'Others'],
-            ];
-            $fpms = [
-                ['id' => 1, 'name1' => 'New Acceptor'],
-                ['id' => 2, 'name1' => 'Changing Methods'],
-                ['id' => 3, 'name1' => 'Current User'],
-                ['id' => 4, 'name1' => 'Restart'],
             ];
             $fpm = DB::table('patients')->select('fpm_user_type')->where('user_id', $id)->pluck('fpm_user_type');
             $answer1 = $fpm[0] - 1;
