@@ -335,6 +335,17 @@ class Booking extends Model
             ->count();
     }
 
+    public function getRescheduleCountFourthScenario($request)
+    {
+        return DB::table('booking')
+            ->select('id')
+            ->where('status', 2)
+            ->where('service_id', $request['service_id'])
+            ->where('clinic_id', $request['clinic_id'])
+            ->whereBetween('booking.time_slot', [date('Y-m-d', strtotime($request['date-from'])), date('Y-m-d', strtotime($request['date-to']))])
+            ->count();
+    }
+
     public function getCancelledCountFirstScenario($request)
     {
         return DB::table('booking')
@@ -360,6 +371,17 @@ class Booking extends Model
             ->select('id')
             ->where('status', 3)
             ->where('service_id', $request['service_id'])
+            ->whereBetween('booking.time_slot', [date('Y-m-d', strtotime($request['date-from'])), date('Y-m-d', strtotime($request['date-to']))])
+            ->count();
+    }
+
+    public function getCancelledCountFourthScenario($request)
+    {
+        return DB::table('booking')
+            ->select('id')
+            ->where('status', 3)
+            ->where('service_id', $request['service_id'])
+            ->where('clinic_id', $request['clinic_id'])
             ->whereBetween('booking.time_slot', [date('Y-m-d', strtotime($request['date-from'])), date('Y-m-d', strtotime($request['date-to']))])
             ->count();
     }
@@ -393,6 +415,17 @@ class Booking extends Model
             ->count();
     }
 
+    public function getNoShowCountFourthScenario($request)
+    {
+        return DB::table('booking')
+            ->select('id')
+            ->where('status', 5)
+            ->where('service_id', $request['service_id'])
+            ->where('clinic_id', $request['clinic_id'])
+            ->whereBetween('booking.time_slot', [date('Y-m-d', strtotime($request['date-from'])), date('Y-m-d', strtotime($request['date-to']))])
+            ->count();
+    }
+
     public function getCompleteCountFirstScenario($request)
     {
         return DB::table('booking')
@@ -418,6 +451,17 @@ class Booking extends Model
             ->select('id')
             ->where('status', 4)
             ->where('service_id', $request['service_id'])
+            ->whereBetween('booking.time_slot', [date('Y-m-d', strtotime($request['date-from'])), date('Y-m-d', strtotime($request['date-to']))])
+            ->count();
+    }
+
+    public function getCompleteCountFourthScenario($request)
+    {
+        return DB::table('booking')
+            ->select('id')
+            ->where('status', 4)
+            ->where('service_id', $request['service_id'])
+            ->where('clinic_id', $request['clinic_id'])
             ->whereBetween('booking.time_slot', [date('Y-m-d', strtotime($request['date-from'])), date('Y-m-d', strtotime($request['date-to']))])
             ->count();
     }

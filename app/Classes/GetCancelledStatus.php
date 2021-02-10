@@ -23,11 +23,15 @@ class GetCancelledStatus
         if ($request['clinic_id'] === null && $request['service_id'] !== null) {
             return $booking->getCancelledCountThirdScenario($request);
         }
+        if ($request['clinic_id'] !== null && $request['service_id'] !== null && $request['status'] === null) {
+            return $booking->getCancelledCountFourthScenario($request);
+        }
         return DB::table('booking')
             ->select('id')
             ->where('status', 3)
             ->where('clinic_id', $request['clinic_id'])
             ->where('service_id', $request['service_id'])
+            ->where('status', $request['status'])
             ->whereBetween('booking.time_slot', [$request['date-from'], $request['date-to']])
             ->count();
     }

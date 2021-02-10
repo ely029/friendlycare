@@ -249,23 +249,10 @@ class DefaultController extends Controller
 
     public function getAllServices()
     {
-        $modernMethod = DB::table('family_plan_type_subcategory')
-            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id')
-            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
-            ->where('family_plan_type_subcategory.is_approve', 1)
-            ->get();
-
-        $permanentMethod = DB::table('family_plan_type_subcategory')
-            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id')
-            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
-            ->where('family_plan_type_subcategory.is_approve', 1)
-            ->get();
-
-        $naturalMethod = DB::table('family_plan_type_subcategory')
-            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id')
-            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
-            ->where('family_plan_type_subcategory.is_approve', 1)
-            ->get();
+        $fpm = new FamilyPlanTypeSubcategories();
+        $modernMethod = $fpm->getAllServicesModernMethod();
+        $permanentMethod = $fpm->getAllServicesPermanentMethod();
+        $naturalMethod = $fpm->getAllServicesNaturalMethod();
 
         return response([
             'name' => 'Services',
@@ -278,27 +265,10 @@ class DefaultController extends Controller
     public function getServices($id)
     {
         $users = Staffs::where('user_id', $id)->pluck('clinic_id');
-
-        $modernMethod = DB::table('family_plan_type_subcategory')
-            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
-            ->where('clinic_service.clinic_id', $users[0])
-            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
-            ->get();
-
-        $permanentMethod = DB::table('family_plan_type_subcategory')
-            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
-            ->where('clinic_service.clinic_id', $users[0])
-            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
-            ->get();
-
-        $naturalMethod = DB::table('family_plan_type_subcategory')
-            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
-            ->where('clinic_service.clinic_id', $users[0])
-            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
-            ->get();
+        $fpm = new FamilyPlanTypeSubcategories();
+        $modernMethod = $fpm->getServicesModernMethod($users);
+        $permanentMethod = $fpm->getServicesPermanentMethod($users);
+        $naturalMethod = $fpm->getServicesNaturalMethod($users);
 
         return response([
             'name' => 'Services',
@@ -333,45 +303,12 @@ class DefaultController extends Controller
             }
         }
 
-        $modernMethodWithoutClinic = DB::table('family_plan_type_subcategory')
-            ->leftJoin('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
-            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
-            ->where('clinic_service.is_checked', null);
-
-        $permanentMethodWithoutClinic = DB::table('family_plan_type_subcategory')
-            ->leftJoin('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
-            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
-            ->where('clinic_service.is_checked', null);
-
-        $naturalMethodWithoutClinic = DB::table('family_plan_type_subcategory')
-            ->leftJoin('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
-            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
-            ->where('clinic_service.is_checked', null);
-
-        $modernMethod = DB::table('family_plan_type_subcategory')
-            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
-            ->where('clinic_service.clinic_id', $users[0])
-            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
-            ->where('clinic_service.is_checked', 1);
-
-        $permanentMethod = DB::table('family_plan_type_subcategory')
-            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
-            ->where('clinic_service.clinic_id', $users[0])
-            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
-            ->where('clinic_service.is_checked', 1);
-
-        $naturalMethod = DB::table('family_plan_type_subcategory')
-            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
-            ->where('clinic_service.clinic_id', $users[0])
-            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
-            ->where('clinic_service.is_checked', 1);
-
+        $modernMethodWithoutClinic = $methods->modernMethodWithoutClinic();
+        $permanentMethodWithoutClinic = $methods->permanentMethodWithoutClinic();
+        $naturalMethodWithoutClinic = $methods->naturalMethodWithoutClinic();
+        $modernMethod = $methods->modernMethodUpdateService($users);
+        $permanentMethod = $methods->permanentMethodUpdateService($users);
+        $naturalMethod = $methods->naturalMethodUpdateService($users);
         $mergeModernMethod = $modernMethodWithoutClinic->union($modernMethod)->get();
         $mergePermanentMethod = $permanentMethodWithoutClinic->union($permanentMethod)->get();
         $mergeNaturalMethod = $naturalMethodWithoutClinic->union($naturalMethod)->get();
@@ -438,16 +375,9 @@ class DefaultController extends Controller
     public function getPaidServices($id)
     {
         $user = Staffs::where('user_id', $id)->pluck('clinic_id');
-        $methods = DB::table('family_plan_type_subcategory')
-            ->leftJoin('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'paid_services.is_checked')
-            ->where('paid_services.is_checked', null);
-
-        $checkedMethods = DB::table('family_plan_type_subcategory')
-            ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'paid_services.is_checked')
-            ->where('paid_services.is_checked', 1)
-            ->where('paid_services.clinic_id', $user[0]);
+        $fpm = new FamilyPlanTypeSubcategories();
+        $methods = $fpm->modernMethodGetPaidServices();
+        $checkedMethods = $fpm->checkedMethodsGetPaidServices($user);
 
         $merged = $methods->union($checkedMethods)->get();
 
@@ -461,6 +391,7 @@ class DefaultController extends Controller
     {
         $obj = json_decode($requests->getContent(), true);
         $user = Staffs::where('user_id', $id)->pluck('clinic_id');
+        $fpm = new FamilyPlanTypeSubcategories();
 
         for ($eee = 0; $eee <= 10000;$eee++) {
             if (isset($obj['available_method'][$eee])) {
@@ -472,17 +403,8 @@ class DefaultController extends Controller
             }
         }
 
-        $methods = DB::table('family_plan_type_subcategory')
-            ->leftJoin('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'paid_services.is_checked')
-            ->where('paid_services.is_checked', null);
-
-        $checkedMethods = DB::table('family_plan_type_subcategory')
-            ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'paid_services.is_checked')
-            ->where('paid_services.is_checked', 1)
-            ->where('paid_services.clinic_id', $user[0]);
-
+        $methods = $fpm->methodsUpdatePaidServices();
+        $checkedMethods = $fpm->checkedMethodsUpdatePaidServices($user);
         $merged = $methods->union($checkedMethods)->get();
 
         return response([

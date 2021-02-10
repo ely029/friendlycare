@@ -191,4 +191,152 @@ class FamilyPlanTypeSubcategories extends Model
             'icon_url' => $request['icon_url'],
         ]);
     }
+
+    public function getAllServicesModernMethod()
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id')
+            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
+            ->where('family_plan_type_subcategory.is_approve', 1)
+            ->get();
+    }
+
+    public function getAllServicesPermanentMethod()
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id')
+            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
+            ->where('family_plan_type_subcategory.is_approve', 1)
+            ->get();
+    }
+
+    public function getAllServicesNaturalMethod()
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id')
+            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
+            ->where('family_plan_type_subcategory.is_approve', 1)
+            ->get();
+    }
+
+    public function getServicesModernMethod($users)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
+            ->where('clinic_service.clinic_id', $users[0])
+            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
+            ->get();
+    }
+
+    public function getServicesPermanentMethod($users)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
+            ->where('clinic_service.clinic_id', $users[0])
+            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
+            ->get();
+    }
+
+    public function getServicesNaturalMethod($users)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
+            ->where('clinic_service.clinic_id', $users[0])
+            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
+            ->get();
+    }
+
+    public function modernMethodWithoutClinic()
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->leftJoin('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
+            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
+            ->where('clinic_service.is_checked', null);
+    }
+
+    public function permanentMethodWithoutClinic()
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->leftJoin('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
+            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
+            ->where('clinic_service.is_checked', null);
+    }
+
+    public function naturalMethodWithoutClinic()
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->leftJoin('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
+            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
+            ->where('clinic_service.is_checked', null);
+    }
+
+    public function modernMethodUpdateService($users)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
+            ->where('clinic_service.clinic_id', $users[0])
+            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
+            ->where('clinic_service.is_checked', 1);
+    }
+
+    public function permanentMethodUpdateService($users)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
+            ->where('clinic_service.clinic_id', $users[0])
+            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
+            ->where('clinic_service.is_checked', 1);
+    }
+
+    public function naturalMethodUpdateService($users)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
+            ->where('clinic_service.clinic_id', $users[0])
+            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
+            ->where('clinic_service.is_checked', 1);
+    }
+
+    public function modernMethodGetPaidServices()
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->leftJoin('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'paid_services.is_checked')
+            ->where('paid_services.is_checked', null);
+    }
+
+    public function checkedMethodsGetPaidServices($user)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'paid_services.is_checked')
+            ->where('paid_services.is_checked', 1)
+            ->where('paid_services.clinic_id', $user[0]);
+    }
+
+    public function methodsUpdatePaidServices()
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->leftJoin('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'paid_services.is_checked')
+            ->where('paid_services.is_checked', null);
+    }
+
+    public function checkedMethodsUpdatePaidServices($user)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'paid_services.is_checked')
+            ->where('paid_services.is_checked', 1)
+            ->where('paid_services.clinic_id', $user[0]);
+    }
 }
