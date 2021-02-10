@@ -84,17 +84,8 @@ class BookingController extends Controller
     public function export()
     {
         $request = request()->all();
-        $validator = \Validator::make(request()->all(), [
-            'date-from' => 'required',
-            'date-to' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return redirect('booking/index')
-                ->withErrors($validator)
-                ->withInput();
-        }
-        $dateFrom = date('Y-m-d', strtotime($request['date_from']));
-        $dateTo = date('Y-m-d', strtotime($request['date_to']));
+        $dateFrom = date('Y-m-d', strtotime($request['date_from'] ?? '0000-00-00'));
+        $dateTo = date('Y-m-d', strtotime($request['date_to'] ?? '0000-00-00'));
         $fileName = 'Admin-Booking-Report-'.$dateFrom.'-to-'.$dateTo.'.csv';
         return Excel::download(new AdminBookingExport($dateFrom ?? '0000-00-00', $dateTo ?? '0000-00-00', $request['clinic'] ?? '0', $request['status'] ?? '0', $request['service'] ?? '0'), $fileName);
     }
