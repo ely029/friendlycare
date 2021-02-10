@@ -33,8 +33,8 @@ class ClinicTime extends Model
                 ->where('clinic_id', $clinicId)
                 ->pluck('tos');
 
-            $starttime = $getStartTime[0];  // your start time
-            $endtime = $getEndTime[0];  // End time
+            $starttime = $getStartTime[0] ?? '0:00';  // your start time
+            $endtime = $getEndTime[0] ?? '0:00';  // End time
             $duration = '30';  // split by 30 mins
 
             $start_time = strtotime($starttime); //change to strtotime
@@ -52,7 +52,7 @@ class ClinicTime extends Model
 
     public function createTime($day, $clinicId)
     {
-        $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         $count = count($day);
         for ($fff = 0; $fff <= $count; $fff++) {
             if (isset($day[$fff])) {

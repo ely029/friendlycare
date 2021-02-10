@@ -649,11 +649,11 @@ class DefaultController extends Controller
         $days = $clinicTime->CreateTimeDuration($clinic[0]);
         $clinicTime->CreateTime($days, $clinic[0]);
         $data = DB::table('patient_time_slot')
-            ->select('clinic_id')
+            ->select('number_of_slots')
             ->where('clinic_id', $clinic[0])
-            ->first();
+            ->pluck('number_of_slots');
 
-        if ($data === null) {
+        if ($data[0] === null) {
             PatientTimeSlot::create([
                 'clinic_id' => $clinic[0],
                 'number_of_slots' => $obj['timeslot'][0],
