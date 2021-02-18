@@ -33,6 +33,7 @@ class DefaultController extends Controller
             return response([
                 'login_success' => 'Login Successful',
                 'id' => $user['id'],
+                'age' => $user['age'],
             ]);
         }
         return response([
