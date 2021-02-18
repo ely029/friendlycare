@@ -3,10 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\PatientTimeSlot;
-use App\ClinicTime;
 
-class DeleteDataPatientTimeSlot extends Migration
+class AddColumnPatients extends Migration
 {
     /**
      * Run the migrations.
@@ -15,8 +13,9 @@ class DeleteDataPatientTimeSlot extends Migration
      */
     public function up()
     {
-        ClinicTime::query()->truncate();
-        PatientTimeSlot::query()->truncate();
+        Schema::table('patients', function (Blueprint $table) {
+            $table->integer('miscarriage')->nullable();
+        });
     }
 
     /**

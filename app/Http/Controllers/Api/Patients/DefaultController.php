@@ -182,6 +182,7 @@ class DefaultController extends Controller
         'patients.religion',
         'patients.occupation',
         'patients.street_address',
+        'patients.miscarriage',
         'patients.monthly_income_1',
         'patients.no_of_living_children',
         'patients.family_plan_type_id',
@@ -240,6 +241,7 @@ class DefaultController extends Controller
             'occupation' => $request['occupation'],
             'province' => $request['province'],
             'citymunicipality' => $request['citymunicipality'],
+            'miscarriage' => $request['miscarriage'] ?? null,
         ]);
         Spouses::where('patient_id', $request['id'])->update([
             'spouse_first_name' => $request['spouse_first_name'],
