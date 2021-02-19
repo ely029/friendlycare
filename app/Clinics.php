@@ -224,6 +224,7 @@ class Clinics extends Model
             'type' => $request['type'],
             'paid_service' => $request['paid'],
             'barangay' => $request['barangay'],
+            'photo_url' => $request['pic_url'],
             'barangay_id_string' => $request['barangay_id_string'],
             'region_id_string' => $request['region_id_string'] ?? '',
             'province_id_string' => $request['province_id_string'] ?? '',
