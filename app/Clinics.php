@@ -210,7 +210,7 @@ class Clinics extends Model
             ->get();
     }
 
-    public function updateProvider($request)
+    public function updateProviderWithProfilePhoto($request)
     {
         return Clinics::where('id', $request['clinic_id'])->update([
             'clinic_name' => $request['clinic_name'],
@@ -225,6 +225,28 @@ class Clinics extends Model
             'paid_service' => $request['paid'],
             'barangay' => $request['barangay'],
             'photo_url' => $request['pic_url'],
+            'barangay_id_string' => $request['barangay_id_string'],
+            'region_id_string' => $request['region_id_string'] ?? '',
+            'province_id_string' => $request['province_id_string'] ?? '',
+            'city_id_string' => $request['city_id_string'] ?? '',
+            'philhealth_accredited_1' => $request['philhealth_accredited_1'],
+        ]);
+    }
+
+    public function updateProviderWithoutProfilePhoto($request)
+    {
+        return Clinics::where('id', $request['clinic_id'])->update([
+            'clinic_name' => $request['clinic_name'],
+            'street_address' => $request['street_address'],
+            'description' => $request['description'],
+            'contact_number' => $request['contact_number'],
+            'city' => $request['city'] ?? '',
+            'province' => $request['province'] ?? '',
+            'email' => $request['email'],
+            'region' => $request['region'] ?? '',
+            'type' => $request['type'],
+            'paid_service' => $request['paid'],
+            'barangay' => $request['barangay'],
             'barangay_id_string' => $request['barangay_id_string'],
             'region_id_string' => $request['region_id_string'] ?? '',
             'province_id_string' => $request['province_id_string'] ?? '',

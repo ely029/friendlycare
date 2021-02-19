@@ -166,7 +166,11 @@ class ProviderManagementController extends Controller
         $request['province'] = $province[0] ?? '';
         $request['city'] = $city[0] ?? '';
         $request['barangay'] = $barangay[0] ?? '';
-        $clinics->updateProvider($request);
+        if ($request['pic_url'] === null) {
+            $clinics->updateProviderWithoutProfilePhoto($request);
+        } else {
+            $clinics->updateProviderWithProfilePhoto($request);
+        }
         ProviderNotifications::create([
             'title' => 'Clinic Information are updated',
             'message' => 'Your clinic had updated some of the information.',
