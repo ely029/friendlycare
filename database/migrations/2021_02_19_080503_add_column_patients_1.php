@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnPatients extends Migration
+class AddColumnPatients1 extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddColumnPatients extends Migration
     public function up()
     {
         Schema::table('patients', function (Blueprint $table) {
-            $table->integer('miscarriage')->nullable();
+            $table->boolean('miscarriage_1')->nullable();
         });
     }
 
