@@ -225,6 +225,7 @@ class FamilyPlanTypeSubcategories extends Model
             ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
             ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
             ->where('clinic_service.clinic_id', $users[0])
+            ->where('clinic_service.is_checked', 1)
             ->where('family_plan_type_subcategory.family_plan_type_id', 1)
             ->get();
     }
@@ -235,6 +236,7 @@ class FamilyPlanTypeSubcategories extends Model
             ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
             ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
             ->where('clinic_service.clinic_id', $users[0])
+            ->where('clinic_service.is_checked', 1)
             ->where('family_plan_type_subcategory.family_plan_type_id', 2)
             ->get();
     }
@@ -245,6 +247,7 @@ class FamilyPlanTypeSubcategories extends Model
             ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
             ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'clinic_service.is_checked')
             ->where('clinic_service.clinic_id', $users[0])
+            ->where('clinic_service.is_checked', 1)
             ->where('family_plan_type_subcategory.family_plan_type_id', 3)
             ->get();
     }
