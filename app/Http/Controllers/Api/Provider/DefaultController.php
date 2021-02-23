@@ -76,6 +76,20 @@ class DefaultController extends Controller
         ]);
     }
 
+    public function getUsersByClinics($id)
+    {
+        $users = DB::table('clinics')
+            ->leftJoin('staffs', 'staffs.clinic_id', 'clinics.id')
+            ->leftJoin('users', 'users.id', 'staffs.user_id')
+            ->select('users.id', 'users.first_name', 'users.last_name', 'users.email', 'users.professions', 'users.trainings', 'users.fcm_notification_key')
+            ->where('clinics.id', $id)
+            ->get();
+
+        return response([
+            'data' => $users,
+        ]);
+    }
+
     public function getAllStaff()
     {
         $users = DB::table('staffs')

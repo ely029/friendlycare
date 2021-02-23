@@ -87,6 +87,7 @@ Route::post('/provider/login', 'Provider\DefaultController@login');
 Route::post('/provider/reset', 'Provider\DefaultController@resetPassword');
 Route::get('/provider/staffs', 'Provider\DefaultController@getAllStaff');
 Route::get('/provider/staffs/{id}', 'Provider\DefaultController@getUsersById');
+Route::get('/provider/clinics/{id}', 'Provider\DefaultController@getUsersByClinics');
 Route::get('/provider/clinic/{id}', 'Provider\DefaultController@providerInfo');
 Route::post('/provider/staff/update/{id}', 'Provider\DefaultController@update');
 Route::get('/provider/description/{id}', 'Provider\DefaultController@getDescription');
