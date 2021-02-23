@@ -31,9 +31,11 @@
                         <div class="form__content">
                           <select name="age-range" id="age" class="form__input form__input--select form__input--border form__input--border__age">
                             @if($age == '1')
+                            <option disabled selected>Select age range</option>
                             <option value="1" selected>19 years old and below</option>
                             <option value="2">20 years old and above</option>
                             @else
+                            <option disabled selected>Select age range</option>
                             <option value="1">19 years old and below</option>
                             <option value="2" selected>20 years old and above</option>
                             @endif
