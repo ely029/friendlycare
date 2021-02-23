@@ -153,10 +153,10 @@ class ProviderManagementController extends Controller
                 'is_checked' => 0,
             ]);
         }
-        $request['region_id_string'] = $request['region'];
-        $request['city_id_string'] = $request['city'];
-        $request['province_id_string'] = $request['province'];
-        $request['barangay_id_string'] = $request['barangay'];
+        $request['region_id_string'] = $request['region'] ?? null;
+        $request['city_id_string'] = $request['city'] ?? null;
+        $request['province_id_string'] = $request['province'] ?? null;
+        $request['barangay_id_string'] = $request['barangay'] ?? null;
         $region = DB::table('refregion')->select('regDesc')->where('regCode', $request['region'])->pluck('regDesc');
         $province = DB::table('refprovince')->select('provDesc')->where('provCode', $request['province'] ?? '')->pluck('provDesc');
         $city = DB::table('refcitymun')->select('citymundesc')->where('citymunCode', $request['city'] ?? '')->pluck('citymundesc');
@@ -312,9 +312,9 @@ class ProviderManagementController extends Controller
                 ->withInput();
         }
         for ($service = 0; $service <= 10000; $service++) {
-            if (isset($request['services'][$service])) {
+            if (isset($request['paid_services'][$service])) {
                 PaidServices::create([
-                    'service_id' => $request['services'][$service],
+                    'service_id' => $request['paid_services'][$service],
                     'clinic_id' => session('id'),
                     'is_checked' => 1,
                 ]);

@@ -320,7 +320,8 @@ class FamilyPlanTypeSubcategories extends Model
             ->join('paid_services', 'paid_services.service_id', 'family_plan_type_subcategory.id')
             ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name', 'paid_services.is_checked')
             ->where('paid_services.is_checked', 1)
-            ->where('paid_services.clinic_id', $user[0]);
+            ->where('paid_services.clinic_id', $user[0])
+            ->get();
     }
 
     public function methodsUpdatePaidServices()

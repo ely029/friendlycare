@@ -390,14 +390,11 @@ class DefaultController extends Controller
     {
         $user = Staffs::where('user_id', $id)->pluck('clinic_id');
         $fpm = new FamilyPlanTypeSubcategories();
-        $methods = $fpm->modernMethodGetPaidServices();
         $checkedMethods = $fpm->checkedMethodsGetPaidServices($user);
-
-        $merged = $methods->union($checkedMethods)->get();
 
         return response([
             'name' => 'PaidServices',
-            'services' => $merged,
+            'services' => $checkedMethods,
         ], 200);
     }
 
@@ -406,7 +403,7 @@ class DefaultController extends Controller
         $obj = json_decode($requests->getContent(), true);
         $user = Staffs::where('user_id', $id)->pluck('clinic_id');
         $fpm = new FamilyPlanTypeSubcategories();
-
+        PaidServices::where('clinic_id', $user)->delete();
         for ($eee = 0; $eee <= 10000;$eee++) {
             if (isset($obj['available_method'][$eee])) {
                 PaidServices::create([
@@ -416,7 +413,14 @@ class DefaultController extends Controller
                 ]);
             }
         }
-
+        $data = $fpm->getUncheckedPaidServices($user);
+        foreach ($data as $datas) {
+            PaidServices::create([
+                'service_id' => $datas->id,
+                'clinic_id' => $user[0],
+                'is_checked' => 0,
+            ]);
+        }
         $methods = $fpm->methodsUpdatePaidServices();
         $checkedMethods = $fpm->checkedMethodsUpdatePaidServices($user);
         $merged = $methods->union($checkedMethods)->get();
