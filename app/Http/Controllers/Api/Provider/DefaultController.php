@@ -403,7 +403,7 @@ class DefaultController extends Controller
         $obj = json_decode($requests->getContent(), true);
         $user = Staffs::where('user_id', $id)->pluck('clinic_id');
         $fpm = new FamilyPlanTypeSubcategories();
-        PaidServices::where('clinic_id', $user)->delete();
+        PaidServices::where('clinic_id', $user[0])->delete();
         for ($eee = 0; $eee <= 10000;$eee++) {
             if (isset($obj['available_method'][$eee])) {
                 PaidServices::create([
