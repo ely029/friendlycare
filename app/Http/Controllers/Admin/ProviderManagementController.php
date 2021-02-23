@@ -117,7 +117,6 @@ class ProviderManagementController extends Controller
         ClinicService::where('clinic_id', $request['clinic_id'])->delete();
         PaidServices::where('clinic_id', $request['clinic_id'])->delete();
         $this->validateClinicHours($request);
-        $this->pushNotification($request['clinic_id']);
         for ($eee = 0;$eee <= 10000;$eee++) {
             if (isset($request['services'][$eee])) {
                 PaidServices::create([
@@ -179,6 +178,7 @@ class ProviderManagementController extends Controller
             'booking_id' => 0,
             'status' => 0,
         ]);
+        $this->pushNotification($request['clinic_id']);
         return redirect('/provider/list');
     }
 
@@ -186,14 +186,14 @@ class ProviderManagementController extends Controller
     {
         $users = DB::table('users')->select('users.fcm_notification_key')
             ->leftJoin('staffs', 'staffs.user_id', 'users.id')
-            ->where('fcm_notification_key', '<>', null)
+            ->where('users.fcm_notification_key', '<>', null)
             ->where('staffs.clinic_id', $id)->orderBy('users.id', 'desc')->get();
         foreach ($users as $user) {
             $fcmurl = 'https://fcm.googleapis.com/fcm/send';
             $token = $user->fcm_notification_key;
             $notification = [
-                'title' => 'Provider Information',
-                'body' => 'The Provider information are updated',
+                'title' => 'Clinic Information',
+                'body' => 'The Clinic information are updated',
                 'icon' => 'myIcon',
                 'sound' => 'defaultSound',
                 'priority' => 'high',
