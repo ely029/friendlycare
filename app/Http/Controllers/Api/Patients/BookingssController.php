@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\Patients;
 
 use App\Booking;
 use App\BookingTime;
+use App\Classes\PushNotifications;
 use App\EventsNotification;
 use App\Http\Controllers\Controller;
 use App\ProviderNotifications;
@@ -19,6 +20,7 @@ class BookingssController extends Controller
     {
         $obj = json_decode($request->getContent(), true);
         $startTime = date('Y-m-d H:i');
+        $pushNotifications = new PushNotifications();
         $endtime = date('Y-m-d H:i', strtotime('3 minutes', strtotime($startTime)));
         DB::update('update booking set status = ? where id = ?', [1, $id]);
         DB::update('update booking_time set status = ? where time_slot = ? and booking_id = ?', [1, $obj['time_slot'][0], $id]);
@@ -56,8 +58,7 @@ class BookingssController extends Controller
             'date_booked' => $getBookedDate->time_slot,
         ]);
 
-        $parameter = 1;
-        $this->pushNotification($parameter, $getPatientId[0]);
+        $pushNotifications->providerPushNotifications('Booking Confirmed', 'Booking is Confirmed', $getPatientId[0]);
 
         return response([
             'name' => 'BookApproved',
@@ -71,6 +72,7 @@ class BookingssController extends Controller
     public function approveCancellationDetails(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
+        $pushNotifications = new PushNotifications();
         DB::update('update booking set cancellation_message_1 = ?, status = ? where id = ?', [$obj['cancellation_message'][0], 3, $id]);
         DB::update('update booking_time set status = ? where booking_id = ?', [3, $id]);
         $getPatientId = DB::table('booking')->select('patient_id')->where('id', $id)->pluck('patient_id');
@@ -97,8 +99,7 @@ class BookingssController extends Controller
             'booking_id' => $id,
             'status' => 2,
         ]);
-        $parameter = 3;
-        $this->pushNotification1($parameter, $getPatientId[0]);
+        $pushNotifications->providerPushNotifications('Booking Cancelled', 'Booking is Cancelled', $getPatientId[0]);
         return response([
             'name' => 'ApproveCancellation',
             'message' => 'This booking is cancelled',
@@ -112,6 +113,7 @@ class BookingssController extends Controller
         ]);
         BookingTime::where('booking_id', $id)->delete();
         $obj = json_decode($request->getContent(), true);
+        $pushNotifications = new PushNotifications();
         $getPatient = DB::table('booking')
             ->select('patient_id')
             ->where('id', $id)
@@ -159,133 +161,11 @@ class BookingssController extends Controller
             $mail->to($getClinicEmail[0], 'Patient')->subject('Provider Reschedule');
         });
 
-        $parameter = 2;
-        $this->pushNotification($parameter, $getPatientId[0]);
+        $pushNotifications->providerPushNotifications('Booking Rescheduled', 'Booking is Rescheduled', $getPatientId[0]);
 
         return response([
             'name' => 'postProviderReschedule',
             'message' => 'Reschedule is successful',
         ]);
-    }
-
-    public function pushNotification($parameter, $id)
-    {
-        if ($parameter === 1) {
-            $user = DB::table('users')->select('fcm_notification_key')->where('id', $id)->pluck('fcm_notification_key');
-            $fcmurl = 'https://fcm.googleapis.com/fcm/send';
-            $token = $user[0];
-            $notification = [
-                'title' => 'Booking Confirmed',
-                'body' => 'Your Booking is confirmed',
-                'icon' => 'myIcon',
-                'sound' => 'defaultSound',
-                'priority' => 'high',
-                'contentAvailable' => true,
-            ];
-
-            $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
-
-            $fcmNotification = [
-                'to' => $token,
-                'notification' => $notification,
-                'data' => $extraNotifications,
-            ];
-
-            $headers = [
-                'Authorization: key='.\Config::get('boilerplate.firebase.server_key').'',
-                'Content-Type: application/json',
-            ];
-            $chh = curl_init();
-            curl_setopt($chh, CURLOPT_URL, $fcmurl);
-            curl_setopt($chh, CURLOPT_POST, true);
-            curl_setopt($chh, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($chh, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($chh, CURLOPT_SSL_VERIFYPEER, $headers);
-            curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
-            $result = curl_exec($chh);
-            curl_close($chh);
-
-            return $result;
-        }
-        if ($parameter === 2) {
-            $user = DB::table('users')->select('fcm_notification_key')->where('id', $id)->pluck('fcm_notification_key');
-            $fcmurl = 'https://fcm.googleapis.com/fcm/send';
-            $token = $user[0];
-            $notification = [
-                'title' => 'Booking Rescheduled',
-                'body' => 'Your Booking is Rescheduled',
-                'icon' => 'myIcon',
-                'sound' => 'defaultSound',
-                'priority' => 'high',
-                'contentAvailable' => true,
-            ];
-
-            $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
-
-            $fcmNotification = [
-                'to' => $token,
-                'notification' => $notification,
-                'data' => $extraNotifications,
-            ];
-
-            $headers = [
-                'Authorization: key='.\Config::get('boilerplate.firebase.server_key').'',
-                'Content-Type: application/json',
-            ];
-            $chh = curl_init();
-            curl_setopt($chh, CURLOPT_URL, $fcmurl);
-            curl_setopt($chh, CURLOPT_POST, true);
-            curl_setopt($chh, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($chh, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($chh, CURLOPT_SSL_VERIFYPEER, $headers);
-            curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
-            $result = curl_exec($chh);
-            curl_close($chh);
-
-            return $result;
-        }
-        return true;
-    }
-
-    public function pushNotification1($parameter, $id)
-    {
-        if ($parameter === 3) {
-            $user = DB::table('users')->select('fcm_notification_key')->where('id', $id)->pluck('fcm_notification_key');
-            $fcmurl = 'https://fcm.googleapis.com/fcm/send';
-            $token = $user[0];
-            $notification = [
-                'title' => 'Booking Cancelled',
-                'body' => 'Your Booking is Cancelled',
-                'icon' => 'myIcon',
-                'sound' => 'defaultSound',
-                'priority' => 'high',
-                'contentAvailable' => true,
-            ];
-
-            $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
-
-            $fcmNotification = [
-                'to' => $token,
-                'notification' => $notification,
-                'data' => $extraNotifications,
-            ];
-
-            $headers = [
-                'Authorization: key='.\Config::get('boilerplate.firebase.server_key').'',
-                'Content-Type: application/json',
-            ];
-            $chh = curl_init();
-            curl_setopt($chh, CURLOPT_URL, $fcmurl);
-            curl_setopt($chh, CURLOPT_POST, true);
-            curl_setopt($chh, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($chh, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($chh, CURLOPT_SSL_VERIFYPEER, $headers);
-            curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
-            $result = curl_exec($chh);
-            curl_close($chh);
-
-            return $result;
-        }
-        return true;
     }
 }
