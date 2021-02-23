@@ -58,7 +58,7 @@ class PatientListExport implements FromCollection, WithHeadings
                     WHEN patients.fpm_user_type = 2 THEN "Changing Methods"
                     WHEN patients.fpm_user_type = 3 THEN "Curent User"
                     WHEN patients.fpm_user_type = 4 THEN "Restart"
-                    ELSE family_plan_type_subcategory.name
+                    WHEN patients.fpm_user_type = null THEN family_plan_type_subcategory.name
                     END
                 )AS fpm_2'), DB::raw('NULL AS FFF'))
                 ->where('users.role_id', 3)
@@ -77,7 +77,7 @@ class PatientListExport implements FromCollection, WithHeadings
                     WHEN patients.fpm_user_type = 2 THEN "Changing Methods"
                     WHEN patients.fpm_user_type = 3 THEN "Curent User"
                     WHEN patients.fpm_user_type = 4 THEN "Restart"
-                    ELSE family_plan_type_subcategory.name
+                    WHEN patients.fpm_user_type = null THEN family_plan_type_subcategory.name
                     END
                 )AS fpm_2'), 'family_plan_type_subcategory.name as fpm_1')
                 ->where('users.role_id', 3)
@@ -96,7 +96,7 @@ class PatientListExport implements FromCollection, WithHeadings
                 WHEN patients.fpm_user_type = 2 THEN "Changing Methods"
                 WHEN patients.fpm_user_type = 3 THEN "Curent User"
                 WHEN patients.fpm_user_type = 4 THEN "Restart"
-                ELSE family_plan_type_subcategory.name
+                WHEN patients.fpm_user_type = null THEN family_plan_type_subcategory.name
                 END
             )AS fpm_2'), 'family_plan_type_subcategory.name as fpm_1')
             ->where('users.role_id', 3)
