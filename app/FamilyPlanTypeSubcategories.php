@@ -400,4 +400,67 @@ class FamilyPlanTypeSubcategories extends Model
             ->where('family_plan_type_subcategory.family_plan_type_id', 3)
             ->where('fpm_methods.patient_id', $id);
     }
+
+    public function servicesOne($id)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name')
+            ->where('clinic_service.clinic_id', $id)
+            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
+            ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
+            ->get();
+    }
+
+    public function servicesTwo($id)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name')
+            ->where('clinic_service.clinic_id', $id)
+            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
+            ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
+            ->get();
+    }
+
+    public function servicesThree($id)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->join('clinic_service', 'clinic_service.service_id', 'family_plan_type_subcategory.id')
+            ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
+            ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name')
+            ->where('clinic_service.clinic_id', $id)
+            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
+            ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
+            ->get();
+    }
+
+    public function getFPMDetailsModernMethod()
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->select('name', 'short_name', 'percent_effective', DB::raw("'Modern Method' as method_name"))
+            ->where('family_plan_type_id', 1)
+            ->where('is_approve', 1)
+            ->get();
+    }
+
+    public function getFPMDetailsPermanentMethod()
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->select('name', 'short_name', 'percent_effective', DB::raw("'Modern Method' as method_name"))
+            ->where('family_plan_type_id', 2)
+            ->where('is_approve', 1)
+            ->get();
+    }
+
+    public function getFPMDetailsNaturalMethod()
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->select('name', 'short_name', 'percent_effective', DB::raw("'Modern Method' as method_name"))
+            ->where('family_plan_type_id', 3)
+            ->where('is_approve', 1)
+            ->get();
+    }
 }

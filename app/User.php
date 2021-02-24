@@ -193,6 +193,14 @@ class User extends Authenticatable
 
     public function patientsLessNineteen($request)
     {
+        if ($request['date-from'] === null && $request['date-to'] === null) {
+            return DB::table('users')->leftJoin('patients', 'users.id', 'patients.user_id')
+                ->select('users.id', 'users.name', 'users.email', 'users.age', 'patients.province', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'), 'family_plan_type_subcategory.name as service_name')
+                ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
+                ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
+                ->where('users.age', '<=', 19)
+                ->get();
+        }
         return DB::table('users')->leftJoin('patients', 'users.id', 'patients.user_id')
             ->select('users.id', 'users.name', 'users.email', 'users.age', 'patients.province', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'), 'family_plan_type_subcategory.name as service_name')
             ->whereBetween('users.created_at', [$request['date-from'], $request['date-to']])
@@ -204,6 +212,14 @@ class User extends Authenticatable
 
     public function patientsMoreThanTwenty($request)
     {
+        if ($request['date-from'] === null && $request['date-to'] === null) {
+            return DB::table('users')->leftJoin('patients', 'users.id', 'patients.user_id')
+                ->select('users.id', 'users.name', 'users.email', 'users.age', 'patients.province', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'), 'family_plan_type_subcategory.name as service_name')
+                ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
+                ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
+                ->where('users.age', '>=', 20)
+                ->get();
+        }
         return DB::table('users')->leftJoin('patients', 'users.id', 'patients.user_id')
             ->select('users.id', 'users.name', 'users.email', 'users.age', 'patients.province', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'), 'family_plan_type_subcategory.name as service_name')
             ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
