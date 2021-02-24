@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\Patients;
 
 use App\Booking;
 use App\EventsNotification;
+use App\FamilyPlanTypeSubcategories;
 use App\FpmMethods;
 use App\Http\Controllers\Controller;
 use App\Mail\EmailVerification;
@@ -290,45 +291,13 @@ class DefaultController extends Controller
 
     public function getFpmMethodsShow($id)
     {
-        $modernMethods = DB::table('family_plan_type_subcategory')
-            ->leftJoin('fpm_methods', 'fpm_methods.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', DB::raw('null as is_checked'))
-            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
-            ->where('fpm_methods.is_checked', null);
-
-        $permanentMethods = DB::table('family_plan_type_subcategory')
-            ->leftJoin('fpm_methods', 'fpm_methods.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', DB::raw('null as is_checked'))
-            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
-            ->where('fpm_methods.is_checked', null);
-
-        $naturalMethods = DB::table('family_plan_type_subcategory')
-            ->leftJoin('fpm_methods', 'fpm_methods.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', DB::raw('null as is_checked'))
-            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
-            ->where('fpm_methods.is_checked', null);
-
-        $modernMethodsFpmMethods = DB::table('family_plan_type_subcategory')
-            ->join('fpm_methods', 'fpm_methods.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'fpm_methods.is_checked')
-            ->where('fpm_methods.is_checked', 1)
-            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
-            ->where('fpm_methods.patient_id', $id);
-
-        $permanentMethodsFpmMethods = DB::table('family_plan_type_subcategory')
-            ->join('fpm_methods', 'fpm_methods.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'fpm_methods.is_checked')
-            ->where('fpm_methods.is_checked', 1)
-            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
-            ->where('fpm_methods.patient_id', $id);
-
-        $naturalMethodsFpmMethods = DB::table('family_plan_type_subcategory')
-            ->join('fpm_methods', 'fpm_methods.service_id', 'family_plan_type_subcategory.id')
-            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'fpm_methods.is_checked')
-            ->where('fpm_methods.is_checked', 1)
-            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
-            ->where('fpm_methods.patient_id', $id);
-
+        $fpm = new FamilyPlanTypeSubcategories();
+        $modernMethods = $fpm->fpmMethodsShowModernMethods();
+        $permanentMethods = $fpm->fpmMethodsShowPermanentMethods();
+        $naturalMethods = $fpm->fpmMethodsShowNaturalMethods();
+        $modernMethodsFpmMethods = $fpm->fpmMethodsModernMethods($id);
+        $permanentMethodsFpmMethods = $fpm->fpmMethodsPermanentMethods($id);
+        $naturalMethodsFpmMethods = $fpm->fpmMethodsNaturalMethods($id);
         $modern = $modernMethods->union($modernMethodsFpmMethods)->get();
         $permanent = $permanentMethods->union($permanentMethodsFpmMethods)->get();
         $natural = $naturalMethods->union($naturalMethodsFpmMethods)->get();

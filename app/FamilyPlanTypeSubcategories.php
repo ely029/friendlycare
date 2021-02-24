@@ -343,4 +343,61 @@ class FamilyPlanTypeSubcategories extends Model
             ->where('paid_services.is_checked', 1)
             ->where('paid_services.clinic_id', $user[0]);
     }
+
+    public function fpmMethodsShowModernMethods()
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->leftJoin('fpm_methods', 'fpm_methods.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', DB::raw('null as is_checked'))
+            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
+            ->where('fpm_methods.is_checked', null);
+    }
+
+    public function fpmMethodsShowPermanentMethods()
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->leftJoin('fpm_methods', 'fpm_methods.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', DB::raw('null as is_checked'))
+            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
+            ->where('fpm_methods.is_checked', null);
+    }
+
+    public function fpmMethodsShowNaturalMethods()
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->leftJoin('fpm_methods', 'fpm_methods.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', DB::raw('null as is_checked'))
+            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
+            ->where('fpm_methods.is_checked', null);
+    }
+
+    public function fpmMethodsModernMethods($id)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->join('fpm_methods', 'fpm_methods.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'fpm_methods.is_checked')
+            ->where('fpm_methods.is_checked', 1)
+            ->where('family_plan_type_subcategory.family_plan_type_id', 1)
+            ->where('fpm_methods.patient_id', $id);
+    }
+
+    public function fpmMethodsPermanentMethods($id)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->join('fpm_methods', 'fpm_methods.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'fpm_methods.is_checked')
+            ->where('fpm_methods.is_checked', 1)
+            ->where('family_plan_type_subcategory.family_plan_type_id', 2)
+            ->where('fpm_methods.patient_id', $id);
+    }
+
+    public function fpmMethodsNaturalMethods($id)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->join('fpm_methods', 'fpm_methods.service_id', 'family_plan_type_subcategory.id')
+            ->select('family_plan_type_subcategory.name', 'family_plan_type_subcategory.id', 'fpm_methods.is_checked')
+            ->where('fpm_methods.is_checked', 1)
+            ->where('family_plan_type_subcategory.family_plan_type_id', 3)
+            ->where('fpm_methods.patient_id', $id);
+    }
 }
