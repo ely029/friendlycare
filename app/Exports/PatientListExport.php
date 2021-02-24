@@ -84,7 +84,6 @@ class PatientListExport implements FromCollection, WithHeadings
                 ->whereBetween('users.created_at', [$this->dateFrom, $this->dateTo])
                 ->get();
         }
-        if ($this->age === '2' && $this->dateFrom !== '0' && $this->dateTo !== '0') {
             return DB::table('users')
                 ->leftJoin('patients', 'patients.user_id', 'users.id')
                 ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
@@ -102,6 +101,5 @@ class PatientListExport implements FromCollection, WithHeadings
                 ->where('users.age', '>=', 20)
                 ->whereBetween('users.created_at', [$this->dateFrom, $this->dateTo])
                 ->get();
-        }
     }
 }
