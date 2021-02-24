@@ -217,7 +217,7 @@ class User extends Authenticatable
     {
         return DB::table('users')
             ->leftjoin('patients', 'patients.user_id', 'users.id')
-            ->select('users.id', 'users.name', 'patients.province', 'users.email', 'users.age', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at', 'family_plan_type_subcategory.name as service_name'))
+            ->select('users.id', 'users.name', 'patients.province', 'users.email', 'users.age', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'), 'family_plan_type_subcategory.name as service_name')
             ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
             ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
             ->where('role_id', 3)
