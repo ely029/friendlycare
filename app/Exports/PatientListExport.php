@@ -37,6 +37,7 @@ class PatientListExport implements FromCollection, WithHeadings
     {
         if ($this->dateFrom === '0' && $this->dateTo === '0' && $this->age === '1') {
             return DB::table('users')
+                ->distinct('users.name')
                 ->leftJoin('patients', 'patients.user_id', 'users.id')
                 ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
                 ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
@@ -48,6 +49,7 @@ class PatientListExport implements FromCollection, WithHeadings
         }
         if ($this->dateFrom === '0' && $this->dateTo === '0' && $this->age === '2') {
             return DB::table('users')
+                ->distinct('users.name')
                 ->leftJoin('patients', 'patients.user_id', 'users.id')
                 ->distinct('users.name')
                 ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
@@ -67,6 +69,7 @@ class PatientListExport implements FromCollection, WithHeadings
         }
         if ($this->age === '1' && $this->dateFrom !== '0' && $this->dateTo !== '0') {
             return DB::table('users')
+                ->distinct('users.name')
                 ->leftJoin('patients', 'patients.user_id', 'users.id')
                 ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
                 ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
@@ -86,6 +89,7 @@ class PatientListExport implements FromCollection, WithHeadings
         }
         if ($this->age === '2' && $this->dateFrom !== '0' && $this->dateTo !== '0') {
             return DB::table('users')
+                ->distinct('users.name')
                 ->leftJoin('patients', 'patients.user_id', 'users.id')
                 ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
                 ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
@@ -104,6 +108,7 @@ class PatientListExport implements FromCollection, WithHeadings
                 ->get();
         }
         return DB::table('users')
+            ->distinct('users.name')
             ->leftJoin('patients', 'patients.user_id', 'users.id')
             ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
             ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
