@@ -220,7 +220,7 @@ class User extends Authenticatable
             ->distinct('users.name')
             ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
             ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
-            ->select('users.name', 'users.id', 'users.age', 'patients.province', 'patients.municipality', 'family_plan_type_subcategory.name as service_name', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'), DB::raw('DATE_FORMAT(fpm_type_service.updated_at, "%m/%d/%Y") as date_last_update'), DB::raw('IF(fpm_type_service.service_id is null, "No", "Yes") as fpm_type_service'), DB::raw('
+            ->select('users.name', 'users.email', 'users.id', 'users.age', 'patients.province', 'patients.municipality', 'family_plan_type_subcategory.name as service_name', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'), DB::raw('DATE_FORMAT(fpm_type_service.updated_at, "%m/%d/%Y") as date_last_update'), DB::raw('IF(fpm_type_service.service_id is null, "No", "Yes") as fpm_type_service'), DB::raw('
             (
                 CASE 
                 WHEN patients.fpm_user_type = 1 THEN "New Acceptor"
