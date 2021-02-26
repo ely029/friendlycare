@@ -80,6 +80,7 @@ class FamilyPlanTypeSubcategories extends Model
     public function selectMethodPageModern()
     {
         return DB::table('family_plan_type_subcategory')
+            ->distinct('name')
             ->select('id', 'name', 'short_name', 'family_plan_type_id', 'percent_effective', 'icon_url')
             ->where('is_approve', 1)
             ->where('family_plan_type_id', 1)
@@ -89,6 +90,7 @@ class FamilyPlanTypeSubcategories extends Model
     public function selectMethodPagePermanent()
     {
         return DB::table('family_plan_type_subcategory')
+            ->distinct('name')
             ->select('id', 'name', 'short_name', 'family_plan_type_id', 'percent_effective', 'icon_url')
             ->where('is_approve', 1)
             ->where('family_plan_type_id', 2)
@@ -98,6 +100,7 @@ class FamilyPlanTypeSubcategories extends Model
     public function selectMethodPageNatural()
     {
         return DB::table('family_plan_type_subcategory')
+            ->distinct('name')
             ->select('id', 'name', 'short_name', 'family_plan_type_id', 'percent_effective', 'icon_url')
             ->where('is_approve', 1)
             ->where('family_plan_type_id', 3)

@@ -198,6 +198,19 @@ class FamilyPlanningMethodController extends Controller
     public function update(Request $request)
     {
         $requests = request()->all();
+        $countable_array = $requests['service_gallery_pics'] ?? [0];
+        $countServiceGallery = count($countable_array) - 1;
+        for ($eee = 0; $eee <= $countServiceGallery; $eee++) {
+            $checkGallery = DB::table('service_gallery')->select('id')->where('file_url', $requests['service_gallery_pics'][$eee] ?? 0)->where('service_id', $requests['id'])->count();
+            if ($checkGallery < 1) {
+                $icon_url = url('uploads/fpm/'.$requests['service_gallery_pics'][$eee]);
+                ServiceGallery::create([
+                    'file_name' => $requests['service_gallery_pics'][$eee],
+                    'service_id' => $requests['id'],
+                    'file_url' => $icon_url,
+                ]);
+            }
+        }
         $fpm = new FamilyPlanTypeSubcategories();
         if ($requests['pic_url'] === null) {
             $fpm->updateFPMNoIcon($requests);
@@ -227,6 +240,13 @@ class FamilyPlanningMethodController extends Controller
     public function galleryUpload(Request $request)
     {
         $icon = $request->file('file');
+        $requests = request()->all();
+        $icon_url = url('uploads/fpm/'.$icon[0]->getClientOriginalName());
+        ServiceGallery::create([
+            'file_name' => $icon[0]->getClientOriginalName(),
+            'service_id' => $requests['fpm'],
+            'file_url' => $icon_url,
+        ]);
         $destination = public_path('/uploads/fpm');
         $icon[0]->move($destination, $icon[0]->getClientOriginalName());
         return url('uploads/fpm/'.$icon[0]->getClientOriginalName());
@@ -235,15 +255,9 @@ class FamilyPlanningMethodController extends Controller
     public function updateGalleryUpload(Request $request)
     {
         $icon = $request->file('file');
-        $requests = request()->all();
         $destination = public_path('/uploads/fpm');
         $icon[0]->move($destination, $icon[0]->getClientOriginalName());
-        $icon_url = url('uploads/fpm/'.$icon[0]->getClientOriginalName());
-        ServiceGallery::create([
-            'file_name' => $icon[0]->getClientOriginalName(),
-            'service_id' => $requests['fpm'],
-            'file_url' => $icon_url,
-        ]);
+        return url('uploads/fpm/'.$icon[0]->getClientOriginalName());
     }
 
     public function deleteServiceGallery($id, $serviceId)

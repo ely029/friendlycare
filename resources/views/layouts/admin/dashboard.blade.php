@@ -249,9 +249,12 @@ $('document').ready(function(){
                 this.on("maxfilesexceeded", function(file){
                   this.removeFile(file);
                 });
-            }
-        });
+            },
 
+        success: function(file, response) {
+            $("#service_gallery_pics").append($('<input type="hidden" ' + 'name="service_gallery_pics[]" ' + 'value="' + response + '">'));
+        }
+        });
 });
 </script>
 @endif

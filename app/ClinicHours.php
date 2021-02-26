@@ -37,4 +37,28 @@ class ClinicHours extends Model
             ->where('clinic_id', $id)
             ->get();
     }
+
+    public function createUncheckedClinicHours($request, $clinic_hours, $days)
+    {
+        return ClinicHours::create([
+            'clinic_id' => $request['clinic_id'],
+            'id_value' => $clinic_hours,
+            'days' => $days['days'][$clinic_hours],
+            'froms' => null,
+            'tos' => null,
+            'is_checked' => 0,
+        ]);
+    }
+
+    public function createCheckedClinicHours($request, $clinic_hours)
+    {
+        return ClinicHours::create([
+            'clinic_id' => $request['clinic_id'],
+            'id_value' => $clinic_hours,
+            'days' => $request['days'][$clinic_hours],
+            'froms' => $request['from'][$clinic_hours],
+            'tos' => $request['to'][$clinic_hours],
+            'is_checked' => 1,
+        ]);
+    }
 }

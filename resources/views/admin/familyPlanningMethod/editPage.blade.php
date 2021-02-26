@@ -18,6 +18,8 @@
           @csrf  
           <input type="hidden" id="pic_url" name="pic_url"/>
           <input type="hidden" name="id" id="id" value="{{ $user->id }}"/>
+          <div id="service_gallery_pics">
+          </div>
           <div class="tabs">
               <ul class="tabs__list">
                 <li class="tabs__item tabs__item--method tabs__item--current">
