@@ -200,15 +200,10 @@ class FamilyPlanningMethodController extends Controller
         $requests = request()->all();
         $countable_array = $requests['service_gallery_pics'] ?? [0];
         $countServiceGallery = count($countable_array) - 1;
-        for ($eee = 0; $eee <= $countServiceGallery; $eee++) {
-            $checkGallery = DB::table('service_gallery')->select('id')->where('file_url', $requests['service_gallery_pics'][$eee] ?? 0)->where('service_id', $requests['id'])->count();
-            if ($checkGallery < 1) {
-                $icon_url = url('uploads/fpm/'.$requests['service_gallery_pics'][$eee]);
-                ServiceGallery::create([
-                    'file_name' => $requests['service_gallery_pics'][$eee],
-                    'service_id' => $requests['id'],
-                    'file_url' => $icon_url,
-                ]);
+        if (isset($requests['service_gallery_pics'])) {
+            for ($eee = 0; $eee <= $countServiceGallery; $eee++) {
+                $checkGallery = DB::table('service_gallery')->select('id')->where('file_url', $requests['service_gallery_pics'][$eee] ?? 0)->where('service_id', $requests['id'])->count();
+                $this->generateServicePics($checkGallery, $requests, $eee);
             }
         }
         $fpm = new FamilyPlanTypeSubcategories();
@@ -264,5 +259,14 @@ class FamilyPlanningMethodController extends Controller
     {
         ServiceGallery::where('id', $id)->delete();
         return redirect('/fpm/edit/'.$serviceId);
+    }
+
+    private function generateServicePics($checkGallery, $requests, $eee)
+    {
+        if ($checkGallery < 1) {
+            $icon_url = url('uploads/fpm/'.$requests['service_gallery_pics'][$eee]);
+            $serviceGallery = new ServiceGallery();
+            $serviceGallery->generateServicePics($requests, $icon_url, $eee);
+        }
     }
 }

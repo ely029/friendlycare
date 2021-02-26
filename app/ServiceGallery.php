@@ -19,4 +19,13 @@ class ServiceGallery extends Model
     {
         $this->belongsTo('App\FamilyPlanTypeSubcategories');
     }
+
+    public function generateServicePics($requests, $icon_url, $eee)
+    {
+        ServiceGallery::create([
+            'file_name' => $requests['service_gallery_pics'][$eee],
+            'service_id' => $requests['id'],
+            'file_url' => $icon_url,
+        ]);
+    }
 }
