@@ -126,7 +126,7 @@ class FamilyPlanningMethodController extends Controller
             }
         }
         FamilyPlanTypeSubcategories::where('id', session('id'))->update([
-            'video_link' => $requests['video_link'],
+            'video_link' => $requests['video_link'] ?? null,
         ]);
 
         FamilyPlanTypeSubcategories::where('id', session('id'))->update([
@@ -199,7 +199,11 @@ class FamilyPlanningMethodController extends Controller
     {
         $requests = request()->all();
         $fpm = new FamilyPlanTypeSubcategories();
-        $fpm->updateFPM($requests, $request);
+        if ($requests['pic_url'] === null) {
+            $fpm->updateFPMNoIcon($requests);
+        } else {
+            $fpm->updateFPMWithIcon($requests, $request);
+        }
         return redirect('fpm');
     }
 
@@ -225,12 +229,7 @@ class FamilyPlanningMethodController extends Controller
         $icon = $request->file('file');
         $destination = public_path('/uploads/fpm');
         $icon[0]->move($destination, $icon[0]->getClientOriginalName());
-        $icon_url = url('uploads/fpm/'.$icon[0]->getClientOriginalName());
-        ServiceGallery::create([
-            'file_name' => $icon[0]->getClientOriginalName(),
-            'service_id' => session('id'),
-            'file_url' => $icon_url,
-        ]);
+        return url('uploads/fpm/'.$icon[0]->getClientOriginalName());
     }
 
     public function updateGalleryUpload(Request $request)

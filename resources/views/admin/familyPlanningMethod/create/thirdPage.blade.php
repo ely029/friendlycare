@@ -35,7 +35,7 @@
                 </li>
                 <li class="form__group-item">
                   <h2 class="section__heading">Video</h2>
-                  <div class="form__content form__content--full"><input name="video_link" class="form__input form__input--search" type="text" placeholder="Youtube link*" required /><label class="form__label">Youtube link*</label></div>
+                  <div class="form__content form__content--full"><input name="video_link" class="form__input form__input--search" type="text" placeholder="Youtube link*" /><label class="form__label">Youtube link*</label></div>
                   <!-- <iframe class="form__video form__video--edit" src="https://www.youtube.com/embed/c6DC2FEzVjM" frameborder="0" allowfullscreen></iframe> -->
                 </li>
               </ul>

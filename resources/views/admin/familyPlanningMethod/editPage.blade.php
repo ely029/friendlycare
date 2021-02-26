@@ -16,6 +16,7 @@
         <div class="section__container">
           <form class="form form--method" id="js-provider-form" method="POST" action="{{ route('familyPlanningMethod.update')}}" enctype="multipart/form-data">
           @csrf  
+          <input type="hidden" id="pic_url" name="pic_url"/>
           <input type="hidden" name="id" id="id" value="{{ $user->id }}"/>
           <div class="tabs">
               <ul class="tabs__list">
@@ -174,7 +175,7 @@
                 </li>
                 <li class="form__group-item">
                   <h2 class="section__heading">Video</h2>
-                  <div class="form__content form__content--full"><input class="form__input form__input--search" name="video_link" value="{{$user->video_link}}" type="text" placeholder="Youtube link*" required /><label class="form__label">Youtube link*</label></div>
+                  <div class="form__content form__content--full"><input class="form__input form__input--search" name="video_link" value="{{$user->video_link}}" type="text" placeholder="Youtube link*"/><label class="form__label">Youtube link*</label></div>
                   <iframe class="form__video form__video--edit" src="{{ $user->video_link }}" frameborder="0" allowfullscreen></iframe>
                 </li>
               </ul>
