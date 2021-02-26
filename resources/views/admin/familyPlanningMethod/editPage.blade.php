@@ -177,7 +177,7 @@
                 </li>
                 <li class="form__group-item">
                   <h2 class="section__heading">Video</h2>
-                  <div class="form__content form__content--full"><input class="form__input form__input--search" name="video_link" value="{{$user->video_link}}" type="text" placeholder="Youtube link*"/><label class="form__label">Youtube link</label></div>
+                  <div class="form__content form__content--full"><input class="form__input form__input--search" name="video_link" value="{{$user->video_link}}" type="text" placeholder="Youtube link"/><label class="form__label">Youtube link</label></div>
                   <iframe class="form__video form__video--edit" src="{{ $user->video_link }}" frameborder="0" allowfullscreen></iframe>
                 </li>
               </ul>
