@@ -308,14 +308,14 @@ class DefaultController extends Controller
                 ]);
             }
         }
-            $data = $methods->getUncheckedServices($users[0]);
-            foreach ($data as $datas) {
-                ClinicService::create([
-                    'service_id' => $datas->id,
-                    'clinic_id' => $users[0],
-                    'is_checked' => 0,
-                ]);
-            }
+        $data = $methods->getUncheckedServices($users[0]);
+        foreach ($data as $datas) {
+            ClinicService::create([
+                'service_id' => $datas->id,
+                'clinic_id' => $users[0],
+                'is_checked' => 0,
+            ]);
+        }
 
         $modernMethodWithoutClinic = $methods->modernMethodWithoutClinic();
         $permanentMethodWithoutClinic = $methods->permanentMethodWithoutClinic();
