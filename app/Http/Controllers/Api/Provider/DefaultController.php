@@ -298,7 +298,8 @@ class DefaultController extends Controller
         $methods = new FamilyPlanTypeSubcategories();
         $users = Staffs::where('user_id', $id)->pluck('clinic_id');
         ClinicService::where('clinic_id', $users[0])->delete();
-        for ($eee = 0;$eee <= 10000;$eee++) {
+        $count = count($obj['services']);
+        for ($eee = 0;$eee <= $count; $eee++) {
             if (isset($obj['services'][$eee])) {
                 ClinicService::create([
                     'clinic_id' => $users[0],
@@ -306,7 +307,7 @@ class DefaultController extends Controller
                     'is_checked' => 1,
                 ]);
             }
-
+        }
             $data = $methods->getUncheckedServices($users[0]);
             foreach ($data as $datas) {
                 ClinicService::create([
@@ -315,7 +316,6 @@ class DefaultController extends Controller
                     'is_checked' => 0,
                 ]);
             }
-        }
 
         $modernMethodWithoutClinic = $methods->modernMethodWithoutClinic();
         $permanentMethodWithoutClinic = $methods->permanentMethodWithoutClinic();
