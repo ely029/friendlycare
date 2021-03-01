@@ -196,11 +196,9 @@ class NotificationsController extends Controller
 
     public function bookingTommorow($id)
     {
-        $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
-        $getDate = DB::table('booking')->select('time_slot')->where('clinic_id', $getClinicId[0])->where('book_tommorow_display', 0)->orderBy('created_at', 'desc')->pluck('time_slot');
-        $getPatientId = DB::table('booking')->select('patient_id')->where('clinic_id', $getClinicId[0])->where('book_tommorow_display', 0)->orderBy('created_at', 'desc')->pluck('patient_id');
-        $checkDisplay = DB::table('booking')->select('id')->where('book_tommorow_display', 0)->where('clinic_id', $getClinicId[0])->count();
-        $getId = DB::table('booking')->select('id')->where('clinic_id', $getClinicId[0])->where('book_tommorow_display', 0)->orderBy('created_at', 'desc')->pluck('id');
+        $checkDisplay = DB::table('booking')->select('id')->where('book_tommorow_display', 0)->where('patient_id', $id)->count();
+        $getDate = DB::table('booking')->select('time_slot')->where('book_tommorow_display', 0)->orderBy('created_at', 'desc')->limit(1)->where('patient_id', $id)->pluck('time_slot');
+        $getId = DB::table('booking')->select('id')->where('patient_id', $id)->where('book_tommorow_display', 0)->orderBy('created_at', 'desc')->limit(1)->pluck('id');
         $now = Carbon::parse($getDate[0]);
         $pushNotifications = new PushNotifications();
 
