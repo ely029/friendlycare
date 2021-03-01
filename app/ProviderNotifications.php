@@ -65,4 +65,16 @@ class ProviderNotifications extends Model
             'date_booked' => $getBookedDate->time_slot,
         ]);
     }
+
+    public function cancellationNotifications($getPatientName, $getClinicId, $id)
+    {
+        ProviderNotifications::create([
+            'title' => 'Patient cancelled',
+            'message' => 'Your patient '.$getPatientName[0].' has been cancelled',
+            'clinic_id' => $getClinicId[0],
+            'type' => 'Notifications',
+            'booking_id' => $id,
+            'status' => 2,
+        ]);
+    }
 }

@@ -198,6 +198,8 @@ Route::get('/patient/events/scheduled/{id}', 'Patients\NotificationsController@s
 //push notification for events
 Route::get('/patient/events/pushnotification/{id}', 'Patients\NotificationsController@index');
 
+//push notification for scheduled booking tommorow
+Route::get('/patient/booking/tommorow/pushnotification/{id}', 'Patients\NotificationsController@bookingTommorow');
 //provider notification
 Route::get('/providerNotifications', 'Provider\NotificationsController@getAllProviderNotification');
 

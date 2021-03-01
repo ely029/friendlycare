@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\Patients;
 
 use App\Booking;
+use App\Classes\PushNotifications;
 use App\EventsNotification;
 use App\Http\Controllers\Controller;
 use App\ProviderNotifications;
@@ -191,6 +192,24 @@ class NotificationsController extends Controller
             return $this->pushNotification1($id);
         }
         return 0;
+    }
+
+    public function bookingTommorow($id)
+    {
+        $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
+        $getDate = DB::table('booking')->select('time_slot')->where('clinic_id', $getClinicId[0])->where('book_tommorow_display', 0)->orderBy('created_at', 'desc')->pluck('time_slot');
+        $getPatientId = DB::table('booking')->select('patient_id')->where('clinic_id', $getClinicId[0])->where('book_tommorow_display', 0)->orderBy('created_at', 'desc')->pluck('patient_id');
+        $checkDisplay = DB::table('booking')->select('id')->where('book_tommorow_display', 0)->where('clinic_id', $getClinicId[0])->count();
+        $getId = DB::table('booking')->select('id')->where('clinic_id', $getClinicId[0])->where('book_tommorow_display', 0)->orderBy('created_at', 'desc')->pluck('id');
+        $now = Carbon::parse($getDate[0]);
+        $pushNotifications = new PushNotifications();
+
+        if ($now->diffInDays() === 1 && $checkDisplay >= 1) {
+            $pushNotifications->providerPushNotifications('Book Scheduled Tommorow', 'You have a Booking Scheduled Tommorow', $getPatientId[0]);
+            Booking::where('id', $getId[0])->update([
+                'book_tommorow_display' => 1,
+            ]);
+        }
     }
 
     private function pushNotification1($id)

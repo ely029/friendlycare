@@ -117,4 +117,30 @@ class EventsNotification extends Model
             ->where('date_string', '<=', strtotime(date('Y-m-d')))
             ->get();
     }
+
+    public function createNotification($getPatientId, $message, $getDate, $id)
+    {
+        EventsNotification::create([
+            'patient_id' => $getPatientId[0],
+            'message' => '',
+            'clinic_name_1' => $message,
+            'display_type' => 'Notifications',
+            'title' => 'Booking Accepted',
+            'appointement_date_1' => $getDate[0],
+            'booking_id' => $id,
+        ]);
+    }
+
+    public function cancellationNotifications($getPatientId, $message, $getPatientDate)
+    {
+        EventsNotification::create([
+            'patient_id' => $getPatientId[0],
+            'message' => '',
+            'clinic_name_1' => $message,
+            'appointement_date_1' => $getPatientDate[0],
+            'display_type' => 'Notifications',
+            'title' => 'Booking Cancelled',
+            'status' => 3,
+        ]);
+    }
 }
