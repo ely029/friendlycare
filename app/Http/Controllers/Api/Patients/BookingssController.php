@@ -46,7 +46,7 @@ class BookingssController extends Controller
         $pushNotifications->providerPushNotifications('Booking Confirmed', 'Booking is Confirmed', $getPatientId[0]);
 
         if ($checkDate === 1) {
-            $pushNotifications->providerPushNotifications('Booking Scheduled Tommorow', 'Booking Tommorow', $getPatientId[0]);
+            $pushNotifications->providerBookTommorowPushNotifications('Booking Scheduled Tommorow', 'Booking Tommorow', $getPatientId[0]);
         }
 
         return response([
