@@ -203,7 +203,7 @@ class NotificationsController extends Controller
         $pushNotifications = new PushNotifications();
 
         if ($now->diffInDays() === 1 && $checkDisplay >= 1) {
-            $pushNotifications->providerPushNotifications('Book Scheduled Tommorow', 'You have a Booking Scheduled Tommorow', $getPatientId[0]);
+            $pushNotifications->providerPushNotifications('Book Scheduled Tommorow', 'You have a Booking Scheduled Tommorow', $id);
             Booking::where('id', $getId[0])->update([
                 'book_tommorow_display' => 1,
             ]);
