@@ -217,7 +217,7 @@ class FamilyPlanningMethodController extends Controller
 
     public function delete($id)
     {
-        FamilyPlanTypeSubcategories::where('id', $id)->delete();
+        DB::delete('delete from family_plan_type_subcategory where id = ?', [$id]);
         return redirect('/fpm');
     }
 

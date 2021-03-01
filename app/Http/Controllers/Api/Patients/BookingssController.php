@@ -10,6 +10,7 @@ use App\Classes\PushNotifications;
 use App\EventsNotification;
 use App\Http\Controllers\Controller;
 use App\ProviderNotifications;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mail;
@@ -21,11 +22,13 @@ class BookingssController extends Controller
         $obj = json_decode($request->getContent(), true);
         $startTime = date('Y-m-d H:i');
         $pushNotifications = new PushNotifications();
+        $providerNotifications = new ProviderNotifications();
         $endtime = date('Y-m-d H:i', strtotime('3 minutes', strtotime($startTime)));
         DB::update('update booking set status = ? where id = ?', [1, $id]);
         DB::update('update booking_time set status = ? where time_slot = ? and booking_id = ?', [1, $obj['time_slot'][0], $id]);
         BookingTime::where(['booking_id' => $id, 'status' => null])->delete();
         $getBookedDate = DB::table('booking')->select('time_slot')->where('id', $id)->first();
+        $now = Carbon::parse($getBookedDate->time_slot);
         $getBookedTime = DB::table('booking_time')->select('time_slot')->where('booking_id', $id)->first();
         $bookedTime = date('H:i:s', strtotime($getBookedTime->time_slot));
         $starttime = strtotime($getBookedDate->time_slot.''.$bookedTime);
@@ -46,18 +49,10 @@ class BookingssController extends Controller
             'appointement_date_1' => $getDate[0],
             'booking_id' => $id,
         ]);
-
-        ProviderNotifications::create([
-            'patient_id' => $getPatientId[0],
-            'title' => 'Upcoming Booking Tommorow',
-            'type' => 'Notifications',
-            'message' => null,
-            'status' => 7,
-            'booking_id' => $id,
-            'clinic_id' => $getClinicId[0],
-            'date_booked' => $getBookedDate->time_slot,
-        ]);
-
+        $providerNotifications->createNotification($getPatientId, $getClinicId, $getBookedDate, $id);
+        if ($now->diffInDays() === 1) {
+            $pushNotifications->providerPushNotifications('Booking Scheduled Tommorow', 'Booking Tommorow', $getPatientId[0]);
+        }
         $pushNotifications->providerPushNotifications('Booking Confirmed', 'Booking is Confirmed', $getPatientId[0]);
 
         return response([

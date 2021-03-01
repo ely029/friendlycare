@@ -195,7 +195,7 @@ class UserManagementController extends Controller
 
     public function deleteUser($id)
     {
-        User::where('id', $id)->delete();
+        DB::delete('delete from users where id = ?', [$id]);
         Staffs::where('user_id', $id)->delete();
 
         return redirect('/user/list');

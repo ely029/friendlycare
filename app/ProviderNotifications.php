@@ -51,4 +51,18 @@ class ProviderNotifications extends Model
         }
         return true;
     }
+
+    public function createNotification($getPatientId, $getClinicId, $getBookedDate, $id)
+    {
+        ProviderNotifications::create([
+            'patient_id' => $getPatientId[0],
+            'title' => 'Upcoming Booking Tommorow',
+            'type' => 'Notifications',
+            'message' => null,
+            'status' => 7,
+            'booking_id' => $id,
+            'clinic_id' => $getClinicId[0],
+            'date_booked' => $getBookedDate->time_slot,
+        ]);
+    }
 }
