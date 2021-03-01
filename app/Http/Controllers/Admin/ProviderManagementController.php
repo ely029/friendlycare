@@ -229,8 +229,8 @@ class ProviderManagementController extends Controller
             $mail->from('notifications@friendlycare.com');
             $mail->to($email[0], 'Provider')->subject('Account Deactivated');
         });
-        DB::delete('delete from clinics where id = ?',[$id]);
-        DB::delete('delete from clinic_hours where clinic_id = ?',[$id]);
+        DB::delete('delete from clinics where id = ?', [$id]);
+        DB::delete('delete from clinic_hours where clinic_id = ?', [$id]);
         return redirect('provider/list');
     }
 
