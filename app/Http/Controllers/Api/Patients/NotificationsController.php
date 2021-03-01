@@ -197,14 +197,16 @@ class NotificationsController extends Controller
     public function bookingTommorow($id)
     {
         $checkDisplay = DB::table('booking')->select('id')->where('book_tommorow_display', 0)->where('patient_id', $id)->count();
-        $getDate = DB::table('booking')->select('time_slot')->where('book_tommorow_display', 0)->orderBy('created_at', 'desc')->limit(1)->where('patient_id', $id)->pluck('time_slot');
-        $getId = DB::table('booking')->select('id')->where('patient_id', $id)->where('book_tommorow_display', 0)->orderBy('created_at', 'desc')->limit(1)->pluck('id');
-        $now = Carbon::parse($getDate[0]);
+        $getDate = DB::table('booking')->select('time_slot')->where('book_tommorow_display', 0)->limit(1)->orderBy('id', 'desc')->where('patient_id', $id)->pluck('time_slot');
+        // $getId = DB::table('booking')->select('id')->where('patient_id', $id)->where('book_tommorow_display', 0)->orderBy('created_at', 'desc')->limit(1)->pluck('id');
+        // $date = Carbon::parse($getDate[0].'00:00:00');
+        // $now = Carbon::now();
+        $checkDate = Carbon::parse(date('Y-m-d'))->diffInDays($getDate[0]);
         $pushNotifications = new PushNotifications();
 
-        if ($now->diffInDays() === 1 && $checkDisplay >= 1) {
+        if ($checkDate === 1 && $checkDisplay >= 1) {
             $pushNotifications->providerPushNotifications('Book Scheduled Tommorow', 'You have a Booking Scheduled Tommorow', $id);
-            Booking::where('id', $getId[0])->update([
+            Booking::where('patient_id', $id)->update([
                 'book_tommorow_display' => 1,
             ]);
         }

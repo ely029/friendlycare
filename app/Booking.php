@@ -24,6 +24,7 @@ class Booking extends Model
         'end_time',
         'new_request_end_time',
         'is_rated',
+        'book_tommorow_display',
     ];
 
     public function getNewRequestBooking($clinic_id)
