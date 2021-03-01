@@ -43,10 +43,11 @@ class BookingssController extends Controller
         $checkDate = Carbon::parse(date('Y-m-d'))->diffInDays($getBookedDate->time_slot ?? '0000-00-00');
         $eventsNotification->createNotification($getPatientId, $message, $getDate, $id);
         $providerNotifications->createNotification($getPatientId, $getClinicId, $getBookedDate, $id);
+        $pushNotifications->providerPushNotifications('Booking Confirmed', 'Booking is Confirmed', $getPatientId[0]);
+
         if ($checkDate === 1) {
             $pushNotifications->providerPushNotifications('Booking Scheduled Tommorow', 'Booking Tommorow', $getPatientId[0]);
         }
-        $pushNotifications->providerPushNotifications('Booking Confirmed', 'Booking is Confirmed', $getPatientId[0]);
 
         return response([
             'name' => 'BookApproved',
