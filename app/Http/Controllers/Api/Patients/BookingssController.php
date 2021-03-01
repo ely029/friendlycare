@@ -29,7 +29,6 @@ class BookingssController extends Controller
         DB::update('update booking_time set status = ? where time_slot = ? and booking_id = ?', [1, $obj['time_slot'][0], $id]);
         BookingTime::where(['booking_id' => $id, 'status' => null])->delete();
         $getBookedDate = DB::table('booking')->select('time_slot')->where('id', $id)->first();
-        $now = Carbon::parse($getBookedDate->time_slot);
         $getBookedTime = DB::table('booking_time')->select('time_slot')->where('booking_id', $id)->first();
         $bookedTime = date('H:i:s', strtotime($getBookedTime->time_slot));
         $starttime = strtotime($getBookedDate->time_slot.''.$bookedTime);
@@ -41,9 +40,10 @@ class BookingssController extends Controller
         $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
         $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
         $message = $getClinicName[0];
+        $checkDate = Carbon::parse(date('Y-m-d'))->diffInDays($getBookedDate->time_slot ?? '0000-00-00');
         $eventsNotification->createNotification($getPatientId, $message, $getDate, $id);
         $providerNotifications->createNotification($getPatientId, $getClinicId, $getBookedDate, $id);
-        if ($now->diffInDays() === 1) {
+        if ($checkDate === 1) {
             $pushNotifications->providerPushNotifications('Booking Scheduled Tommorow', 'Booking Tommorow', $getPatientId[0]);
         }
         $pushNotifications->providerPushNotifications('Booking Confirmed', 'Booking is Confirmed', $getPatientId[0]);
