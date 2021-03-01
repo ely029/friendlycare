@@ -430,6 +430,7 @@ class FamilyPlanTypeSubcategories extends Model
             ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
             ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name')
             ->where('clinic_service.clinic_id', $id)
+            ->where('clinic_service.is_checked', 1)
             ->where('family_plan_type_subcategory.family_plan_type_id', 1)
             ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
             ->get();
@@ -442,6 +443,7 @@ class FamilyPlanTypeSubcategories extends Model
             ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
             ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name')
             ->where('clinic_service.clinic_id', $id)
+            ->where('clinic_service.is_checked', 1)
             ->where('family_plan_type_subcategory.family_plan_type_id', 2)
             ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
             ->get();
@@ -454,6 +456,7 @@ class FamilyPlanTypeSubcategories extends Model
             ->join('clinics', 'clinics.id', 'clinic_service.clinic_id')
             ->select('family_plan_type_subcategory.id', 'family_plan_type_subcategory.name')
             ->where('clinic_service.clinic_id', $id)
+            ->where('clinic_service.is_checked', 1)
             ->where('family_plan_type_subcategory.family_plan_type_id', 3)
             ->where(['clinics.id' => $id, 'clinics.is_approve' => 1])
             ->get();

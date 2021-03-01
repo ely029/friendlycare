@@ -198,6 +198,7 @@ class FamilyPlanningMethodController extends Controller
     public function update(Request $request)
     {
         $requests = request()->all();
+        $fpm = new FamilyPlanTypeSubcategories();
         $countable_array = $requests['service_gallery_pics'] ?? [0];
         $countServiceGallery = count($countable_array) - 1;
         if (isset($requests['service_gallery_pics'])) {
@@ -206,7 +207,6 @@ class FamilyPlanningMethodController extends Controller
                 $this->generateServicePics($checkGallery, $requests, $eee);
             }
         }
-        $fpm = new FamilyPlanTypeSubcategories();
         if ($requests['pic_url'] === null) {
             $fpm->updateFPMNoIcon($requests);
         } else {
@@ -264,7 +264,7 @@ class FamilyPlanningMethodController extends Controller
     private function generateServicePics($checkGallery, $requests, $eee)
     {
         if ($checkGallery < 1) {
-            $icon_url = url('uploads/fpm/'.$requests['service_gallery_pics'][$eee]);
+            $icon_url = $requests['service_gallery_pics'][$eee];
             $serviceGallery = new ServiceGallery();
             $serviceGallery->generateServicePics($requests, $icon_url, $eee);
         }

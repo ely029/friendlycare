@@ -223,9 +223,6 @@ $('document').ready(function(){
    });
 
   var previewNode = document.querySelector("#gallery-container");
-  previewNode.id = "";
-  var previewTemplate = previewNode.parentNode.innerHTML;
-  previewNode.parentNode.removeChild(previewNode);
 
    $("#dropzoneDragArea").dropzone({
         url: "{{ route('familyPlanningMethod.updateGalleryUpload')}}",
@@ -239,7 +236,6 @@ $('document').ready(function(){
         headers: {
                   'x-csrf-token': "{{ csrf_token() }}",
         },
-        previewTemplate: previewTemplate,
         previewsContainer: "#gallery-preview",
         clickable: ".gallery",
         init: function() {
