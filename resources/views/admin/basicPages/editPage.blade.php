@@ -66,7 +66,7 @@
         </div>
     </div>
     @endforeach
-    <div id="js-consent-form">
+    <div class="js-consent-form">
         <div class="form__container">
         <input type="hidden" value="0" name="content_id[]">
         <div class="form__content form__content--full"><input class="form__input" type="text" name="content_name[]" value=""  /><label class="form__label form__label--visible" for="">Section title</label></div>
@@ -75,11 +75,12 @@
             <label class="form__label form__label--visible" for="">Content</label>
         </div>
         <div class="form__button form__button--end">
+            <a class="button button--medium js-delete-section2 js-trigger content-delete" type="button">Delete section</a>
             <button class="button button--medium js-add-section1" type="button">Add section</button>
         </div>
         </div>
     </div>
-    <div id="js-consent-form2">
+    {{-- <div id="js-consent-form2">
         <div class="form__container">
         <input type="hidden" value="0" name="content_id[]">
         <div class="form__content form__content--full"><input class="form__input" type="text" name="content_name[]" value=""  /><label class="form__label form__label--visible" for="">Section title</label></div>
@@ -92,7 +93,7 @@
             <button class="button button--medium js-add-section" type="button">Add section</button>
         </div>
         </div>
-    </div>
+    </div> --}}
     <div class="form__button form__button--end"><input class="button js-trigger" type="submit" value="Save Changes"></div>
     </div>
 

@@ -513,9 +513,9 @@ $(function(){
         $('.js-scheduled-content-1').hide();
        }
    });   
-   $('.js-add-section1').click(function(){
-       $('#js-consent-form2').show();
-   });
+//    $('.js-add-section1').click(function(){
+//        $('#js-consent-form2').show();
+//    });
 
    //load the provinces upon page loading
    $.ajax({
@@ -682,11 +682,9 @@ $(function(){
        } else {
         $('.js-scheduled-content-1').hide();
        }
-   });   
-   $('.js-add-section1').click(function(){
-       $('#js-consent-form2').show();
-   });
+   });  
 });
 </script>
+<script src="{{ asset('assets/dashboard/js/admin.js') }}"></script>
 @endif
 @endpush
