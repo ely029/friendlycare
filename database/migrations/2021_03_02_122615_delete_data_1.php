@@ -29,7 +29,7 @@ use App\Survey;
 use App\MedicalHistory;
 use App\MedicalHistoryAnswer;
 
-class DeleteData extends Migration
+class DeleteData1 extends Migration
 {
     /**
      * Run the migrations.

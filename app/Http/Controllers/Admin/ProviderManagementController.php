@@ -447,6 +447,23 @@ class ProviderManagementController extends Controller
     public function barangay()
     {
         $request = request()->all();
+        if ($request['barangay'] === '133911') {
+            return DB::table('refbrgy')->select('brgyCode as barangay_code', 'brgyDesc as barangay_description')->where('citymuncode', '133901')
+                ->orWhere('citymuncode', '133902')
+                ->orWhere('citymuncode', '133903')
+                ->orWhere('citymuncode', '133904')
+                ->orWhere('citymuncode', '133905')
+                ->orWhere('citymuncode', '133906')
+                ->orWhere('citymuncode', '133907')
+                ->orWhere('citymuncode', '133908')
+                ->orWhere('citymuncode', '133909')
+                ->orWhere('citymuncode', '133910')
+                ->orWhere('citymuncode', '133911')
+                ->orWhere('citymuncode', '133912')
+                ->orWhere('citymuncode', '133913')
+                ->orWhere('citymuncode', '133914')
+                ->get();
+        }
         return DB::table('refbrgy')->select('brgyCode as barangay_code', 'brgyDesc as barangay_description')->where('citymuncode', $request['barangay'])->get();
     }
 
