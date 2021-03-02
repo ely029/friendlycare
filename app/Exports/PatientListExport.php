@@ -41,7 +41,7 @@ class PatientListExport implements FromCollection, WithHeadings
                 ->leftJoin('patients', 'patients.user_id', 'users.id')
                 ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
                 ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
-                ->select('users.name', 'users.age', 'patients.province', 'patients.municipality', 'family_plan_type_subcategory.name as service_name', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'), DB::raw('DATE_FORMAT(fpm_type_service.updated_at, "%m/%d/%Y") as date_last_update'), DB::raw('IF(fpm_type_service.service_id is null, "No", "Yes") as fpm_type_service'), DB::raw('(CASE WHEN patients.fpm_user_type = 1 THEN "New Acceptor" WHEN patients.fpm_user_type = 2 THEN "Changing Methods" WHEN patients.fpm_user_type = 3 THEN "Curent User" WHEN patients.fpm_user_type = 4 THEN "Restart" END)AS fpm_2'),
+                ->select('users.name', 'users.age', 'patients.province', 'patients.citymunicipality', 'family_plan_type_subcategory.name as service_name', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'), DB::raw('DATE_FORMAT(fpm_type_service.updated_at, "%m/%d/%Y") as date_last_update'), DB::raw('IF(fpm_type_service.service_id is null, "No", "Yes") as fpm_type_service'), DB::raw('(CASE WHEN patients.fpm_user_type = 1 THEN "New Acceptor" WHEN patients.fpm_user_type = 2 THEN "Changing Methods" WHEN patients.fpm_user_type = 3 THEN "Curent User" WHEN patients.fpm_user_type = 4 THEN "Restart" END)AS fpm_2'),
                 'family_plan_type_subcategory.name as fpm_1')
                 ->where('users.role_id', 3)
                 ->where('users.age', '<=', 19)
@@ -54,7 +54,7 @@ class PatientListExport implements FromCollection, WithHeadings
                 ->distinct('users.name')
                 ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
                 ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
-                ->select('users.name', 'users.age', 'patients.province', 'patients.municipality', 'family_plan_type_subcategory.name as service_name', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'), DB::raw('DATE_FORMAT(fpm_type_service.updated_at, "%m/%d/%Y") as date_last_update'), DB::raw('IF(fpm_type_service.service_id is null, "No", "Yes") as fpm_type_service'), DB::raw('
+                ->select('users.name', 'users.age', 'patients.province', 'patients.citymunicipality', 'family_plan_type_subcategory.name as service_name', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'), DB::raw('DATE_FORMAT(fpm_type_service.updated_at, "%m/%d/%Y") as date_last_update'), DB::raw('IF(fpm_type_service.service_id is null, "No", "Yes") as fpm_type_service'), DB::raw('
                     (
                         CASE 
                         WHEN patients.fpm_user_type = 1 THEN "New Acceptor"
@@ -73,7 +73,7 @@ class PatientListExport implements FromCollection, WithHeadings
                 ->leftJoin('patients', 'patients.user_id', 'users.id')
                 ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
                 ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
-                ->select('users.name', 'users.age', 'patients.province', 'patients.municipality', 'family_plan_type_subcategory.name as service_name', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'), DB::raw('DATE_FORMAT(fpm_type_service.updated_at, "%m/%d/%Y") as date_last_update'), DB::raw('IF(fpm_type_service.service_id is null, "No", "Yes") as fpm_type_service'), DB::raw('
+                ->select('users.name', 'users.age', 'patients.province', 'patients.citymunicipality', 'family_plan_type_subcategory.name as service_name', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'), DB::raw('DATE_FORMAT(fpm_type_service.updated_at, "%m/%d/%Y") as date_last_update'), DB::raw('IF(fpm_type_service.service_id is null, "No", "Yes") as fpm_type_service'), DB::raw('
                     (
                         CASE 
                         WHEN patients.fpm_user_type = 1 THEN "New Acceptor"
@@ -93,7 +93,7 @@ class PatientListExport implements FromCollection, WithHeadings
                 ->leftJoin('patients', 'patients.user_id', 'users.id')
                 ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
                 ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
-                ->select('users.name', 'users.age', 'patients.province', 'patients.municipality', 'family_plan_type_subcategory.name as service_name', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'), DB::raw('DATE_FORMAT(fpm_type_service.updated_at, "%m/%d/%Y") as date_last_update'), DB::raw('IF(fpm_type_service.service_id is null, "No", "Yes") as fpm_type_service'), DB::raw('
+                ->select('users.name', 'users.age', 'patients.province', 'patients.citymunicipality', 'family_plan_type_subcategory.name as service_name', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'), DB::raw('DATE_FORMAT(fpm_type_service.updated_at, "%m/%d/%Y") as date_last_update'), DB::raw('IF(fpm_type_service.service_id is null, "No", "Yes") as fpm_type_service'), DB::raw('
                     (
                         CASE 
                         WHEN patients.fpm_user_type = 1 THEN "New Acceptor"
@@ -112,7 +112,7 @@ class PatientListExport implements FromCollection, WithHeadings
             ->leftJoin('patients', 'patients.user_id', 'users.id')
             ->leftJoin('fpm_type_service', 'fpm_type_service.patient_id', 'users.id')
             ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'fpm_type_service.service_id')
-            ->select('users.name', 'users.age', 'patients.province', 'patients.municipality', 'family_plan_type_subcategory.name as service_name', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'), DB::raw('DATE_FORMAT(fpm_type_service.updated_at, "%m/%d/%Y") as date_last_update'), DB::raw('IF(fpm_type_service.service_id is null, "No", "Yes") as fpm_type_service'), DB::raw('
+            ->select('users.name', 'users.age', 'patients.province', 'patients.citymunicipality', 'family_plan_type_subcategory.name as service_name', DB::raw('DATE_FORMAT(users.created_at, "%m/%d/%Y") as registered_at'), DB::raw('DATE_FORMAT(fpm_type_service.updated_at, "%m/%d/%Y") as date_last_update'), DB::raw('IF(fpm_type_service.service_id is null, "No", "Yes") as fpm_type_service'), DB::raw('
                     (
                         CASE 
                         WHEN patients.fpm_user_type = 1 THEN "New Acceptor"
