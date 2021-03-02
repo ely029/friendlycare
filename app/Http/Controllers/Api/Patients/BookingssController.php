@@ -40,14 +40,9 @@ class BookingssController extends Controller
         $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
         $getClinicName = DB::table('clinics')->select('clinic_name')->where('id', $getClinicId[0])->pluck('clinic_name');
         $message = $getClinicName[0];
-        $checkDate = Carbon::parse(date('Y-m-d'))->diffInDays($getBookedDate->time_slot ?? '0000-00-00');
         $eventsNotification->createNotification($getPatientId, $message, $getDate, $id);
         $providerNotifications->createNotification($getPatientId, $getClinicId, $getBookedDate, $id);
         $pushNotifications->providerPushNotifications('Booking Confirmed', 'Booking is Confirmed', $getPatientId[0]);
-
-        if ($checkDate === 1) {
-            $pushNotifications->providerBookTommorowPushNotifications('Booking Scheduled Tommorow', 'Booking Tommorow', $getPatientId[0]);
-        }
 
         return response([
             'name' => 'BookApproved',
