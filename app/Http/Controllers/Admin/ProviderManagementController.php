@@ -119,6 +119,7 @@ class ProviderManagementController extends Controller
         $providerNotification = new ProviderNotifications();
         ClinicService::where('clinic_id', $request['clinic_id'])->delete();
         PaidServices::where('clinic_id', $request['clinic_id'])->delete();
+        CLinicHours::where('clinic_id', $request['clinic_id'])->delete();
         $this->validateClinicHours($request);
         for ($eee = 0;$eee <= 10000;$eee++) {
             if (isset($request['services'][$eee])) {
