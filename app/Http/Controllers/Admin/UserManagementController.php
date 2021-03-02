@@ -245,7 +245,7 @@ class UserManagementController extends Controller
             return view('admin.userManagement.index', ['admin' => $user]);
         }
         if ($request['search'] === 'All') {
-            $user = User::where('role_id', '<>', 3)->get();
+            $user = User::where('role_id', '<>', 3)->where('role_id', '<>', 1)->get();
             return view('admin.userManagement.index', ['admin' => $user]);
         }
     }
