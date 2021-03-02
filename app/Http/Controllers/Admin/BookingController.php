@@ -27,7 +27,7 @@ class BookingController extends Controller
         $clinics = DB::table('clinics')
             ->select('clinics.id', 'clinics.clinic_name')
             ->where('clinics.email', '<>', 'null')
-            ->where('clinics.is_approve', '<>', 0)
+            ->where('clinics.is_approve', 1)
             ->get();
         return view('admin.bookings.index', ['services' => $services, 'clinics' => $clinics]);
     }
