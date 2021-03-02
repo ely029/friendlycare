@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use App\Clinics;
 use App\Http\Controllers\Controller;
 use App\Staffs;
 use App\User;
@@ -14,20 +15,10 @@ class UserManagementController extends Controller
 {
     public function index()
     {
+        $user = new User();
         $users = '';
-        $staffs = DB::table('users')
-            ->join('staffs', 'staffs.user_id', 'users.id')
-            ->join('clinics', 'clinics.id', 'staffs.clinic_id')
-            ->where('users.role_id', '<>', 1)
-            ->where('users.role_id', '<>', 3)
-            ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email');
-
-        $admin = DB::table('users')
-            ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'users.email_verified_at as clinic_name', 'users.role_id', 'users.email')
-            ->where('users.role_id', '<>', 1)
-            ->where('users.role_id', '<>', 3)
-            ->where('users.role_id', '<>', 4);
-
+        $staffs = $user->getStaff();
+        $admin = $user->getAdmin();
         $users = $staffs->union($admin)->get();
         return view('admin.userManagement.index', ['admin' => $users]);
     }
@@ -41,11 +32,7 @@ class UserManagementController extends Controller
     }
     public function staffFirstPage()
     {
-        $users = DB::table('clinics')
-            ->select('clinics.id', 'clinics.clinic_name')
-            ->where('clinics.email', '<>', 'null')
-            ->where('clinics.is_approve', '<>', 0)
-            ->get();
+        $users = Clinics::where('is_approve', 1)->get();
 
         return view('admin.userManagement.staffFirstPage', ['clinics' => $users]);
     }
@@ -122,32 +109,17 @@ class UserManagementController extends Controller
     }
     public function editUserProfilePage($id)
     {
+        $clinics = new Clinics();
         $user = User::where('id', $id)->get();
-        $clinic = DB::table('clinics')
-            ->join('staffs', 'staffs.clinic_id', 'clinics.id')
-            ->select('clinics.clinic_name')
-            ->where('staffs.user_id', $id)
-            ->get();
-
-        $staff = DB::table('staffs')
-            ->leftJoin('clinics', 'clinics.id', 'staffs.clinic_id')
-            ->select('clinics.clinic_name')
-            ->where('staffs.user_id', $id)
-            ->get();
-
+        $clinic = $clinics->getClinicByStaff($id);
+        $staff = $clinics->getClinicByStaffOne($id);
         return view('admin.userManagement.adminEditProfilePage', ['users' => $user, 'clinic' => $clinic, 'staff' => $staff]);
     }
     public function editUserProfile($id)
     {
+        $clinic = new Clinics();
         $user = User::where('id', $id)->get();
-        $clinic = DB::table('clinics')
-            ->select('id', 'clinic_name')
-            ->where('clinic_name', '<>', null)
-            ->where('type', '<>', null)
-            ->where('philhealth_accredited_1', '<>', null)
-            ->where('is_approve', 1)
-            ->where('user_id', 0)
-            ->get();
+        $clinic = $clinic->getClinic();
         $selected_clinic_name = DB::table('staffs')->join('clinics', 'clinics.id', 'staffs.clinic_id')->select('clinics.clinic_name')->where('staffs.user_id', $id)->pluck('clinic_name');
         $selected_clinic_id = DB::table('staffs')->join('clinics', 'clinics.id', 'staffs.clinic_id')->select('clinics.id')->where('staffs.user_id', $id)->pluck('id');
 
@@ -205,29 +177,15 @@ class UserManagementController extends Controller
     {
         $users = '';
         $request = request()->all();
+        $user = new User();
 
         if ($request['filter'] === 'by_admin') {
-            $users = DB::table('users')
-                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'users.email_verified_at as clinic_name', 'users.role_id', 'users.email')
-                ->where('users.role_id', '<>', 1)
-                ->where('users.role_id', '<>', 4)
-                ->get();
+            $users = $user->getAdmin();
         } elseif ($request['filter'] === 'by_staff') {
-            $users = DB::table('users')
-                ->join('staffs', 'staffs.user_id', 'users.id')
-                ->join('clinics', 'clinics.id', 'staffs.clinic_id')
-                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email')
-                ->get();
+            $users = $user->getStaff();
         } else {
-            $staffs = DB::table('users')
-                ->join('staffs', 'staffs.user_id', 'users.id')
-                ->join('clinics', 'clinics.id', 'staffs.clinic_id')
-                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email');
-
-            $admin = DB::table('users')
-                ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'users.email_verified_at as clinic_name', 'users.role_id', 'users.email')
-                ->where('users.role_id', '<>', 1)
-                ->where('users.role_id', '<>', 4);
+            $staffs = $user->getStaff();
+            $admin = $user->getAdmin();
             $users = $staffs->union($admin)->get();
         }
         return view('admin.userManagement.index', ['admin' => $users]);

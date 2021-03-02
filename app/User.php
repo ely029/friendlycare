@@ -252,4 +252,41 @@ class User extends Authenticatable
             ->where('users.role_id', 3)
             ->get();
     }
+
+    public function getStaff()
+    {
+        return DB::table('users')
+            ->join('staffs', 'staffs.user_id', 'users.id')
+            ->join('clinics', 'clinics.id', 'staffs.clinic_id')
+            ->where('users.role_id', '<>', 1)
+            ->where('users.role_id', '<>', 3)
+            ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'clinics.clinic_name', 'users.role_id', 'users.email');
+    }
+
+    public function getAdmin()
+    {
+        return DB::table('users')
+            ->select('users.id', 'users.name', 'users.first_name', 'users.last_name', 'users.email_verified_at as clinic_name', 'users.role_id', 'users.email')
+            ->where('users.role_id', '<>', 1)
+            ->where('users.role_id', '<>', 3)
+            ->where('users.role_id', '<>', 4);
+    }
+
+    public function getStaffFCMToken($id)
+    {
+        return DB::table('users')->select('users.fcm_notification_key')
+            ->leftJoin('staffs', 'staffs.user_id', 'users.id')
+            ->where('users.fcm_notification_key', '<>', null)
+            ->where('staffs.clinic_id', $id)->get();
+    }
+
+    public function resetIndexPageData($id)
+    {
+        return DB::table('users')
+            ->leftJoin('staffs', 'staffs.user_id', 'users.id')
+            ->leftJoin('clinics', 'clinics.id', 'staffs.clinic_id')
+            ->select('users.email', 'users.id', 'clinics.clinic_name')
+            ->where('users.id', $id)
+            ->get();
+    }
 }

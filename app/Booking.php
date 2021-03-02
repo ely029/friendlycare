@@ -591,12 +591,92 @@ class Booking extends Model
 
     public function getAvailedService($request, $dateFrom, $dateTo)
     {
+        if ($request['clinic_id'] === null && $request['service_id'] === null && $request['status'] === null) {
+            return DB::table('booking')
+                ->select('family_plan_type_subcategory.name as service',
+                    DB::raw(' count(booking.id) as services_count'))
+                ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+                ->where('booking.status', '<>', 6)
+                ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
+                ->groupBy(['family_plan_type_subcategory.name'])
+                ->get();
+        }
+        if ($request['clinic_id'] === null && $request['service_id'] === null && $request['status'] !== null) {
+            return DB::table('booking')
+                ->select('family_plan_type_subcategory.name as service',
+                    DB::raw(' count(booking.id) as services_count'))
+                ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+                ->where('booking.status', '<>', 6)
+                ->where('booking.status', $request['status'])
+                ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
+                ->groupBy(['family_plan_type_subcategory.name'])
+                ->get();
+        }
+        if ($request['clinic_id'] === null && $request['service_id'] !== null && $request['status'] === null) {
+            return DB::table('booking')
+                ->select('family_plan_type_subcategory.name as service',
+                    DB::raw(' count(booking.id) as services_count'))
+                ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+                ->where('booking.status', '<>', 6)
+                ->where('booking.service_id', $request['service_id'])
+                ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
+                ->groupBy(['family_plan_type_subcategory.name'])
+                ->get();
+        }
+        if ($request['clinic_id'] !== null && $request['service_id'] === null && $request['status'] === null) {
+            return DB::table('booking')
+                ->select('family_plan_type_subcategory.name as service',
+                    DB::raw(' count(booking.id) as services_count'))
+                ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+                ->where('booking.status', '<>', 6)
+                ->where('booking.service_id', $request['clinic_id'])
+                ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
+                ->groupBy(['family_plan_type_subcategory.name'])
+                ->get();
+        }
+        if ($request['clinic_id'] === null && $request['service_id'] !== null && $request['status'] !== null) {
+            return DB::table('booking')
+                ->select('family_plan_type_subcategory.name as service',
+                    DB::raw(' count(booking.id) as services_count'))
+                ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+                ->where('booking.status', '<>', 6)
+                ->where('booking.service_id', $request['service_id'])
+                ->where('booking.status', $request['status'])
+                ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
+                ->groupBy(['family_plan_type_subcategory.name'])
+                ->get();
+        }
+        if ($request['clinic_id'] !== null && $request['service_id'] === null && $request['status'] !== null) {
+            return DB::table('booking')
+                ->select('family_plan_type_subcategory.name as service',
+                    DB::raw(' count(booking.id) as services_count'))
+                ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+                ->where('booking.status', '<>', 6)
+                ->where('booking.status', $request['status'])
+                ->where('booking.clinic_id', $request['clinic_id'])
+                ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
+                ->groupBy(['family_plan_type_subcategory.name'])
+                ->get();
+        }
+        if ($request['clinic_id'] !== null && $request['service_id'] !== null && $request['status'] === null) {
+            return DB::table('booking')
+                ->select('family_plan_type_subcategory.name as service',
+                    DB::raw(' count(booking.id) as services_count'))
+                ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+                ->where('booking.status', '<>', 6)
+                ->where('booking.service_id', $request['service_id'])
+                ->where('booking.clinic_id', $request['clinic_id'])
+                ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
+                ->groupBy(['family_plan_type_subcategory.name'])
+                ->get();
+        }
         return DB::table('booking')
             ->select('family_plan_type_subcategory.name as service',
                     DB::raw(' count(booking.id) as services_count'))
             ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
             ->where('booking.clinic_id', $request['clinic_id'] ?? null)
             ->where('booking.service_id', $request['service_id'] ?? null)
+            ->where('booking.status', $request['status'] ?? null)
             ->where('booking.status', '<>', 6)
             ->whereBetween('booking.time_slot', [$dateFrom, $dateTo])
             ->groupBy(['family_plan_type_subcategory.name'])

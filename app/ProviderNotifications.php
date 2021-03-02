@@ -77,4 +77,40 @@ class ProviderNotifications extends Model
             'status' => 2,
         ]);
     }
+
+    public function accountDisabledNotification($request)
+    {
+        ProviderNotifications::create([
+            'title' => 'Clinic is activated',
+            'message' => 'Your clinic is activated',
+            'clinic_id' => $request['id'],
+            'type' => 'Update',
+            'booking_id' => 0,
+            'status' => 1,
+        ]);
+    }
+
+    public function accountEnabledNotification($request)
+    {
+        ProviderNotifications::create([
+            'title' => 'Clinic is deactivated',
+            'message' => 'Your clinic is deactivated',
+            'clinic_id' => $request['id'],
+            'type' => 'Update',
+            'booking_id' => 0,
+            'status' => 1,
+        ]);
+    }
+
+    public function clinicUpdateNotification($request)
+    {
+        ProviderNotifications::create([
+            'title' => 'Clinic Information are updated',
+            'message' => 'Your clinic had updated some of the information.',
+            'clinic_id' => $request['clinic_id'],
+            'type' => 'Update',
+            'booking_id' => 0,
+            'status' => 0,
+        ]);
+    }
 }

@@ -143,4 +143,17 @@ class EventsNotification extends Model
             'status' => 3,
         ]);
     }
+
+    public function createSurveyNotification($request, $id)
+    {
+        EventsNotification::create([
+            'title' => $request['title'],
+            'message' => $request['message'],
+            'type' => 6,
+            'survey_link' => $request['link'],
+            'survey_date_from_string' => $request['date_from_datestring'],
+            'survey_date_to_string' => $request['date_to_datestring'],
+            'survey_id' => $id[0],
+        ]);
+    }
 }

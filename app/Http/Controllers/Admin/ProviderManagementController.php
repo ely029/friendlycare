@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\PaidServices;
 use App\ProviderNotifications;
 use App\Ratings;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mail;
@@ -113,45 +114,31 @@ class ProviderManagementController extends Controller
     {
         $request = request()->all();
         $clinics = new Clinics();
-        ClinicHours::where('clinic_id', $request['clinic_id'])->delete();
+        $paidService = new PaidServices();
+        $clinicService = new ClinicService();
+        $providerNotification = new ProviderNotifications();
         ClinicService::where('clinic_id', $request['clinic_id'])->delete();
         PaidServices::where('clinic_id', $request['clinic_id'])->delete();
         $this->validateClinicHours($request);
         for ($eee = 0;$eee <= 10000;$eee++) {
             if (isset($request['services'][$eee])) {
-                PaidServices::create([
-                    'service_id' => $request['services'][$eee],
-                    'clinic_id' => $request['clinic_id'],
-                    'is_checked' => 1,
-                ]);
+                $paidService->updatePaidService($request, $eee);
             }
         }
         for ($eee = 0;$eee <= 10000;$eee++) {
             if (isset($request['avail_services'][$eee])) {
-                ClinicService::create([
-                    'service_id' => $request['avail_services'][$eee],
-                    'clinic_id' => $request['clinic_id'],
-                    'is_checked' => 1,
-                ]);
+                $clinicService->updateClinicService($request, $eee);
             }
         }
         $methods = new FamilyPlanTypeSubcategories();
         $data = $methods->getUncheckedServices($request['clinic_id']);
         foreach ($data as $datas) {
-            ClinicService::create([
-                'service_id' => $datas->id,
-                'clinic_id' => $request['clinic_id'],
-                'is_checked' => 0,
-            ]);
+            $clinicService->createUncheckedService($datas);
         }
 
         $datas = $methods->getUncheckedPaidServices($request['clinic_id']);
         foreach ($datas as $datas) {
-            PaidServices::create([
-                'service_id' => $datas->id,
-                'clinic_id' => $request['clinic_id'],
-                'is_checked' => 0,
-            ]);
+            $paidService->createUncheckedPaidServices($datas, $request);
         }
         $request['region_id_string'] = $request['region'] ?? null;
         $request['city_id_string'] = $request['city'] ?? null;
@@ -170,24 +157,15 @@ class ProviderManagementController extends Controller
         } else {
             $clinics->updateProviderWithProfilePhoto($request);
         }
-        ProviderNotifications::create([
-            'title' => 'Clinic Information are updated',
-            'message' => 'Your clinic had updated some of the information.',
-            'clinic_id' => $request['clinic_id'],
-            'type' => 'Update',
-            'booking_id' => 0,
-            'status' => 0,
-        ]);
+        $providerNotification->clinicUpdateNotification($request);
         $this->pushNotification($request['clinic_id']);
         return redirect('/provider/list');
     }
 
     public function pushNotification($id)
     {
-        $users = DB::table('users')->select('users.fcm_notification_key')
-            ->leftJoin('staffs', 'staffs.user_id', 'users.id')
-            ->where('users.fcm_notification_key', '<>', null)
-            ->where('staffs.clinic_id', $id)->get();
+        $user = new User();
+        $users = $user->getStaffFCMToken($id);
         foreach ($users as $user) {
             $fcmurl = 'https://fcm.googleapis.com/fcm/send';
             $token = $user->fcm_notification_key;
@@ -278,19 +256,13 @@ class ProviderManagementController extends Controller
     public function storeSecondPage()
     {
         $request = request()->all();
+        $clinicHours = new ClinicHours();
         for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {
             if (isset($request['days'][$clinic_hours])) {
                 $this->validateClinicHours2($clinic_hours, $request);
             } else {
                 $days = ['days' => [0 => 'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'Thursday', 5 => 'Friday', 6 => 'Saturday']];
-                ClinicHours::create([
-                    'clinic_id' => session('id'),
-                    'id_value' => $clinic_hours,
-                    'days' => $days['days'][$clinic_hours],
-                    'froms' => null,
-                    'tos' => null,
-                    'is_checked' => 0,
-                ]);
+                $clinicHours->createEmptyClinicHours($clinic_hours, $days);
             }
         }
         return redirect()->action('Admin\ProviderManagementController@createThirdPage');
@@ -300,6 +272,8 @@ class ProviderManagementController extends Controller
     {
         $request = request()->all();
         $methods = new FamilyPlanTypeSubcategories();
+        $clinicService = new ClinicService();
+        $paidService = new PaidServices();
         $validator = \Validator::make(request()->all(), [
             'available_service' => 'required',
             'paid' => 'required',
@@ -312,38 +286,22 @@ class ProviderManagementController extends Controller
         }
         for ($service = 0; $service <= 10000; $service++) {
             if (isset($request['paid_services'][$service])) {
-                PaidServices::create([
-                    'service_id' => $request['paid_services'][$service],
-                    'clinic_id' => session('id'),
-                    'is_checked' => 1,
-                ]);
+                $paidService->createUncheckedPaidServices1($request, $service);
             }
         }
         $data = $methods->getUncheckedPaidServices(session('id'));
         foreach ($data as $datas) {
-            PaidServices::create([
-                'service_id' => $datas->id,
-                'clinic_id' => session('id'),
-                'is_checked' => 0,
-            ]);
+            $paidService->createPaidServices2($datas);
         }
 
         for ($modern = 0;$modern <= 1000;$modern++) {
             if (isset($request['available_service'][$modern])) {
-                ClinicService::create([
-                    'service_id' => $request['available_service'][$modern],
-                    'clinic_id' => session('id'),
-                    'is_checked' => 1,
-                ]);
+                $clinicService->createModernClinicService($request, $modern);
             }
         }
         for ($natural = 0;$natural <= 1000;$natural++) {
             if (isset($request['natural'][$natural])) {
-                ClinicService::create([
-                    'service_id' => $request['natural'][$natural],
-                    'clinic_id' => session('id'),
-                    'is_checked' => 1,
-                ]);
+                $clinicService->createNaturalClinicService($request, $natural);
             }
         }
         Clinics::where('id', session('id'))->update([
@@ -351,21 +309,13 @@ class ProviderManagementController extends Controller
         ]);
         for ($permanent = 0;$permanent <= 1000;$permanent++) {
             if (isset($request['permanent'][$permanent])) {
-                ClinicService::create([
-                    'service_id' => $request['permanent'][$permanent],
-                    'clinic_id' => session('id'),
-                    'is_checked' => 1,
-                ]);
+                $clinicService->createPermanentClinicService($request, $permanent);
             }
         }
 
         $datas1 = $methods->getUncheckedServices(session('id'));
         foreach ($datas1 as $data) {
-            ClinicService::create([
-                'service_id' => $data->id,
-                'clinic_id' => session('id'),
-                'is_checked' => 0,
-            ]);
+            $clinicService->createUncheckedService($data);
         }
         Clinics::where('id', session('id'))->update(['is_approve' => 1]);
 
@@ -375,14 +325,10 @@ class ProviderManagementController extends Controller
     public function ratingPerPatient($id)
     {
         $ratings = new Ratings();
+        $clinic = new Clinics();
         $countPatientRatings = $ratings->viewPageCountRatings($id);
         $details = $ratings->viewPageDetails($id);
-        $clinic_name = DB::table('clinics')
-            ->leftJoin('ratings', 'ratings.clinic_id', 'clinics.id')
-            ->select('clinics.clinic_name', 'clinics.contact_number', 'clinics.email', 'clinics.photo_url')
-            ->where('clinics.id', $id)
-            ->distinct('clinics.clinic_name')
-            ->get();
+        $clinic_name = $clinic->clinicName($id);
 
         return view('admin.providerManagement.reviews', ['details' => $details, 'clinic_name' => $clinic_name, 'patientCount' => $countPatientRatings]);
     }
@@ -390,6 +336,7 @@ class ProviderManagementController extends Controller
     public function enableProvider()
     {
         $request = request()->all();
+        $providerNotification = new ProviderNotifications();
         $email = DB::table('clinics')->select('email')->where('id', $request['id'])->pluck('email');
         Mail::send('email.patient.provider.enabled', [], function ($mail) use ($email) {
             $mail->from('notifications@friendlycare.com');
@@ -399,20 +346,13 @@ class ProviderManagementController extends Controller
         Clinics::where('id', $request['id'])->update([
             'is_close' => 0,
         ]);
-
-        ProviderNotifications::create([
-            'title' => 'Clinic is activated',
-            'message' => 'Your clinic is activated',
-            'clinic_id' => $request['id'],
-            'type' => 'Update',
-            'booking_id' => 0,
-            'status' => 1,
-        ]);
+        $providerNotification->accountDisabledNotification($request);
     }
 
     public function disableProvider()
     {
         $request = request()->all();
+        $providerNotification = new ProviderNotifications();
         $email = DB::table('clinics')->select('email')->where('id', $request['id'])->pluck('email');
         Mail::send('email.patient.provider.disabled', [], function ($mail) use ($email) {
             $mail->from('notifications@friendlycare.com');
@@ -423,14 +363,7 @@ class ProviderManagementController extends Controller
             'is_close' => 1,
         ]);
 
-        ProviderNotifications::create([
-            'title' => 'Clinic is deactivated',
-            'message' => 'Your clinic is deactivated',
-            'clinic_id' => $request['id'],
-            'type' => 'Update',
-            'booking_id' => 0,
-            'status' => 1,
-        ]);
+        $providerNotification->accountEnabledNotification($request);
     }
 
     public function province()
@@ -446,38 +379,22 @@ class ProviderManagementController extends Controller
     }
     public function barangay()
     {
+        $clinic = new Clinics();
         $request = request()->all();
         if ($request['barangay'] === '133911') {
-            return DB::table('refbrgy')->select('brgyCode as barangay_code', 'brgyDesc as barangay_description')->where('citymuncode', '133901')
-                ->orWhere('citymuncode', '133902')
-                ->orWhere('citymuncode', '133903')
-                ->orWhere('citymuncode', '133904')
-                ->orWhere('citymuncode', '133905')
-                ->orWhere('citymuncode', '133906')
-                ->orWhere('citymuncode', '133907')
-                ->orWhere('citymuncode', '133908')
-                ->orWhere('citymuncode', '133909')
-                ->orWhere('citymuncode', '133910')
-                ->orWhere('citymuncode', '133911')
-                ->orWhere('citymuncode', '133912')
-                ->orWhere('citymuncode', '133913')
-                ->orWhere('citymuncode', '133914')
-                ->get();
+            return $clinic->getBarangayManila();
         }
         return DB::table('refbrgy')->select('brgyCode as barangay_code', 'brgyDesc as barangay_description')->where('citymuncode', $request['barangay'])->get();
     }
 
     public function galleryUpload(Request $request)
     {
+        $clinicGallery = new ClinicGallery();
         $icon = $request->file('file');
         $destination = public_path('/uploads');
         $icon[0]->move($destination, $icon[0]->getClientOriginalName());
         $icon_url = url('uploads/'.$icon[0]->getClientOriginalName());
-        ClinicGallery::create([
-            'file_name' => $icon[0]->getClientOriginalName(),
-            'clinic_id' => $request['clinic'],
-            'file_url' => $icon_url,
-        ]);
+        $clinicGallery->createGallery($icon, $request, $icon_url);
     }
 
     public function deleteGallery($id, $clinicId)
@@ -509,41 +426,21 @@ class ProviderManagementController extends Controller
 
     private function validateClinicHours1($clinic_hours, $request)
     {
+        $clinicHours = new ClinicHours();
         if ($request['from'][$clinic_hours] !== null && $request['to'][$clinic_hours] !== null) {
-            $clinicHours = new ClinicHours();
             $clinicHours->createCheckedClinicHours($request, $clinic_hours);
         } else {
-            ClinicHours::create([
-                'clinic_id' => $request['clinic_id'],
-                'id_value' => $clinic_hours,
-                'days' => $request['days'][$clinic_hours],
-                'froms' => null,
-                'tos' => null,
-                'is_checked' => 0,
-            ]);
+            $clinicHours->createClinicHoursWithoutTime($request, $clinic_hours);
         }
     }
 
     private function validateClinicHours2($clinic_hours, $request)
     {
+        $clinicHours = new ClinicHours();
         if ($request['from'][$clinic_hours] !== null && $request['to'][$clinic_hours] !== null) {
-            ClinicHours::create([
-                'clinic_id' => session('id'),
-                'id_value' => $clinic_hours,
-                'days' => $request['days'][$clinic_hours],
-                'froms' => $request['from'][$clinic_hours],
-                'tos' => $request['to'][$clinic_hours],
-                'is_checked' => 1,
-            ]);
+            $clinicHours->createClinicHourWithCheckUpdate($request, $clinic_hours);
         } else {
-            ClinicHours::create([
-                'clinic_id' => session('id'),
-                'id_value' => $clinic_hours,
-                'days' => $request['days'][$clinic_hours],
-                'froms' => null,
-                'tos' => null,
-                'is_checked' => 0,
-            ]);
+            $clinicHours->createClinicHourWithoutCheck($request, $clinic_hours);
         }
     }
 }

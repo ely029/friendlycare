@@ -320,4 +320,63 @@ class Clinics extends Model
             ->groupBy(['clinics.email', 'clinics.type', 'clinics.id', 'clinics.clinic_name'])
             ->get();
     }
+
+    public function getClinic()
+    {
+        return DB::table('clinics')
+            ->select('id', 'clinic_name')
+            ->where('clinic_name', '<>', null)
+            ->where('type', '<>', null)
+            ->where('philhealth_accredited_1', '<>', null)
+            ->where('is_approve', 1)
+            ->where('user_id', 0)
+            ->get();
+    }
+
+    public function getClinicByStaff($id)
+    {
+        return DB::table('clinics')
+            ->join('staffs', 'staffs.clinic_id', 'clinics.id')
+            ->select('clinics.clinic_name')
+            ->where('staffs.user_id', $id)
+            ->get();
+    }
+
+    public function getClinicByStaffOne($id)
+    {
+        return DB::table('staffs')
+            ->leftJoin('clinics', 'clinics.id', 'staffs.clinic_id')
+            ->select('clinics.clinic_name')
+            ->where('staffs.user_id', $id)
+            ->get();
+    }
+
+    public function getBarangayManila()
+    {
+        return DB::table('refbrgy')->select('brgyCode as barangay_code', 'brgyDesc as barangay_description')->where('citymuncode', '133901')
+            ->orWhere('citymuncode', '133902')
+            ->orWhere('citymuncode', '133903')
+            ->orWhere('citymuncode', '133904')
+            ->orWhere('citymuncode', '133905')
+            ->orWhere('citymuncode', '133906')
+            ->orWhere('citymuncode', '133907')
+            ->orWhere('citymuncode', '133908')
+            ->orWhere('citymuncode', '133909')
+            ->orWhere('citymuncode', '133910')
+            ->orWhere('citymuncode', '133911')
+            ->orWhere('citymuncode', '133912')
+            ->orWhere('citymuncode', '133913')
+            ->orWhere('citymuncode', '133914')
+            ->get();
+    }
+
+    public function clinicName($id)
+    {
+        return DB::table('clinics')
+            ->leftJoin('ratings', 'ratings.clinic_id', 'clinics.id')
+            ->select('clinics.clinic_name', 'clinics.contact_number', 'clinics.email', 'clinics.photo_url')
+            ->where('clinics.id', $id)
+            ->distinct('clinics.clinic_name')
+            ->get();
+    }
 }

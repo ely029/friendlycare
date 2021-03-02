@@ -54,4 +54,49 @@ class ClinicService extends Model
             ->where('fpm.family_plan_type_id', 3)
             ->get();
     }
+
+    public function createModernClinicService($request, $modern)
+    {
+        ClinicService::create([
+            'service_id' => $request['available_service'][$modern],
+            'clinic_id' => session('id'),
+            'is_checked' => 1,
+        ]);
+    }
+
+    public function createNaturalClinicService($request, $natural)
+    {
+        ClinicService::create([
+            'service_id' => $request['natural'][$natural],
+            'clinic_id' => session('id'),
+            'is_checked' => 1,
+        ]);
+    }
+
+    public function createPermanentClinicService($request, $permanent)
+    {
+        ClinicService::create([
+            'service_id' => $request['permanent'][$permanent],
+            'clinic_id' => session('id'),
+            'is_checked' => 1,
+        ]);
+    }
+
+    public function createUncheckedService($data)
+    {
+        ClinicService::create([
+            'service_id' => $data->id,
+            'clinic_id' => session('id'),
+            'is_checked' => 0,
+        ]);
+    }
+
+    public function updateClinicService($request, $eee)
+    {
+        ClinicService::create([
+            'service_id' => $request['avail_services'][$eee],
+            'clinic_id' => $request['clinic_id'],
+            'is_checked' => 1,
+        ]);
+    }
 }

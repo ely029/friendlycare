@@ -25,22 +25,13 @@ class SurveyController extends Controller
     public function post()
     {
         $request = request()->all();
+        $eventsNotification = new EventsNotification();
         $request['date_from_datestring'] = strtotime($request['date_from']);
         $request['date_to_datestring'] = strtotime($request['date_to']);
         Survey::create($request);
         $this->pushNotification();
         $id = DB::table('survey')->select('id')->orderBy('id', 'desc')->pluck('id');
-
-        EventsNotification::create([
-            'title' => $request['title'],
-            'message' => $request['message'],
-            'type' => 6,
-            'survey_link' => $request['link'],
-            'survey_date_from_string' => $request['date_from_datestring'],
-            'survey_date_to_string' => $request['date_to_datestring'],
-            'survey_id' => $id[0],
-        ]);
-
+        $eventsNotification->createSurveyNotification($request, $id);
         return redirect('/survey/information/'.$id[0]);
     }
 

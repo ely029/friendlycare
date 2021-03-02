@@ -61,4 +61,52 @@ class ClinicHours extends Model
             'is_checked' => 1,
         ]);
     }
+
+    public function createClinicHourWithCheckUpdate($request, $clinic_hours)
+    {
+        return ClinicHours::create([
+            'clinic_id' => session('id'),
+            'id_value' => $clinic_hours,
+            'days' => $request['days'][$clinic_hours],
+            'froms' => $request['from'][$clinic_hours],
+            'tos' => $request['to'][$clinic_hours],
+            'is_checked' => 1,
+        ]);
+    }
+
+    public function createClinicHourWithoutCheck($request, $clinic_hours)
+    {
+        ClinicHours::create([
+            'clinic_id' => session('id'),
+            'id_value' => $clinic_hours,
+            'days' => $request['days'][$clinic_hours],
+            'froms' => null,
+            'tos' => null,
+            'is_checked' => 0,
+        ]);
+    }
+
+    public function createClinicHourswithoutTime($request, $clinic_hours)
+    {
+        ClinicHours::create([
+            'clinic_id' => $request['clinic_id'],
+            'id_value' => $clinic_hours,
+            'days' => $request['days'][$clinic_hours],
+            'froms' => null,
+            'tos' => null,
+            'is_checked' => 0,
+        ]);
+    }
+
+    public function createEmptyClinicHours($clinic_hours, $days)
+    {
+        ClinicHours::create([
+            'clinic_id' => session('id'),
+            'id_value' => $clinic_hours,
+            'days' => $days['days'][$clinic_hours],
+            'froms' => null,
+            'tos' => null,
+            'is_checked' => 0,
+        ]);
+    }
 }

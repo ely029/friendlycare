@@ -54,4 +54,40 @@ class PaidServices extends Model
             ->where('paid_services.clinic_id', $id)
             ->get();
     }
+
+    public function updatePaidService($request, $eee)
+    {
+        PaidServices::create([
+            'service_id' => $request['services'][$eee],
+            'clinic_id' => $request['clinic_id'],
+            'is_checked' => 1,
+        ]);
+    }
+
+    public function createUncheckedPaidServices($datas, $request)
+    {
+        PaidServices::create([
+            'service_id' => $datas->id,
+            'clinic_id' => $request['clinic_id'],
+            'is_checked' => 0,
+        ]);
+    }
+
+    public function createUncheckedPaidServices1($request, $service)
+    {
+        PaidServices::create([
+            'service_id' => $request['paid_services'][$service],
+            'clinic_id' => session('id'),
+            'is_checked' => 1,
+        ]);
+    }
+
+    public function createPaidServices2($datas)
+    {
+        PaidServices::create([
+            'service_id' => $datas->id,
+            'clinic_id' => session('id'),
+            'is_checked' => 0,
+        ]);
+    }
 }

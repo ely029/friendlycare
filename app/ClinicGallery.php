@@ -34,4 +34,13 @@ class ClinicGallery extends Model
             ->where('clinic_gallery.clinic_id', $id)
             ->get();
     }
+
+    public function createGallery($icon, $request, $icon_url)
+    {
+        ClinicGallery::create([
+            'file_name' => $icon[0]->getClientOriginalName(),
+            'clinic_id' => $request['clinic'],
+            'file_url' => $icon_url,
+        ]);
+    }
 }
