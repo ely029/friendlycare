@@ -130,7 +130,7 @@ class EventsNotification extends Model
             ->select('id', 'title', 'date', 'type')
             ->where('is_approve', 1)
             ->where('type', 1)
-            ->where('date_string', '<=', strtotime(date('Y-m-d')))
+            ->where('date_string', '<', strtotime(date('Y-m-d')))
             ->get();
     }
 
@@ -150,7 +150,7 @@ class EventsNotification extends Model
             ->select('id', 'title', 'date', 'type')
             ->where('is_approve', 1)
             ->where('type', 2)
-            ->where('date_string', '<=', strtotime(date('Y-m-d')))
+            ->where('date_string', '<', strtotime(date('Y-m-d')))
             ->get();
     }
 
