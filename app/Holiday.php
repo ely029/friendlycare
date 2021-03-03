@@ -21,4 +21,13 @@ class Holiday extends Model
         $data = Holiday::where('clinic_id', $id);
         return response([$data]);
     }
+
+    public function createHoliday($getClinicId, $obj)
+    {
+        Holiday::create([
+            'clinic_id' => $getClinicId[0],
+            'date' => $obj['date'][0],
+            'holiday_title' => $obj['holiday_title'][0],
+        ]);
+    }
 }

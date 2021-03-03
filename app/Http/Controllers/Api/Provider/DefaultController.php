@@ -519,6 +519,7 @@ class DefaultController extends Controller
     public function holidayManagementPost(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
+        $holiday = new Holiday();
         $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
         $searchDate = DB::table('holiday')->select('id')->where('date', $obj['date'][0])->where('clinic_id', $getClinicId[0])->count();
 
@@ -528,11 +529,7 @@ class DefaultController extends Controller
             ]);
         }
 
-        Holiday::create([
-            'clinic_id' => $getClinicId[0],
-            'date' => $obj['date'][0],
-            'holiday_title' => $obj['holiday_title'][0],
-        ]);
+        $holiday->createHoliday($getClinicId, $obj);
 
         $data = Holiday::all();
 
@@ -585,19 +582,19 @@ class DefaultController extends Controller
         $obj = json_decode($request->getContent(), true);
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
         $clinicTime = new ClinicTime();
+        $patientTimeSlot = new PatientTimeSlot();
         ClinicTime::where('clinic_id', $clinic[0])->delete();
-        $days = $clinicTime->CreateTimeDuration($clinic[0]);
-        $clinicTime->CreateTime($days, $clinic[0]);
+        $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        for ($hhh = 0; $hhh < 7; $hhh++) {
+            $clinicTime->CreateTimeDuration($clinic[0], $days[$hhh]);
+        }
         $data = DB::table('patient_time_slot')
             ->select('number_of_slots')
             ->where('clinic_id', $clinic[0])
-            ->pluck('number_of_slots');
+            ->count();
 
-        if ($data[0] === null) {
-            PatientTimeSlot::create([
-                'clinic_id' => $clinic[0],
-                'number_of_slots' => $obj['timeslot'][0],
-            ]);
+        if ($data <= 0) {
+            $patientTimeSlot->createTimeSlot($clinic, $obj);
         } else {
             PatientTimeSlot::where('clinic_id', $clinic[0])->update([
                 'number_of_slots' => $obj['timeslot'][0],

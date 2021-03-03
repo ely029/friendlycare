@@ -16,25 +16,23 @@ class ClinicTime extends Model
         'days',
     ];
 
-    public function createTimeDuration($clinicId)
+    public function createTimeDuration($clinicId, $days)
     {
-        $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         $array_of_time = [];
-        for ($hhh = 0; $hhh < 7; $hhh++) {
-            $getStartTime = DB::table('clinic_hours')
-                ->select('froms')
-                ->where('days', 'like', '%'.$days[$hhh].'%')
-                ->where('clinic_id', $clinicId)
-                ->pluck('froms');
+        $getStartTime = DB::table('clinic_hours')
+            ->select('froms')
+            ->where('days', 'like', '%'.$days.'%')
+            ->where('clinic_id', $clinicId)
+            ->pluck('froms');
 
-            $getEndTime = DB::table('clinic_hours')
-                ->select('tos')
-                ->where('days', 'like', '%'.$days[$hhh].'%')
-                ->where('clinic_id', $clinicId)
-                ->pluck('tos');
+        $getEndTime = DB::table('clinic_hours')
+            ->select('tos')
+            ->where('days', 'like', '%'.$days.'%')
+            ->where('clinic_id', $clinicId)
+            ->pluck('tos');
 
-            $starttime = $getStartTime[0] ?? '0:00';  // your start time
-            $endtime = $getEndTime[0] ?? '0:00';  // End time
+        $starttime = $getStartTime[0] ?? '00:00';  // your start time
+            $endtime = $getEndTime[0] ?? '00:00';  // End time
             $duration = '30';  // split by 30 mins
 
             $start_time = strtotime($starttime); //change to strtotime
@@ -42,40 +40,22 @@ class ClinicTime extends Model
 
             $add_mins = $duration * 60;
 
-            while ($start_time <= $end_time) { // loop between time
-                $array_of_time[] = date('h:i A', $start_time);
-                $start_time += $add_mins; // to check endtie=me
-            }
+        while ($start_time <= $end_time) { // loop between time
+            $array_of_time[] = date('h:i A', $start_time);
+            $start_time += $add_mins; // to check endtie=me
         }
-        return $array_of_time;
-    }
-
-    public function createTime($day, $clinicId)
-    {
-        $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-        $count = count($day);
-        for ($fff = 0; $fff <= $count; $fff++) {
-            if (isset($day[$fff])) {
-                $this->createClinicTime($clinicId, $days, $day, $fff);
-            }
+        $count = count($array_of_time) - 1;
+        for ($eee = 0; $eee <= $count; $eee++) {
+            ClinicTime::create([
+                'clinic_id' => $clinicId,
+                'days' => $days,
+                'time' => $array_of_time[$eee],
+            ]);
         }
-
-        return 0;
     }
 
     public function getTime($clinicId, $day)
     {
         return DB::table('clinic_time')->select('time')->distinct('time')->where('days', $day)->where('clinic_id', $clinicId)->get()->toArray();
-    }
-
-    private function createClinicTime($clinicId, $days, $day, $fff)
-    {
-        for ($eee = 0; $eee < 7; $eee++) {
-            ClinicTime::create([
-                'clinic_id' => $clinicId,
-                'days' => $days[$eee],
-                'time' => $day[$fff],
-            ]);
-        }
     }
 }

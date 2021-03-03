@@ -8,6 +8,7 @@ use App\ClinicGallery;
 use App\ClinicHours;
 use App\Clinics;
 use App\ClinicService;
+use App\ClinicTime;
 use App\FamilyPlanTypeSubcategories;
 use App\Http\Controllers\Controller;
 use App\PaidServices;
@@ -117,6 +118,7 @@ class ProviderManagementController extends Controller
         $paidService = new PaidServices();
         $clinicService = new ClinicService();
         $providerNotification = new ProviderNotifications();
+        $clinicTime = new ClinicTime();
         ClinicService::where('clinic_id', $request['clinic_id'])->delete();
         PaidServices::where('clinic_id', $request['clinic_id'])->delete();
         ClinicHours::where('clinic_id', $request['clinic_id'])->delete();
@@ -157,6 +159,11 @@ class ProviderManagementController extends Controller
             $clinics->updateProviderWithoutProfilePhoto($request);
         } else {
             $clinics->updateProviderWithProfilePhoto($request);
+        }
+        ClinicTime::where('clinic_id', $request['clinic_id'])->delete();
+        $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        for ($hhh = 0; $hhh < 7; $hhh++) {
+            $clinicTime->CreateTimeDuration($request['clinic_id'], $days[$hhh]);
         }
         $providerNotification->clinicUpdateNotification($request);
         $this->pushNotification($request['clinic_id']);
@@ -258,6 +265,7 @@ class ProviderManagementController extends Controller
     {
         $request = request()->all();
         $clinicHours = new ClinicHours();
+        $clinicTime = new ClinicTime();
         for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {
             if (isset($request['days'][$clinic_hours])) {
                 $this->validateClinicHours2($clinic_hours, $request);
@@ -265,6 +273,11 @@ class ProviderManagementController extends Controller
                 $days = ['days' => [0 => 'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'Thursday', 5 => 'Friday', 6 => 'Saturday']];
                 $clinicHours->createEmptyClinicHours($clinic_hours, $days);
             }
+        }
+        ClinicTime::where('clinic_id', session('id'))->delete();
+        $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        for ($hhh = 0; $hhh < 7; $hhh++) {
+            $clinicTime->CreateTimeDuration(session('id'), $days[$hhh]);
         }
         return redirect()->action('Admin\ProviderManagementController@createThirdPage');
     }
