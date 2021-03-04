@@ -23,7 +23,7 @@ class NotificationsController extends Controller
         $upcoming = DB::table('provider_notifications')
             ->select('id', 'title', 'type', 'status', 'is_read')
             ->where('clinic_id', $getClinicId[0])
-            ->whereRaw('datediff(date_booked, now) = ?', [$eee]);
+            ->whereRaw('datediff(now(), date_booked) = ?', [$eee]);
         $details = $notifications->union($upcoming)->get();
         return response([
             'name' => 'ProviderNotifications',
