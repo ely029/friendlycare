@@ -15,6 +15,7 @@ class NotificationsController extends Controller
 {
     public function getNotifications($id)
     {
+        $eee = 1;
         $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
         $notifications = DB::table('provider_notifications')
             ->select('id', 'title', 'type', 'status', 'is_read')
@@ -22,7 +23,7 @@ class NotificationsController extends Controller
         $upcoming = DB::table('provider_notifications')
             ->select('id', 'title', 'type', 'status', 'is_read')
             ->where('clinic_id', $getClinicId[0])
-            ->whereRaw('DATEDIFF(date_booked, CURDATE()) = -1');
+            ->whereRaw("DATEDIFF(day, date_booked, CURDATE()) = ".$eee);
         $details = $notifications->union($upcoming)->get();
         return response([
             'name' => 'ProviderNotifications',
