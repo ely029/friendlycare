@@ -224,3 +224,4 @@ Route::get('/ads/click/{id}', 'Patients\AdsManagementController@clickAds');
 Route::get('/ads/views/{id}', 'Patients\AdsManagementController@viewAds');
 
 Route::get('/clinicservice', 'Provider\DefaultController@getClinicService');
+Route::get('/providerNotifications', 'Patients\BookingssController@providerNotifications');

@@ -138,4 +138,9 @@ class BookingssController extends Controller
             'message' => 'Reschedule is successful',
         ]);
     }
+
+    public function providerNotifications()
+    {
+        return ProviderNotifications::get();
+    }
 }
