@@ -53,24 +53,16 @@
                 <input class="button button--medium js-delete-response" type="button" data-toggle="modal" data-target="#js-delete-response-modal" value="Delete response"><button class="button button--medium js-add-response1" type="button">Add response</button>
               </div>
             </div>
-            <div class="form__button form__button--end"><input class="button js-trigger" type="button" value="Submit"></div>
-            <div class="modal js-modal" id="js-delete-response-modal">
-              <div class="modal__background js-modal-background"></div>
-              <div class="modal__container">
-                <div class="modal__box">
-                  <h2 class="modal__title">Delete response?</h2>
-                  <p class="modal__text">Are you sure you want to delete this response?</p>
-                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><button class="button button--medium button--medium__delete" type="button">Delete response</button></div>
-                </div>
-              </div>
+            <div class="form__button form__button--end">
+            <input class="button" type="button" value="Submit" data-toggle="modal" data-target="#js-save-changes-response-modal">
             </div>
-            <div class="modal js-modal">
+            <div class="modal js-modal" id="js-save-changes-response-modal">
               <div class="modal__background js-modal-background"></div>
               <div class="modal__container">
                 <div class="modal__box">
                   <h2 class="modal__title">Save changes?</h2>
                   <p class="modal__text">All changes will update the version of the app. Are you sure you want to Save?</p>
-                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><input class="button button--medium" type="submit" value="Save changes"></div>
+                  <div class="modal__button"><button class="button button--transparent" data-dismiss="modal" type="button">Cancel</button><button class="button button--medium button--medium__delete" type="submit">Save Changes</button></div>
                 </div>
               </div>
             </div>

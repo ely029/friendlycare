@@ -38,18 +38,20 @@
                 <label class="form__label">Link to fieldset*</label>
               </div>
               <div class="form__button form__button--end">
-                <button data-toggle="modal" data-target="#js-delete-response-modal-{{ $responses->id }}" class="button button--medium js-delete-response js-trigger" type="button">Delete response</button>
-                <div class="modal js-modal" id="js-delete-response-modal-{{$responses->id}}">
+                <button data-toggle="modal" data-target="#js-delete-response-modal" class="button button--medium js-trigger" type="button">Delete response</button>
+              </div>
+              <div class="modal js-modal" id="js-delete-response-modal">
               <div class="modal__background js-modal-background"></div>
               <div class="modal__container">
                 <div class="modal__box">
-                  <h2 class="modal__title">Delete response?</h2>
-                  <p class="modal__text">Are you sure you want to delete this response?</p>
-                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><a href="{{ route('chatbot.delete',$responses->id)}}" class="button button--medium button--medium__delete" type="button">Delete response</a></div>
+                  <h2 class="modal__title">Delete Response?</h2>
+                  <p class="modal__text">Are you sure you want to delete response?</p>
+                  @foreach($fieldset as $fieldsets)
+                  <div class="modal__button"><a class="button button--transparent" href="{{ route('chatbot.edit', ['id' => $fieldsets->id ])}}" type="button">Cancel</a><a class="button button--medium button--medium__delete" type="submit" href="{{ route('chatbot.deleteResponse',['id' => $responses->id, 'fieldset' => $responses->fieldset_id])}}">Delete Response</a></div>
+                  @endforeach
                 </div>
               </div>
             </div>
-              </div>
               @endforeach
             </div>
             <div id="add-response-option1">

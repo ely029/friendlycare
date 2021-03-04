@@ -61,10 +61,20 @@
             <label class="form__label form__label--visible" for="">Content</label>
         </div>
         <div class="form__button form__button--end">
-            <a class="button button--medium js-delete-section js-trigger" href="{{ route('basicPages.deleteBasicSection',$contentsss->id)}}"type="button">Delete section</a>
+            <input class="button button--medium" type="button" data-toggle="modal" data-target="#js-delete-section-response-modal" value="Delete Section">
         </div>
         </div>
     </div>
+    <div class="modal js-modal" id="js-delete-section-response-modal">
+              <div class="modal__background js-modal-background"></div>
+              <div class="modal__container">
+                <div class="modal__box">
+                  <h2 class="modal__title">Delete section?</h2>
+                  <p class="modal__text">Are you sure you want to delete this section?</p>
+                  <div class="modal__button"><button class="button button--transparent" data-dismiss="modal" type="button">Cancel</button><a class="button button--medium js-delete-section js-trigger" href="{{ route('basicPages.deleteBasicSection',$contentsss->id)}}"type="button">Delete section</a></div>
+                </div>
+              </div>
+            </div>
     @endforeach
     <div class="js-consent-form">
         <div class="form__container">
@@ -89,49 +99,35 @@
             <label class="form__label form__label--visible" for="">Content</label>
         </div>
         <div class="form__button form__button--end">
-        <a class="button button--medium js-delete-section js-trigger" type="button">Delete section</a>
+        <input type="button" class="button button--medium" data-toggle="modal" data-target="#js-delete-section-add-response-modal" value="Delete Section"/>
+        <!-- <a class="button button--medium js-delete-section js-trigger" type="button">Delete section</a> -->
             <button class="button button--medium js-add-section" type="button">Add section</button>
         </div>
         </div>
     </div> --}}
-    <div class="form__button form__button--end"><input class="button js-trigger" type="submit" value="Save Changes"></div>
+    <div class="form__button form__button--end"><input class="button" type="button" data-toggle="modal" data-target="#js-save-changes-response-modal" value="Save Changes"></div>
     </div>
+    <div class="modal js-modal" id="js-save-changes-response-modal">
+              <div class="modal__background js-modal-background"></div>
+              <div class="modal__container">
+                <div class="modal__box">
+                  <h2 class="modal__title">Save changes?</h2>
+                  <p class="modal__text">All changes will update the version of the app. Are you sure you want to Save?</p>
+                  <div class="modal__button"><button class="button button--transparent" data-dismiss="modal" type="button">Cancel</button><button class="button button--medium button--medium__delete" type="submit">Save Changes</button></div>
+                </div>
+              </div>
+            </div>
 
-    <!-- modal for js-consent-form1 -->
-    <div class="modal js-modal">
-    <div class="modal__background js-modal-background"></div>
-    <div class="modal__container">
-        <div class="modal__box">
-        <h2 class="modal__title">Delete section?</h2>
-        <p class="modal__text">Are you sure you want to delete this section?</p>
-        <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium button--medium__delete" type="button">Delete section</button></div>
-        </div>
-    </div>
-    </div>
-
-    <!-- modal for js-consent-form2 -->
-    <div class="modal js-modal">
-    <div class="modal__background js-modal-background"></div>
-    <div class="modal__container">
-        <div class="modal__box">
-        <h2 class="modal__title">Delete section?</h2>
-        <p class="modal__text">Are you sure you want to delete this section?</p>
-        <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium button--medium__delete" type="button">Delete section</button></div>
-        </div>
-    </div>
-    </div>
-
-    <div class="modal js-modal">
-    <div class="modal__background js-modal-background"></div>
-    <div class="modal__container">
-        <div class="modal__box">
-        <h2 class="modal__title">Save changes?</h2>
-        <p class="modal__text">All changes will update the version of the app. Are you sure you want to Save?</p>
-        <div class="modal__button"><button class="button button--transparent" type="button">Cancel</button><button class="button button--medium" type="button">Save changes</button></div>
-        </div>
-    </div>
-    </div>
-    
+            <div class="modal js-modal" id="js-delete-section-add-response-modal">
+              <div class="modal__background js-modal-background"></div>
+              <div class="modal__container">
+                <div class="modal__box">
+                  <h2 class="modal__title">Delete section?</h2>
+                  <p class="modal__text">Are you sure you want to delete this section?</p>
+                  <div class="modal__button"><button class="button button--transparent js-modal-close" type="button">Cancel</button><a class="button button--medium js-delete-section" href="#" type="button">Delete section</a></div>
+                </div>
+              </div>
+            </div>
 </div>
 </form>
 </div>

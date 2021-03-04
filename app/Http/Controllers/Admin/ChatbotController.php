@@ -87,6 +87,11 @@ class ChatbotController extends Controller
         ChatBot::where('id', $id)->delete();
         return redirect('/chatbot/list');
     }
+    public function deleteResponse($fieldset, $id)
+    {
+        ChatBotResponse::where('id', $id)->delete();
+        return redirect('chatbot/edit/'.$fieldset);
+    }
 
     private function check($request)
     {
