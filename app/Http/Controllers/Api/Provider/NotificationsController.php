@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api\Provider;
 use Akaunting\Firewall\Provider;
 use App\Http\Controllers\Controller;
 use App\ProviderNotifications;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mail;
@@ -15,16 +16,17 @@ class NotificationsController extends Controller
 {
     public function getNotifications($id)
     {
-        $eee = 1;
         $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
-        $notifications = DB::table('provider_notifications')
-            ->select('id', 'title', 'type', 'status', 'is_read')
-            ->where('clinic_id', $getClinicId[0]);
         $upcoming = DB::table('provider_notifications')
-            ->select('id', 'title', 'type', 'status', 'is_read')
+            ->select('id', 'title', 'type', 'status', 'is_read', DB::raw('datediff(now(), date_booked) as tae'))
             ->where('clinic_id', $getClinicId[0])
-            ->whereRaw('datediff(now(), date_booked) = ?', [$eee]);
-        $details = $notifications->union($upcoming)->get();
+            ->where('status', 7)
+            ->WhereRaw('datediff(now(), date_booked) = 1');
+        $notifications = DB::table('provider_notifications')
+            ->select('id', 'title', 'type', 'status', 'is_read', DB::raw('NULL as tae'))
+            ->where('clinic_id', $getClinicId[0])
+            ->where('status', '<>', 7);
+        $details = $upcoming->union($notifications)->get();
         return response([
             'name' => 'ProviderNotifications',
             'details' => $details,
