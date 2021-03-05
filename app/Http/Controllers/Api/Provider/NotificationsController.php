@@ -23,7 +23,7 @@ class NotificationsController extends Controller
             ->where('status', 7)
             ->where('message', null)
             ->where('display_type', null)
-            ->WhereRaw('datediff("'.date('Y-m-d').'", date_booked) = 1');
+            ->WhereRaw('datediff("'.date('Y-m-d').'", date_booked) = -1');
         $notifications = DB::table('provider_notifications')
             ->select('id', 'title', 'type', 'status', 'is_read', DB::raw('NULL as count_date'))
             ->where('clinic_id', $getClinicId[0])
