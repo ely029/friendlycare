@@ -21,7 +21,7 @@ class NotificationsController extends Controller
             ->select('id', 'title', 'type', 'status', 'is_read', DB::raw('datediff(now(), date_booked) as tae'))
             ->where('clinic_id', $getClinicId[0])
             ->where('status', 7)
-            ->WhereRaw('datediff(now(), date_booked) = 1');
+            ->WhereRaw('datediff("'.date('Y-m-d').'", date_booked) = 1');
         $notifications = DB::table('provider_notifications')
             ->select('id', 'title', 'type', 'status', 'is_read', DB::raw('NULL as tae'))
             ->where('clinic_id', $getClinicId[0])
