@@ -128,9 +128,10 @@ class NotificationsController extends Controller
         return $result;
     }
 
-    public function postReschedule(Request $request, $id)
+    public function postCancellation(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
+        $pushNotifications = new PushNotifications();
         Booking::where('id', $id)->update([
             'status' => 3,
             'cancellation_message_1' => $obj['cancellation_message'],
@@ -161,7 +162,7 @@ class NotificationsController extends Controller
             'booking_id' => $id,
             'status' => 3,
         ]);
-
+        $pushNotifications->patientStaffPushNotification($getClinicId[0], 'Your Patient Cancelled Appointment', 'Your patient had cancelled his/her appointment at dated '.$getTime[0].'');
         $this->pushNotification($id);
 
         return response([

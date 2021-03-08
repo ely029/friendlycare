@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use App\Classes\PushNotifications;
 use App\ClinicGallery;
 use App\ClinicHours;
 use App\Clinics;
@@ -14,7 +15,6 @@ use App\Http\Controllers\Controller;
 use App\PaidServices;
 use App\ProviderNotifications;
 use App\Ratings;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mail;
@@ -118,6 +118,7 @@ class ProviderManagementController extends Controller
         $paidService = new PaidServices();
         $clinicService = new ClinicService();
         $providerNotification = new ProviderNotifications();
+        $pushNotification = new PushNotifications();
         $clinicTime = new ClinicTime();
         ClinicService::where('clinic_id', $request['clinic_id'])->delete();
         PaidServices::where('clinic_id', $request['clinic_id'])->delete();
@@ -165,49 +166,10 @@ class ProviderManagementController extends Controller
         for ($hhh = 0; $hhh < 7; $hhh++) {
             $clinicTime->CreateTimeDuration($request['clinic_id'], $days[$hhh]);
         }
+        $pushNotification->patientStaffPushNotification($request['clinic_id'], 'Clinic Update Information', 'Your Clinic is updated an information');
         $providerNotification->clinicUpdateNotification($request);
-        $this->pushNotification($request['clinic_id']);
         return redirect('/provider/list');
     }
-
-    public function pushNotification($id)
-    {
-        $user = new User();
-        $users = $user->getStaffFCMToken($id);
-        foreach ($users as $user) {
-            $fcmurl = 'https://fcm.googleapis.com/fcm/send';
-            $token = $user->fcm_notification_key;
-            $notification = [
-                'title' => 'Clinic Information',
-                'body' => 'The Clinic information are updated',
-                'icon' => 'myIcon',
-                'sound' => 'defaultSound',
-                'priority' => 'high',
-                'contentAvailable' => true,
-            ];
-            $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
-            $fcmNotification = [
-                'to' => $token,
-                'notification' => $notification,
-                'data' => $extraNotifications,
-            ];
-            $headers = [
-                'Authorization: key='.\Config::get('boilerplate.firebase.server_key').'',
-                'Content-Type: application/json',
-            ];
-            $chh = curl_init();
-            curl_setopt($chh, CURLOPT_URL, $fcmurl);
-            curl_setopt($chh, CURLOPT_POST, true);
-            curl_setopt($chh, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($chh, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($chh, CURLOPT_SSL_VERIFYPEER, $headers);
-            curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
-            $result = curl_exec($chh);
-            curl_close($chh);
-            return $result;
-        }
-    }
-
     public function deleteProvider($id)
     {
         $email = DB::table('clinics')->select('email')->where('id', $id)->pluck('email');
@@ -352,6 +314,7 @@ class ProviderManagementController extends Controller
     {
         $request = request()->all();
         $providerNotification = new ProviderNotifications();
+        $pushNotification = new PushNotifications();
         $email = DB::table('clinics')->select('email')->where('id', $request['id'])->pluck('email');
         Mail::send('email.patient.provider.enabled', [], function ($mail) use ($email) {
             $mail->from('notifications@friendlycare.com');
@@ -361,6 +324,7 @@ class ProviderManagementController extends Controller
         Clinics::where('id', $request['id'])->update([
             'is_close' => 0,
         ]);
+        $pushNotification->patientStaffPushNotification($request['id'], 'Clinic Enabled', 'Your Clinic is enabled');
         $providerNotification->accountDisabledNotification($request);
     }
 
@@ -368,6 +332,7 @@ class ProviderManagementController extends Controller
     {
         $request = request()->all();
         $providerNotification = new ProviderNotifications();
+        $pushNotification = new PushNotifications();
         $email = DB::table('clinics')->select('email')->where('id', $request['id'])->pluck('email');
         Mail::send('email.patient.provider.disabled', [], function ($mail) use ($email) {
             $mail->from('notifications@friendlycare.com');
@@ -377,7 +342,7 @@ class ProviderManagementController extends Controller
         Clinics::where('id', $request['id'])->update([
             'is_close' => 1,
         ]);
-
+        $pushNotification->patientStaffPushNotification($request['id'], 'Clinic Disabled', 'Your Clinic is disabled');
         $providerNotification->accountEnabledNotification($request);
     }
 

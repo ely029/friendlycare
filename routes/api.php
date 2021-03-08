@@ -131,7 +131,7 @@ Route::post('/booking/reschedule/setupTime/{id}', 'Patients\BookingController@re
 Route::post('/booking/reschedule/createReschedule/{id}', 'Patients\BookingssController@createReschedule');
 
 //Patient Reschedule
-Route::post('/patient/cancellationbooking/{id}', 'Patients\NotificationsController@postReschedule');
+Route::post('/patient/cancellationbooking/{id}', 'Patients\NotificationsController@postCancellation');
 
 //Provider Holiday Management
 Route::get('/holidaymanagement/{id}', 'Provider\DefaultController@getHolidayManagementDetails');
