@@ -266,6 +266,7 @@ class ProviderManagementController extends Controller
         $request = request()->all();
         $clinicHours = new ClinicHours();
         $clinicTime = new ClinicTime();
+        ClinicHours::where('clinic_id', session('id'))->delete();
         for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {
             if (isset($request['days'][$clinic_hours])) {
                 $this->validateClinicHours2($clinic_hours, $request);
