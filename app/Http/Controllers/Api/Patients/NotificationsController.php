@@ -87,47 +87,6 @@ class NotificationsController extends Controller
         ]);
     }
 
-    public function pushNotification($id)
-    {
-        $getClinicId = DB::table('booking')->select('clinic_id')->where('id', $id)->pluck('clinic_id');
-        $getStaffId = DB::table('staffs')->select('user_id')->where('clinic_id', $getClinicId[0])->pluck('user_id');
-        $getFCMToken = DB::table('users')->select('fcm_notification_key')->where('id', $getStaffId[0])->pluck('fcm_notification_key');
-        $fcmurl = 'https://fcm.googleapis.com/fcm/send';
-        $token = $getFCMToken[0];
-        $notification = [
-            'title' => 'Booking Cancelled',
-            'body' => 'Your Booking is Cancelled',
-            'icon' => 'myIcon',
-            'sound' => 'defaultSound',
-            'priority' => 'high',
-            'contentAvailable' => true,
-        ];
-
-        $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
-
-        $fcmNotification = [
-            'to' => $token,
-            'notification' => $notification,
-            'data' => $extraNotifications,
-        ];
-
-        $headers = [
-            'Authorization: key='.\Config::get('boilerplate.firebase.server_key').'',
-            'Content-Type: application/json',
-        ];
-        $chh = curl_init();
-        curl_setopt($chh, CURLOPT_URL, $fcmurl);
-        curl_setopt($chh, CURLOPT_POST, true);
-        curl_setopt($chh, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($chh, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($chh, CURLOPT_SSL_VERIFYPEER, $headers);
-        curl_setopt($chh, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
-        $result = curl_exec($chh);
-        curl_close($chh);
-
-        return $result;
-    }
-
     public function postCancellation(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
@@ -163,7 +122,6 @@ class NotificationsController extends Controller
             'status' => 3,
         ]);
         $pushNotifications->patientStaffPushNotification($getClinicId[0], 'Your Patient Cancelled Appointment', 'Your patient had cancelled his/her appointment at dated '.$getTime[0].'');
-        $this->pushNotification($id);
 
         return response([
             'name' => 'PostPatientCancelled',
