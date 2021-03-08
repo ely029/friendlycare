@@ -43,16 +43,52 @@ class EventsNotification extends Model
 
     public function getPatientNotifications($id)
     {
-        return DB::select('select 
+        return DB::select('
+        select 
         id, 
         title, 
         display_type as type, 
         is_read
         from events_notification
-        where date_string >= '.strtotime(date('Y-m-d')).'
-        AND patient_id = ?
-        OR display_type = "Announcements"
-        OR  display_type = "Events"
+        where date_string <= '.strtotime(date('Y-m-d')).'
+        and Scheduled = "Scheduled"
+        AND display_type = "Announcements"
+        
+        UNION ALL
+
+        select 
+        id, 
+        title, 
+        display_type as type, 
+        is_read
+        from events_notification
+        where date_string <= '.strtotime(date('Y-m-d')).'
+        and Scheduled = "Scheduled"
+        AND display_type = "Events"
+        
+        UNION ALL
+
+        select 
+        id, 
+        title, 
+        display_type as type, 
+        is_read
+        from events_notification
+        WHERE
+        Scheduled = "Post Now"
+        AND display_type = "Announcements"
+        
+        UNION ALL
+
+        select 
+        id, 
+        title, 
+        display_type as type, 
+        is_read
+        from events_notification
+        where
+        Scheduled = "Post Now"
+        AND display_type = "Events"
         
         UNION ALL
 
@@ -75,7 +111,7 @@ class EventsNotification extends Model
         from events_notification
         WHERE type = 6
         AND survey_date_to_string >= '.strtotime(date('Y-m-d')).' 
-        ', [$id, $id]);
+        ', [$id]);
     }
 
     public function upcomingEvents()
