@@ -210,6 +210,22 @@ class NotificationsController extends Controller
         }
     }
 
+    public function providerBookingTommorow($id)
+    {
+        $getClinicId = DB::table('staffs')->select('clinic_id')->where('staff_id', $id)->pluck('clinic_id');
+        $checkDisplay = DB::table('booking')->select('id')->where('book_tommorow_display', 0)->where('status', 1)->where('clinic_id', $getClinicId[0])->count();
+        $getDate = DB::table('booking')->select('time_slot')->where('book_tommorow_display', 0)->limit(1)->orderBy('id', 'desc')->where('clinic_id', $getClinicId[0])->pluck('time_slot');
+        $checkDate = Carbon::parse(date('Y-m-d'))->diffInDays($getDate[0] ?? '0000-00-00');
+        $pushNotifications = new PushNotifications();
+
+        if ($checkDate === 1 && $checkDisplay >= 1) {
+            $pushNotifications->patientStaffPushNotification($getClinicId[0], 'Book Scheduled Tommorow', 'You have a Booking Scheduled Tommorow');
+            Booking::where('clinic_id', $getClinicId[0])->update([
+                'book_tommorow_display' => 1,
+            ]);
+        }
+    }
+
     private function pushNotification1($id)
     {
         $user = DB::table('users')->select('fcm_notification_key')->where('id', $id)->pluck('fcm_notification_key');
