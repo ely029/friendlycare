@@ -91,6 +91,15 @@ class ClinicService extends Model
         ]);
     }
 
+    public function createUncheckedService1($data, $request)
+    {
+        ClinicService::create([
+            'service_id' => $data->id,
+            'clinic_id' => $request['clinic_id'],
+            'is_checked' => 0,
+        ]);
+    }
+
     public function updateClinicService($request, $eee)
     {
         ClinicService::create([

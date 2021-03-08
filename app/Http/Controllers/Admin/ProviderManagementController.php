@@ -136,7 +136,7 @@ class ProviderManagementController extends Controller
         $methods = new FamilyPlanTypeSubcategories();
         $data = $methods->getUncheckedServices($request['clinic_id']);
         foreach ($data as $datas) {
-            $clinicService->createUncheckedService($datas);
+            $clinicService->createUncheckedService1($datas, $request);
         }
 
         $datas = $methods->getUncheckedPaidServices($request['clinic_id']);
