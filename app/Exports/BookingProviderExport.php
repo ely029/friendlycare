@@ -30,7 +30,7 @@ class BookingProviderExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ['Name', 'Availed Service', 'Status', 'Referal', 'Date Booked', 'Clinic Name'];
+        return ['Name', 'Availed Service', 'Status', 'Name of Referrer', 'Date Booked', 'Clinic Name'];
     }
 
     public function collection()
