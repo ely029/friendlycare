@@ -539,9 +539,7 @@ class BookingController extends Controller
         if ($getSlot[0] <= $checkBooking) {
             return response()->json('The time you choose are already full. please choose another time.', 422);
         }
-        if (isset($obj['referal'][0])) {
-            $this->updateBooking($obj, $id);
-        }
+        $this->updateBooking($obj, $id);
         $this->createBookingTime($id, $obj);
         return response([
             'response' => 'Booking Created Succesfully',
@@ -550,6 +548,9 @@ class BookingController extends Controller
 
     private function updateBooking($obj, $id)
     {
+        if ($obj['referal'][0] !== '') {
+            DB::update('update booking set time_slot = ?, status = ?, referal = ? where patient_id = ? order by id desc limit 1', [$obj['date'][0], 6, $obj['referal'][0], $id]);
+        }
         DB::update('update booking set time_slot = ?, status = ? where patient_id = ? order by id desc limit 1', [$obj['date'][0], 6, $id]);
     }
 
