@@ -170,7 +170,7 @@ class NotificationsController extends Controller
 
     public function providerBookingTommorow($id)
     {
-        $getClinicId = DB::table('staffs')->select('clinic_id')->where('staff_id', $id)->pluck('clinic_id');
+        $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
         $checkDisplay = DB::table('booking')->select('id')->where('book_tommorow_display', 0)->where('status', 1)->where('clinic_id', $getClinicId[0])->count();
         $getDate = DB::table('booking')->select('time_slot')->where('book_tommorow_display', 0)->limit(1)->orderBy('id', 'desc')->where('clinic_id', $getClinicId[0])->pluck('time_slot');
         $checkDate = Carbon::parse(date('Y-m-d'))->diffInDays($getDate[0] ?? '0000-00-00');
