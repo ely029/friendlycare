@@ -124,12 +124,11 @@ class BookingssController extends Controller
             'booking_id' => $id,
             'status' => 2,
         ]);
-        $pushNotifications->patientStaffPushNotification($getClinicId[0], 'Reschedule Successful', 'Your patient '.$getPatientName[0].' has been successfully rescheduled to '.$obj['date'][0].'');
         Mail::send('email.patient.provider.provider-reschedule', ['time' => $obj['date'][0], 'name' => $getPatientName[0]], function ($mail) use ($getClinicEmail) {
             $mail->from('notifications@friendlycare.com');
             $mail->to($getClinicEmail[0], 'Patient')->subject('Provider Reschedule');
         });
-
+        $pushNotifications->patientStaffPushNotification($getClinicId[0], 'Reschedule Successful', 'Your patient '.$getPatientName[0].' has been successfully rescheduled to '.$obj['date'][0].'');
         $pushNotifications->providerPushNotifications('Booking Rescheduled', 'Booking is Rescheduled', $getPatientId[0]);
 
         return response([
