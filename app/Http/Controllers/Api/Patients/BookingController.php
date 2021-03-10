@@ -548,9 +548,6 @@ class BookingController extends Controller
 
     private function updateBooking($obj, $id)
     {
-        if ($obj['referal'][0] !== []) {
-            DB::update('update booking set time_slot = ?, status = ?, referal = ? where patient_id = ? order by id desc limit 1', [$obj['date'][0], 6, $obj['referal'][0], $id]);
-        }
         DB::update('update booking set time_slot = ?, status = ? where patient_id = ? order by id desc limit 1', [$obj['date'][0], 6, $id]);
     }
 
