@@ -277,7 +277,7 @@ class User extends Authenticatable
         return DB::table('users')->select('users.fcm_notification_key')
             ->leftJoin('staffs', 'staffs.user_id', 'users.id')
             ->where('users.fcm_notification_key', '<>', null)
-            ->where('staffs.clinic_id', $id)->get();
+            ->where('staffs.clinic_id', $id)->get()->toArray();
     }
 
     public function resetIndexPageData($id)
