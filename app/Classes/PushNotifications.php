@@ -56,7 +56,7 @@ class PushNotifications
         $users = $user->getStaffFCMToken($id);
         $eee = json_decode(json_encode($users), true);
         $count = count($users) - 1;
-        for ($fff = 0;$fff <= $count; $fff++) {
+        for ($fff = 0;$fff >= $count; $fff++) {
             $fcmurl = 'https://fcm.googleapis.com/fcm/send';
             $token = $eee[$fff]['fcm_notification_key'];
             $notification = [
