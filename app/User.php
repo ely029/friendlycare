@@ -274,7 +274,10 @@ class User extends Authenticatable
 
     public function getStaffFCMToken($id)
     {
-        return User::join('staffs', 'staffs.user_id', 'users.id')->where('staffs.clinic_id', $id)->pluck('fcm_notification_key')->toArray();
+        return DB::table('users')->select('users.fcm_notification_key')
+            ->leftJoin('staffs', 'staffs.user_id', 'users.id')
+            ->where('users.fcm_notification_key', '<>', null)
+            ->where('staffs.clinic_id', $id)->get()->toArray();
     }
 
     public function resetIndexPageData($id)
