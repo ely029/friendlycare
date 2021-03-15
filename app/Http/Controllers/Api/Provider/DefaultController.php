@@ -611,4 +611,9 @@ class DefaultController extends Controller
     {
         return PaidServices::get();
     }
+
+    public function logout($id)
+    {
+        return DB::statement('update users set fcm_notification_key = null where id = ?', [$id]);
+    }
 }
