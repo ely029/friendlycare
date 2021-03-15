@@ -146,13 +146,13 @@ class BookingssController extends Controller
     private function checkBookingTommorow($id)
     {
         $checkDisplay = DB::table('booking')->select('id')->where('book_tommorow_display', 0)->where('status', 1)->where('clinic_id', $id)->count();
-        $getDate = DB::table('booking')->select('time_slot')->where('book_tommorow_display', 0)->limit(1)->orderBy('id', 'desc')->where('patient_id', $id)->pluck('time_slot');
+        $getDate = DB::table('booking')->select('time_slot')->where('book_tommorow_display', 0)->limit(1)->orderBy('id', 'desc')->where('clinic_id', $id)->pluck('time_slot');
         $checkDate = Carbon::parse(date('Y-m-d'))->diffInDays($getDate[0] ?? '0000-00-00');
         $pushNotifications = new PushNotifications();
 
         if ($checkDate === 1 && $checkDisplay >= 1) {
             $pushNotifications->patientStaffPushNotification($id, 'Book Scheduled Tommorow', 'You have a Booking Scheduled Tommorow');
-            Booking::where('patient_id', $id)->update([
+            Booking::where('clinic_id', $id)->update([
                 'book_tommorow_display' => 1,
             ]);
         }
