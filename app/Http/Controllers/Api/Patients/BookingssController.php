@@ -43,7 +43,7 @@ class BookingssController extends Controller
         $eventsNotification->createNotification($getPatientId, $message, $getDate, $id);
         $providerNotifications->createNotification($getPatientId, $getClinicId, $getBookedDate, $id);
         $pushNotifications->providerPushNotifications('Booking Confirmed', 'Booking is Confirmed', $getPatientId[0]);
-        $this->checkBookingTommorow($getPatientId[0]);
+        $this->checkBookingTommorow($getClinicId[0]);
 
         return response([
             'name' => 'BookApproved',
@@ -151,7 +151,7 @@ class BookingssController extends Controller
         $pushNotifications = new PushNotifications();
 
         if ($checkDate === 1 && $checkDisplay >= 1) {
-            $pushNotifications->patientStaffPushNotification($id, 'Book Scheduled Tommorow', 'You have a Booking Scheduled Tommorow', $id);
+            $pushNotifications->patientStaffPushNotification($id, 'Book Scheduled Tommorow', 'You have a Booking Scheduled Tommorow');
             Booking::where('patient_id', $id)->update([
                 'book_tommorow_display' => 1,
             ]);
