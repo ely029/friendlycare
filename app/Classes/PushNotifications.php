@@ -53,10 +53,9 @@ class PushNotifications
     public function patientStaffPushNotification($id, $title, $message)
     {
         $user = new User();
-        $users = $user->getStaffFCMToken($id);
-        $eee = json_decode(json_encode($users), true);
-        $count = count($users) - 1;
-        for ($fff = 0;$fff <= $count; $fff++) {
+        $aaa = $user->getStaffFCMToken($id);
+        $users = array_chunk($aaa, 1000);
+        foreach ($users as $user) {
             $fcmurl = 'https://fcm.googleapis.com/fcm/send';
             $notification = [
                 'title' => $title,
@@ -68,7 +67,7 @@ class PushNotifications
             ];
             $extraNotifications = ['message' => $notification, 'moredata' => 'bb'];
             $fcmNotification = [
-                'to' => $eee[$fff]['fcm_notification_key'],
+                'to' => $user,
                 'notification' => $notification,
                 'data' => $extraNotifications,
             ];

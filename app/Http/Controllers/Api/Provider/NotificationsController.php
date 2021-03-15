@@ -98,7 +98,7 @@ class NotificationsController extends Controller
             ->leftJoin('users', 'users.id', 'booking.patient_id')
             ->select('booking.id', 'family_plan_type_subcategory.name as service_name', 'users.name as patient_name', 'booking.time_slot as date_booked')
             ->where('booking.status', 1)
-            ->whereRaw('DATEDIFF(booking.time_slot, CURDATE()) = 1')
+            ->whereRaw('DATEDIFF(CURDATE(), booking.time_slot) = -1')
             ->get();
         Mail::send('email.patient.provider.upcoming-booking', ['details' => $upcoming], function ($mail) use ($getClinicEmail) {
             $mail->from('notifications@friendlycare.com');
