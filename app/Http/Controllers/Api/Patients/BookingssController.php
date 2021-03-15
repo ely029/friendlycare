@@ -43,6 +43,7 @@ class BookingssController extends Controller
         $eventsNotification->createNotification($getPatientId, $message, $getDate, $id);
         $providerNotifications->createNotification($getPatientId, $getClinicId, $getBookedDate, $id);
         $pushNotifications->providerPushNotifications('Booking Confirmed', 'Booking is Confirmed', $getPatientId[0]);
+        $this->checkBookingTommorow($getPatientId[0]);
 
         return response([
             'name' => 'BookApproved',
@@ -140,5 +141,20 @@ class BookingssController extends Controller
     public function providerNotifications()
     {
         return ProviderNotifications::get();
+    }
+
+    private function checkBookingTommorow($id)
+    {
+        $checkDisplay = DB::table('booking')->select('id')->where('book_tommorow_display', 0)->where('status', 1)->where('clinic_id', $id)->count();
+        $getDate = DB::table('booking')->select('time_slot')->where('book_tommorow_display', 0)->limit(1)->orderBy('id', 'desc')->where('patient_id', $id)->pluck('time_slot');
+        $checkDate = Carbon::parse(date('Y-m-d'))->diffInDays($getDate[0] ?? '0000-00-00');
+        $pushNotifications = new PushNotifications();
+
+        if ($checkDate === 1 && $checkDisplay >= 1) {
+            $pushNotifications->patientStaffPushNotification($id, 'Book Scheduled Tommorow', 'You have a Booking Scheduled Tommorow', $id);
+            Booking::where('patient_id', $id)->update([
+                'book_tommorow_display' => 1,
+            ]);
+        }
     }
 }

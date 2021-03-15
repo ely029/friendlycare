@@ -17,13 +17,8 @@ class NotificationsController extends Controller
     public function getNotifications($id)
     {
         $getClinicId = DB::table('staffs')->select('clinic_id')->where('user_id', $id)->pluck('clinic_id');
-        $upcoming = DB::table('provider_notifications')
-            ->select('id', 'title', 'type', 'status', 'is_read', DB::raw('datediff("'.date('Y-m-d').'", date_booked) as count_date'))
-            ->where('clinic_id', $getClinicId[0])
-            ->where('status', 7)
-            ->where('message', null)
-            ->where('display_type', null)
-            ->WhereRaw('datediff("'.date('Y-m-d').'", date_booked) = -1');
+        $providerNotifications = new ProviderNotifications();
+        $upcoming = $providerNotifications->getUpcoming($getClinicId);
         $notifications = DB::table('provider_notifications')
             ->select('id', 'title', 'type', 'status', 'is_read', DB::raw('NULL as count_date'))
             ->where('clinic_id', $getClinicId[0])
