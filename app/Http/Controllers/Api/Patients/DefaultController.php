@@ -8,6 +8,8 @@ use App\Booking;
 use App\EventsNotification;
 use App\FamilyPlanTypeSubcategories;
 use App\FpmMethods;
+use App\Http\Clients\FcmClient;
+use App\Http\Controllers\Api\Users\FcmRegistrationTokensController;
 use App\Http\Controllers\Controller;
 use App\Mail\EmailVerification;
 use App\MedicalHistory;
@@ -26,11 +28,12 @@ class DefaultController extends Controller
     public function login(Request $request)
     {
         $obj = json_decode($request->getContent(), true);
+        $fcm = new FcmRegistrationTokensController();
+        $fcm1 = new FcmClient();
         if (\Auth::attempt(['email' => $obj['email'], 'password' => $obj['password'], 'role_id' => 3])) {
             $user = \Auth::user();
-            User::where('id', $user['id'])->update([
-                'fcm_notification_key' => $obj['token'],
-            ]);
+            $user1 = new User();
+            $fcm->store($obj, $fcm1, $user1);
             return response([
                 'login_success' => 'Login Successful',
                 'id' => $user['id'],

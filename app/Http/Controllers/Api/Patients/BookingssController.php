@@ -8,6 +8,7 @@ use App\Booking;
 use App\BookingTime;
 use App\Classes\PushNotifications;
 use App\EventsNotification;
+use App\Http\Clients\FcmClient;
 use App\Http\Controllers\Controller;
 use App\ProviderNotifications;
 use Carbon\Carbon;

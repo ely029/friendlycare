@@ -10,8 +10,13 @@ use App\Clinics;
 use App\ClinicService;
 use App\ClinicTime;
 use App\FamilyPlanTypeSubcategories;
+use App\FcmRegistrationToken;
 use App\Holiday;
+use App\Http\Clients\FcmClient;
+use App\Http\Controllers\Api\Users\FcmRegistrationTokensController;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Users\FcmRegistrationTokens\DestroyRequest;
+use App\Http\Requests\Api\Users\FcmRegistrationTokens\StoreRequest;
 use App\PaidServices;
 use App\PatientTimeSlot;
 use App\Staffs;
@@ -25,12 +30,13 @@ class DefaultController extends Controller
     public function login(Request $request)
     {
         $obj = json_decode($request->getContent(), true);
+        $fcm = new FcmRegistrationTokensController();
+        $fcm1 = new FcmClient();
 
         if (\Auth::attempt(['email' => $obj['email'], 'password' => $obj['password'], 'role_id' => 4])) {
             $user = \Auth::user();
-            User::where('id', $user['id'])->update([
-                'fcm_notification_key' => $obj['token'],
-            ]);
+            $user1 = new User();
+            $fcm->store($obj, $fcm1, $user1);
             return response([
                 'login_success' => 'Login Successful',
                 'id' => $user['id'],
@@ -614,6 +620,11 @@ class DefaultController extends Controller
 
     public function logout($id)
     {
-        return DB::statement('update users set fcm_notification_key = null where id = ?', [$id]);
+        $fcm = new FcmRegistrationTokensController();
+        $fcm1 = new FcmClient();
+        $user = new User();
+        $registrationId = FcmRegistrationToken::where('user_id', $id)->first();
+        $fcm->destroy($registrationId, $fcm1, $user);
+        return true;
     }
 }

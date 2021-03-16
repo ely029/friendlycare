@@ -8,7 +8,6 @@ use App\FcmRegistrationToken;
 use App\Http\Clients\FcmClient;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Users\FcmRegistrationTokens\DestroyRequest;
-use App\Http\Requests\Api\Users\FcmRegistrationTokens\StoreRequest;
 use App\User;
 use DB;
 use Exception;
@@ -47,21 +46,12 @@ class FcmRegistrationTokensController extends Controller
      *     "created_at": "2020-03-18 06:35:22",
      *     "updated_at": "2020-03-18 06:35:22"
      * }
-     * @response 422 {
-     *     "message": "The given data was invalid.",
-     *     "errors": {
-     *         "registration_id": [
-     *             "The registration id field is required."
-     *         ]
-     *     }
-     * }
      */
-    public function store(StoreRequest $request, FcmClient $fcm, User $user)
+    public function store($request, FcmClient $fcm, User $user)
     {
-        $registrationId = $request->input('registration_id');
+        $registrationId = $request['token'];
 
         $this->removeOldTokens($user, $fcm);
-
         $user->fcm_notification_key = $fcm->addDevice($user, $registrationId);
         $user->save();
 
@@ -95,10 +85,10 @@ class FcmRegistrationTokensController extends Controller
      *     }
      * }
      */
-    public function destroy(DestroyRequest $request, FcmClient $fcm, User $user)
+    public function destroy($registrationId, FcmClient $fcm, User $user)
     {
         $token = FcmRegistrationToken::query()
-            ->where('registration_id', $request->input('registration_id'))
+            ->where('registration_id', $registrationId)
             ->first();
 
         $fcm->removeDevice($user, $token->registration_id);
