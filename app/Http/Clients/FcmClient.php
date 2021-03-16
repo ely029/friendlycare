@@ -65,11 +65,14 @@ class FcmClient
     public function addDevice(User $user, string $registrationId)
     {
         try {
-            if (
-                $user->fcm_notification_key === null
-                && $this->retrieveNotificationKey($user) === null
-            ) {
-                return $this->createDeviceGroup($user, $registrationId);
+            // if (
+            //     $user->fcm_notification_key === null
+            //     && $this->retrieveNotificationKey($user) === null
+            // ) {
+            //     return $this->createDeviceGroup($user, $registrationId);
+            // }
+            if($user->fcm_notification_key === null) {
+                return $this->retrieveNotificationKey($user) === null ? $this->createDeviceGroup($user, $registrationId) : $this->retrieveNotificationKey($user);
             }
 
             $response = (new Client())->request(
