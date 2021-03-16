@@ -43,6 +43,9 @@ class Kernel extends ConsoleKernel
             ->everyMinute()
             ->runInBackground()
             ->withoutOverlapping();
+
+        $schedule->command('send:upcoming_booking')
+            ->everyThreeMinutes();
     }
 
     /**
