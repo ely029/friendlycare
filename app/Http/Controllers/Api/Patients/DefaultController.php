@@ -31,11 +31,12 @@ class DefaultController extends Controller
         $fcm = new FcmRegistrationTokensController();
         $fcm1 = new FcmClient();
         if (\Auth::attempt(['email' => $obj['email'], 'password' => $obj['password'], 'role_id' => 3])) {
-            $user = \Auth::user();
+            $user1 = \Auth::user();
+            $user = new User();
             $fcm->store($obj, $fcm1, $user);
             return response([
                 'login_success' => 'Login Successful',
-                'id' => $user['id'],
+                'id' => $user1['id'],
             ]);
         }
         return response([

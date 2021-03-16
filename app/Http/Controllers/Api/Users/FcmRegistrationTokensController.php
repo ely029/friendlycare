@@ -47,7 +47,7 @@ class FcmRegistrationTokensController extends Controller
      *     "updated_at": "2020-03-18 06:35:22"
      * }
      */
-    public function store($request, FcmClient $fcm, User $user)
+    public function store($request, FcmClient $fcm, $user)
     {
         $registrationId = $request['token'];
 
