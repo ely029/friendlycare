@@ -32,8 +32,7 @@ class DefaultController extends Controller
         $fcm1 = new FcmClient();
         if (\Auth::attempt(['email' => $obj['email'], 'password' => $obj['password'], 'role_id' => 3])) {
             $user = \Auth::user();
-            $user1 = new User();
-            $fcm->store($obj, $fcm1, $user1);
+            $fcm->store($obj, $fcm1, $user);
             return response([
                 'login_success' => 'Login Successful',
                 'id' => $user['id'],
