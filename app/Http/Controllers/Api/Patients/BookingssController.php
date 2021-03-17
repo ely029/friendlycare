@@ -9,6 +9,7 @@ use App\BookingTime;
 use App\Classes\PushNotifications;
 use App\EventsNotification;
 use App\Http\Clients\FcmClient;
+use App\Http\Controllers\Api\Provider\NotificationsController;
 use App\Http\Controllers\Controller;
 use App\ProviderNotifications;
 use Carbon\Carbon;
@@ -25,6 +26,7 @@ class BookingssController extends Controller
         $pushNotifications = new PushNotifications();
         $providerNotifications = new ProviderNotifications();
         $eventsNotification = new EventsNotification();
+        $notifications = new NotificationsController();
         $endtime = date('Y-m-d H:i', strtotime('3 minutes', strtotime($startTime)));
         DB::update('update booking set status = ? where id = ?', [1, $id]);
         DB::update('update booking_time set status = ? where time_slot = ? and booking_id = ?', [1, $obj['time_slot'][0], $id]);
@@ -45,6 +47,7 @@ class BookingssController extends Controller
         $providerNotifications->createNotification($getPatientId, $getClinicId, $getBookedDate, $id);
         $pushNotifications->providerPushNotifications('Booking Confirmed', 'Booking is Confirmed', $getPatientId[0]);
         $this->checkBookingTommorow($getClinicId[0]);
+        $notifications->upcomingBookingEmailNotifPerClinic($getClinicId[0]);
 
         return response([
             'name' => 'BookApproved',

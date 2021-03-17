@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\Provider;
 
 use Akaunting\Firewall\Provider;
+use App\Booking;
 use App\Clinics;
 use App\Http\Controllers\Controller;
 use App\ProviderNotifications;
@@ -94,18 +95,40 @@ class NotificationsController extends Controller
     {
         $clinics = \App\Clinics::pluck('id', 'email');
         foreach ($clinics as $id => $email) {
-            $upcoming = DB::table('booking')
-                ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
-                ->leftJoin('users', 'users.id', 'booking.patient_id')
-                ->select('booking.id', 'family_plan_type_subcategory.name as service_name', 'users.name as patient_name', 'booking.time_slot as date_booked')
-                ->where('booking.status', 1)
-                ->where('booking.clinic_id', $email)
-                ->WhereRaw('datediff("'.date('Y-m-d').'", time_slot) = -1')
-                ->get();
-            Mail::send('email.patient.provider.upcoming-booking', ['details' => $upcoming], function ($mail) use ($id) {
-                $mail->from('notifications@friendlycare.com');
-                $mail->to($id, 'Patient')->subject('Upcoming Booking');
-            });
+            $checkBookingTommorow = Booking::whereRaw('datediff("'.date('Y-m-d').'", time_slot) = -1')->where('is_your_booking_tommorow', 1)->where('clinic_id', $email)->count();
+            if ($checkBookingTommorow >= 1) {
+                $upcoming = DB::table('booking')
+                    ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+                    ->leftJoin('users', 'users.id', 'booking.patient_id')
+                    ->select('booking.id', 'family_plan_type_subcategory.name as service_name', 'users.name as patient_name', 'booking.time_slot as date_booked')
+                    ->where('booking.status', 1)
+                    ->where('booking.clinic_id', $email)
+                    ->where('booking.is_your_booking_tommorow', 1)
+                    ->WhereRaw('datediff("'.date('Y-m-d').'", time_slot) = -1')
+                    ->get();
+                Mail::send('email.patient.provider.upcoming-booking', ['details' => $upcoming], function ($mail) use ($id) {
+                    $mail->from('notifications@friendlycare.com');
+                    $mail->to($id, 'Patient')->subject('Upcoming Booking');
+                });
+                DB::statement('update booking set is_your_booking_tommorow = 0 where clinic_id = ?', [$email]);
+            }
         }
+    }
+
+    public function upcomingBookingEmailNotifPerClinic($id)
+    {
+        $getEmail = DB::table('clinics')->select('email')->where('id', $id)->pluck('email');
+        $upcoming = DB::table('booking')
+            ->leftJoin('family_plan_type_subcategory', 'family_plan_type_subcategory.id', 'booking.service_id')
+            ->leftJoin('users', 'users.id', 'booking.patient_id')
+            ->select('booking.id', 'family_plan_type_subcategory.name as service_name', 'users.name as patient_name', 'booking.time_slot as date_booked')
+            ->where('booking.status', 1)
+            ->where('booking.clinic_id', $id)
+            ->WhereRaw('datediff("'.date('Y-m-d').'", time_slot) = -1')
+            ->get();
+        Mail::send('email.patient.provider.upcoming-booking', ['details' => $upcoming], function ($mail) use ($getEmail) {
+            $mail->from('notifications@friendlycare.com');
+            $mail->to($getEmail[0], 'Patient')->subject('Upcoming Booking');
+        });
     }
 }
