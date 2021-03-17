@@ -14,6 +14,7 @@
 
 <body topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" style="box-sizing: border-box;">
 
+
 <div class="email">
       <div class="email__header" style="background-color: #911aa2;
         width: 100%;
@@ -37,7 +38,7 @@
         font-family: 'Open Sans', sans-serif;">
         <h2 class="email__title" style="color: #911aa2;
         font-size: 24px;">Hi </h2>
-        <p class="email__text" style="color: #000;
+         <p class="email__text" style="color: #000;
         font-size: 20px;
         margin-top: 30px;">
           Here are the upcoming bookings.
