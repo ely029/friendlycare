@@ -124,4 +124,12 @@ class ProviderNotifications extends Model
             ->where('display_type', null)
             ->WhereRaw('datediff("'.date('Y-m-d').'", date_booked) = -1');
     }
+
+    public function getNotifications($getClinicId)
+    {
+        return DB::table('provider_notifications')
+            ->select('id', 'title', 'type', 'status', 'is_read', DB::raw('NULL as count_date'))
+            ->where('clinic_id', $getClinicId[0])
+            ->where('status', '<>', 7);
+    }
 }

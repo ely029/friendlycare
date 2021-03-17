@@ -47,7 +47,7 @@ class BookingssController extends Controller
         $providerNotifications->createNotification($getPatientId, $getClinicId, $getBookedDate, $id);
         $pushNotifications->providerPushNotifications('Booking Confirmed', 'Booking is Confirmed', $getPatientId[0]);
         $this->checkBookingTommorow($getClinicId[0]);
-        $notifications->upcomingBookingEmailNotifPerClinic($getClinicId[0]);
+        $notifications->upcomingBookingEmailNotifPerClinic($getClinicId[0], $id);
 
         return response([
             'name' => 'BookApproved',
