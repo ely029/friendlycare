@@ -127,7 +127,7 @@ class NotificationsController extends Controller
 
     private function processEmail($upcoming, $id, $email)
     {
-        if ($upcoming >= 1) {
+        if ($upcoming->count() >= 1) {
             Mail::send('email.patient.provider.upcoming-booking', ['details' => $upcoming], function ($mail) use ($id) {
                 $mail->from('notifications@friendlycare.com');
                 $mail->to($id, 'Patient')->subject('Upcoming Booking');
