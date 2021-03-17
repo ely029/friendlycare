@@ -90,7 +90,7 @@ class NotificationsController extends Controller
 
     public function upcomingBookingEmailNotif()
     {
-        $clinics = \App\Clinics::pluck('id', 'email');
+        $clinics = \App\Clinics::join('booking', 'booking.clinic_id', 'clinics.id')->where('booking.is_your_booking_tommorow', 1)->pluck('clinics.id', 'clinics.email');
         foreach ($clinics as $id => $email) {
             $checkBookingTommorow = Booking::whereRaw('datediff("'.date('Y-m-d').'", time_slot) = -1')->where('is_your_booking_tommorow', 1)->where('clinic_id', $email)->count();
             if ($checkBookingTommorow >= 1) {
