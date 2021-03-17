@@ -15,7 +15,7 @@ class SendUpcomingBooking extends Command
      * @var string
      */
 
-    protected $signature = 'send:upcoming_booking';
+    protected $signature = 'send:booking';
 
     /**
      * The console command description.
@@ -31,9 +31,8 @@ class SendUpcomingBooking extends Command
      */
     public function handle()
     {
-        $user = \Auth::user();
         $notification = new NotificationsController();
-        $notification->upcomingBookingEmailNotif($user['id']);
+        $notification->upcomingBookingEmailNotif();
         return 0;
     }
 }
