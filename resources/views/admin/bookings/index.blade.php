@@ -35,8 +35,8 @@
                       <div class="form__content"><input name="date-to" id="date-to" class="form__input form__input--border form__input--date js-date" type="" placeholder="Date to" /></div>
                       <div class="form__content">
                         <select name="clinic_id" id="clinic_id" class="form__input form__input--select form__input--border form__input--border__age">
-                          @foreach ($clinics as $clinic)
                           <option value="" selected>All Provider</option>
+                          @foreach ($clinics as $clinic)
                           <option value="{{ $clinic->id}}">{{ $clinic->clinic_name}}</option>
                           @endforeach
                         </select>
