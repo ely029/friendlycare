@@ -522,6 +522,7 @@ class DefaultController extends Controller
             ->select('clinics.province')
             ->where('clinic_service.service_id', $getDetails[0])
             ->where('clinics.province', '<>', null)
+            ->where('clinics.is_approve', 1)
             ->distinct('clinics.province')
             ->get();
         $data = $provinces;
@@ -545,6 +546,7 @@ class DefaultController extends Controller
             ->distinct('clinics.city')
             ->where('clinic_service.service_id', $getDetails[0])
             ->where('city', '<>', null)
+            ->where('clinics.is_approve', 1)
             ->get();
         $data = $provinces;
         return response([
@@ -566,6 +568,7 @@ class DefaultController extends Controller
             ->select('clinics.municipality')
             ->distinct('clinics.municipality')
             ->where('municipality', '<>', null)
+            ->where('clinics.is_approve', 1)
             ->where('clinic_service.service_id', $getDetails[0])
             ->get();
         $data = $provinces;
