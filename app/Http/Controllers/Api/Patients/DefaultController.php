@@ -520,7 +520,6 @@ class DefaultController extends Controller
         $provinces = DB::table('clinics')
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
             ->select('clinics.province')
-            ->where('clinic_service.service_id', $getDetails[0])
             ->where('clinics.province', '<>', null)
             ->where('clinics.is_approve', 1)
             ->distinct('clinics.province')
@@ -544,7 +543,6 @@ class DefaultController extends Controller
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
             ->select('clinics.city')
             ->distinct('clinics.city')
-            ->where('clinic_service.service_id', $getDetails[0])
             ->where('city', '<>', null)
             ->where('clinics.is_approve', 1)
             ->get();
@@ -569,7 +567,6 @@ class DefaultController extends Controller
             ->distinct('clinics.municipality')
             ->where('municipality', '<>', null)
             ->where('clinics.is_approve', 1)
-            ->where('clinic_service.service_id', $getDetails[0])
             ->get();
         $data = $provinces;
         return response([
