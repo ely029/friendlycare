@@ -129,6 +129,7 @@ class ChatbotController extends Controller
             ChatBotResponse::where('id', $request['responded_id'][$eee])->update([
                 'response_prompt' => $request['response_prompt'][$eee],
                 'response_id' => $request['response_id'][$eee],
+                'fieldset_id' => $request['fieldset_id'],
             ]);
         }
     }
