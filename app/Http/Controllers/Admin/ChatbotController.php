@@ -129,7 +129,6 @@ class ChatbotController extends Controller
             ChatBotResponse::where('id', $request['responded_id'][$eee])->update([
                 'response_prompt' => $request['response_prompt'][$eee],
                 'response_id' => $request['response_id'][$eee],
-                'fieldset_id' => $request['fieldset_id'],
             ]);
         }
     }
@@ -137,8 +136,7 @@ class ChatbotController extends Controller
     private function insertResponse($request, $response)
     {
         foreach ($response as $ely) {
-            $getData = DB::table('chat_bot_response')->select('id')->where('response_prompt', $ely['response_prompt'])->count();
-            if ($ely['response_prompt'] !== null && $ely['response_id'] !== null && $getData <= 0) {
+            if ($ely['response_prompt'] !== null && $ely['response_id'] !== null) {
                 ChatBotResponse::create([
                     'response_prompt' => $ely['response_prompt'],
                     'response_id' => $ely['response_id'],
