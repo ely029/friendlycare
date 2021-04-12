@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Provider;
 
+use App\ChatBot;
+use App\ChatBotResponse;
 use App\ClinicGallery;
 use App\ClinicHours;
 use App\Clinics;
@@ -625,5 +627,15 @@ class DefaultController extends Controller
         $registrationId = FcmRegistrationToken::where('user_id', $id)->first();
         $fcm->destroy($registrationId, $fcm1, $user);
         return true;
+    }
+
+    public function chatBot()
+    {
+        return ChatBot::all();
+    }
+
+    public function chatBotResponse()
+    {
+        return ChatBotResponse::all();
     }
 }
