@@ -223,13 +223,9 @@ class FamilyPlanningMethodController extends Controller
 
     public function iconUpload(Request $request)
     {
-        $request = request()->all();
-        $icon = $request['icon'];
-        $destination = public_path('assets/app/img/');
-        $icon_url = url('assets/app/img/'.$icon->getClientOriginalName());
-        $icon->move($destination, $icon->getClientOriginalName());
-
-        return response()->json($icon_url);
+        $icon = $request->file('icon');
+        $icon->storeAs('public', $icon->getClientOriginalName());
+        return response()->json(url('storage/'.$icon->getClientOriginalName()));
     }
 
     public function galleryUpload(Request $request)
