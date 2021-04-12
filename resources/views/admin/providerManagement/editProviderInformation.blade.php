@@ -88,7 +88,7 @@
                 <h2 class="section__heading">Clinic gallery</h2>
                 <ul class="form__gallery">
                 @foreach($galleries as $gallery)
-                <li class="form__gallery-item"><img class="form__gallery-image" src="{{ url(('uploads/'.$gallery->file_name)) }}" alt="Gallery image" /></li>
+                <li class="form__gallery-item"><img class="form__gallery-image" src="{{ url(('storage/'.$gallery->file_name)) }}" alt="Gallery image" /></li>
                 @endforeach
                 </ul>
                 <div class="form__content form__content--reverse">

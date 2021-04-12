@@ -364,10 +364,9 @@ class DefaultController extends Controller
         for ($eee === 0;$eee <= 4;$eee++) {
             $fff = $eee + 1;
             $icon = $requests->file('image_'.$fff);
-            $destination = public_path('/uploads');
             if ($icon !== null) {
-                $icon->move($destination, $icon->getClientOriginalName());
-                $icon_url = url('uploads/'.$icon->getClientOriginalName());
+                $icon[0]->storeAs('public', $icon[0]->getClientOriginalName());
+                $icon_url = url('storage/'.$icon->getClientOriginalName());
                 ClinicGallery::create([
                     'file_name' => $icon->getClientOriginalName(),
                     'file_url' => $icon_url,

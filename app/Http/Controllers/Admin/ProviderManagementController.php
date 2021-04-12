@@ -371,9 +371,8 @@ class ProviderManagementController extends Controller
     {
         $clinicGallery = new ClinicGallery();
         $icon = $request->file('file');
-        $destination = public_path('/uploads');
-        $icon[0]->move($destination, $icon[0]->getClientOriginalName());
-        $icon_url = url('uploads/'.$icon[0]->getClientOriginalName());
+        $icon[0]->storeAs('public', $icon[0]->getClientOriginalName());
+        $icon_url = url('storage/'.$icon[0]->getClientOriginalName());
         $clinicGallery->createGallery($icon, $request, $icon_url);
     }
 
