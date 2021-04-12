@@ -382,14 +382,12 @@ class ProviderManagementController extends Controller
         ClinicGallery::where('id', $id)->delete();
         return redirect('/provider/edit/'.$clinicId);
     }
+
     public function profPicUpload(Request $request)
     {
-        $request = request()->all();
-        $icon = $request['pic'];
-        $destination = public_path('assets/app/img/');
-        $icon_url = url('assets/app/img/'.$icon->getClientOriginalName());
-        $icon->move($destination, $icon->getClientOriginalName());
-        return response()->json($icon_url);
+        $icon = $request->file('pic');
+        $icon->storeAs('public', $icon->getClientOriginalName());
+        return response()->json(url('storage/'.$icon->getClientOriginalName()));
     }
     private function validateClinicHours($request)
     {
