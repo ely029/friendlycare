@@ -475,6 +475,7 @@ class DefaultController extends Controller
             ->join('clinics', 'paid_services.clinic_id', 'clinics.id')
             ->select('clinics.id', 'clinics.clinic_name', 'clinics.photo_url', 'clinics.street_address', 'clinics.type', 'clinics.philhealth_accredited_1', 'paid_services.is_checked as paid_service')
             ->where('paid_services.service_id', $id)
+            ->where('clinics.is_close', '<>', 1)
             ->get();
 
         return response([

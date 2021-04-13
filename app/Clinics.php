@@ -63,6 +63,7 @@ class Clinics extends Model
             ->Where('clinics.paid_service', 0)
             ->where('clinics.philhealth_accredited_1', 1)
             ->where('clinics.user_id', 0)
+            ->where('clinics.is_close', '<>', 1)
             ->get();
     }
 
@@ -71,6 +72,7 @@ class Clinics extends Model
         return DB::table('clinics')
             ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
             ->where('clinics.user_id', 0)
+            ->where('clinics.is_close', '<>', 1)
             ->get();
     }
 
@@ -80,6 +82,7 @@ class Clinics extends Model
             ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
             ->where('clinics.philhealth_accredited_1', 1)
             ->where('clinics.user_id', 0)
+            ->where('clinics.is_close', '<>', 1)
             ->get();
     }
 
@@ -89,6 +92,7 @@ class Clinics extends Model
             ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
             ->Where('clinics.paid_service', 1)
             ->where('clinics.user_id', 0)
+            ->where('clinics.is_close', '<>', 1)
             ->get();
     }
 
@@ -102,6 +106,7 @@ class Clinics extends Model
             ->where('clinics.city', $obj['city'][0])
             ->where('clinics.philhealth_accredited_1', 1)
             ->where('clinics.user_id', 0)
+            ->where('clinics.is_close', '<>', 1)
             ->get();
     }
 
@@ -114,6 +119,7 @@ class Clinics extends Model
             ->where('clinics.province', $obj['province'][0])
             ->where('clinics.city', $obj['city'][0])
             ->where('clinics.user_id', 0)
+            ->where('clinics.is_close', '<>', 1)
             ->get();
     }
 
@@ -140,6 +146,7 @@ class Clinics extends Model
             ->where('clinics.province', $obj['province'][0])
             ->where('clinics.city', $obj['city'][0])
             ->where('clinics.user_id', 0)
+            ->where('clinics.is_close', '<>', 1)
             ->get();
     }
 

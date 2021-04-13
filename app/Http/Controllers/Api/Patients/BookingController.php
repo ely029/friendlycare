@@ -155,15 +155,13 @@ class BookingController extends Controller
             ->pluck('clinic_id');
         $times = [];
         $clinicTime = new ClinicTime();
-        $timeSlot = new PatientTimeSlot();
         $time = $clinicTime->getTime($getDetails[0], $day);
         $data = json_decode(json_encode($time), true);
-        $getSlot = $timeSlot->getSlot($getClinicId[0]);
-        if ($getSlot[0] < 1) {
-            return response()->json('This clinic has no slot yet. Please choose another clinic.', 422);
-        }
         foreach ($data as $datas) {
             $times[] = $datas['time'];
+        }
+        if (count($times) <= 1) {
+            return response()->json('There is no time set up on this date', 422);
         }
         return response([
             'name' => 'setUpTime',
@@ -181,6 +179,10 @@ class BookingController extends Controller
             ->limit(1)
             ->orderBy('id', 'desc')
             ->pluck('clinic_id');
+
+        if ($obj['date'] === '') {
+            return response()->json('Date is required', 422);
+        }
 
         return $this->checkPatientCount($id, $getClinicId, $obj);
     }
