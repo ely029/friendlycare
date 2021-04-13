@@ -159,7 +159,7 @@ class BookingController extends Controller
         $time = $clinicTime->getTime($getDetails[0], $day);
         $data = json_decode(json_encode($time), true);
         $getSlot = $timeSlot->getSlot($getClinicId[0]);
-        if ($getSlot[0] <= 0) {
+        if ($getSlot[0] < 1) {
             return response()->json('This clinic has no slot yet. Please choose another clinic.', 422);
         }
         foreach ($data as $datas) {
