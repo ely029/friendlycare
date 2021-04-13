@@ -533,8 +533,9 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function city($id)
+    public function city($id, Request $request)
     {
+        $obj = json_decode($request->getContent(), true);
         $getDetails = DB::table('booking')
             ->select('clinic_id', 'service_id', 'id')
             ->where('patient_id', $id)
@@ -549,6 +550,7 @@ class DefaultController extends Controller
             ->where('city', '<>', null)
             ->where('clinics.is_approve', 1)
             ->where('clinics.is_close', '<>', 1)
+            ->where('clinics.province', $obj['province'])
             ->get();
         $data = $provinces;
         return response([
