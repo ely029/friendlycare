@@ -536,6 +536,9 @@ class BookingController extends Controller
         $timeSlot = new PatientTimeSlot();
         $checkBooking = $booking->checkBooking($getClinicId[0], $obj);
         $getSlot = $timeSlot->getSlot($getClinicId[0]);
+        if ($getSlot[0] <= 0) {
+            return response()->json('This clinic has no slot yet. Please choose another clinic.', 422);
+        }
         if ($getSlot[0] <= $checkBooking) {
             return response()->json('The time you choose are already full. please choose another time.', 422);
         }
