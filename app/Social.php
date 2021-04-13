@@ -15,14 +15,14 @@
  * @property string $social_id
  * @property string $token
  * @property-read \App\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Social newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Social newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Social query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Social whereDriver($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Social whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Social whereSocialId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Social whereToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Social whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Social newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Social newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Social query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Social whereDriver($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Social whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Social whereSocialId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Social whereToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Social whereUserId($value)
  * @mixin \Eloquent
  */
 class Social extends Model

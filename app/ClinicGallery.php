@@ -7,6 +7,28 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\ClinicGallery
+ *
+ * @property int $id
+ * @property int $clinic_id
+ * @property string|null $file_name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $file_url
+ * @property int|null $value_id
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicGallery newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicGallery newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicGallery query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicGallery whereClinicId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicGallery whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicGallery whereFileName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicGallery whereFileUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicGallery whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicGallery whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicGallery whereValueId($value)
+ * @mixin \Eloquent
+ */
 class ClinicGallery extends Model
 {
     protected $table = 'clinic_gallery';

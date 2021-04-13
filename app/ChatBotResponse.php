@@ -7,6 +7,26 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\ChatBotResponse
+ *
+ * @property int $id
+ * @property string|null $response_prompt
+ * @property int|null $fieldset_id
+ * @property int|null $response_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|ChatBotResponse newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ChatBotResponse newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ChatBotResponse query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ChatBotResponse whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ChatBotResponse whereFieldsetId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ChatBotResponse whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ChatBotResponse whereResponseId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ChatBotResponse whereResponsePrompt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ChatBotResponse whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class ChatBotResponse extends Model
 {
     protected $table = 'chat_bot_response';

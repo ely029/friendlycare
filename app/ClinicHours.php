@@ -7,6 +7,38 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\ClinicHours
+ *
+ * @property int $id
+ * @property int|null $clinic_id
+ * @property string|null $day
+ * @property string|null $from
+ * @property string|null $to
+ * @property int|null $is_checked
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $days
+ * @property string|null $froms
+ * @property string|null $tos
+ * @property string|null $id_value
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicHours newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicHours newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicHours query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicHours whereClinicId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicHours whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicHours whereDay($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicHours whereDays($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicHours whereFrom($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicHours whereFroms($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicHours whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicHours whereIdValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicHours whereIsChecked($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicHours whereTo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicHours whereTos($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicHours whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class ClinicHours extends Model
 {
     protected $fillable = [

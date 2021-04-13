@@ -7,6 +7,26 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\PaidServices
+ *
+ * @property int $id
+ * @property int|null $service_id
+ * @property int|null $clinic_id
+ * @property int|null $is_checked
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|PaidServices newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PaidServices newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PaidServices query()
+ * @method static \Illuminate\Database\Eloquent\Builder|PaidServices whereClinicId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaidServices whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaidServices whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaidServices whereIsChecked($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaidServices whereServiceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaidServices whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class PaidServices extends Model
 {
     protected $table = 'paid_services';

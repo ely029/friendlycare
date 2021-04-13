@@ -7,6 +7,56 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\FamilyPlanTypeSubcategories
+ *
+ * @property int $id
+ * @property int $family_plan_type_id
+ * @property string $name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $short_name
+ * @property string|null $percent_effective
+ * @property string|null $typical_validity
+ * @property string|null $description_english
+ * @property string|null $description_filipino
+ * @property string|null $how_it_works_english
+ * @property string|null $how_it_works_filipino
+ * @property string|null $side_effect_english
+ * @property string|null $side_effect_filipino
+ * @property string|null $additional_note_english
+ * @property string|null $additional_note_filipino
+ * @property int|null $is_approve
+ * @property string|null $video_link
+ * @property string|null $icon
+ * @property string|null $icon_url
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\ServiceGallery[] $serviceGalleries
+ * @property-read int|null $service_galleries_count
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories query()
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereAdditionalNoteEnglish($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereAdditionalNoteFilipino($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereDescriptionEnglish($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereDescriptionFilipino($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereFamilyPlanTypeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereHowItWorksEnglish($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereHowItWorksFilipino($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereIcon($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereIconUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereIsApprove($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories wherePercentEffective($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereShortName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereSideEffectEnglish($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereSideEffectFilipino($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereTypicalValidity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|FamilyPlanTypeSubcategories whereVideoLink($value)
+ * @mixin \Eloquent
+ */
 class FamilyPlanTypeSubcategories extends Model
 {
     protected $table = 'family_plan_type_subcategory';

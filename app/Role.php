@@ -17,14 +17,14 @@
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\RoleAccess[] $accesses
  * @property-read int|null $accesses_count
  * @property-read \App\User $user
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Role newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Role newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Role query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Role whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Role whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Role whereIsDeletable($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Role whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Role whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Role newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Role query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereIsDeletable($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Role whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Role extends Model

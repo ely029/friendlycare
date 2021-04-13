@@ -7,6 +7,74 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\EventsNotification
+ *
+ * @property int $id
+ * @property string|null $title
+ * @property string|null $message
+ * @property int|null $type
+ * @property int|null $schedule
+ * @property int|null $is_approve
+ * @property string|null $date_string
+ * @property string|null $date_time
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $date
+ * @property string|null $time
+ * @property int|null $patient_id
+ * @property int|null $is_read
+ * @property string|null $display_type
+ * @property int|null $status
+ * @property int|null $appointment_date
+ * @property int|null $clinic_name
+ * @property int|null $is_rated
+ * @property string|null $clinic_name_1
+ * @property string|null $appointement_date_1
+ * @property int|null $booking_id
+ * @property string|null $scheduled
+ * @property string|null $survey_link
+ * @property string|null $survey_date_from_string
+ * @property string|null $survey_date_to_string
+ * @property int|null $survey_id
+ * @property string|null $events_display
+ * @property string|null $date_time_string
+ * @property int|null $events_scheduled_display
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification query()
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereAppointementDate1($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereAppointmentDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereBookingId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereClinicName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereClinicName1($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereDateString($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereDateTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereDateTimeString($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereDisplayType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereEventsDisplay($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereEventsScheduledDisplay($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereIsApprove($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereIsRated($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereIsRead($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereMessage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification wherePatientId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereSchedule($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereScheduled($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereSurveyDateFromString($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereSurveyDateToString($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereSurveyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereSurveyLink($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|EventsNotification whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class EventsNotification extends Model
 {
     protected $table = 'events_notification';

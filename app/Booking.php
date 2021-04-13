@@ -7,6 +7,66 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Booking
+ *
+ * @property int $id
+ * @property int|null $service_id
+ * @property int|null $clinic_id
+ * @property string|null $time_slot
+ * @property int|null $is_cancelled
+ * @property int|null $is_approved
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null $patient_id
+ * @property string|null $referal
+ * @property int|null $is_booked
+ * @property int|null $no_show
+ * @property int|null $status
+ * @property int|null $is_read
+ * @property int|null $cancellation_message
+ * @property string|null $cancellation_message_1
+ * @property string|null $confirmed_service
+ * @property string|null $time_from
+ * @property string|null $time_to
+ * @property string|null $end_time
+ * @property string|null $new_request_end_time
+ * @property int|null $is_read_patient_booking
+ * @property int|null $is_rated
+ * @property int|null $is_updated
+ * @property int|null $book_tommorow_display
+ * @property int|null $is_your_booking_tommorow
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereBookTommorowDisplay($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereCancellationMessage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereCancellationMessage1($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereClinicId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereConfirmedService($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereEndTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereIsApproved($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereIsBooked($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereIsCancelled($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereIsRated($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereIsRead($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereIsReadPatientBooking($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereIsUpdated($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereIsYourBookingTommorow($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereNewRequestEndTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereNoShow($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking wherePatientId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereReferal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereServiceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereTimeFrom($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereTimeSlot($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereTimeTo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Booking whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Booking extends Model
 {
     protected $table = 'booking';

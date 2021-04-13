@@ -7,6 +7,74 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\Clinics
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string|null $clinic_name
+ * @property string|null $contact_number
+ * @property string|null $location
+ * @property int $is_close
+ * @property int $is_approve
+ * @property string|null $close_message
+ * @property string|null $description
+ * @property string|null $profile_photo
+ * @property string|null $type
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string $profession
+ * @property string $training
+ * @property string|null $street_address
+ * @property string|null $city
+ * @property string|null $municipality
+ * @property string|null $province
+ * @property string|null $email
+ * @property string|null $photo_url
+ * @property int|null $paid_service
+ * @property int|null $philhealth_accredited_1
+ * @property string|null $region_id_string
+ * @property string|null $province_id_string
+ * @property string|null $city_id_string
+ * @property string|null $region
+ * @property string|null $barangay
+ * @property string|null $barangay_id_string
+ * @property-read \App\Staffs $staff
+ * @property-read \App\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereBarangay($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereBarangayIdString($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereCityIdString($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereClinicName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereCloseMessage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereContactNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereIsApprove($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereIsClose($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereLocation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereMunicipality($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics wherePaidService($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics wherePhilhealthAccredited1($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics wherePhotoUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereProfession($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereProfilePhoto($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereProvince($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereProvinceIdString($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereRegion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereRegionIdString($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereStreetAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereTraining($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Clinics whereUserId($value)
+ * @mixin \Eloquent
+ */
 class Clinics extends Model
 {
     protected $table = 'clinics';

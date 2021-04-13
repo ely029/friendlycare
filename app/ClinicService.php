@@ -7,6 +7,26 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\ClinicService
+ *
+ * @property int $id
+ * @property int|null $clinic_id
+ * @property int|null $service_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null $is_checked
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicService newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicService newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicService query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicService whereClinicId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicService whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicService whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicService whereIsChecked($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicService whereServiceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicService whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class ClinicService extends Model
 {
     protected $table = 'clinic_service';

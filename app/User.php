@@ -13,10 +13,22 @@ use Storage;
  * App\User
  *
  * @property int $id
- * @property string $name
+ * @property string|null $name
+ * @property string|null $first_name
+ * @property string|null $last_name
+ * @property string|null $middle_initial
+ * @property string|null $password
+ * @property string|null $birth_date
+ * @property string|null $gender
  * @property string $email
+ * @property string|null $age
+ * @property string|null $city
+ * @property string|null $municipality
+ * @property string|null $province
+ * @property string|null $contact_number
+ * @property string|null $profession
+ * @property string|null $training
  * @property \Illuminate\Support\Carbon|null $email_verified_at
- * @property string $password
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -24,6 +36,11 @@ use Storage;
  * @property string $photo_alt
  * @property string $photo_extension
  * @property string|null $fcm_notification_key
+ * @property string|null $contact_number_1
+ * @property string|null $professions
+ * @property string|null $trainings
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Clinics[] $clinics
+ * @property-read int|null $clinics_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\FcmRegistrationToken[] $fcmRegistrationTokens
  * @property-read int|null $fcm_registration_tokens_count
  * @property-read mixed $photo_name
@@ -31,33 +48,45 @@ use Storage;
  * @property-read mixed $photo_url
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Patients[] $patients
+ * @property-read int|null $patients_count
  * @property-read \App\Role|null $role
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Social[] $socials
  * @property-read int|null $socials_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereEmailVerifiedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereFcmNotificationKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User wherePassword($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User wherePhotoAlt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User wherePhotoExtension($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRoleId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereMunicipality($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereAge($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereContactNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereProvince($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereCity($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereBirthDate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereFirstName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereMiddleInitial($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Spouses[] $spouses
+ * @property-read int|null $spouses_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Staffs[] $staffs
+ * @property-read int|null $staffs_count
+ * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAge($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereBirthDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereContactNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereContactNumber1($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereFcmNotificationKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereFirstName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereGender($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereLastName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereMiddleInitial($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereMunicipality($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePhotoAlt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePhotoExtension($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereProfession($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereProfessions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereProvince($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRoleId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereTraining($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereTrainings($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable

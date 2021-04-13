@@ -7,6 +7,40 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\ProviderNotifications
+ *
+ * @property int $id
+ * @property string|null $title
+ * @property string|null $message
+ * @property string|null $type
+ * @property int|null $clinic_id
+ * @property int|null $status
+ * @property int|null $booking_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null $is_read
+ * @property string|null $display_type
+ * @property int|null $patient_id
+ * @property string|null $date_booked
+ * @method static \Illuminate\Database\Eloquent\Builder|ProviderNotifications newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProviderNotifications newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProviderNotifications query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProviderNotifications whereBookingId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProviderNotifications whereClinicId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProviderNotifications whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProviderNotifications whereDateBooked($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProviderNotifications whereDisplayType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProviderNotifications whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProviderNotifications whereIsRead($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProviderNotifications whereMessage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProviderNotifications wherePatientId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProviderNotifications whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProviderNotifications whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProviderNotifications whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProviderNotifications whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class ProviderNotifications extends Model
 {
     protected $table = 'provider_notifications';

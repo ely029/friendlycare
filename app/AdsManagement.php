@@ -8,6 +8,40 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\AdsManagement
+ *
+ * @property int $id
+ * @property string|null $company_name
+ * @property string|null $title
+ * @property string|null $ad_link
+ * @property string|null $image_url
+ * @property string|null $start_date
+ * @property string|null $end_date
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $view
+ * @property string|null $clicks
+ * @property string|null $end_date_string
+ * @property string|null $start_date_string
+ * @method static \Illuminate\Database\Eloquent\Builder|AdsManagement newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|AdsManagement newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|AdsManagement query()
+ * @method static \Illuminate\Database\Eloquent\Builder|AdsManagement whereAdLink($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdsManagement whereClicks($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdsManagement whereCompanyName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdsManagement whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdsManagement whereEndDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdsManagement whereEndDateString($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdsManagement whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdsManagement whereImageUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdsManagement whereStartDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdsManagement whereStartDateString($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdsManagement whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdsManagement whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|AdsManagement whereView($value)
+ * @mixin \Eloquent
+ */
 class AdsManagement extends Model
 {
     protected $table = 'ads_management';

@@ -7,6 +7,26 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * App\ClinicTime
+ *
+ * @property int $id
+ * @property int|null $clinic_id
+ * @property string|null $time
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $days
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicTime newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicTime newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicTime query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicTime whereClinicId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicTime whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicTime whereDays($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicTime whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicTime whereTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ClinicTime whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class ClinicTime extends Model
 {
     protected $table = 'clinic_time';
