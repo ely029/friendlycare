@@ -18,6 +18,7 @@ class TaggedMethodWithProvinceAndCity
                 ->where('clinics.province', $obj['province'][0])
                 ->where('clinics.city', $obj['city'][0])
                 ->where('clinics.paid_service', 0)
+                ->where('clinics.is_close', '<>', 1)
                 ->where('clinics.philhealth_accredited_1', 1)
                 ->where('clinics.user_id', 0)
                 ->get();
@@ -31,6 +32,7 @@ class TaggedMethodWithProvinceAndCity
                 ->where('clinics.province', $obj['province'][0])
                 ->where('clinics.city', $obj['city'][0])
                 ->where('clinics.user_id', 0)
+                ->where('clinics.is_close', '<>', 1)
                 ->get();
         }
 
@@ -43,6 +45,7 @@ class TaggedMethodWithProvinceAndCity
                 ->where('clinics.city', $obj['city'][0])
                 ->where('clinics.philhealth_accredited_1', 1)
                 ->where('clinics.user_id', 0)
+                ->where('clinics.is_close', '<>', 1)
                 ->get();
         }
 
@@ -54,6 +57,7 @@ class TaggedMethodWithProvinceAndCity
                 ->where('clinics.province', $obj['province'][0])
                 ->where('clinics.city', $obj['city'][0])
                 ->where('clinics.paid_service', 1)
+                ->where('clinics.is_close', '<>', 1)
                 ->where('clinics.user_id', 0)
                 ->get();
         }
