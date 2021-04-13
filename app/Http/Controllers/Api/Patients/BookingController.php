@@ -180,10 +180,6 @@ class BookingController extends Controller
             ->orderBy('id', 'desc')
             ->pluck('clinic_id');
 
-        if ($obj['date'] === '') {
-            return response()->json('Date is required', 422);
-        }
-
         return $this->checkPatientCount($id, $getClinicId, $obj);
     }
 
