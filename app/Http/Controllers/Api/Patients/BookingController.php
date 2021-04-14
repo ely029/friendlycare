@@ -145,7 +145,7 @@ class BookingController extends Controller
             ], 422);
         }
 
-        if ($obj['date'][0] !== '' && $obj['time'][0] !== '') {
+        if ($obj['date'][0] !== '') {
             $timestamp = strtotime($obj['date'][0]);
             $day = date('l', $timestamp);
 
