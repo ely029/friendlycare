@@ -162,7 +162,7 @@ class BookingController extends Controller
         foreach ($data as $datas) {
             $times[] = $datas['time'];
         }
-        if (count($getTimeSlot) <= 0 || $getTimeSlot <= 0) {
+        if (count($getTimeSlot) <= 0) {
             return response()->json('The Patient Slot are not set up', 422);
         }
         if (count($times) <= 1) {
