@@ -41,6 +41,11 @@ class PatientTimeSlot extends Model
         return DB::table('patient_time_slot')->select('number_of_slots')->where('clinic_id', $id)->pluck('number_of_slots');
     }
 
+    public function checkSlot($id)
+    {
+        return DB::table('patient_time_slot')->select('number_of_slots')->where('clinic_id', $id)->count();
+    }
+
     public function createTimeSlot($clinic, $obj)
     {
         PatientTimeSlot::create([

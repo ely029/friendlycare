@@ -157,13 +157,14 @@ class BookingController extends Controller
         $clinicTime = new ClinicTime();
         $timeSlot = new PatientTimeSlot();
         $getTimeSlot = $timeSlot->getSlot($getClinicId[0]);
+        $checkSlot = $timeSlot->checkSlot($getClinicId[0]);
         $time = $clinicTime->getTime($getDetails[0], $day);
         $data = json_decode(json_encode($time), true);
         foreach ($data as $datas) {
             $times[] = $datas['time'];
         }
-        if (count($getTimeSlot) <= 0) {
-            return response()->json('The Patient Slot are not set up', 422);
+        if ($checkSlot <= 0 || count($getTimeSlot) <= 0 || $getTimeSlot[0] <= 0) {
+            return response()->json('Patient Slot are not setup', 422);
         }
         if (count($times) <= 1) {
             return response()->json('There is no time set up on this date', 422);
