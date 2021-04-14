@@ -128,6 +128,7 @@ class BookingController extends Controller
     public function time(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
+        $times = [];
         $getClinicId = DB::table('booking')
             ->select('clinic_id')
             ->where('patient_id', $id)
@@ -152,7 +153,6 @@ class BookingController extends Controller
             ->limit(1)
             ->orderBy('id', 'desc')
             ->pluck('clinic_id');
-        $times = [];
         $clinicTime = new ClinicTime();
         $timeSlot = new PatientTimeSlot();
         $getTimeSlot = $timeSlot->getSlot($getClinicId[0]);
