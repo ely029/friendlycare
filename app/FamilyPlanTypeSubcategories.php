@@ -541,4 +541,14 @@ class FamilyPlanTypeSubcategories extends Model
             ->where('is_approve', 1)
             ->get();
     }
+
+    public function details($obj)
+    {
+        return DB::table('family_plan_type_subcategory')
+            ->select('id', 'icon_url', 'name', 'short_name', 'percent_effective', DB::raw("'Modern Method' as method_name"))
+            ->where('name', 'like', '%' . $obj['search'][0] . '%')
+            ->orWhere('description_filipino', 'like', '%' . $obj['search'][0] . '%')
+            ->orWhere('description_english', 'like', '%' . $obj['search'][0] . '%')
+            ->get();
+    }
 }

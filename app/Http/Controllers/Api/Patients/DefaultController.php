@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\Patients;
 
 use App\Booking;
+use App\Clinics;
 use App\EventsNotification;
 use App\FamilyPlanTypeSubcategories;
 use App\FpmMethods;
@@ -399,13 +400,9 @@ class DefaultController extends Controller
 
     public function search(Request $request)
     {
+        $fpm = new FamilyPlanTypeSubcategories();
         $obj = json_decode($request->getContent(), true);
-        $details = DB::table('family_plan_type_subcategory')
-            ->select('id', 'icon_url', 'name', 'short_name', 'percent_effective', DB::raw("'Modern Method' as method_name"))
-            ->where('name', 'like', '%' . $obj['search'][0] . '%')
-            ->orWhere('description_filipino', 'like', '%' . $obj['search'][0] . '%')
-            ->orWhere('description_english', 'like', '%' . $obj['search'][0] . '%')
-            ->get();
+        $details = $fpm->details($obj);
 
         return response([
             'name' => 'Search',
@@ -415,24 +412,9 @@ class DefaultController extends Controller
 
     public function viewClinicByPatient($id)
     {
+        $clinic = new Clinics();
         $fpm = new FamilyPlanTypeSubcategories();
-        $details = DB::table('clinics')
-            ->select(
-               'clinics.id',
-               'clinics.email',
-               'clinics.contact_number as contact_number',
-               'clinics.street_address',
-               'clinics.description',
-               'clinics.clinic_name',
-               'clinics.city',
-               'clinics.province',
-               'clinics.municipality',
-               'clinics.photo_url',
-               'clinics.type',
-               )
-            ->where('clinics.id', $id)
-            ->where('is_approve', 1)
-            ->get();
+        $details = $clinic->details($id);
 
         $services1 = $fpm->servicesOne($id);
         $services2 = $fpm->servicesTwo($id);

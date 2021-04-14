@@ -136,45 +136,47 @@ class BookingController extends Controller
             ->orderBy('id', 'desc')
             ->pluck('clinic_id');
 
-        $checkDate = DB::table('holiday')->select('holiday.id')->where('date', $obj['date'][0])->where('clinic_id', $getClinicId[0])->count();
+        $checkDate = DB::table('holiday')->select('holiday.id')->where('date', $obj['date'][0] ?? '0000-00-00')->where('clinic_id', $getClinicId[0])->count();
 
         if ($checkDate >= 1) {
-            $times[] = [];
             return response([
                 'message' => 'The clinic on the date you set is on holiday. Please choose another date',
                 'details' => '',
             ], 422);
         }
-        $timestamp = strtotime($obj['date'][0]);
-        $day = date('l', $timestamp);
 
-        $getDetails = DB::table('booking')
-            ->select('clinic_id')
-            ->where('patient_id', $id)
-            ->limit(1)
-            ->orderBy('id', 'desc')
-            ->pluck('clinic_id');
-        $clinicTime = new ClinicTime();
-        $timeSlot = new PatientTimeSlot();
-        $getTimeSlot = $timeSlot->getSlot($getClinicId[0]);
-        $checkSlot = $timeSlot->checkSlot($getClinicId[0]);
-        $time = $clinicTime->getTime($getDetails[0], $day);
-        $data = json_decode(json_encode($time), true);
-        foreach ($data as $datas) {
-            $times[] = $datas['time'];
+        if ($obj['date'][0] !== '' && $obj['time'][0] !== '') {
+            $timestamp = strtotime($obj['date'][0]);
+            $day = date('l', $timestamp);
+
+            $getDetails = DB::table('booking')
+                ->select('clinic_id')
+                ->where('patient_id', $id)
+                ->limit(1)
+                ->orderBy('id', 'desc')
+                ->pluck('clinic_id');
+            $clinicTime = new ClinicTime();
+            $timeSlot = new PatientTimeSlot();
+            $getTimeSlot = $timeSlot->getSlot($getClinicId[0]);
+            $checkSlot = $timeSlot->checkSlot($getClinicId[0]);
+            $time = $clinicTime->getTime($getDetails[0], $day);
+            $data = json_decode(json_encode($time), true);
+            foreach ($data as $datas) {
+                $times[] = $datas['time'];
+            }
+            if ($checkSlot <= 0 || count($getTimeSlot) <= 0 || $getTimeSlot[0] <= 0) {
+                return response()->json('Patient Slot are not setup', 422);
+            }
+            if (count($times) <= 1) {
+                return response()->json('There is no time set up on this date', 422);
+            }
+            return response([
+                'name' => 'setUpTime',
+                'details' => $times,
+            ]);
         }
-        if ($checkSlot <= 0 || count($getTimeSlot) <= 0 || $getTimeSlot[0] <= 0) {
-            return response()->json('Patient Slot are not setup', 422);
-        }
-        if (count($times) <= 1) {
-            return response()->json('There is no time set up on this date', 422);
-        }
-        return response([
-            'name' => 'setUpTime',
-            'details' => $times,
-        ]);
+        return response()->json('Date and Time are empty', 422);
     }
-
     public function postTime(Request $request, $id)
     {
         $obj = json_decode($request->getContent(), true);
@@ -545,6 +547,7 @@ class BookingController extends Controller
         $timeSlot = new PatientTimeSlot();
         $checkBooking = $booking->checkBooking($getClinicId[0], $obj);
         $getSlot = $timeSlot->getSlot($getClinicId[0]);
+
         if ($getSlot[0] <= $checkBooking) {
             return response()->json('The time you choose are already full. please choose another time.', 422);
         }

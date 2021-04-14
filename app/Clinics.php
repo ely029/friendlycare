@@ -458,4 +458,25 @@ class Clinics extends Model
             ->distinct('clinics.clinic_name')
             ->get();
     }
+
+    public function details($id)
+    {
+        return DB::table('clinics')
+            ->select(
+            'clinics.id',
+            'clinics.email',
+            'clinics.contact_number as contact_number',
+            'clinics.street_address',
+            'clinics.description',
+            'clinics.clinic_name',
+            'clinics.city',
+            'clinics.province',
+            'clinics.municipality',
+            'clinics.photo_url',
+            'clinics.type',
+            )
+            ->where('clinics.id', $id)
+            ->where('is_approve', 1)
+            ->get();
+    }
 }
