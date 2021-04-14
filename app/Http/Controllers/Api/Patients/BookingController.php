@@ -138,6 +138,13 @@ class BookingController extends Controller
 
         $checkDate = DB::table('holiday')->select('holiday.id')->where('date', $obj['date'][0])->where('clinic_id', $getClinicId[0])->count();
 
+        if ($checkDate >= 1) {
+            $times[] = [];
+            return response([
+                'message' => 'The clinic on the date you set is on holiday. Please choose another date',
+                'details' => '',
+            ], 422);
+        }
         $timestamp = strtotime($obj['date'][0]);
         $day = date('l', $timestamp);
 
@@ -161,12 +168,6 @@ class BookingController extends Controller
         }
         if (count($times) <= 1) {
             return response()->json('There is no time set up on this date', 422);
-        }
-        if ($checkDate >= 1) {
-            $times[] = [];
-            return response([
-                'message' => 'The clinic on the date you set is on holiday. Please choose another date',
-            ], 422);
         }
         return response([
             'name' => 'setUpTime',
