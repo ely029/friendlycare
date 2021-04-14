@@ -167,8 +167,8 @@ class BookingController extends Controller
             return response()->json('Patient Slot are not setup', 422);
         }
         if (count($times) <= 1) {
+            $times[] = [];
             return response()->json('There is no time set up on this date', 422);
-            $times = [];
         }
         return response([
             'name' => 'setUpTime',
