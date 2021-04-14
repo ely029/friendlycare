@@ -17,6 +17,7 @@ use App\EventsNotification;
 use App\FamilyPlanTypeSubcategories;
 use App\FpmTypeService;
 use App\Http\Controllers\Controller;
+use App\MedicalHistoryAnswer;
 use App\Patients;
 use App\PatientTimeSlot;
 use App\Staffs;
@@ -28,11 +29,8 @@ class BookingController extends Controller
 {
     public function bookingLandingPage($id)
     {
-        $details = DB::table('medical_history_answer')
-            ->select('updated_at')
-            ->limit(1)
-            ->where('patient_id', $id)
-            ->get();
+        $medicalHistoryAnswer = new MedicalHistoryAnswer();
+        $details = $medicalHistoryAnswer->index($id);
 
         return response([
             'name' => 'BookingLandingPage',
@@ -161,7 +159,7 @@ class BookingController extends Controller
         $time = $clinicTime->getTime($getDetails[0], $day);
         $data = json_decode(json_encode($time), true);
         foreach ($data as $datas) {
-            if (count($times) <= 1 ) {
+            if (count($times) <= 1) {
                 $times[] = [];
             }
             $times[] = $datas['time'];

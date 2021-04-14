@@ -46,4 +46,13 @@ class MedicalHistoryAnswer extends Model
         'string_answer_1',
         'answer_1',
     ];
+
+    public function index($id)
+    {
+        return DB::table('medical_history_answer')
+            ->select('updated_at')
+            ->limit(1)
+            ->where('patient_id', $id)
+            ->get();
+    }
 }
