@@ -168,6 +168,7 @@ class BookingController extends Controller
         }
         if (count($times) <= 1) {
             return response()->json('There is no time set up on this date', 422);
+            $times = [];
         }
         return response([
             'name' => 'setUpTime',
