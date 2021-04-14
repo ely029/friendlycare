@@ -159,9 +159,6 @@ class BookingController extends Controller
         $time = $clinicTime->getTime($getDetails[0], $day);
         $data = json_decode(json_encode($time), true);
         foreach ($data as $datas) {
-            if (count($times) <= 1) {
-                $times[] = [];
-            }
             $times[] = $datas['time'];
         }
         if ($checkSlot <= 0 || count($getTimeSlot) <= 0 || $getTimeSlot[0] <= 0) {
@@ -170,6 +167,15 @@ class BookingController extends Controller
         if (count($times) <= 1) {
             return response()->json('There is no time set up on this date', 422);
         }
+        if (count($times) <= 1) {
+            $times[] = [];
+
+            return response([
+                'name' => 'setUpTime',
+                'details' => $times,
+            ]);
+        }
+
         return response([
             'name' => 'setUpTime',
             'details' => $times,
