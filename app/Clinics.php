@@ -225,32 +225,6 @@ class Clinics extends Model
             ->get();
     }
 
-    public function getClinicNinthScenario($obj)
-    {
-        return DB::table('clinics')
-            ->distinct('clinics.clinic_name')
-            ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
-            ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
-            ->Where('clinics.paid_service', 1)
-            ->where('clinics.province', $obj['province'][0])
-            ->where('clinics.user_id', 0)
-            ->where('clinics.is_close', '<>', 1)
-            ->get();
-    }
-
-    public function getClinicTenthScenario($obj)
-    {
-        return DB::table('clinics')
-            ->distinct('clinics.clinic_name')
-            ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
-            ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
-            ->Where('clinics.paid_service', 1)
-            ->where('clinics.city', $obj['city'][0])
-            ->where('clinics.user_id', 0)
-            ->where('clinics.is_close', '<>', 1)
-            ->get();
-    }
-
     public function getClinicWithTaggedMethodFirstScenario($obj, $getMethod)
     {
         return DB::table('clinics')

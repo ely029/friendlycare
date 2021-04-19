@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\Patients;
 
 use App\Booking;
 use App\BookingTime;
+use App\Classes\PushNotifications;
 use App\Classes\SearchClinicWithOutProvinceandCity;
 use App\Classes\SearchClinicWithProvinceAndCity;
 use App\Classes\TaggedMethodWithoutProvinceAndCity;
@@ -545,6 +546,7 @@ class BookingController extends Controller
     {
         $booking = new Booking();
         $timeSlot = new PatientTimeSlot();
+        $pushNotification = new PushNotifications();
         $checkBooking = $booking->checkBooking($getClinicId[0], $obj);
         $getSlot = $timeSlot->getSlot($getClinicId[0]);
 
@@ -553,6 +555,7 @@ class BookingController extends Controller
         }
         $this->updateBooking($obj, $id);
         $this->createBookingTime($id, $obj);
+        $pushNotification->patientStaffPushNotification($getClinicId[0], 'You have a new Booking Request', 'You have new Booking Request');
         return response([
             'response' => 'Booking Created Succesfully',
         ], 200);
