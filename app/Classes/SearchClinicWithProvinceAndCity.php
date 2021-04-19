@@ -23,5 +23,11 @@ class SearchClinicWithProvinceAndCity
         if ($obj['province'][0] !== '' && $obj['city'][0] !== '' && $obj['philhealth_accredited'][0] === 0 && $obj['paid_service'][0] === 1) {
             return $clinic->getClinicEighthScenario($obj);
         }
+        if ($obj['province'][0] !== '' && $obj['city'][0] === '' && $obj['philhealth_accredited'][0] === 0 && $obj['paid_service'][0] === 0) {
+            return $clinic->getClinicNinthScenario($obj);
+        }
+        if ($obj['province'][0] === '' && $obj['city'][0] !== '' && $obj['philhealth_accredited'][0] === 0 && $obj['paid_service'][0] === 0) {
+            return $clinic->getClinicTenthScenario($obj);
+        }
     }
 }
