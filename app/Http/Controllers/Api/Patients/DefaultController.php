@@ -491,18 +491,12 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function province($id)
+    public function province()
     {
-        $getDetails = DB::table('booking')
-            ->select('clinic_id', 'service_id', 'id')
-            ->where('patient_id', $id)
-            ->orderBy('id', 'desc')
-            ->pluck('service_id');
         $data = [];
         $provinces = DB::table('clinics')
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
             ->select('clinics.province')
-            ->where('clinic_service.service_id', $getDetails[0])
             ->where('clinics.province', '<>', null)
             ->where('clinics.is_approve', 1)
             ->where('clinics.is_close', '<>', 1)
@@ -515,19 +509,13 @@ class DefaultController extends Controller
         ]);
     }
 
-    public function city($id, $province)
+    public function city($province)
     {
-        $getDetails = DB::table('booking')
-            ->select('clinic_id', 'service_id', 'id')
-            ->where('patient_id', $id)
-            ->orderBy('id', 'desc')
-            ->pluck('service_id');
         $data = [];
         $provinces = DB::table('clinics')
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
             ->select('clinics.city')
             ->distinct('clinics.city')
-            ->where('clinic_service.service_id', $getDetails[0])
             ->where('city', '<>', null)
             ->where('clinics.is_approve', 1)
             ->where('clinics.is_close', '<>', 1)
