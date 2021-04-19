@@ -124,6 +124,7 @@ class NotificationsController extends Controller
             'status' => 3,
         ]);
         $pushNotifications->patientStaffPushNotification($getClinicId[0], 'Your Patient Cancelled Appointment', 'Your patient had cancelled his/her appointment at dated '.$getTime[0].'');
+        $pushNotifications->providerPushNotifications('Your appointment are cancelled', 'Your appointment at '.$getClinicName[0].' are cancelled', $getPatientId[0]);
 
         return response([
             'name' => 'PostPatientCancelled',
