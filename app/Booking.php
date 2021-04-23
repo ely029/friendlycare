@@ -746,8 +746,10 @@ class Booking extends Model
     public function getMethod($id)
     {
         return DB::table('booking')
+            ->leftJoin('clinic_service', 'booking.service_id', 'clinic_service.service_id')
             ->select('service_id')
             ->where('patient_id', $id)
+            ->where('clinic_service.is_checked', 1)
             ->orderBy('id', 'desc')
             ->limit(1)
             ->pluck('service_id');
