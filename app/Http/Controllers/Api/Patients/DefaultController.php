@@ -497,6 +497,7 @@ class DefaultController extends Controller
             ->select('clinic_id', 'service_id', 'id')
             ->where('patient_id', $id)
             ->orderBy('id', 'desc')
+            ->limit(1)
             ->pluck('service_id');
         $data = [];
         $provinces = DB::table('clinics')
