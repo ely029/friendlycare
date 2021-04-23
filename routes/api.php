@@ -147,6 +147,7 @@ Route::post('/patient/inbox/filter/{id}', 'Patients\BookingsController@filterPer
 
 //API for dropdown province municipality and city
 Route::get('/province/{id}', 'Patients\DefaultController@province');
+Route::get('/province', 'Patients\DefaultController@provinceWithOutMethod');
 Route::get('/city/{province}', 'Patients\DefaultController@city');
 Route::get('/municipality/{id}', 'Patients\DefaultController@municipality');
 

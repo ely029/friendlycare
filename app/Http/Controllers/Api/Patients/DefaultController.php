@@ -517,6 +517,25 @@ class DefaultController extends Controller
         ]);
     }
 
+    public function provinceWithOutMethod()
+    {
+        $data = [];
+        $provinces = DB::table('clinics')
+            ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->select('clinics.province')
+            ->where('clinics.province', '<>', null)
+            ->where('clinics.is_approve', 1)
+            ->where('clinics.is_close', '<>', 1)
+            ->where('clinic_service.is_checked', '<>', 0)
+            ->distinct('clinics.province')
+            ->get();
+        $data = $provinces;
+        return response([
+            'name' => 'provinces',
+            'details' => $data,
+        ]);
+    }
+
     public function city($province)
     {
         $data = [];
