@@ -124,13 +124,14 @@ class Clinics extends Model
             ->get();
     }
 
-    public function getClinicFirstScenario()
+    public function getClinicFirstScenario($service)
     {
         return DB::table('clinics')
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
             ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
             ->Where('clinics.paid_service', 0)
             ->where('clinic_service.is_checked', 1)
+            ->where('clinic_service.service_id', $service)
             ->where('clinics.philhealth_accredited_1', 1)
             ->where('clinics.user_id', 0)
             ->where('clinics.is_approve', 1)
@@ -139,7 +140,7 @@ class Clinics extends Model
             ->get();
     }
 
-    public function getClinicSecondScenario()
+    public function getClinicSecondScenario($service)
     {
         return DB::table('clinics')
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
@@ -147,12 +148,13 @@ class Clinics extends Model
             ->where('clinics.user_id', 0)
             ->where('clinic_service.is_checked', 1)
             ->where('clinics.is_close', '<>', 1)
+            ->where('clinic_service.service_id', $service)
             ->where('clinics.is_approve', 1)
             ->distinct('clinics.clinic_name')
             ->get();
     }
 
-    public function getClinicThirdScenario()
+    public function getClinicThirdScenario($service)
     {
         return DB::table('clinics')
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
@@ -162,11 +164,12 @@ class Clinics extends Model
             ->where('clinic_service.is_checked', 1)
             ->where('clinics.is_close', '<>', 1)
             ->where('clinics.is_approve', 1)
+            ->where('clinic_service.service_id', $service)
             ->distinct('clinics.clinic_name')
             ->get();
     }
 
-    public function getClinicFourthScenario()
+    public function getClinicFourthScenario($service)
     {
         return DB::table('clinics')
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
@@ -176,11 +179,12 @@ class Clinics extends Model
             ->where('clinic_service.is_checked', 1)
             ->where('clinics.is_close', '<>', 1)
             ->where('clinics.is_approve', 1)
+            ->where('clinic_service.service_id', $service)
             ->distinct('clinics.clinic_name')
             ->get();
     }
 
-    public function getClinicFifthScenario($obj)
+    public function getClinicFifthScenario($obj, $service)
     {
         return DB::table('clinics')
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
@@ -189,6 +193,7 @@ class Clinics extends Model
             ->where('clinics.city', $obj['city'][0])
             ->where('clinics.philhealth_accredited_1', 1)
             ->where('clinics.user_id', 0)
+            ->where('clinic_service.service_id', $service)
             ->where('clinic_service.is_checked', 1)
             ->where('clinics.is_approve', 1)
             ->where('clinics.is_close', '<>', 1)
@@ -196,7 +201,7 @@ class Clinics extends Model
             ->get();
     }
 
-    public function getClinicSixthScenario($obj)
+    public function getClinicSixthScenario($obj, $service)
     {
         return DB::table('clinics')
             ->distinct('clinics.clinic_name')
@@ -207,12 +212,13 @@ class Clinics extends Model
             ->where('clinics.user_id', 0)
             ->where('clinic_service.is_checked', 1)
             ->where('clinics.is_approve', 1)
+            ->where('clinic_service.service_id', $service)
             ->where('clinics.is_close', '<>', 1)
             ->distinct('clinics.clinic_name')
             ->get();
     }
 
-    public function getClinicSeventhScenario($obj)
+    public function getClinicSeventhScenario($obj, $service)
     {
         return DB::table('clinics')
             ->distinct('clinics.clinic_name')
@@ -222,13 +228,14 @@ class Clinics extends Model
             ->where('clinics.city', $obj['city'][0])
             ->where('clinics.philhealth_accredited_1', 1)
             ->where('clinics.user_id', 0)
+            ->where('clinic_service.service_id', $service)
             ->where('clinic_service.is_checked', 1)
             ->where('clinics.is_approve', 1)
             ->distinct('clinics.clinic_name')
             ->get();
     }
 
-    public function getClinicEighthScenario($obj)
+    public function getClinicEighthScenario($obj, $service)
     {
         return DB::table('clinics')
             ->distinct('clinics.clinic_name')
@@ -238,6 +245,7 @@ class Clinics extends Model
             ->where('clinics.province', $obj['province'][0])
             ->where('clinics.city', $obj['city'][0])
             ->where('clinics.user_id', 0)
+            ->where('clinic_service.service_id', $service)
             ->where('clinic_service.is_checked', 1)
             ->where('clinics.is_close', '<>', 1)
             ->get();

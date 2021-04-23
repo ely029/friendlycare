@@ -70,16 +70,18 @@ class BookingController extends Controller
         ]);
     }
 
-    public function searchClinic(Request $request)
+    public function searchClinic(Request $request, $id)
     {
         $clinic = new Clinics();
+        $booking = new Booking();
+        $method = $booking->getMethod($id);
         $obj = json_decode($request->getContent(), true);
         if ($obj['province'][0] === '' && $obj['city'][0] === '') {
             $class = new SearchClinicWithOutProvinceandCity();
-            $clinic = $class->searchClinic($obj);
+            $clinic = $class->searchClinic($obj, $method[0]);
         } else {
             $class = new SearchClinicWithProvinceandCity();
-            $clinic = $class->searchClinic($obj);
+            $clinic = $class->searchClinic($obj, $method[0]);
         }
         return response([
             'name' => 'searchClinic',
