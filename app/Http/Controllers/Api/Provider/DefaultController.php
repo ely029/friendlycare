@@ -471,10 +471,10 @@ class DefaultController extends Controller
         $videolink = $fpm->fpmPerPageVideoLink($id);
         $gallery = $fpm->fpmPerPageGallery($id);
 
-        $clinic = DB::table('paid_services')
-            ->join('clinics', 'paid_services.clinic_id', 'clinics.id')
-            ->select('clinics.id', 'clinics.clinic_name', 'clinics.photo_url', 'clinics.street_address', 'clinics.type', 'clinics.philhealth_accredited_1', 'paid_services.is_checked as paid_service')
-            ->where('paid_services.service_id', $id)
+        $clinic = DB::table('clinic_service')
+            ->join('clinics', 'clinic_service.clinic_id', 'clinics.id')
+            ->select('clinics.id', 'clinics.clinic_name', 'clinics.photo_url', 'clinics.street_address', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinic_service.is_checked as paid_service')
+            ->where('clinic_service.service_id', $id)
             ->where('clinics.is_close', '<>', 1)
             ->get();
 
