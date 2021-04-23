@@ -21,6 +21,7 @@ class TaggedMethodWithProvinceAndCity
                 ->where('clinics.is_approve', 1)
                 ->where('clinic_service.service_id', $method)
                 ->where('clinics.is_close', '<>', 1)
+                ->where('clinic_service.is_checked', '<>', 1)
                 ->where('clinics.philhealth_accredited_1', 1)
                 ->where('clinics.user_id', 0)
                 ->get();
@@ -36,6 +37,7 @@ class TaggedMethodWithProvinceAndCity
                 ->where('clinics.user_id', 0)
                 ->where('clinic_service.service_id', $method)
                 ->where('clinics.is_approve', 1)
+                ->where('clinic_service.is_checked', '<>', 1)
                 ->where('clinics.is_close', '<>', 1)
                 ->get();
         }
@@ -50,6 +52,7 @@ class TaggedMethodWithProvinceAndCity
                 ->where('clinics.philhealth_accredited_1', 1)
                 ->where('clinics.user_id', 0)
                 ->where('clinic_service.service_id', $method)
+                ->where('clinic_service.is_checked', '<>', 1)
                 ->where('clinics.is_approve', 1)
                 ->where('clinics.is_close', '<>', 1)
                 ->get();
@@ -65,6 +68,7 @@ class TaggedMethodWithProvinceAndCity
                 ->where('clinics.paid_service', 1)
                 ->where('clinic_service.service_id', $method)
                 ->where('clinics.is_close', '<>', 1)
+                ->where('clinic_service.is_checked', '<>', 1)
                 ->where('clinics.user_id', 0)
                 ->where('clinics.is_approve', 1)
                 ->get();

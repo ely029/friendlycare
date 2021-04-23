@@ -250,6 +250,7 @@ class Clinics extends Model
             ->where('clinics.is_close', '<>', 1)
             ->where('clinics.is_approve', 1)
             ->where('clinics.philhealth_accredited_1', 1)
+            ->where('clinic_service.is_checked', 1)
             ->where('clinics.user_id', 0)
             ->get();
     }
@@ -264,6 +265,7 @@ class Clinics extends Model
             ->where('clinic_service.service_id', $method)
             ->where('clinics.is_approve', 1)
             ->where('clinics.is_close', '<>', 1)
+            ->where('clinic_service.is_checked', 1)
             ->get();
     }
 
@@ -277,6 +279,7 @@ class Clinics extends Model
             ->where('clinics.is_close', '<>', 1)
             ->where('clinic_service.service_id', $method)
             ->where('clinics.user_id', 0)
+            ->where('clinics_service.is_checked', 1)
             ->where('clinics.is_approve', 1)
             ->get();
     }
@@ -289,6 +292,7 @@ class Clinics extends Model
             ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
             ->Where('clinics.paid_service', 1)
             ->where('clinics.is_approve', 1)
+            ->where('clinics_service.is_checked', 1)
             ->where('clinic_service.service_id', $method)
             ->where('clinics.is_close', '<>', 1)
             ->where('clinics.user_id', 0)
