@@ -494,13 +494,11 @@ class DefaultController extends Controller
     public function province($id)
     {
         $getDetails = DB::table('booking')
-            ->leftJoin('clinic_service', 'booking.service_id', 'clinic_service.service_id')
-            ->select('booking.service_id')
-            ->where('booking.patient_id', $id)
-            ->where('clinic_service.is_checked', 1)
-            ->orderBy('booking.id', 'desc')
+            ->select('clinic_id', 'service_id', 'id')
+            ->where('patient_id', $id)
+            ->orderBy('id', 'desc')
             ->limit(1)
-            ->pluck('booking.service_id');
+            ->pluck('service_id');
         $data = [];
         $provinces = DB::table('clinics')
             ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
@@ -509,6 +507,7 @@ class DefaultController extends Controller
             ->where('clinics.province', '<>', null)
             ->where('clinics.is_approve', 1)
             ->where('clinics.is_close', '<>', 1)
+            ->where('clinic_service.is_checked', '<>', 0)
             ->distinct('clinics.province')
             ->get();
         $data = $provinces;
