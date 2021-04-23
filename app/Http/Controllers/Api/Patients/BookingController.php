@@ -91,14 +91,14 @@ class BookingController extends Controller
     {
         $booking = new Booking();
         $obj = json_decode($request->getContent(), true);
-        $booking->getMethod($id);
+        $method = $booking->getMethod($id);
 
         if ($obj['province'][0] === '' && $obj['city'][0] === '') {
             $class = new TaggedMethodWithoutProvinceAndCity();
-            $clinic = $class->index($obj);
+            $clinic = $class->index($obj, $method[0]);
         } else {
             $class = new TaggedMethodWithProvinceAndCity();
-            $clinic = $class->index($obj);
+            $clinic = $class->index($obj, $method[0]);
         }
 
         return response([

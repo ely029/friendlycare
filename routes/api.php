@@ -49,7 +49,7 @@ Route::post('/patients/reset', 'Patients\DefaultController@resetPassword');
 Route::get('/patients/fpm/{id}', 'Patients\DefaultController@getFpmMethodsShow');
 Route::post('/patients/fpm/{id}', 'Patients\DefaultController@createFpmShow');
 Route::post('/patients/search', 'Patients\DefaultController@search');
-Route::post('/patient/searchClinic', 'Patients\BookingController@searchClinic');
+Route::post('/patient/searchClinic/', 'Patients\BookingController@searchClinic');
 Route::get('/patient/selectedService/{id}', 'Patients\DefaultController@selectedService');
 Route::post('/patient/postMethod/{id}', 'Patients\DefaultController@postMethod');
 Route::post('/patient/postClinic/{id}', 'Patients\DefaultController@postClinic');
@@ -146,7 +146,7 @@ Route::get('/patient/inbox/booking/{id}', 'Patients\BookingsController@getInboxP
 Route::post('/patient/inbox/filter/{id}', 'Patients\BookingsController@filterPerStatus');
 
 //API for dropdown province municipality and city
-Route::get('/province/', 'Patients\DefaultController@province');
+Route::get('/province/{id}', 'Patients\DefaultController@province');
 Route::get('/city/{province}', 'Patients\DefaultController@city');
 Route::get('/municipality/{id}', 'Patients\DefaultController@municipality');
 
