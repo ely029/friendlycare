@@ -279,7 +279,7 @@ class Clinics extends Model
             ->where('clinics.is_close', '<>', 1)
             ->where('clinic_service.service_id', $method)
             ->where('clinics.user_id', 0)
-            ->where('clinics_service.is_checked', 1)
+            ->where('clinic_service.is_checked', 1)
             ->where('clinics.is_approve', 1)
             ->get();
     }
