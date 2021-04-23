@@ -501,9 +501,9 @@ class DefaultController extends Controller
             ->pluck('service_id');
         $data = [];
         $provinces = DB::table('clinics')
-            ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
+            ->leftJoin('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
             ->select('clinics.province')
-            ->where('clinic_service.id', $getDetails[0])
+            ->where('clinic_service.service_id', $getDetails[0])
             ->where('clinics.province', '<>', null)
             ->where('clinics.is_approve', 1)
             ->where('clinics.is_close', '<>', 1)
