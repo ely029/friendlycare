@@ -174,7 +174,7 @@ class Clinics extends Model
         return DB::table('clinics')
             ->join('clinic_service', 'clinic_service.clinic_id', 'clinics.id')
             ->select('clinics.id', 'clinics.clinic_name', 'clinics.city', 'clinics.type', 'clinics.philhealth_accredited_1', 'clinics.photo_url', 'clinics.paid_service as free_consultation', 'clinics.paid_service')
-            ->Where('clinics.paid_service', 1)
+            ->Where('clinics.paid_service', 0)
             ->where('clinics.user_id', 0)
             ->where('clinic_service.is_checked', 1)
             ->where('clinics.is_close', '<>', 1)
