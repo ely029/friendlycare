@@ -371,13 +371,26 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "{{ route('provider.province')}}",
-            data: { region: $('#region_string').val()}
+            data: { 
+                region: $('#region_string').val()
+                }
         })
         .done(function( data ) {
             $("#province").empty();
             jQuery.each(data, function(index, item) {
                $('#province').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
             });
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "{{ route('provider.getProvince')}}",
+            data: { 
+                selected_province: $('#province_string').val(),
+            }
+        })
+        .done(function( data ) {
+               $('#province').append('<option value='+item.province_code+'>'+item.province_description+'</option>').select();
         });
 
         $.ajax({
