@@ -403,7 +403,9 @@ $(function(){
             jQuery.each(data, function(index, item) {
                $('#city').append('<option value='+item.city_municipality_code+'>'+item.city_municipality_description+'</option>');
             });
-                    $.ajax({
+        });
+
+        $.ajax({
                     type: "GET",
                     url: "{{ route('provider.barangay')}}",
                     data: { barangay: $('#city_string').val()}
@@ -413,10 +415,8 @@ $(function(){
                     jQuery.each(data, function(index, item) {
                     $('#barangay').append('<option value='+item.barangay_code+'>'+item.barangay_description+'</option>');
                     });
-                }); 
-        });
 
-        $.ajax({
+                    $.ajax({
             type: "GET",
             url: "{{ route('provider.getBarangay')}}",
             data: { 
@@ -425,9 +425,10 @@ $(function(){
         })
         .done(function( data, item ) {
             jQuery.each(data, function(index, item) {
-                    $('#barangay').append('<option value='+item.barangay_code+' selected>'+item.brgy_description+'</option>').select();
+                    $('#barangay').append('<option value='+item.barangay_code+' selected>'+item.brgy_description+'</option>')
             });
         });
+                });
 
         $.ajax({
             type: "GET",
@@ -438,7 +439,7 @@ $(function(){
         })
         .done(function( data, item ) {
             jQuery.each(data, function(index, item) {
-                    $('#city').append('<option value='+item.city_code+' selected>'+item.city_description+'</option>').select();
+                    $('#city').append('<option value='+item.city_code+' selected>'+item.city_description+'</option>')
             });
         });
 

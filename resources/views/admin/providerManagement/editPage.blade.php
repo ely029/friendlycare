@@ -111,7 +111,7 @@
                  @endif
                 <div class="form__content">
                   <select class="form__input form__input--select" name="province" id="province">
-                    <option value="" selected>{{ $providers->province }}</option>
+                    <option value=""></option>
                   </select>
                   <label class="form__label">Province*</label>
                 </div>
@@ -120,7 +120,7 @@
                 <div class="form__content"><input class="form__input" type="number" placeholder="Contact number*" name="contact_number" value="{{ $providers->contact_number}}"/><label class="form__label">Contact number*</label></div>
                 <div class="form__content">
                   <select class="form__input form__input--select" id="city" name="city">
-                    <option value="" selected>{{ $providers->city }}</option>
+                    <option value=""></option>
                   </select>
                   <label class="form__label">City*</label>
                 </div>
@@ -129,7 +129,7 @@
                 <div class="form__content"><input name="email" class="form__input" type="email" value="{{$providers->email}}" placeholder="Email Address*" required /><label class="form__label">Email Address*</label></div>
                 <div class="form__content">
                   <select class="form__input form__input--select" id="barangay" name="barangay">
-                    <option value="{{$providers->barangay_id_string }}" selected>{{ $providers->barangay }}</option>
+                    <option value=""></option>
                   </select>
                   <label class="form__label">Barangay*</label>
                 </div>
