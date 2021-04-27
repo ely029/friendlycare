@@ -389,8 +389,10 @@ $(function(){
                 selected_province: $('#province_string').val(),
             }
         })
-        .done(function( data, item ) {
-               $('#province').append('<option value='+item.province_code+'>'+item.province_description+'</option>').select();
+        .done(function( data ) {
+            jQuery.each(data, function(index, item) {
+               $('#province').append('<option value='+item.province_code+'>'+item.province_description+'</option>').attr('selected', 'selected');
+            });
         });
 
         $.ajax({
