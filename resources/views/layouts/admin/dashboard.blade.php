@@ -395,19 +395,6 @@ $(function(){
 
         $.ajax({
             type: "GET",
-            url: "{{ route('provider.getBarangay')}}",
-            data: { 
-                selected_barangay: $('#barangay_string').val(),
-            }
-        })
-        .done(function( data, item ) {
-            jQuery.each(data, function(index, item) {
-                    $('#barangay').append('<option value='+item.barangay_code+' selected>'+item.brgy_description+'</option>')
-            });
-        });
-
-        $.ajax({
-            type: "GET",
             url: "{{ route('provider.city')}}",
             data: { province: $('#province_string').val()}
         })
@@ -427,6 +414,19 @@ $(function(){
                     $('#barangay').append('<option value='+item.barangay_code+'>'+item.barangay_description+'</option>');
                     });
                 }); 
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "{{ route('provider.getBarangay')}}",
+            data: { 
+                selected_barangay: $('#barangay_string').val(),
+            }
+        })
+        .done(function( data, item ) {
+            jQuery.each(data, function(index, item) {
+                    $('#barangay').append('<option value='+item.barangay_code+' selected>'+item.brgy_description+'</option>')
+            });
         });
 
         $.ajax({
