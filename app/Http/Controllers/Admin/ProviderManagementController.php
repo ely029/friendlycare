@@ -349,7 +349,7 @@ class ProviderManagementController extends Controller
     public function province()
     {
         $request = request()->all();
-        return DB::table('refprovince')->leftJoin('clinics', 'clinics.province_id_string', 'refprovince.provCode')->select('provDesc as province_description', 'provCode as province_code', 'clinics.id as clinic_id')->orWhere('regCode', $request['region'])->get();
+        return DB::table('refprovince')->select('provDesc as province_description', 'provCode as province_code')->orWhere('regCode', $request['region'])->get();
     }
 
     public function getProvince()
