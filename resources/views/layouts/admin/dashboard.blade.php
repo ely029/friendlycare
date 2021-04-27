@@ -379,20 +379,19 @@ $(function(){
             $("#province").empty();
             jQuery.each(data, function(index, item) {
                $('#province').append('<option value='+item.province_code+'>'+item.province_description+'</option>');
-            });
         });
-
-        $.ajax({
-            type: "GET",
-            url: "{{ route('provider.getProvince')}}",
-            data: { 
-                selected_province: $('#province_string').val(),
-            }
-        })
-        .done(function( data ) {
-            jQuery.each(data, function(index, item) {
-               $('#province').append('<option value='+item.province_code+' selected>'+item.province_description+'</option>');
-            });
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ route('provider.getProvince')}}",
+                        data: { 
+                            selected_province: $('#province_string').val(),
+                        }
+                    })
+                    .done(function( data ) {
+                        jQuery.each(data, function(index, item) {
+                        $('#province').append('<option value='+item.province_code+' selected>'+item.province_description+'</option>');
+                        });
+                    });
         });
 
         $.ajax({
@@ -441,7 +440,7 @@ $(function(){
         })
         .done(function( data, item ) {
             jQuery.each(data, function(index, item) {
-                    $('#city').append('<option value='+item.city_code+' selected>'+item.city_description+'</option>')
+                    $('#city').append('<option value='+item.city_code+' selected>'+item.city_description+'</option>').attr('selected', 'selected');
             });
         });
 
