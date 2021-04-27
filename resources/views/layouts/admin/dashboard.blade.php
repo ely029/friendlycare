@@ -389,8 +389,21 @@ $(function(){
                 selected_province: $('#province_string').val(),
             }
         })
-        .done(function( data ) {
+        .done(function( data, item ) {
                $('#province').append('<option value='+item.province_code+'>'+item.province_description+'</option>').select();
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "{{ route('provider.getBarangay')}}",
+            data: { 
+                selected_barangay: $('#barangay_string').val(),
+            }
+        })
+        .done(function( data, item ) {
+            jQuery.each(data, function(index, item) {
+                    $('#barangay').append('<option value='+item.barangay_code+' selected>'+item.brgy_description+'</option>')
+            });
         });
 
         $.ajax({
@@ -414,6 +427,19 @@ $(function(){
                     $('#barangay').append('<option value='+item.barangay_code+'>'+item.barangay_description+'</option>');
                     });
                 }); 
+        });
+
+        $.ajax({
+            type: "GET",
+            url: "{{ route('provider.getCity')}}",
+            data: { 
+                selected_city: $('#city_string').val(),
+            }
+        })
+        .done(function( data, item ) {
+            jQuery.each(data, function(index, item) {
+                    $('#city').append('<option value='+item.city_code+' selected>'+item.city_description+'</option>')
+            });
         });
 
         $('#region').on('change', function(){

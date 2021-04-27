@@ -358,6 +358,18 @@ class ProviderManagementController extends Controller
         return DB::table('refprovince')->leftJoin('clinics', 'clinics.province_id_string', 'refprovince.provCode')->select('provDesc as province_description', 'provCode as province_code', 'clinics.id as clinic_id')->orWhere('provCode', $request['selected_province'])->get();
     }
 
+    public function getCity()
+    {
+        $request = request()->all();
+        return DB::table('refcitymun')->select('citymunDesc as city_description', 'citymunCode as city_code')->where('citymunCode', $request['selected_city'])->get();
+    }
+
+    public function getBarangay()
+    {
+        $request = request()->all();
+        return DB::table('refbrgy')->select('brgyDesc as brgy_description', 'brgyCode as barangay_code')->where('brgyCode', $request['selected_barangay'])->get();
+    }
+
     public function city()
     {
         $request = request()->all();

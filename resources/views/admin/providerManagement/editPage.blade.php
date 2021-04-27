@@ -61,6 +61,7 @@
                   <input type="hidden" id="region_string" value="{{ $providers->region_id_string }}">
                   <input type="hidden" id="province_string" value="{{ $providers->province_id_string }}">
                   <input type="hidden" id="city_string" value="{{ $providers->city_id_string }}">
+                  <input type="hidden" id="barangay_string" value="{{ $providers->barangay_id_string }}">
                   <select name="region" class="form__input form__input--select" id="region">
                     <option value="{{ $providers->region_id_string }}" selected>{{ $providers->region }}</option>
                   @foreach($data as $datas)

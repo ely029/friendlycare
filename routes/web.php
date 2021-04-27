@@ -65,6 +65,8 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], static function () {
 //lookup location
 Route::get('/province', 'Admin\ProviderManagementController@province')->name('provider.province');
 Route::get('/province/get', 'Admin\ProviderManagementController@getProvince')->name('provider.getProvince');
+Route::get('/city/get', 'Admin\ProviderManagementController@getCity')->name('provider.getCity');
+Route::get('/barangay/get', 'Admin\ProviderManagementController@getBarangay')->name('provider.getBarangay');
 Route::get('/city', 'Admin\ProviderManagementController@city')->name('provider.city');
 Route::get('/barangay', 'Admin\ProviderManagementController@barangay')->name('provider.barangay');
 
