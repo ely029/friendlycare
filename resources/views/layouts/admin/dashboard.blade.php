@@ -425,7 +425,7 @@ $(function(){
         })
         .done(function( data, item ) {
             jQuery.each(data, function(index, item) {
-                    $('#barangay').append('<option value='+item.barangay_code+' selected>'+item.brgy_description+'</option>')
+                    $('#barangay').append('<option value='+item.barangay_code+' selected>'+item.brgy_description+'</option>').select();
             });
         });
 
@@ -438,7 +438,7 @@ $(function(){
         })
         .done(function( data, item ) {
             jQuery.each(data, function(index, item) {
-                    $('#city').append('<option value='+item.city_code+' selected>'+item.city_description+'</option>')
+                    $('#city').append('<option value='+item.city_code+' selected>'+item.city_description+'</option>').select();
             });
         });
 
