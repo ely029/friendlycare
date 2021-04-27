@@ -391,7 +391,7 @@ $(function(){
         })
         .done(function( data ) {
             jQuery.each(data, function(index, item) {
-               $('#province').append('<option value='+item.province_code+'>'+item.province_description+'</option>').attr('selected', 'selected');
+               $('#province').append('<option value='+item.province_code+' selected>'+item.province_description+'</option>');
             });
         });
 
