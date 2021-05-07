@@ -16,6 +16,7 @@ use SlevomatCodingStandard\Sniffs\Namespaces\UnusedUsesSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHintSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSniff;
+use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenSecurityIssues;
 
 return [
 
@@ -29,10 +30,13 @@ return [
         SuperfluousExceptionNamingSniff::class,
 
         // @TB: Not important / not enforced in Laravel / varies from IDEs.
+        // add ForbiddenSecurityIssues::class due to this error in insights: laravel/framework@v7.30.4 SQL Server LIMIT / OFFSET SQL Injection
+        //https://github.com/laravel/framework/security/advisories/GHSA-4mg9-vhxq-vm7j
         ComposerMustContainName::class,
         ForbiddenNormalClasses::class,
         LineLengthSniff::class,
         ParameterTypeHintSniff::class,
+        ForbiddenSecurityIssues::class,
         PropertyTypeHintSniff::class,
         ReturnTypeHintSniff::class,
         MethodPerClassLimitSniff::class, // Models will usually have many methods due to relationships
