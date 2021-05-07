@@ -205,7 +205,6 @@ class DefaultController extends Controller
 
     public function updateClinicHours($id, Request $request)
     {
-
         $request = json_decode($request->getContent(), true);
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
         $check_monday = ClinicHours::where('clinic_id', $clinic[0])->where('days', 'monday')->orWhere('days', 'Monday')->count();
@@ -222,7 +221,7 @@ class DefaultController extends Controller
         }
 
         if ($check_tuesday >= 1) {
-            ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Tuesday')->orWhere('days', 'tuesday')->update(['froms' => $request['tuesday_froms'][0] ,'tos' => $request['tuesday_tos'][0]]);
+            ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Tuesday')->orWhere('days', 'tuesday')->update(['froms' => $request['tuesday_froms'][0],'tos' => $request['tuesday_tos'][0]]);
         } else {
             ClinicHours::create(['days' => 'tuesday', 'froms' => $request['tuesday_froms'][0], 'tos' => $request['tuesday_tos'][0], 'clinic_id' => $clinic[0]]);
         }
