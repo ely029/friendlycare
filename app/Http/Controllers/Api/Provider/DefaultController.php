@@ -350,7 +350,6 @@ class DefaultController extends Controller
         $images = DB::table('clinic_gallery')
             ->select('id', 'file_name', 'file_url', 'value_id')
             ->where('clinic_id', $clinic[0])
-            ->limit(5)
             ->get();
         return response([
             'name' => 'ClinicGalleries',
@@ -365,19 +364,14 @@ class DefaultController extends Controller
         ClinicGallery::where('clinic_id', $user[0])->delete();
         for ($eee === 0;$eee <= 4;$eee++) {
             $fff = $eee + 1;
-            $icon = $requests->file('image_'.$fff);
-            if ($icon !== null) {
-                $icon[0]->storeAs('public', $icon[0]->getClientOriginalName());
+            $file = $requests->file('image_'.$fff);
+            if (isset($file)) {
+                $icon = $requests->file('image_'.$fff);
+                $icon->storeAs('public', $icon->getClientOriginalName());
                 $icon_url = url('storage/'.$icon->getClientOriginalName());
                 ClinicGallery::create([
                     'file_name' => $icon->getClientOriginalName(),
                     'file_url' => $icon_url,
-                    'clinic_id' => $user[0],
-                ]);
-            } else {
-                ClinicGallery::create([
-                    'file_name' => null,
-                    'file_url' => null,
                     'clinic_id' => $user[0],
                 ]);
             }
