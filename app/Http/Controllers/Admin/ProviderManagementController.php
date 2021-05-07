@@ -425,7 +425,7 @@ class ProviderManagementController extends Controller
         if ($request['from'][$clinic_hours] !== null && $request['to'][$clinic_hours] !== null) {
             $clinicHours->createCheckedClinicHours($request, $clinic_hours);
         } else {
-            $clinicHours->createClinicHoursWithoutTime($request, $clinic_hours);
+            $clinicHours->createClinicHourswithoutTime($request, $clinic_hours);
         }
     }
 
