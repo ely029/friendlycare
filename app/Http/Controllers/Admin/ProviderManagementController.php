@@ -122,7 +122,15 @@ class ProviderManagementController extends Controller
         $clinicTime = new ClinicTime();
         ClinicService::where('clinic_id', $request['clinic_id'])->delete();
         PaidServices::where('clinic_id', $request['clinic_id'])->delete();
-        ClinicHours::where('clinic_id', $request['clinic_id'])->delete();
+        for ($eee = 0; $eee <= 6; $eee++) {
+            if ($request['from'][$eee] === null && $request['to'][$eee] === null) {
+                ClinicHours::where('clinic_id', $request['clinic_id'])->where('days', $request['days'][$eee])->update([
+                    'froms' => '',
+                    'tos' => '',
+                    'is_checked' => 0,
+                ]);
+            }
+        }
         $this->validateClinicHours($request);
         for ($eee = 0;$eee <= 10000;$eee++) {
             if (isset($request['services'][$eee])) {
@@ -226,16 +234,22 @@ class ProviderManagementController extends Controller
     public function storeSecondPage()
     {
         $request = request()->all();
-        $clinicHours = new ClinicHours();
         $clinicTime = new ClinicTime();
         ClinicHours::where('clinic_id', session('id'))->delete();
         for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {
             if (isset($request['days'][$clinic_hours])) {
-                $this->validateClinicHours2($clinic_hours, $request);
-            } else {
-                $days = ['days' => [0 => 'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'Thursday', 5 => 'Friday', 6 => 'Saturday']];
-                $clinicHours->createEmptyClinicHours($clinic_hours, $days);
+                ClinicHours::create([
+                    'clinic_id' => session('id'),
+                    'days' => ucfirst($request['days'][$clinic_hours]),
+                    'froms' => $request['from'][$clinic_hours],
+                    'tos' => $request['to'][$clinic_hours],
+                    'is_checked' => 1,
+                ]);
             }
+            //  else {
+            //     $days = ['days' => [0 => 'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'Thursday', 5 => 'Friday', 6 => 'Saturday']];
+            //     $clinicHours->createEmptyClinicHours($clinic_hours, $days);
+            // }
         }
         ClinicTime::where('clinic_id', session('id'))->delete();
         $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -410,32 +424,28 @@ class ProviderManagementController extends Controller
     {
         for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {
             if (isset($request['days'][$clinic_hours])) {
-                $this->validateClinicHours1($clinic_hours, $request);
-            } else {
-                $days = ['days' => [0 => 'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'Thursday', 5 => 'Friday', 6 => 'Saturday']];
-                $clinicHours = new ClinicHours();
-                $clinicHours->createUncheckedClinicHours($request, $clinic_hours, $days);
+                ClinicHours::where('clinic_id', $request['clinic_id'])->where('days', $request['days'][$clinic_hours])->update([
+                    'froms' => $request['from'][$clinic_hours],
+                    'tos' => $request['to'][$clinic_hours],
+                    'is_checked' => 1,
+                ]);
             }
+            // } else {
+            //     // $days = ['days' => [0 => 'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'Thursday', 5 => 'Friday', 6 => 'Saturday']];
+            //     // $clinicHours = new ClinicHours();
+            //     // $clinicHours->createUncheckedClinicHours($request, $clinic_hours, $days);
+            // }
         }
     }
 
-    private function validateClinicHours1($clinic_hours, $request)
-    {
-        $clinicHours = new ClinicHours();
-        if ($request['from'][$clinic_hours] !== null && $request['to'][$clinic_hours] !== null) {
-            $clinicHours->createCheckedClinicHours($request, $clinic_hours);
-        } else {
-            $clinicHours->createClinicHourswithoutTime($request, $clinic_hours);
-        }
-    }
-
-    private function validateClinicHours2($clinic_hours, $request)
-    {
-        $clinicHours = new ClinicHours();
-        if ($request['from'][$clinic_hours] !== null && $request['to'][$clinic_hours] !== null) {
-            $clinicHours->createClinicHourWithCheckUpdate($request, $clinic_hours);
-        } else {
-            $clinicHours->createClinicHourWithoutCheck($request, $clinic_hours);
-        }
-    }
+    // private function validateClinicHours1($clinic_hours, $request)
+    // {
+    //     $clinicHours = new ClinicHours();
+    //     if ($request['from'][$clinic_hours] !== null && $request['to'][$clinic_hours] !== null) {
+    //         $clinicHours->createCheckedClinicHours($request, $clinic_hours);
+    //      }
+    //      //else {
+    //     //     $clinicHours->createClinicHourswithoutTime($request, $clinic_hours);
+    //     // }
+    // }
 }

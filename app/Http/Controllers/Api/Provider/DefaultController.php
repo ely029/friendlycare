@@ -207,6 +207,7 @@ class DefaultController extends Controller
     {
         $request = json_decode($request->getContent(), true);
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
+        ClinicHours::where('clinic_id', $clinic[0])->delete();
         $check_monday = ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Monday')->count();
         $check_tuesday = ClinicHours::where('clinic_id', $clinic[0])->Where('days', 'Tuesday')->count();
         $check_wednesday = ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Wednesday')->count();

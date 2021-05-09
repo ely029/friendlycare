@@ -65,7 +65,7 @@ class ClinicHours extends Model
     public function editPage($id)
     {
         return DB::table('clinic_hours')
-            ->select('is_checked', 'days', 'froms', 'tos', 'id_value')
+            ->select('is_checked', 'days', 'froms', 'tos', 'id_value', 'id')
             ->where('clinic_id', $id)
             ->get();
     }

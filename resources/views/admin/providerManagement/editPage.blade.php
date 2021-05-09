@@ -168,16 +168,18 @@
                 </li>
                 <li class="form__group-item">
                   <h2 class="section__heading">Clinic hours</h2>
+                  <div id="deleted_hours">
+                  </div>
                   <ul class="form__group form__group--schedule">
                     @foreach($clinic_hours as $clinic_hour)
-                    @if ($clinic_hour->froms == NULL && $clinic_hour->tos == NULL)
+                    @if (!isset($clinic_hour->froms) && !isset($clinic_hour->tos))
                     <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">@if($clinic_hour->days == 'Thursday') {{ ucfirst(substr($clinic_hour->days, 0, 2)) }} @else {{ ucfirst(substr($clinic_hour->days, 0, 1)) }} @endif<input class="form__trigger" type="checkbox" name="days[{{ $clinic_hour->id_value}}]" value="{{ $clinic_hour->days }}"/><span class="form__checkmark"></span></label>
+                      <label class="form__sublabel form__sublabel--day">@if($clinic_hour->days == 'Thursday') {{ ucfirst(substr($clinic_hour->days, 0, 2)) }} @else {{ ucfirst(substr($clinic_hour->days, 0, 1)) }} @endif<input class="form__trigger" type="checkbox" name="days[]" value="{{ $clinic_hour->days }}"/ checked><span class="form__checkmark"></span></label>
                       <input class="form__input" type="time" placeholder="opening time" name="from[]" value=""/><input class="form__input" type="time" name="to[]" value="" placeholder="closing time" />
                     </li>
                     @else
                     <li class="form__group-item">
-                      <label class="form__sublabel form__sublabel--day">@if($clinic_hour->days == 'thursday'){{ ucfirst(substr($clinic_hour->days, 0, 2)) }} @else {{ ucfirst(substr($clinic_hour->days, 0, 1)) }} @endif <input class="form__trigger" type="checkbox" name="days[{{ $clinic_hour->id_value}}]" value="{{ $clinic_hour->days }}" checked/><span class="form__checkmark"></span></label>
+                      <label class="form__sublabel form__sublabel--day">@if($clinic_hour->days == 'thursday'){{ ucfirst(substr($clinic_hour->days, 0, 2)) }} @else {{ ucfirst(substr($clinic_hour->days, 0, 1)) }} @endif <input class="form__trigger" type="checkbox" name="days[]" value="{{ $clinic_hour->days }}" checked/><span class="form__checkmark"></span></label>
                       <input class="form__input" type="time" placeholder="opening time" name="from[]" value="{{ $clinic_hour->froms }}"/><input class="form__input" type="time" name="to[]" value="{{ $clinic_hour->tos }}" placeholder="closing time" />
                     </li>
                     @endif

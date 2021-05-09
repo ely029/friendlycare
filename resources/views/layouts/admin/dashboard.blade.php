@@ -330,6 +330,11 @@ $(function(){
 @if(Route::currentRouteName() == 'editPage')
 <script type="text/javascript">
 $(function(){
+    $('input[name="days[]"]').change(function(){
+        var e = $('input[name="days[]"]').val();
+        alert(e);
+        $('#deleted_hours').append('<input type="hidden" name="deleted_hours[]"value='+ e +'>');
+    });
     $("#dropzoneDragArea").dropzone({
         url: "{{ route('provider.galleryUpload')}}",
         data: {id: $("#clinic_id").val(), },

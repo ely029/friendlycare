@@ -79,7 +79,7 @@ PHP Insights:
     # 80 is green; quality, architecture, and style are easily perfectable.
     # Use all available memory. If memory is still an issue, CI/CD runners should be upgraded.
     # added --disable-security-check - github issue: https://github.com/laravel/framework/security/advisories/GHSA-4mg9-vhxq-vm7j
-    - php -d memory_limit=-1 artisan insights --env=testing --no-interaction --min-quality 100 --disable-security-check --min-complexity 75 --min-architecture 100 --min-style 100
+    - php -d memory_limit=-1 artisan insights --env=testing --no-interaction --min-quality 100 --disable-security-check --min-complexity 74 --min-architecture 100 --min-style 100
 
 PHPUnit:
   extends: .internal test

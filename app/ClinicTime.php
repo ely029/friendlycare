@@ -51,8 +51,8 @@ class ClinicTime extends Model
             ->where('clinic_id', $clinicId)
             ->pluck('tos');
 
-        $starttime = $getStartTime[0] ?? '00:00';  // your start time
-            $endtime = $getEndTime[0] ?? '00:00';  // End time
+        $starttime = $getStartTime[0] === '' || $getStartTime[0] === null ? '00:00' : $getStartTime[0];  // your start time
+            $endtime = $getEndTime[0] === '' || $getEndTime[0] === null ? '00:00' : $getEndTime[0];  // End time
             $duration = '30';  // split by 30 mins
 
             $start_time = strtotime($starttime); //change to strtotime
