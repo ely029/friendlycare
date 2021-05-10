@@ -235,6 +235,7 @@ class ProviderManagementController extends Controller
     {
         $request = request()->all();
         $clinicTime = new ClinicTime();
+        $clinicHours = new ClinicHours();
         ClinicHours::where('clinic_id', session('id'))->delete();
         for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {
             if (isset($request['days'][$clinic_hours])) {
@@ -246,10 +247,10 @@ class ProviderManagementController extends Controller
                     'is_checked' => 1,
                 ]);
             }
-            //  else {
-            //     $days = ['days' => [0 => 'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'Thursday', 5 => 'Friday', 6 => 'Saturday']];
-            //     $clinicHours->createEmptyClinicHours($clinic_hours, $days);
-            // }
+             else {
+                $days = ['days' => [0 => 'Sunday', 1 => 'Monday', 2 => 'Tuesday', 3 => 'Wednesday', 4 => 'Thursday', 5 => 'Friday', 6 => 'Saturday']];
+                $clinicHours->createEmptyClinicHours($clinic_hours, $days);
+            }
         }
         ClinicTime::where('clinic_id', session('id'))->delete();
         $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
