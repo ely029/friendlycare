@@ -554,8 +554,7 @@ class BookingController extends Controller
         $timestamp = strtotime($obj['date'][0]);
         $day = date('l', $timestamp);
         $checkTime = $clinicTime->checkTime($getClinicId[0], $day);
-        
-        if ($checkTime->froms === "" && $checkTime->tos === "") {
+        if ($checkTime->froms === '' && $checkTime->tos === '') {
             return response()->json('Clinic is closed', 422);
         }
 
