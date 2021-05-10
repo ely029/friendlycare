@@ -332,7 +332,6 @@ $(function(){
 $(function(){
     $('input[name="days[]"]').change(function(){
         var e = $('input[name="days[]"]').val();
-        alert(e);
         $('#deleted_hours').append('<input type="hidden" name="deleted_hours[]"value='+ e +'>');
     });
     $("#dropzoneDragArea").dropzone({
