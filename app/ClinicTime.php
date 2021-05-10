@@ -74,6 +74,11 @@ class ClinicTime extends Model
         }
     }
 
+    public function checkTime($clinic_id, $day)
+    {
+        return DB::table('clinic_hours')->select('froms', 'tos')->where('clinic_id', $clinic_id)->where('days', $day)->first();
+    }
+
     public function getTime($clinicId, $day)
     {
         return DB::table('clinic_time')->select('time')->distinct('time')->where('days', $day)->where('clinic_id', $clinicId)->get()->toArray();

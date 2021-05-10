@@ -207,7 +207,9 @@ class DefaultController extends Controller
     {
         $request = json_decode($request->getContent(), true);
         $clinic = Staffs::where('user_id', $id)->pluck('clinic_id');
+        $clinicTime = new ClinicTime();
         ClinicHours::where('clinic_id', $clinic[0])->delete();
+        ClinicTime::where('clinic_id', $clinic[0])->delete();
         $check_monday = ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Monday')->count();
         $check_tuesday = ClinicHours::where('clinic_id', $clinic[0])->Where('days', 'Tuesday')->count();
         $check_wednesday = ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Wednesday')->count();
@@ -252,6 +254,11 @@ class DefaultController extends Controller
             ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Sunday')->orWhere('days', 'sunday')->update(['froms' => $request['sunday_froms'], 'tos' => $request['sunday_tos'], 'clinic_id' => $clinic[0]]);
         } else {
             ClinicHours::create(['days' => 'Sunday', 'is_checked' => 1, 'froms' => $request['sunday_froms'], 'tos' => $request['sunday_tos'], 'clinic_id' => $clinic[0]]);
+        }
+
+        $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        for ($hhh = 0; $hhh < 7; $hhh++) {
+            $clinicTime->CreateTimeDuration($clinic[0], $days[$hhh]);
         }
 
         return response([

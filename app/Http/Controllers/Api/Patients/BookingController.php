@@ -547,9 +547,17 @@ class BookingController extends Controller
     {
         $booking = new Booking();
         $timeSlot = new PatientTimeSlot();
+        $clinicTime = new ClinicTime();
         $pushNotification = new PushNotifications();
         $checkBooking = $booking->checkBooking($getClinicId[0], $obj);
         $getSlot = $timeSlot->getSlot($getClinicId[0]);
+        $timestamp = strtotime($obj['date'][0]);
+        $day = date('l', $timestamp);
+        $checkTime = $clinicTime->checkTime($getClinicId[0], $day);
+        
+        if ($checkTime->froms === "" && $checkTime->tos === "") {
+            return response()->json('Clinic is closed', 422);
+        }
 
         if ($getSlot[0] <= $checkBooking) {
             return response()->json('The selected slot is already full or not available. Please select other time slot', 422);

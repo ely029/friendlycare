@@ -122,6 +122,7 @@ class ProviderManagementController extends Controller
         $clinicTime = new ClinicTime();
         ClinicService::where('clinic_id', $request['clinic_id'])->delete();
         PaidServices::where('clinic_id', $request['clinic_id'])->delete();
+        ClinicTime::where('clinic_id', $request['clinic_id'])->delete();
         for ($eee = 0; $eee <= 6; $eee++) {
             $days = ! isset($request['days'][$eee]) ? '' : $request['days'][$eee];
             if ($request['from'][$eee] === null && $request['to'][$eee] === null) {
