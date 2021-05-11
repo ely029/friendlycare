@@ -427,8 +427,8 @@ class ProviderManagementController extends Controller
         for ($clinic_hours = 0;$clinic_hours < 7;$clinic_hours++) {
             if (isset($request['days'][$clinic_hours])) {
                 ClinicHours::where('clinic_id', $request['clinic_id'])->where('days', $request['days'][$clinic_hours])->update([
-                    'froms' => $request['from'][$clinic_hours],
-                    'tos' => $request['to'][$clinic_hours],
+                    'froms' => $request['from'][$clinic_hours] === null ? '' : $request['from'][$clinic_hours],
+                    'tos' => $request['to'][$clinic_hours] === null ? '' : $request['to'][$clinic_hours],
                     'is_checked' => 1,
                 ]);
             }
