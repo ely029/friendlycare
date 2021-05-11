@@ -217,29 +217,35 @@ class DefaultController extends Controller
         $check_friday = ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Friday')->count();
         $check_saturday = ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Saturday')->count();
         $check_sunday = ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Sunday')->count();
+        if ($check_sunday >= 1) {
+            ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Sunday')->orWhere('days', 'sunday')->update(['froms' => $request['sunday_froms'], 'tos' => $request['sunday_tos']]);
+        } else {
+            ClinicHours::create(['days' => 'Sunday', 'is_checked' => 1, 'froms' => $request['sunday_froms'], 'tos' => $request['sunday_tos'], 'clinic_id' => $clinic[0]]);
+        }
+
         if ($check_monday >= 1) {
-            ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Monday')->orWhere('days', 'monday')->update(['froms' => $request['monday_froms'], 'tos' => $request['monday_tos']]);
+            ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Monday')->update(['froms' => $request['monday_froms'],'tos' => $request['monday_tos']]);
         } else {
             ClinicHours::create(['days' => 'Monday', 'is_checked' => 1, 'froms' => $request['monday_froms'], 'tos' => $request['monday_tos'], 'clinic_id' => $clinic[0]]);
         }
-
         if ($check_tuesday >= 1) {
-            ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Tuesday')->update(['froms' => $request['tuesday_froms'],'tos' => $request['tuesday_tos']]);
+            ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Tuesday')->orWhere('days', 'tuesday')->update(['froms' => $request['tuesday_froms'], 'tos' => $request['tuesday_tos']]);
         } else {
             ClinicHours::create(['days' => 'Tuesday', 'is_checked' => 1, 'froms' => $request['tuesday_froms'], 'tos' => $request['tuesday_tos'], 'clinic_id' => $clinic[0]]);
         }
         if ($check_wednesday >= 1) {
             ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Wednesday')->orWhere('days', 'wednesday')->update(['froms' => $request['wednesday_froms'], 'tos' => $request['wednesday_tos']]);
         } else {
-            ClinicHours::create(['days' => 'Wednesday', 'is_checked' => 1, 'froms' => $request['wednesday_froms'], 'tos' => $request['wednesday_tos'], 'clinic_id' => $clinic[0]]);
+            ClinicHours::create([ 'days' => 'Wednesday', 'is_checked' => 1, 'froms' => $request['wednesday_froms'], 'tos' => $request['wednesday_tos'],  'clinic_id' => $clinic[0]]);
         }
         if ($check_thursday >= 1) {
             ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Thursday')->orWhere('days', 'thursday')->update(['froms' => $request['thursday_froms'], 'tos' => $request['thursday_tos']]);
         } else {
-            ClinicHours::create([ 'days' => 'Thursday', 'is_checked' => 1, 'froms' => $request['thursday_froms'], 'tos' => $request['thursday_tos'],  'clinic_id' => $clinic[0]]);
+            ClinicHours::create(['days' => 'Thursday', 'is_checked' => 1, 'froms' => $request['thursday_froms'], 'tos' => $request['thursday_tos'], 'clinic_id' => $clinic[0]]);
         }
+
         if ($check_friday >= 1) {
-            ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Friday')->orWhere('days', 'friday')->update(['froms' => $request['friday_froms'], 'tos' => $request['friday_tos']]);
+            ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Friday')->orWhere('days', 'friday')->update(['froms' => $request['friday_froms'], 'tos' => $request['friday_tos'], 'clinic_id' => $clinic[0]]);
         } else {
             ClinicHours::create(['days' => 'Friday', 'is_checked' => 1, 'froms' => $request['friday_froms'], 'tos' => $request['friday_tos'], 'clinic_id' => $clinic[0]]);
         }
@@ -248,12 +254,6 @@ class DefaultController extends Controller
             ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Saturday')->orWhere('days', 'saturday')->update(['froms' => $request['saturday_froms'], 'tos' => $request['saturday_tos'], 'clinic_id' => $clinic[0]]);
         } else {
             ClinicHours::create(['days' => 'Saturday', 'is_checked' => 1, 'froms' => $request['saturday_froms'], 'tos' => $request['saturday_tos'], 'clinic_id' => $clinic[0]]);
-        }
-
-        if ($check_sunday >= 1) {
-            ClinicHours::where('clinic_id', $clinic[0])->where('days', 'Sunday')->orWhere('days', 'sunday')->update(['froms' => $request['sunday_froms'], 'tos' => $request['sunday_tos'], 'clinic_id' => $clinic[0]]);
-        } else {
-            ClinicHours::create(['days' => 'Sunday', 'is_checked' => 1, 'froms' => $request['sunday_froms'], 'tos' => $request['sunday_tos'], 'clinic_id' => $clinic[0]]);
         }
 
         $days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
