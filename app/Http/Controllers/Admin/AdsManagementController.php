@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Admin;
 use App\AdsManagement;
 use App\Exports\AdsExport;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -63,7 +64,7 @@ class AdsManagementController extends Controller
 
     public function delete($id)
     {
-        AdsManagement::where('id', $id)->delete();
+        DB::delete('delete from ads_management where id = ?', [$id]);
         return redirect('ads/');
     }
 
